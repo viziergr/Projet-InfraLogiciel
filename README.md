@@ -6,7 +6,6 @@
 #### Activité perso (contenu privé) mais affiché sur le pro
 #### Possibilité de répéter les activités (bases communes à chaque semaine)
 
-
 ## WEB
 
 #### Consulter les plannings de l'équipe (individus)
