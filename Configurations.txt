@@ -1,0 +1,2 @@
+JAVA JDK Link (1st one):
+https://adoptium.net/fr/temurin/releases/?os=windows&version=17
