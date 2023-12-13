@@ -6,7 +6,29 @@ public class Permission {
 
     // Constructeurs, getters, setters
 
-    public Permission() {
+    public Permission(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public Long getId(){
+        return this.id;
+    }
+
+    public String getName(){
+        return this.name;
+    }
+
+    public void setId(Long id){
+        this.id = id;
+    }
+
+    public void setName(String name){
+        this.name = name;
+    }
+
+    public String toString(){
+        return "Permission [id=" + this.id + ", name=" + this.name + "]";
     }
 
     // autres constructeurs, getters et setters...
