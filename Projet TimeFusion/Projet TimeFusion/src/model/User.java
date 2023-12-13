@@ -61,5 +61,6 @@ public class User {
         return "Id: " + id + ", Email: " + email + ", First name: " + firstName + ", Last name: " + lastName + ", Password: " + password;
     }
 
+    
     // autres constructeurs, getters et setters...
 }

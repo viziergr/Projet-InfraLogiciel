@@ -31,6 +31,8 @@ public class Permission {
         return "Permission [id=" + this.id + ", name=" + this.name + "]";
     }
 
+
+    
     // autres constructeurs, getters et setters...
 }
 
