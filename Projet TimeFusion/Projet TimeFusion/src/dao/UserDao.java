@@ -28,5 +28,10 @@ public class UserDao {
     public void deleteUser(Long id) {
         // Code to delete a user
     }
+
+    public Optional<User> findByEmail(String email) {
+        // Code to find a user by their email
+        return Optional.empty();
+    }
 }
 
