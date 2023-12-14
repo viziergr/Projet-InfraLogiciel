@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Map;
 
 /**
  * Example of using the DatabaseUtil class for various database operations.
@@ -66,20 +67,29 @@ import java.sql.Statement;
  */
 
 /**
- * Inserting Data Using a Prepared Statement:
- *
  * public static void main(String[] args) {
- *     DatabaseUtil util = new DatabaseUtil();
+ *         // Create an instance of DatabaseUtil
+ *         DatabaseUtil util = new DatabaseUtil();
  *
- *     String dataToInsert = "example data";
+ *         // Specify the table name
+ *         String tableName = "employees";
  *
- *     try {
- *         int rowsAffected = util.insertData(dataToInsert);
- *         System.out.println(rowsAffected + " row(s) inserted.");
- *     } catch (SQLException e) {
- *         e.printStackTrace(); // Handle the exception appropriately
+ *         // Create a map with column names and values for the new employee
+ *         Map<String, Object> columnValues = new HashMap<>();
+ *         columnValues.put("first_name", "John");
+ *         columnValues.put("last_name", "Doe");
+ *         columnValues.put("salary", 50000.0);
+ *
+ *         try {
+ *             // Call the insertRecord method to insert the new employee
+ *             int rowsAffected = util.insertRecord(tableName, columnValues);
+ *
+ *             // Print the result
+ *             System.out.println(rowsAffected + " row(s) inserted.");
+ *         } catch (SQLException e) {
+ *             e.printStackTrace(); // Handle the exception appropriately
+ *         }
  *     }
- * }
  */
 
 public class DatabaseUtil {
@@ -182,42 +192,80 @@ public class DatabaseUtil {
   }
 
   /**
-   * Inserts data into a table using a prepared statement.
+   * Inserts a record into the specified table with the given column values.
    *
-   * @param data The data to insert.
+   * @param tableName      The name of the table where the record will be inserted.
+   * @param columnValues   A map where keys are column names, and values are the corresponding values
+   *                       to be inserted into the respective columns.
    * @return The number of rows affected by the insertion.
    * @throws SQLException If a database access error occurs.
    */
-  public int insertData(String data) throws SQLException {
-    String insertSql = "INSERT INTO my_table (column_name) VALUES (?)";
+  public int insertRecord(String tableName, Map<String, Object> columnValues)
+    throws SQLException {
+    // Check if the provided column values map is empty
+    if (columnValues.isEmpty()) {
+      throw new IllegalArgumentException("Column values map is empty.");
+    }
+
+    // Build the SQL statement dynamically based on the provided column values
+    StringBuilder insertSql = new StringBuilder(
+      "INSERT INTO " + tableName + " ("
+    );
+    StringBuilder valuesPlaceholder = new StringBuilder(") VALUES (");
+
+    // Iterate through the column values to construct the SQL statement
+    for (String columnName : columnValues.keySet()) {
+      insertSql.append(columnName).append(",");
+      valuesPlaceholder.append("?,");
+    }
+
+    // Remove the trailing commas from the SQL statement parts
+    insertSql.deleteCharAt(insertSql.length() - 1);
+    valuesPlaceholder.deleteCharAt(valuesPlaceholder.length() - 1);
+
+    // Complete the SQL statement by combining column names and values placeholders
+    insertSql.append(valuesPlaceholder).append(")");
+
     try (
+      // Establish a connection and create a prepared statement
       Connection connection = getConnection();
-      PreparedStatement statement = connection.prepareStatement(insertSql)
+      PreparedStatement statement = connection.prepareStatement(
+        insertSql.toString()
+      )
     ) {
-      statement.setString(1, data);
+      // Set parameter values based on the provided column values
+      int parameterIndex = 1;
+      for (Object value : columnValues.values()) {
+        statement.setObject(parameterIndex++, value);
+      }
+
+      // Execute the statement and return the number of rows affected
       return statement.executeUpdate();
     }
   }
 
   /**
+   * STATIC METHOD
    * Executes an update (INSERT, UPDATE, DELETE) using a prepared statement.
    *
    * @param statement The prepared statement to execute.
    * @return The number of rows affected by the update.
    * @throws SQLException If a database access error occurs.
    */
-  public int executeUpdate(PreparedStatement statement) throws SQLException {
+  public static int executeUpdate(PreparedStatement statement)
+    throws SQLException {
     return statement.executeUpdate();
   }
 
   /**
+   * STATIC METHOD
    * Executes a query using a prepared statement and returns the result set.
    *
    * @param statement The prepared statement to execute.
    * @return The result set containing the query results.
    * @throws SQLException If a database access error occurs.
    */
-  public ResultSet executeQuery(PreparedStatement statement)
+  public static ResultSet executeQuery(PreparedStatement statement)
     throws SQLException {
     return statement.executeQuery();
   }
