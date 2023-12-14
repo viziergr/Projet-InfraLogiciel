@@ -10,10 +10,11 @@ public class Event {
     private String location;
     private String description;
     private Boolean isPersonal;
+    private User creator;
 
     // Constructeurs, getters, setters
 
-    public Event(Long id, String title, LocalDateTime startTime, LocalDateTime endTime, String location, String description, Boolean isPersonal) {
+    public Event(Long id, String title, LocalDateTime startTime, LocalDateTime endTime, String location, String description, Boolean isPersonal, User creator) {
         this.id = id;
         this.title = title;
         this.startTime = startTime;
@@ -21,6 +22,7 @@ public class Event {
         this.location = location;
         this.description = description;
         this.isPersonal = isPersonal;
+        this.creator = creator;
     }
 
     // autres constructeurs, getters et setters...
@@ -81,6 +83,14 @@ public class Event {
         this.isPersonal = isPersonal;
     }
 
+    public User getCreator(){
+        return this.creator;
+    }
+
+    public void setCreator(User creator){
+        this.creator = creator;
+    }
+
     @Override
     public String toString() {
         return "Event{" +
@@ -91,7 +101,8 @@ public class Event {
                 ", location='" + location +
                 ", description='" + description +
                 ", isPersonal='" + isPersonal +
-                '}';
+                ", creator='" + creator +
+                "}";
     }
     
     
