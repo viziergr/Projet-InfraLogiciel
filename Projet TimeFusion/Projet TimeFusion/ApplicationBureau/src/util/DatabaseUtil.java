@@ -291,7 +291,7 @@ public class DatabaseUtil {
   public int updateRecordById(
     String tableName,
     String idColumnName,
-    int recordId,
+    long recordId,
     Map<String, Object> columnValues
   ) throws SQLException {
     if (tableName.isEmpty()) {
@@ -327,7 +327,7 @@ public class DatabaseUtil {
         statement.setObject(parameterIndex++, value);
       }
 
-      statement.setInt(parameterIndex, recordId);
+      statement.setLong(parameterIndex, recordId);
 
       return statement.executeUpdate();
     }
@@ -345,7 +345,7 @@ public class DatabaseUtil {
   public int deleteRecordById(
     String tableName,
     String idColumnName,
-    int recordId
+    long recordId
   ) throws SQLException {
     if (tableName.isEmpty()) {
       throw new IllegalArgumentException("Table name is empty.");
@@ -361,7 +361,7 @@ public class DatabaseUtil {
       Connection connection = getConnection();
       PreparedStatement statement = connection.prepareStatement(deleteSql)
     ) {
-      statement.setInt(1, recordId);
+      statement.setLong(1, recordId);
 
       return statement.executeUpdate();
     }
