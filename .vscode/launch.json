@@ -1,0 +1,43 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Application",
+            "request": "launch",
+            "mainClass": "main.java.Application",
+            "projectName": "Projet-InfraLogiciel_d823e47b"
+        },
+        {
+            "type": "java",
+            "name": "Test",
+            "request": "launch",
+            "mainClass": "main.java.Test",
+            "projectName": "Projet-InfraLogiciel_d823e47b",
+            "vmArgs": "TODO"
+        },
+        {
+            "type": "java",
+            "name": "MainApplication",
+            "request": "launch",
+            "mainClass": "main.java.ui.MainApplication",
+            "projectName": "Projet-InfraLogiciel_d823e47b"
+        },
+        {
+            "type": "java",
+            "name": "DatabaseUtil",
+            "request": "launch",
+            "mainClass": "main.java.util.DatabaseUtil",
+            "projectName": "Projet-InfraLogiciel_d823e47b"
+        }
+    ]
+}

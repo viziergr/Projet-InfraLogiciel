@@ -3,8 +3,8 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <groupId>groupid</groupId>
-        <artifactId>dekstop-app</artifactId>
+        <groupId>your.group.id</groupId>
+        <artifactId>your-project</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
@@ -16,6 +16,7 @@
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
+        <javafx.version>17.0.9</javafx.version>
     </properties>
 
     <dependencies>
@@ -23,8 +24,26 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>8.2.0</version> <!-- Use the version that matches your MySQL server version -->
+            <version>8.0.23</version> <!-- Use the version that matches your MySQL server version -->
         </dependency>
+
+        <!-- JavaFX dependencies -->
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>17.0.9</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <version>17.0.9</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jdatepicker</groupId>
+            <artifactId>jdatepicker</artifactId>
+            <version>org.jdatepicker.version</version>
+        </dependency>
+
 
         <!-- Other dependencies for your desktop app -->
         <!-- Add them as needed -->
@@ -41,6 +60,22 @@
                     <source>17</source>
                     <target>17</target>
                 </configuration>
+            </plugin>
+
+            <!-- JavaFX Plugin -->
+            <plugin>
+                <groupId>org.openjfx</groupId>
+                <artifactId>javafx-maven-plugin</artifactId>
+                <version>0.0.7</version>
+                <executions>
+                    <execution>
+                        <id>javafx-compile</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
 
             <!-- Other build plugins and configurations as needed -->
