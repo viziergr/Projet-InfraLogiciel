@@ -1,32 +1,100 @@
 package dao;
 
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 import model.Team;
 
-import java.util.List;
-import java.util.Optional;
+public class TeamDao extends GenericDao {
 
-public class TeamDao {
+  private static final String TABLE_NAME = "Team";
+  private final Map<String, Class<?>> schema = new HashMap<>();
 
-    public List<Team> getAllTeams() {
-        // Code to retrieve all teams
-        return null;
+  public TeamDao() {
+    super(TABLE_NAME);
+    defineSchema();
+  }
+
+  @Override
+  protected void defineSchema() {
+    try {
+      schema.put("id", Integer.class);
+      schema.put("name", String.class);
+      schema.put("created_at", String.class); // Consider using a more appropriate type
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  private Object getColumnValue(String columnName, Team team) {
+    try {
+      return Team.class.getDeclaredMethod(
+          "get" +
+          columnName.substring(0, 1).toUpperCase() +
+          columnName.substring(1)
+        )
+        .invoke(team);
+    } catch (Exception e) {
+      e.printStackTrace(); // Handle the exception appropriately
+      return null;
+    }
+  }
+
+  @Override
+  public int insertRecord(Object obj) throws SQLException {
+    if (!(obj instanceof Team)) {
+      throw new IllegalArgumentException("Invalid object type.");
     }
 
-    public Optional<Team> getTeamById(Long id) {
-        // Code to retrieve a team by its ID
-        return Optional.empty();
+    Team team = (Team) obj;
+
+    if (!this.validateSchema(team)) {
+      throw new IllegalArgumentException(
+        "Team object does not adhere to the expected schema."
+      );
     }
 
-    public void saveTeam(Team team) {
-        // Code to save a team to the database
+    Map<String, Object> columnValues = new HashMap<>();
+    for (String columnName : schema.keySet()) {
+      columnValues.put(columnName, getColumnValue(columnName, team));
     }
 
-    public void updateTeam(Team team) {
-        // Code to update a team
+    return this.databaseUtil.insertRecord(TABLE_NAME, columnValues);
+  }
+
+  @Override
+  protected boolean validateSchema(Object obj) {
+    if (!(obj instanceof Team)) {
+      throw new IllegalArgumentException("Invalid object type.");
     }
 
-    public void deleteTeam(Long id) {
-        // Code to delete a team
+    Team team = (Team) obj;
+
+    for (Map.Entry<String, Class<?>> entry : schema.entrySet()) {
+      String columnName = entry.getKey();
+      Class<?> expectedType = entry.getValue();
+      Object columnValue = getColumnValue(columnName, team);
+
+      if (columnValue == null || !expectedType.isInstance(columnValue)) {
+        return false;
+      }
     }
+    return true;
+  }
+
+  @Override
+  protected int updateRecordById(Object obj) throws SQLException {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException(
+      "Unimplemented method 'updateRecordById'"
+    );
+  }
+
+  @Override
+  protected int deleteRecordById(Object obj) throws SQLException {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException(
+      "Unimplemented method 'deleteRecordById'"
+    );
+  }
 }
-
