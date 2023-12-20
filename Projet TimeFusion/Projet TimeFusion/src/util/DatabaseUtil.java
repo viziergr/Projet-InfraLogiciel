@@ -9,89 +9,114 @@ import java.sql.Statement;
 import java.util.Map;
 
 /**
- * Example of using the DatabaseUtil class for various database operations.
+ * Examples and Use Cases for the DatabaseUtil Class:
+ *
+ * 1. Establishing a Database Connection:
+ *
+ *    ```java
+ *    DatabaseUtil util = new DatabaseUtil();
+ *
+ *    try (Connection connection = util.getConnection()) {
+ *        // Use the connection for your database operations
+ *        System.out.println("Connection established successfully.");
+ *    } catch (SQLException e) {
+ *        e.printStackTrace(); // Handle the exception appropriately
+ *    }
+ *    ```
+ *
+ * 2. Executing an Update (INSERT, UPDATE, DELETE) Statement:
+ *
+ *    ```java
+ *    DatabaseUtil util = new DatabaseUtil();
+ *
+ *    String insertSql = "INSERT INTO my_table (column_name) VALUES ('example data')";
+ *
+ *    try {
+ *        int rowsAffected = util.executeUpdate(insertSql);
+ *        System.out.println(rowsAffected + " row(s) inserted.");
+ *    } catch (SQLException e) {
+ *        e.printStackTrace(); // Handle the exception appropriately
+ *    }
+ *    ```
+ *
+ * 3. Executing a Query and Processing the Result Set:
+ *
+ *    ```java
+ *    DatabaseUtil util = new DatabaseUtil();
+ *
+ *    String selectSql = "SELECT * FROM my_table";
+ *
+ *    try {
+ *        ResultSet resultSet = util.executeQuery(selectSql);
+ *
+ *        while (resultSet.next()) {
+ *            // Process each row in the result set
+ *            String columnValue = resultSet.getString("column_name");
+ *            System.out.println("Column Value: " + columnValue);
+ *        }
+ *    } catch (SQLException e) {
+ *        e.printStackTrace(); // Handle the exception appropriately
+ *    }
+ *    ```
+ *
+ * 4. Inserting Data Using a Prepared Statement:
+ *
+ *    ```java
+ *    DatabaseUtil util = new DatabaseUtil();
+ *
+ *    String dataToInsert = "example data";
+ *
+ *    try {
+ *        int rowsAffected = util.insertData(dataToInsert);
+ *        System.out.println(rowsAffected + " row(s) inserted.");
+ *    } catch (SQLException e) {
+ *        e.printStackTrace(); // Handle the exception appropriately
+ *    }
+ *    ```
+ *
+ * 5. Updating a Record Based on Record ID:
+ *
+ *    ```java
+ *    DatabaseUtil util = new DatabaseUtil();
+ *
+ *    String tableName = "my_table";
+ *    String idColumnName = "id";
+ *    int recordId = 1;
+ *
+ *    Map<String, Object> columnValues = new HashMap<>();
+ *    columnValues.put("column_name", "updated_value");
+ *
+ *    try {
+ *        int rowsAffected = util.updateRecordById(tableName, idColumnName, recordId, columnValues);
+ *        System.out.println(rowsAffected + " row(s) updated.");
+ *    } catch (SQLException e) {
+ *        e.printStackTrace(); // Handle the exception appropriately
+ *    }
+ *    ```
+ *
+ * 6. Deleting a Record Based on Record ID:
+ *
+ *    ```java
+ *    DatabaseUtil util = new DatabaseUtil();
+ *
+ *    String tableName = "my_table";
+ *    String idColumnName = "id";
+ *    int recordId = 1;
+ *
+ *    try {
+ *        int rowsAffected = util.deleteRecordById(tableName, idColumnName, recordId);
+ *        System.out.println(rowsAffected + " row(s) deleted.");
+ *    } catch (SQLException e) {
+ *        e.printStackTrace(); // Handle the exception appropriately
+ *    }
+ *    ```
+ *
+ * Note: Ensure to replace placeholders like "my_table" and "column_name" with actual table and column names.
  */
 
 /**
- * Establishing a Connection:
- *
- * public static void main(String[] args) {
- *     DatabaseUtil util = new DatabaseUtil();
- *
- *     try (Connection connection = util.getConnection()) {
- *         // Use the connection for your database operations
- *         System.out.println("Connection established successfully.");
- *     } catch (SQLException e) {
- *         e.printStackTrace(); // Handle the exception appropriately
- *     }
- * }
+ * A utility class for interacting with the MySQL database.
  */
-
-/**
- * Executing an Update (INSERT, UPDATE, DELETE) Statement:
- *
- * public static void main(String[] args) {
- *     DatabaseUtil util = new DatabaseUtil();
- *
- *     String insertSql = "INSERT INTO my_table (column_name) VALUES ('example data')";
- *
- *     try {
- *         int rowsAffected = util.executeUpdate(insertSql);
- *         System.out.println(rowsAffected + " row(s) inserted.");
- *     } catch (SQLException e) {
- *         e.printStackTrace(); // Handle the exception appropriately
- *     }
- * }
- */
-
-/**
- * Executing a Query and Processing the Result Set:
- *
- * public static void main(String[] args) {
- *     DatabaseUtil util = new DatabaseUtil();
- *
- *     String selectSql = "SELECT * FROM my_table";
- *
- *     try {
- *         ResultSet resultSet = util.executeQuery(selectSql);
- *
- *         while (resultSet.next()) {
- *             // Process each row in the result set
- *             String columnValue = resultSet.getString("column_name");
- *             System.out.println("Column Value: " + columnValue);
- *         }
- *     } catch (SQLException e) {
- *         e.printStackTrace(); // Handle the exception appropriately
- *     }
- * }
- */
-
-/**
- * public static void main(String[] args) {
- *         // Create an instance of DatabaseUtil
- *         DatabaseUtil util = new DatabaseUtil();
- *
- *         // Specify the table name
- *         String tableName = "employees";
- *
- *         // Create a map with column names and values for the new employee
- *         Map<String, Object> columnValues = new HashMap<>();
- *         columnValues.put("first_name", "John");
- *         columnValues.put("last_name", "Doe");
- *         columnValues.put("salary", 50000.0);
- *
- *         try {
- *             // Call the insertRecord method to insert the new employee
- *             int rowsAffected = util.insertRecord(tableName, columnValues);
- *
- *             // Print the result
- *             System.out.println(rowsAffected + " row(s) inserted.");
- *         } catch (SQLException e) {
- *             e.printStackTrace(); // Handle the exception appropriately
- *         }
- *     }
- */
-
 public class DatabaseUtil {
 
   private static final String DEFAULT_DATABASE_URL =
@@ -192,7 +217,8 @@ public class DatabaseUtil {
   }
 
   /**
-   * Inserts a record into the specified table with the given column values.
+   * Inserts a record into the specified table with the given column values,
+   * excluding the record ID (assumes an auto-incremented primary key).
    *
    * @param tableName      The name of the table where the record will be inserted.
    * @param columnValues   A map where keys are column names, and values are the corresponding values
@@ -202,71 +228,142 @@ public class DatabaseUtil {
    */
   public int insertRecord(String tableName, Map<String, Object> columnValues)
     throws SQLException {
-    // Check if the provided column values map is empty
     if (columnValues.isEmpty()) {
       throw new IllegalArgumentException("Column values map is empty.");
     }
+    if (tableName.isEmpty()) {
+      throw new IllegalArgumentException("Table name is empty.");
+    }
 
-    // Build the SQL statement dynamically based on the provided column values
     StringBuilder insertSql = new StringBuilder(
       "INSERT INTO " + tableName + " ("
     );
     StringBuilder valuesPlaceholder = new StringBuilder(") VALUES (");
 
-    // Iterate through the column values to construct the SQL statement
     for (String columnName : columnValues.keySet()) {
       insertSql.append(columnName).append(",");
       valuesPlaceholder.append("?,");
     }
 
-    // Remove the trailing commas from the SQL statement parts
     insertSql.deleteCharAt(insertSql.length() - 1);
     valuesPlaceholder.deleteCharAt(valuesPlaceholder.length() - 1);
 
-    // Complete the SQL statement by combining column names and values placeholders
     insertSql.append(valuesPlaceholder).append(")");
 
     try (
-      // Establish a connection and create a prepared statement
       Connection connection = getConnection();
       PreparedStatement statement = connection.prepareStatement(
-        insertSql.toString()
+        insertSql.toString(),
+        Statement.RETURN_GENERATED_KEYS
       )
     ) {
-      // Set parameter values based on the provided column values
       int parameterIndex = 1;
       for (Object value : columnValues.values()) {
         statement.setObject(parameterIndex++, value);
       }
 
-      // Execute the statement and return the number of rows affected
+      int rowsAffected = statement.executeUpdate();
+
+      // Retrieve the auto-generated key (assuming it's an auto-incremented PK)
+      try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+        if (generatedKeys.next()) {
+          // Retrieve the generated ID and use it as needed
+          int generatedId = generatedKeys.getInt(1);
+          System.out.println("Generated ID: " + generatedId);
+        }
+      }
+
+      return rowsAffected;
+    }
+  }
+
+  /**
+   * Updates a record in the specified table based on the record ID.
+   *
+   * @param tableName       The name of the table to update the record in.
+   * @param idColumnName    The name of the column representing the record ID.
+   * @param recordId        The unique identifier of the record to be updated.
+   * @param columnValues    A map where keys are column names, and values are the new values
+   *                        to be set for the respective columns.
+   * @return The number of rows affected by the update (0 or 1).
+   * @throws SQLException   If a database access error occurs.
+   */
+  public int updateRecordById(
+    String tableName,
+    String idColumnName,
+    int recordId,
+    Map<String, Object> columnValues
+  ) throws SQLException {
+    if (tableName.isEmpty()) {
+      throw new IllegalArgumentException("Table name is empty.");
+    }
+    if (idColumnName.isEmpty()) {
+      throw new IllegalArgumentException("ID column name is empty.");
+    }
+    if (columnValues.isEmpty()) {
+      throw new IllegalArgumentException("Column values map is empty.");
+    }
+
+    StringBuilder updateSql = new StringBuilder(
+      "UPDATE " + tableName + " SET "
+    );
+
+    for (String columnName : columnValues.keySet()) {
+      updateSql.append(columnName).append("=?,");
+    }
+
+    updateSql.deleteCharAt(updateSql.length() - 1);
+
+    updateSql.append(" WHERE ").append(idColumnName).append(" = ?");
+
+    try (
+      Connection connection = getConnection();
+      PreparedStatement statement = connection.prepareStatement(
+        updateSql.toString()
+      )
+    ) {
+      int parameterIndex = 1;
+      for (Object value : columnValues.values()) {
+        statement.setObject(parameterIndex++, value);
+      }
+
+      statement.setInt(parameterIndex, recordId);
+
       return statement.executeUpdate();
     }
   }
 
   /**
-   * STATIC METHOD
-   * Executes an update (INSERT, UPDATE, DELETE) using a prepared statement.
+   * Deletes a record from the specified table based on the record ID.
    *
-   * @param statement The prepared statement to execute.
-   * @return The number of rows affected by the update.
-   * @throws SQLException If a database access error occurs.
+   * @param tableName       The name of the table from which to delete the record.
+   * @param idColumnName    The name of the column representing the record ID.
+   * @param recordId        The unique identifier of the record to be deleted.
+   * @return The number of rows affected by the deletion (0 or 1).
+   * @throws SQLException   If a database access error occurs.
    */
-  public static int executeUpdate(PreparedStatement statement)
-    throws SQLException {
-    return statement.executeUpdate();
-  }
+  public int deleteRecordById(
+    String tableName,
+    String idColumnName,
+    int recordId
+  ) throws SQLException {
+    if (tableName.isEmpty()) {
+      throw new IllegalArgumentException("Table name is empty.");
+    }
+    if (idColumnName.isEmpty()) {
+      throw new IllegalArgumentException("ID column name is empty.");
+    }
 
-  /**
-   * STATIC METHOD
-   * Executes a query using a prepared statement and returns the result set.
-   *
-   * @param statement The prepared statement to execute.
-   * @return The result set containing the query results.
-   * @throws SQLException If a database access error occurs.
-   */
-  public static ResultSet executeQuery(PreparedStatement statement)
-    throws SQLException {
-    return statement.executeQuery();
+    String deleteSql =
+      "DELETE FROM " + tableName + " WHERE " + idColumnName + " = ?";
+
+    try (
+      Connection connection = getConnection();
+      PreparedStatement statement = connection.prepareStatement(deleteSql)
+    ) {
+      statement.setInt(1, recordId);
+
+      return statement.executeUpdate();
+    }
   }
 }
