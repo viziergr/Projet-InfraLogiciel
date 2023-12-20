@@ -1,8 +1,7 @@
 {
     "java.project.sourcePaths": [
         "Projet TimeFusion/Projet TimeFusion/src",
-        "Projet TimeFusion/Projet TimeFusion/lib/java/org/jdesktop/swingx",
         "Projet TimeFusion/Projet TimeFusion/lib/JDatePicker-master",
-        "Projet TimeFusion/Projet TimeFusion/lib/swingx-core-master"
+        "Projet TimeFusion/Projet TimeFusion/ApplicationBureau/src"
     ]
 }
