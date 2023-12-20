@@ -88,7 +88,7 @@ public final class ComponentIconDefaults {
             BufferedImage image = ImageIO.read(stream);
             return new ImageIcon(image);
         } finally {
-            stream.close();
+            stream.close();            
         }
     }
 
