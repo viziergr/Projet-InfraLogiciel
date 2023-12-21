@@ -3,9 +3,10 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <groupId>your.group.id</groupId>
-        <artifactId>your-project</artifactId>
+        <groupId>com.proj</groupId>
+        <artifactId>timefusion-project</artifactId>
         <version>1.0.0-SNAPSHOT</version>
+        <relativePath>../timefusion/pom.xml</relativePath>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
@@ -38,12 +39,6 @@
             <artifactId>javafx-fxml</artifactId>
             <version>17.0.9</version>
         </dependency>
-        <dependency>
-            <groupId>org.jdatepicker</groupId>
-            <artifactId>jdatepicker</artifactId>
-            <version>org.jdatepicker.version</version>
-        </dependency>
-
 
         <!-- Other dependencies for your desktop app -->
         <!-- Add them as needed -->
@@ -69,6 +64,7 @@
                 <version>0.0.7</version>
                 <executions>
                     <execution>
+                        <?m2e execute onConfiguration?>
                         <id>javafx-compile</id>
                         <phase>compile</phase>
                         <goals>
