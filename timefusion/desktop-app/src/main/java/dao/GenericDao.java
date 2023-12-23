@@ -1,7 +1,7 @@
-package main.java.dao;
+package dao;
 
 import java.sql.SQLException;
-import main.java.util.DatabaseUtil;
+import util.DatabaseUtil;
 
 /**
  * The GenericDao class is an abstract class that provides a generic implementation for data access objects (DAOs).

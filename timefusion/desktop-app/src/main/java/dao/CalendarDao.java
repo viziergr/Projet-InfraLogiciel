@@ -1,9 +1,9 @@
-package main.java.dao;
+package dao;
 
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
-import main.java.model.Calendar;
+import model.Calendar;
 
 /**
  * The CalendarDao class is responsible for performing database operations related to the Calendar entity.

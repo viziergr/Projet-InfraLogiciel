@@ -1,11 +1,11 @@
-package main.java.dao;
+package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Map;
-import main.java.util.DatabaseUtil;
+import util.DatabaseUtil;
 
 public class PermissionDao {
 

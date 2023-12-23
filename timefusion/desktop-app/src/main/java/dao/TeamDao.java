@@ -1,9 +1,9 @@
-package main.java.dao;
+package dao;
 
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
-import main.java.model.Team;
+import model.Team;
 
 /**
  * The TeamDao class is responsible for performing database operations related to the Team entity.

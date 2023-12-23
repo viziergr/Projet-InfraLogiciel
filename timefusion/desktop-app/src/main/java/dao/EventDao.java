@@ -1,9 +1,9 @@
-package main.java.dao;
+package dao;
 
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
-import main.java.model.Event;
+import model.Event;
 
 /**
  * The EventDao class is responsible for performing database operations related to the Event entity.

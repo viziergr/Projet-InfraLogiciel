@@ -1,9 +1,9 @@
-package main.java.service;
+package service;
 
 import java.util.List;
 import java.util.Optional;
-import main.java.dao.TeamDao;
-import main.java.model.Team;
+import dao.TeamDao;
+import model.Team;
 
 public class TeamService {
 
