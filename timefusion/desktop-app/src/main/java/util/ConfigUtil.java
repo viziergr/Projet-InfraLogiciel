@@ -1,4 +1,4 @@
-package util;
+package main.java.util;
 
 //A utiliser au détriment de ApplicationConfig.java
 
@@ -7,20 +7,20 @@ import java.util.Properties;
 
 public class ConfigUtil {
 
-    private static final String PROP_FILE = "/config.properties";
-    private static Properties properties;
+  private static final String PROP_FILE = "/config.properties";
+  private static Properties properties;
 
-    static {
-        try (InputStream input = ConfigUtil.class.getResourceAsStream(PROP_FILE)) {
-            properties = new Properties();
-            properties.load(input);
-        } catch (Exception e) {
-            e.printStackTrace();
-            // Handle exception - maybe rethrow as a runtime exception
-        }
+  static {
+    try (InputStream input = ConfigUtil.class.getResourceAsStream(PROP_FILE)) {
+      properties = new Properties();
+      properties.load(input);
+    } catch (Exception e) {
+      e.printStackTrace();
+      // Handle exception - maybe rethrow as a runtime exception
     }
+  }
 
-    public static String getProperty(String key) {
-        return properties.getProperty(key);
-    }
+  public static String getProperty(String key) {
+    return properties.getProperty(key);
+  }
 }

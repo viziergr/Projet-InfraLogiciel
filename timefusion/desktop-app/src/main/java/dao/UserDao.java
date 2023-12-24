@@ -1,9 +1,9 @@
-package dao;
+package main.java.dao;
 
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
-import model.User;
+import main.java.model.User;
 
 public class UserDao extends GenericDao {
 

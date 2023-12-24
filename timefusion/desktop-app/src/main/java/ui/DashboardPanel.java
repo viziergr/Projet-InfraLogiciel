@@ -1,4 +1,4 @@
-package ui;
+package main.java.ui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -7,8 +7,8 @@ import java.time.format.TextStyle;
 import java.util.List;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import dao.EventDao;
-import model.Event;
+import main.java.dao.EventDao;
+import main.java.model.Event;
 
 public class DashboardPanel extends JPanel {
 

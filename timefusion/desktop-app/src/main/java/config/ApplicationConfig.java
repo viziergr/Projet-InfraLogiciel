@@ -1,4 +1,4 @@
-package config;
+package main.java.config;
 
 // A utiliser au détriment de ConfigUtil et config.properties
 

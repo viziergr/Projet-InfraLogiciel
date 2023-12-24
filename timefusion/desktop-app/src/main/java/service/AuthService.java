@@ -1,8 +1,8 @@
-package service;
+package main.java.service;
 
 import java.util.Optional;
-import dao.UserDao;
-import model.User;
+import main.java.dao.UserDao;
+import main.java.model.User;
 
 public class AuthService {
 

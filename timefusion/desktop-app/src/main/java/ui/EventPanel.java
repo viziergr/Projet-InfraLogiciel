@@ -1,13 +1,13 @@
-package ui;
+package main.java.ui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDateTime;
 //import org.jdesktop.swingx.JXDatePicker; // Importez JXDatePicker depuis la bibliothèque SwingX
 import javax.swing.*;
-import dao.EventDao;
-import model.Event;
-import model.User;
+import main.java.dao.EventDao;
+import main.java.model.Event;
+import main.java.model.User;
 
 public class EventPanel extends JPanel {
 

@@ -2,8 +2,8 @@ package service;
 
 import java.util.List;
 import java.util.Optional;
-import dao.EventDao;
-import model.Event;
+import main.java.dao.EventDao;
+import main.java.model.Event;
 
 public class EventService {
 
