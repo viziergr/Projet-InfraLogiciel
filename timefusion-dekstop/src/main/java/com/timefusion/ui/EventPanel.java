@@ -57,7 +57,7 @@ public class EventPanel extends JPanel {
             false,
             creator
           );
-          EventDao.getInstance().saveEvent(event);
+          EventDao.insertRecord(event);
         }
       }
     );

@@ -243,6 +243,12 @@ h1{
     background-color: #00023C;  
 
 }
+input[type="email"],
+input[type="password"] {
+    background-color: transparent;
+    border: none;
+    outline: none;
+}
 
 
 /*CSS du inscription.html*/
