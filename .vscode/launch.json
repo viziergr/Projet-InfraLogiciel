@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "ImpressiveJavaFXApp",
+            "request": "launch",
+            "mainClass": "com.timefusion/com.timefusion.ui.ImpressiveJavaFXApp",
+            "projectName": "timefusion-dekstop"
+        },
+        {
+            "type": "java",
             "name": "Current File",
             "request": "launch",
             "mainClass": "${file}"
