@@ -19,7 +19,7 @@
     <h1 id="bvn2">Bienvenue</h1>
     <img id="img2" src="..\pictures\Logo.png" alt="Logo Time Fusion">
     <div class="home">
-        <a href="index.html">
+        <a href="..\HTML\index.html">
             <img id="home" src="..\pictures\home.png" alt="Accueil">
         </a>
     </div>
@@ -50,7 +50,7 @@
         </div>
     </form>
     <p id="dc">Déjà un compte ?</p>
-    <a href="Connexion.html">
+    <a href="Connexion.php">
         <button id="btnRed2" type="button">Connectez vous</button>
     </a>
 </body>

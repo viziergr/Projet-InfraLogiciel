@@ -10,7 +10,7 @@
 </head>
 <body class="cnx">
     <div class="home">
-        <a href="index.html">
+        <a href="..\HTML\index.html">
             <img id="home" src="..\pictures\home.png" alt="Accueil">
         </a>
     </div>
@@ -19,7 +19,7 @@
         <img id="img2" src="..\pictures\Logo.png" alt="Logo Time Fusion">
         <form action="/login" method="post">
             <div>          
-                <input type="mail" id="mail1" name="mail" placeholder="E-mail" required>
+                <input type="email" id="email1" name="email" placeholder="E-mail" required>
             </div>
             <div>
                 <input type="password" id="password1" name="password" placeholder="Mot de passe" required>
