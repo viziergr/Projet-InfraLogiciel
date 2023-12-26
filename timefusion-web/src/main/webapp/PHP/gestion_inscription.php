@@ -6,6 +6,8 @@ if (isset($_POST['connexion_submit']) && $_POST['connexion_submit'] == 2) {
     //Gestion de l'inscription
     $mysqli = connectDB();
 
+    echo "worked";
+
     if (
         isset($_POST['fname']) && isset($_POST['lname']) && isset($_POST['year']) &&
         isset($_POST['mail']) && isset($_POST['pwd']) && isset($_POST['cpwd'])

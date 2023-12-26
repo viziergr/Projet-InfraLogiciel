@@ -23,7 +23,7 @@
             <img id="home" src="..\pictures\home.png" alt="Accueil">
         </a>
     </div>
-    <form>
+    <form method="post">
         <div>
             <input type="text" id="prenom" name="prenom" placeholder="Prénom" required><br><br>
         </div>
@@ -50,7 +50,7 @@
         </div>
     </form>
     <p id="dc">Déjà un compte ?</p>
-    <a href="Connexion.php">
+    <a href="..\PHP\Connexion.php">
         <button id="btnRed2" type="button">Connectez vous</button>
     </a>
 </body>

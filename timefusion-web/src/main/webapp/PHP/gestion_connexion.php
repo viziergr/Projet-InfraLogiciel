@@ -13,6 +13,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['connexion_submit']) &
     // Code de traitement du formulaire de connexion ici
     $mail_escaped = $mysqli->real_escape_string(trim($_POST['mail']));
     $password_escaped = $mysqli->real_escape_string(trim($_POST['password']));
+
+    echo "worked";    
+    echo $mail_escaped;
+    echo $password_escaped;
+
     $sql = "SELECT id
                 FROM User
                 WHERE mail = '" . $mail_escaped . "'

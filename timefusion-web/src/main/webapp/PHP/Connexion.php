@@ -17,7 +17,7 @@
     <?php if (empty($_SESSION['compte'])): ?>
         <h1 id="bvn1">Bienvenue</h1>
         <img id="img2" src="..\pictures\Logo.png" alt="Logo Time Fusion">
-        <form action="/login" method="post">
+        <form method="post">
             <div>          
                 <input type="email" id="email1" name="email" placeholder="E-mail" required>
             </div>
@@ -29,7 +29,7 @@
             </div>
         </form>
         <p id="pdc">Pas de compte ?</p>
-        <a href="Inscription.html">
+        <a href="..\PHP\Inscription.php">
             <button id="btnRed1" type="button">Inscrivez vous</button>
         </a>
     <?php else: ?>
