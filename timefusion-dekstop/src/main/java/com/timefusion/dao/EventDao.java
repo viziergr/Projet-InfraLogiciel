@@ -9,7 +9,7 @@ import java.util.Map;
  * The EventDao class is responsible for performing database operations related to the Event entity.
  * It extends the GenericDao class and provides specific implementations for inserting, updating, and deleting Event records.
  */
-public class EventDao extends GenericDao {
+public class EventDao extends GenericDao<Event> {
 
   private static final String TABLE_NAME = "Event";
   private final Map<String, Class<?>> schema = new HashMap<>();
@@ -64,19 +64,13 @@ public class EventDao extends GenericDao {
   /**
    * Inserts a record into the database.
    *
-   * @param obj the object to be inserted
+   * @param event the Event object representing the record to be inserted
    * @return the number of rows affected by the insert operation
    * @throws SQLException if an error occurs while inserting the record
-   * @throws IllegalArgumentException if the object is not of type Event or does not adhere to the expected schema
+   * @throws IllegalArgumentException if the provided object is not of type Event or does not adhere to the expected schema
    */
   @Override
-  public int insertRecord(Object obj) throws SQLException {
-    if (!(obj instanceof Event)) {
-      throw new IllegalArgumentException("Invalid object type.");
-    }
-
-    Event event = (Event) obj;
-
+  public int insertRecord(Event event) throws SQLException {
     if (!this.validateSchema(event)) {
       throw new IllegalArgumentException(
         "Event object does not adhere to the expected schema."
@@ -92,20 +86,13 @@ public class EventDao extends GenericDao {
   }
 
   /**
-   * Validates the schema of the given object.
+   * Validates the schema of an event.
    *
-   * @param obj the object to validate
+   * @param event the event to validate
    * @return true if the schema is valid, false otherwise
-   * @throws IllegalArgumentException if the object type is invalid
    */
   @Override
-  protected boolean validateSchema(Object obj) {
-    if (!(obj instanceof Event)) {
-      throw new IllegalArgumentException("Invalid object type.");
-    }
-
-    Event event = (Event) obj;
-
+  protected boolean validateSchema(Event event) {
     for (Map.Entry<String, Class<?>> entry : schema.entrySet()) {
       String columnName = entry.getKey();
       Class<?> expectedType = entry.getValue();
@@ -119,21 +106,15 @@ public class EventDao extends GenericDao {
   }
 
   /**
-   * Updates a record in the database by its ID.
+   * Updates a record in the database.
    *
-   * @param obj The object representing the updated record.
-   * @return The number of rows affected by the update operation.
-   * @throws SQLException If an error occurs while updating the record.
-   * @throws IllegalArgumentException If the provided object is not of type Event or does not adhere to the expected schema.
+   * @param updatedEvent the Event object representing the record to be updated
+   * @return the number of rows affected by the update operation
+   * @throws SQLException if an error occurs while updating the record
+   * @throws IllegalArgumentException if the provided object is not of type Event or does not adhere to the expected schema
    */
   @Override
-  protected int updateRecordById(Object obj) throws SQLException {
-    if (!(obj instanceof Event)) {
-      throw new IllegalArgumentException("Invalid object type.");
-    }
-
-    Event updatedEvent = (Event) obj;
-
+  protected int updateRecordById(Event updatedEvent) throws SQLException {
     if (!this.validateSchema(updatedEvent)) {
       throw new IllegalArgumentException(
         "Updated Event object does not adhere to the expected schema."
@@ -156,21 +137,15 @@ public class EventDao extends GenericDao {
   }
 
   /**
-   * Deletes a record from the database by its ID.
+   * Deletes a record from the database.
    *
-   * @param obj the object representing the record to be deleted
-   * @return the number of rows affected by the deletion
+   * @param eventToDelete the Event object representing the record to be deleted
+   * @return the number of rows affected by the delete operation
    * @throws SQLException if an error occurs while deleting the record
-   * @throws IllegalArgumentException if the provided object is not of type Event
+   * @throws IllegalArgumentException if the provided object is not of type Event or does not adhere to the expected schema
    */
   @Override
-  protected int deleteRecordById(Object obj) throws SQLException {
-    if (!(obj instanceof Event)) {
-      throw new IllegalArgumentException("Invalid object type.");
-    }
-
-    Event eventToDelete = (Event) obj;
-
+  protected int deleteRecordById(Event eventToDelete) throws SQLException {
     long recordId = eventToDelete.getId();
 
     return super.databaseUtil.deleteRecordById(TABLE_NAME, "id", recordId);

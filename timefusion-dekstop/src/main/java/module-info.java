@@ -1,9 +1,9 @@
 module com.timefusion {
-  requires javafx.controls;
-  requires javafx.fxml;
-  requires javafx.graphics;
+  requires transitive javafx.controls;
+  requires transitive javafx.fxml;
+  requires transitive javafx.graphics;
   requires transitive java.sql;
-  requires java.desktop; // Pour les applications Swing
+  requires transitive java.desktop; // Pour les applications Swing
 
   opens com.timefusion.ui to javafx.fxml; // Changer le nom du package avec le nom du package où JavaFX est utilisé (com.timefusion.ui)
   opens com.timefusion.util to java.sql;

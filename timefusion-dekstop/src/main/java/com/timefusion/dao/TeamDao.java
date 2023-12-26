@@ -9,7 +9,7 @@ import java.util.Map;
  * The TeamDao class is responsible for performing database operations related to the Team entity.
  * It extends the GenericDao class and provides specific implementations for inserting, updating, and deleting Team records.
  */
-public class TeamDao extends GenericDao {
+public class TeamDao extends GenericDao<Team> {
 
   private static final String TABLE_NAME = "Team";
   private final Map<String, Class<?>> schema = new HashMap<>();
@@ -59,19 +59,13 @@ public class TeamDao extends GenericDao {
   /**
    * Inserts a record into the database.
    *
-   * @param obj the object to be inserted
-   * @return the number of rows affected by the insert operation
-   * @throws SQLException if an error occurs while inserting the record
-   * @throws IllegalArgumentException if the object is not of type Team or does not adhere to the expected schema
+   * @param obj The object representing the record to be inserted.
+   * @return The number of rows affected by the insert operation.
+   * @throws SQLException If an error occurs while inserting the record.
+   * @throws IllegalArgumentException If the provided object is not of type Team or does not adhere to the expected schema.
    */
   @Override
-  public int insertRecord(Object obj) throws SQLException {
-    if (!(obj instanceof Team)) {
-      throw new IllegalArgumentException("Invalid object type.");
-    }
-
-    Team team = (Team) obj;
-
+  public int insertRecord(Team team) throws SQLException {
     if (!this.validateSchema(team)) {
       throw new IllegalArgumentException(
         "Team object does not adhere to the expected schema."
@@ -87,20 +81,13 @@ public class TeamDao extends GenericDao {
   }
 
   /**
-   * Validates the schema of the given object.
+   * Validates the schema of a record.
    *
-   * @param obj the object to validate
+   * @param team the Team object representing the record to be validated
    * @return true if the schema is valid, false otherwise
-   * @throws IllegalArgumentException if the object type is invalid
    */
   @Override
-  protected boolean validateSchema(Object obj) {
-    if (!(obj instanceof Team)) {
-      throw new IllegalArgumentException("Invalid object type.");
-    }
-
-    Team team = (Team) obj;
-
+  protected boolean validateSchema(Team team) {
     for (Map.Entry<String, Class<?>> entry : schema.entrySet()) {
       String columnName = entry.getKey();
       Class<?> expectedType = entry.getValue();
@@ -114,21 +101,15 @@ public class TeamDao extends GenericDao {
   }
 
   /**
-   * Updates a record in the database by its ID.
+   * Updates a record in the database.
    *
-   * @param obj The object representing the updated record.
-   * @return The number of rows affected by the update operation.
-   * @throws SQLException If an error occurs while updating the record.
-   * @throws IllegalArgumentException If the provided object is not of type Team or does not adhere to the expected schema.
+   * @param obj the object representing the record to be updated
+   * @return the number of rows affected by the update operation
+   * @throws SQLException if an error occurs while updating the record
+   * @throws IllegalArgumentException if the provided object is not of type Team or does not adhere to the expected schema
    */
   @Override
-  protected int updateRecordById(Object obj) throws SQLException {
-    if (!(obj instanceof Team)) {
-      throw new IllegalArgumentException("Invalid object type.");
-    }
-
-    Team updatedTeam = (Team) obj;
-
+  protected int updateRecordById(Team updatedTeam) throws SQLException {
     if (!this.validateSchema(updatedTeam)) {
       throw new IllegalArgumentException(
         "Updated Team object does not adhere to the expected schema."
@@ -151,21 +132,15 @@ public class TeamDao extends GenericDao {
   }
 
   /**
-   * Deletes a record from the database by its ID.
+   * Deletes a record from the database.
    *
    * @param obj the object representing the record to be deleted
-   * @return the number of rows affected by the deletion
+   * @return the number of rows affected by the delete operation
    * @throws SQLException if an error occurs while deleting the record
-   * @throws IllegalArgumentException if the provided object is not of type Team
+   * @throws IllegalArgumentException if the provided object is not of type Team or does not adhere to the expected schema
    */
   @Override
-  protected int deleteRecordById(Object obj) throws SQLException {
-    if (!(obj instanceof Team)) {
-      throw new IllegalArgumentException("Invalid object type.");
-    }
-
-    Team teamToDelete = (Team) obj;
-
+  protected int deleteRecordById(Team teamToDelete) throws SQLException {
     long recordId = teamToDelete.getId();
 
     return super.databaseUtil.deleteRecordById(TABLE_NAME, "id", recordId);

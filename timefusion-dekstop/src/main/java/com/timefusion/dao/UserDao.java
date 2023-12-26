@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-public class UserDao extends GenericDao {
+public class UserDao extends GenericDao<User> {
 
   private static final String TABLE_NAME = "User";
   private final Map<String, Class<?>> schema = new HashMap<>();
@@ -46,8 +46,12 @@ public class UserDao extends GenericDao {
     }
   }
 
+  public Optional<User> findByEmail(String email) {
+    return null;
+  }
+
   @Override
-  protected boolean validateSchema(Object obj) throws SQLException {
+  protected boolean validateSchema(User entity) throws SQLException {
     // TODO Auto-generated method stub
     throw new UnsupportedOperationException(
       "Unimplemented method 'validateSchema'"
@@ -55,7 +59,7 @@ public class UserDao extends GenericDao {
   }
 
   @Override
-  protected int insertRecord(Object obj) throws SQLException {
+  protected int insertRecord(User entity) throws SQLException {
     // TODO Auto-generated method stub
     throw new UnsupportedOperationException(
       "Unimplemented method 'insertRecord'"
@@ -63,7 +67,7 @@ public class UserDao extends GenericDao {
   }
 
   @Override
-  protected int updateRecordById(Object obj) throws SQLException {
+  protected int updateRecordById(User entity) throws SQLException {
     // TODO Auto-generated method stub
     throw new UnsupportedOperationException(
       "Unimplemented method 'updateRecordById'"
@@ -71,40 +75,10 @@ public class UserDao extends GenericDao {
   }
 
   @Override
-  protected int deleteRecordById(Object obj) throws SQLException {
+  protected int deleteRecordById(User entity) throws SQLException {
     // TODO Auto-generated method stub
     throw new UnsupportedOperationException(
       "Unimplemented method 'deleteRecordById'"
     );
   }
-
-  // public List<User> getAllUsers() {
-  //     // Code to retrieve all users from the database
-  //     return null;
-  // }
-
-  public Optional<User> findByEmail(String email) {
-    return null;
-  }
-  // public Optional<User> getUserById(Long id) {
-  //     // Code to retrieve a user by their ID
-  //     return Optional.empty();
-  // }
-
-  // public void saveUser(User user) {
-  //     // Code to save a user to the database
-  // }
-
-  // public void updateUser(User user) {
-  //     // Code to update a user
-  // }
-
-  // public void deleteUser(Long id) {
-  //     // Code to delete a user
-  // }
-
-  // public Optional<User> findByEmail(String email) {
-  //     // Code to find a user by their email
-  //     return Optional.empty();
-  // }
 }

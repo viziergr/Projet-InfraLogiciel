@@ -9,7 +9,7 @@ import java.util.Map;
  * The CalendarDao class is responsible for performing database operations related to the Calendar entity.
  * It extends the GenericDao class and provides specific implementations for inserting, updating, and deleting Calendar records.
  */
-public class CalendarDao extends GenericDao {
+public class CalendarDao extends GenericDao<Calendar> {
 
   private static final String TABLE_NAME = "Calendar";
   private final Map<String, Class<?>> schema = new HashMap<>();
@@ -61,19 +61,13 @@ public class CalendarDao extends GenericDao {
   /**
    * Inserts a record into the database.
    *
-   * @param obj the object to be inserted
+   * @param calendar the calendar object to be inserted
    * @return the number of rows affected by the insert operation
-   * @throws SQLException if an error occurs while inserting the record
-   * @throws IllegalArgumentException if the object is not of type Calendar or does not adhere to the expected schema
+   * @throws SQLException             if an error occurs while inserting the record
+   * @throws IllegalArgumentException if the object does not adhere to the expected schema
    */
   @Override
-  public int insertRecord(Object obj) throws SQLException {
-    if (!(obj instanceof Calendar)) {
-      throw new IllegalArgumentException("Invalid object type.");
-    }
-
-    Calendar calendar = (Calendar) obj;
-
+  public int insertRecord(Calendar calendar) throws SQLException {
     if (!this.validateSchema(calendar)) {
       throw new IllegalArgumentException(
         "Calendar object does not adhere to the expected schema."
@@ -89,20 +83,13 @@ public class CalendarDao extends GenericDao {
   }
 
   /**
-   * Validates the schema of the given object.
+   * Validates the schema of a calendar object.
    *
-   * @param obj the object to validate
-   * @return true if the schema is valid, false otherwise
-   * @throws IllegalArgumentException if the object type is invalid
+   * @param calendar The calendar object to validate.
+   * @return true if the schema is valid, false otherwise.
    */
   @Override
-  protected boolean validateSchema(Object obj) {
-    if (!(obj instanceof Calendar)) {
-      throw new IllegalArgumentException("Invalid object type.");
-    }
-
-    Calendar calendar = (Calendar) obj;
-
+  protected boolean validateSchema(Calendar calendar) {
     for (Map.Entry<String, Class<?>> entry : schema.entrySet()) {
       String columnName = entry.getKey();
       Class<?> expectedType = entry.getValue();
@@ -118,19 +105,13 @@ public class CalendarDao extends GenericDao {
   /**
    * Updates a record in the database by its ID.
    *
-   * @param obj The object representing the updated record.
-   * @return The number of rows affected by the update operation.
-   * @throws SQLException If an error occurs while updating the record.
-   * @throws IllegalArgumentException If the provided object is not of type Calendar or does not adhere to the expected schema.
+   * @param updatedCalendar the object representing the record to be updated
+   * @return the number of rows affected by the update operation
+   * @throws SQLException             if an error occurs while updating the record
+   * @throws IllegalArgumentException if the object does not adhere to the expected schema
    */
   @Override
-  protected int updateRecordById(Object obj) throws SQLException {
-    if (!(obj instanceof Calendar)) {
-      throw new IllegalArgumentException("Invalid object type.");
-    }
-
-    Calendar updatedCalendar = (Calendar) obj;
-
+  protected int updateRecordById(Calendar updatedCalendar) throws SQLException {
     if (!this.validateSchema(updatedCalendar)) {
       throw new IllegalArgumentException(
         "Updated Calendar object does not adhere to the expected schema."
@@ -155,19 +136,13 @@ public class CalendarDao extends GenericDao {
   /**
    * Deletes a record from the database by its ID.
    *
-   * @param obj the object representing the record to be deleted
-   * @return the number of rows affected by the deletion
+   * @param calendarToDelete the object representing the record to be deleted
+   * @return the number of rows affected by the delete operation
    * @throws SQLException if an error occurs while deleting the record
-   * @throws IllegalArgumentException if the provided object is not of type Calendar
    */
   @Override
-  protected int deleteRecordById(Object obj) throws SQLException {
-    if (!(obj instanceof Calendar)) {
-      throw new IllegalArgumentException("Invalid object type.");
-    }
-
-    Calendar calendarToDelete = (Calendar) obj;
-
+  protected int deleteRecordById(Calendar calendarToDelete)
+    throws SQLException {
     long recordId = calendarToDelete.getId();
 
     return super.databaseUtil.deleteRecordById(TABLE_NAME, "id", recordId);
