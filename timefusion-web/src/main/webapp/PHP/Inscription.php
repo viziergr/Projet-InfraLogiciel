@@ -46,7 +46,7 @@
             <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirmer le mot de passe" required><br><br>
         </div>
         <div>
-            <input type="submit" id="boutonBleu2" value="Inscription">
+            <button type="submit" id="boutonBleu2" value="2" name="inscription_submit">Inscription</button>
         </div>
     </form>
     <p id="dc">Déjà un compte ?</p>

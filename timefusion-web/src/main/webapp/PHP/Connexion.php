@@ -25,7 +25,7 @@
                 <input type="password" id="password1" name="password" placeholder="Mot de passe" required>
             </div>
             <div>
-                <input type="submit" id="boutonBleu1" value="Connexion">
+                <button type="submit" id="boutonBleu1" value="1" name="connexion_submit">Connexion</button>
             </div>
         </form>
         <p id="pdc">Pas de compte ?</p>

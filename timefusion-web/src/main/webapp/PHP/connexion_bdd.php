@@ -6,10 +6,10 @@ ini_set('display_startup_errors', 'On');
 function connectDB() {
 
     $infoBdd = [
-        'server' => 'localhost',
-        'login' => 'pwnd',
-        'password' => 'network',
-        'db_name' => 'projet',
+        'server' => '192.168.56.81',
+        'login' => 'pma',
+        'password' => 'pmapass',
+        'db_name' => 'srv_bdd',
     ];
 
     $mysqli = new mysqli(

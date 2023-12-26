@@ -2,7 +2,7 @@
 
 require_once("connexion_bdd.php");
 
-if (isset($_POST['connexion_submit']) && $_POST['connexion_submit'] == 2) {
+if (isset($_POST['inscription_submit']) && $_POST['inscription_submit'] == 2) {
     //Gestion de l'inscription
     $mysqli = connectDB();
 
