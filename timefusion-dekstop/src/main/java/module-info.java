@@ -4,6 +4,7 @@ module com.timefusion {
   requires transitive javafx.graphics;
   requires transitive java.sql;
   requires transitive java.desktop; // Pour les applications Swing
+  requires transitive jbcrypt; // Pour le cryptage des mots de passe
 
   opens com.timefusion.ui to javafx.fxml; // Changer le nom du package avec le nom du package où JavaFX est utilisé (com.timefusion.ui)
   opens com.timefusion.util to java.sql;

@@ -1,24 +1,37 @@
 package com.timefusion.util;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+import org.mindrot.jbcrypt.BCrypt;
 
+/**
+ * This class provides utility methods for encrypting and verifying passwords using BCrypt.
+ * BCrypt is a strong hashing algorithm that is resistant to rainbow table attacks.
+ * It uses a configurable workload factor to control the time taken to hash a password,
+ * making it computationally expensive for attackers to crack the hashed passwords.
+ */
 public class EncryptionUtil {
 
+  /**
+   * Hashing function for passwords using BCrypt.
+   *
+   * @param password The password to hash.
+   * @return The hashed password.
+   */
   public static String hashPassword(String password) {
-    try {
-      MessageDigest md = MessageDigest.getInstance("SHA-256");
-      byte[] hash = md.digest(password.getBytes());
-      StringBuilder hexString = new StringBuilder();
-      for (byte b : hash) {
-        String hex = Integer.toHexString(0xff & b);
-        if (hex.length() == 1) hexString.append('0');
-        hexString.append(hex);
-      }
-      return hexString.toString();
-    } catch (NoSuchAlgorithmException e) {
-      throw new RuntimeException("Error hashing password", e);
-    }
+    // Set the BCrypt workload factor
+    int workload = 12;
+
+    // Return hashed password
+    return BCrypt.hashpw(password, BCrypt.gensalt(workload));
   }
-  // Additional encryption methods can be added here
+
+  /**
+   * Verify a password against its BCrypt hash.
+   *
+   * @param password       The password to check.
+   * @param hashedPassword The hashed password to compare against.
+   * @return true if the password matches the hashedPassword, false otherwise.
+   */
+  public static boolean verifyPassword(String password, String hashedPassword) {
+    return BCrypt.checkpw(password, hashedPassword);
+  }
 }
