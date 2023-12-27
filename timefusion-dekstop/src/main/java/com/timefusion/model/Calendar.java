@@ -1,5 +1,7 @@
 package com.timefusion.model;
 
+import java.util.Objects;
+
 public class Calendar {
 
   private Long id;
@@ -77,6 +79,24 @@ public class Calendar {
       ", eventId=" +
       eventId +
       "}"
+    );
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    Calendar calendar = (Calendar) o;
+    return (
+      Objects.equals(id, calendar.id) &&
+      Objects.equals(name, calendar.name) &&
+      Objects.equals(userId, calendar.userId) &&
+      Objects.equals(teamId, calendar.teamId) &&
+      Objects.equals(eventId, calendar.eventId)
     );
   }
 }

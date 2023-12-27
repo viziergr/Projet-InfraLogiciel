@@ -1,5 +1,7 @@
 package com.timefusion.model;
 
+import java.util.Objects;
+
 public class User {
 
   private Long id;
@@ -78,5 +80,22 @@ public class User {
       password
     );
   }
-  // autres constructeurs, getters et setters...
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj) {
+      return true;
+    }
+    if (obj == null || getClass() != obj.getClass()) {
+      return false;
+    }
+    User user = (User) obj;
+    return (
+      id == user.id &&
+      Objects.equals(email, user.email) &&
+      Objects.equals(firstName, user.firstName) &&
+      Objects.equals(lastName, user.lastName) &&
+      Objects.equals(password, user.password)
+    );
+  }
 }

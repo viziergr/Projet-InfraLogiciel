@@ -1,6 +1,7 @@
 package com.timefusion.model;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class Event {
 
@@ -122,6 +123,23 @@ public class Event {
       ", creator='" +
       creator +
       "}"
+    );
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Event event = (Event) o;
+    return (
+      Objects.equals(id, event.id) &&
+      Objects.equals(title, event.title) &&
+      Objects.equals(startTime, event.startTime) &&
+      Objects.equals(endTime, event.endTime) &&
+      Objects.equals(location, event.location) &&
+      Objects.equals(description, event.description) &&
+      Objects.equals(isPersonal, event.isPersonal) &&
+      Objects.equals(creator, event.creator)
     );
   }
 }

@@ -4,6 +4,7 @@ public class Permission {
 
   private Long id;
   private String name; // Par exemple, "ADMIN", "MEMBER", etc.
+  private String leader;
 
   // Constructeurs, getters, setters
 
