@@ -23,14 +23,14 @@ public class AuthService {
    * @throws AuthenticationException if authentication fails.
    */
   public User authenticate(String email, String password)
-    throws AuthenticationException {
+    throws AuthenticationException { //[TODO]: Improve the naming and the logic of this method
     // Retrieve the user by email
     try {
-      Optional<User> user = this.userDao.findByEmail(email);
+      Optional<User> user = this.userDao.findByEmail(email); //[TODO]: Get rid of the Optional
 
       if (user.isPresent()) {
         if (EncryptionUtil.verifyPassword(password, user.get().getPassword())) {
-          return user.get();
+          return user.get(); //[TODO]: Return the user
         }
       }
     } catch (Exception e) {
