@@ -111,14 +111,13 @@ public class DatabaseUtil {
   }
 
   /**
-   * Inserts a record into the specified table with the given column values,
-   * excluding the record ID (assumes an auto-incremented primary key).
+   * Inserts a record into the specified table with the given column values.
    *
-   * @param tableName      The name of the table where the record will be inserted.
-   * @param columnValues   A map where keys are column names, and values are the corresponding values
-   *                       to be inserted into the respective columns.
-   * @return The number of rows affected by the insertion.
-   * @throws SQLException If a database access error occurs.
+   * @param tableName     the name of the table to insert the record into
+   * @param columnValues  a map containing the column names and their corresponding values
+   * @return the number of rows affected by the insert operation
+   * @throws SQLException if a database access error occurs
+   * @throws IllegalArgumentException if the columnValues map is empty or if the tableName is empty
    */
   public int insertRecord(String tableName, Map<String, Object> columnValues)
     throws SQLException {
@@ -147,8 +146,7 @@ public class DatabaseUtil {
     try (
       Connection connection = getConnection();
       PreparedStatement statement = connection.prepareStatement(
-        insertSql.toString(),
-        Statement.RETURN_GENERATED_KEYS
+        insertSql.toString()
       )
     ) {
       int parameterIndex = 1;
@@ -156,18 +154,7 @@ public class DatabaseUtil {
         statement.setObject(parameterIndex++, value);
       }
 
-      int rowsAffected = statement.executeUpdate();
-
-      // Retrieve the auto-generated key (assuming it's an auto-incremented PK)
-      try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
-        if (generatedKeys.next()) {
-          // Retrieve the generated ID and use it as needed
-          int generatedId = generatedKeys.getInt(1);
-          System.out.println("Generated ID: " + generatedId);
-        }
-      }
-
-      return rowsAffected;
+      return statement.executeUpdate();
     }
   }
 
@@ -279,7 +266,6 @@ public class DatabaseUtil {
       );
     }
 
-    // Construct the SQL query dynamically based on the criteria
     StringBuilder sql = new StringBuilder("SELECT * FROM ")
       .append(tableName)
       .append(" WHERE ");
