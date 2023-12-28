@@ -261,6 +261,51 @@ public class DatabaseUtil {
     }
   }
 
+  /**
+   * Retrieve records from the database based on dynamic criteria.
+   *
+   * @param tableName   The name of the database table.
+   * @param criteriaMap A map containing field-value pairs for the criteria.
+   * @return A ResultSet containing the matching records.
+   * @throws SQLException If a database access error occurs.
+   */
+  public ResultSet retrieveRecordsWithCriteria(
+    String tableName,
+    Map<String, Object> criteriaMap
+  ) throws SQLException {
+    if (criteriaMap == null || criteriaMap.isEmpty()) {
+      throw new IllegalArgumentException(
+        "Criteria map must not be null or empty."
+      );
+    }
+
+    // Construct the SQL query dynamically based on the criteria
+    StringBuilder sql = new StringBuilder("SELECT * FROM ")
+      .append(tableName)
+      .append(" WHERE ");
+
+    for (Map.Entry<String, Object> entry : criteriaMap.entrySet()) {
+      sql.append(entry.getKey()).append(" = ? AND ");
+    }
+
+    // Remove the trailing "AND"
+    sql.setLength(sql.length() - 5);
+
+    // Prepare and execute the SQL query
+    try (
+      PreparedStatement statement = getConnection()
+        .prepareStatement(sql.toString())
+    ) {
+      int parameterIndex = 1;
+
+      for (Object value : criteriaMap.values()) {
+        statement.setObject(parameterIndex++, value);
+      }
+
+      return statement.executeQuery();
+    }
+  }
+
   public static void main(String[] args) {
     try {
       // Load the JDBC driver
