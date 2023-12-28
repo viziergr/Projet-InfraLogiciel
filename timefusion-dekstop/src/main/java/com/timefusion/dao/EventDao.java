@@ -27,7 +27,7 @@ public class EventDao extends GenericDao<Event> {
   @Override
   protected void defineSchema() {
     try {
-      schema.put("id", Integer.class);
+      schema.put("id", Long.class);
       schema.put("title", String.class);
       schema.put("start_time", java.sql.Timestamp.class);
       schema.put("end_time", java.sql.Timestamp.class);

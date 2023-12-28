@@ -19,7 +19,7 @@ public class UserDao extends GenericDao<User> {
   @Override
   protected void defineSchema() {
     try {
-      schema.put("id", Integer.class);
+      schema.put("id", Long.class);
       schema.put("first_name", String.class);
       schema.put("last_name", String.class);
       schema.put("email", String.class);

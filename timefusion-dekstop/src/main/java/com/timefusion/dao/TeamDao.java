@@ -27,7 +27,7 @@ public class TeamDao extends GenericDao<Team> {
   @Override
   protected void defineSchema() {
     try {
-      schema.put("id", Integer.class);
+      schema.put("id", Long.class);
       schema.put("name", String.class);
       schema.put("created_at", java.sql.Timestamp.class); // Consider using a more appropriate type
     } catch (Exception e) {
