@@ -1,7 +1,9 @@
 package com.timefusion.service;
 
 import com.timefusion.dao.UserDao;
+import com.timefusion.exception.AuthenticationException;
 import com.timefusion.model.User;
+import com.timefusion.util.EncryptionUtil;
 import java.util.Optional;
 
 public class AuthService {
@@ -17,32 +19,23 @@ public class AuthService {
    *
    * @param email The user's email address.
    * @param password The user's password.
-   * @return Optional<User> if authentication is successful, empty otherwise.
+   * @return The id of the authenticated user.
+   * @throws AuthenticationException if authentication fails.
    */
-  public Optional<User> authenticate(String email, String password) {
+  public User authenticate(String email, String password)
+    throws AuthenticationException {
     // Retrieve the user by email
-    Optional<User> user = userDao.findByEmail(email);
+    try {
+      Optional<User> user = this.userDao.findByEmail(email);
 
-    if (user.isPresent()) {
-      // Check if the password matches
-      // Note: The stored password should be hashed. Use a hashing library to compare.
-      if (hashingFunction(password).equals(user.get().getPassword())) {
-        return user;
+      if (user.isPresent()) {
+        if (EncryptionUtil.verifyPassword(password, user.get().getPassword())) {
+          return user.get();
+        }
       }
+    } catch (Exception e) {
+      throw new AuthenticationException("Invalid email or password", e);
     }
-
-    return Optional.empty();
+    return null;
   }
-
-  /**
-   * Hashing function for passwords.
-   *
-   * @param password The password to hash.
-   * @return The hashed password.
-   */
-  private String hashingFunction(String password) {
-    // Implement password hashing (e.g., using BCrypt)
-    return password; // Placeholder, replace with actual hashing
-  }
-  // Additional methods for session management, password reset, etc., can be added here.
 }
