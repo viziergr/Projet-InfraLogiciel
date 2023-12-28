@@ -2,6 +2,7 @@ package com.timefusion.dao;
 
 import com.timefusion.util.DatabaseUtil;
 import java.sql.SQLException;
+import java.util.Map;
 
 /**
  * The GenericDao class is an abstract class that provides a generic implementation for data access objects (DAOs).
@@ -71,4 +72,18 @@ public abstract class GenericDao<T> {
    * @throws SQLException if an error occurs while deleting the record
    */
   protected abstract int deleteRecordById(T entity) throws SQLException;
+
+  /**
+   * Retrieves records from the specified table based on the given criteria.
+   * Subclasses should implement this method to retrieve records from the specific table.
+   *
+   * @param <T> the type of the records to retrieve
+   * @param tableName the name of the table to retrieve records from
+   * @param criteriaMap a map containing the criteria for retrieving records
+   * @return a list of records that match the given criteria
+   */
+  protected abstract T retrieveRecordsWithCriteria(
+    String tableName,
+    Map<String, Object> criteriaMap
+  );
 }

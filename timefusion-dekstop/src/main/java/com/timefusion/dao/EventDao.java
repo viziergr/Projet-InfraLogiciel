@@ -150,4 +150,10 @@ public class EventDao extends GenericDao<Event> {
 
     return super.databaseUtil.deleteRecordById(TABLE_NAME, "id", recordId);
   }
+
+  @Override
+  protected Event retrieveRecordsWithCriteria(
+    String tableName,
+    Map<String, Object> criteriaMap
+  ) {}
 }
