@@ -74,15 +74,13 @@ public abstract class GenericDao<T> {
   protected abstract int deleteRecordById(T entity) throws SQLException;
 
   /**
-   * Retrieves records from the specified table based on the given criteria.
-   * Subclasses should implement this method to retrieve records from the specific table.
+   * Retrieves a record from the specified table based on the given criteria.
    *
-   * @param <T> the type of the records to retrieve
-   * @param tableName the name of the table to retrieve records from
-   * @param criteriaMap a map containing the criteria for retrieving records
-   * @return a list of records that match the given criteria
+   * @param tableName    the name of the table to retrieve the record from
+   * @param criteriaMap  a map containing the criteria for retrieving the record
+   * @return the retrieved record of type T
    */
-  protected abstract T retrieveRecordsWithCriteria(
+  protected abstract T retrieveRecord(
     String tableName,
     Map<String, Object> criteriaMap
   );
