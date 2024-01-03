@@ -12,6 +12,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * The DatabaseUtil class provides utility methods for interacting with a MySQL database.
+ * It includes methods for executing queries, inserting, updating, and deleting records,
+ * as well as retrieving records based on specified criteria.
+ *
+ * <p> <B> All the interactions with the database need to be done through the DatabaseUtil class. </B> </p>
+ * <p> <B> To do so all the DAOs should extend the GenericDao class which works with the DatabaseUtil class.</B> </p>
+ */
 public class DatabaseUtil implements AutoCloseable {
 
   private static final String DEFAULT_DATABASE_URL =
@@ -494,34 +502,5 @@ public class DatabaseUtil implements AutoCloseable {
         sql.toString(),
         new ArrayList<>(criteriaMap.values())
       );
-  }
-
-  public static void main(String[] args) {
-    try (DatabaseUtil databaseUtil = new DatabaseUtil()) {
-      String tableName = "user"; // Replace with the actual table name
-      Map<String, Object> criteriaMap = new HashMap<>();
-      criteriaMap.put("first_name", "John"); // Replace with your actual criteria
-
-      try {
-        List<Map<String, Object>> resultList = databaseUtil.retrieveRecords(
-          tableName,
-          criteriaMap
-        );
-
-        for (Map<String, Object> row : resultList) {
-          System.out.println("Row:");
-          for (Map.Entry<String, Object> entry : row.entrySet()) {
-            String columnName = entry.getKey();
-            Object value = entry.getValue();
-            System.out.println(columnName + ": " + value);
-          }
-          System.out.println();
-        }
-      } catch (SQLException | IllegalArgumentException e) {
-        e.printStackTrace();
-      }
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
   }
 }
