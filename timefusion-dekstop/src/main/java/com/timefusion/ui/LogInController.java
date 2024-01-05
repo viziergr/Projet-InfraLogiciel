@@ -4,6 +4,9 @@
 
 package com.timefusion.ui;
 
+import com.timefusion.dao.UserDao;
+import com.timefusion.exception.AuthenticationException;
+import com.timefusion.service.AuthService;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -42,23 +45,19 @@ public class LogInController {
       String email = tf_email.getText();
       String password = pf_password.getText();
 
-      if (!email.isBlank() && !password.isBlank()) {
-        System.out.println("Email: " + email.length());
-        System.out.println("Password: " + password);
-      } else {
-        System.out.println("Email or password is null");
+      try {
+        UserDao userDao = new UserDao();
+        AuthService authService = new AuthService(userDao);
+        authService.authenticate(email, password);
+        System.out.println("Authenticated");
+      } catch (SQLException e) {
+        System.out.println(
+          "An error occurred while accessing the database: " + e.getMessage()
+        );
+      } catch (AuthenticationException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
       }
     });
   }
-  // Add event handler to the button
-  //   button_login.setOnAction(event -> {
-  //     try {
-  //       MainApp.test();
-  //     } catch (SQLException e) {
-  //       // TODO Auto-generated catch block
-  //       e.printStackTrace();
-  //     }
-  //     // You can add more logic here if needed
-  //   });
-  // }
 }

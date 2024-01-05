@@ -1,10 +1,6 @@
 package com.timefusion.ui;
 
-import com.timefusion.util.DatabaseUtil;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

@@ -5,7 +5,6 @@ import com.timefusion.exception.AuthenticationException;
 import com.timefusion.model.User;
 import com.timefusion.util.EncryptionUtil;
 import java.sql.SQLException;
-import java.util.Optional;
 
 public class AuthService {
 
