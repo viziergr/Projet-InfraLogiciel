@@ -2,6 +2,7 @@ package com.timefusion.dao;
 
 import com.timefusion.util.DatabaseUtil;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -21,8 +22,9 @@ public abstract class GenericDao<T> {
    * Constructs a new GenericDao object with the specified table name.
    *
    * @param tableName the name of the database table
+   * @throws SQLException
    */
-  public GenericDao(String tableName) {
+  public GenericDao(String tableName) throws SQLException {
     this.databaseUtil = new DatabaseUtil();
     this.tableName = tableName;
   }
@@ -32,16 +34,6 @@ public abstract class GenericDao<T> {
    * Subclasses should implement this method to define the schema for the specific table.
    */
   protected abstract void defineSchema();
-
-  /**
-   * Validates the schema of a record.
-   * Subclasses should implement this method to validate the schema of the specific table.
-   *
-   * @param entity the entity representing the record to be validated
-   * @return true if the schema is valid, false otherwise
-   * @throws SQLException if an error occurs while validating the schema
-   */
-  protected abstract boolean validateSchema(T entity) throws SQLException;
 
   /**
    * Inserts a record into the table.
@@ -80,8 +72,8 @@ public abstract class GenericDao<T> {
    * @param criteriaMap  a map containing the criteria for retrieving the record
    * @return the retrieved record of type T
    */
-  protected abstract T retrieveRecord(
+  protected abstract List<T> retrieveRecords(
     String tableName,
     Map<String, Object> criteriaMap
-  );
+  ) throws SQLException;
 }

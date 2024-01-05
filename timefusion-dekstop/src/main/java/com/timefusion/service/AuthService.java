@@ -4,6 +4,7 @@ import com.timefusion.dao.UserDao;
 import com.timefusion.exception.AuthenticationException;
 import com.timefusion.model.User;
 import com.timefusion.util.EncryptionUtil;
+import java.sql.SQLException;
 import java.util.Optional;
 
 public class AuthService {
@@ -23,19 +24,28 @@ public class AuthService {
    * @throws AuthenticationException if authentication fails.
    */
   public User authenticate(String email, String password)
-    throws AuthenticationException { //[TODO]: Improve the naming and the logic of this method
-    // Retrieve the user by email
+    throws AuthenticationException {
     try {
-      Optional<User> user = this.userDao.findByEmail(email); //[TODO]: Get rid of the Optional
+      User user = this.userDao.findByEmail(email);
 
-      if (user.isPresent()) {
-        if (EncryptionUtil.verifyPassword(password, user.get().getPassword())) {
-          return user.get(); //[TODO]: Return the user
+      if (user != null) {
+        if (EncryptionUtil.verifyPassword(password, user.getPassword())) {
+          return user;
+        } else {
+          throw new AuthenticationException("Incorrect password");
         }
+      } else {
+        throw new AuthenticationException("User not found");
       }
     } catch (Exception e) {
-      throw new AuthenticationException("Invalid email or password", e);
+      throw new AuthenticationException("Error authenticating user", e);
     }
-    return null;
+  }
+
+  public static void main(String[] args)
+    throws SQLException, AuthenticationException {
+    AuthService authService = new AuthService(new UserDao());
+    User user1 = authService.authenticate("test.robin44@gmail.com", "password");
+    System.out.println(user1);
   }
 }

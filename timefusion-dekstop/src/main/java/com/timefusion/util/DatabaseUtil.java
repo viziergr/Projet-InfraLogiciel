@@ -139,7 +139,7 @@ public class DatabaseUtil implements AutoCloseable {
    * @return A list of maps, where each map represents a row in the result set. The keys are column names, and values are corresponding column values.
    * @throws SQLException If an error occurs while executing the query.
    *
-   * @implNote This function can work without the params parameter, but it is not recommended to do so.
+   * @implNote This function can work without the params parameter and can be used for queries without parameters by calling executeQuery(sql) instead.
    *
    * @example
    * <p>Usage in the main method:</p>
@@ -178,7 +178,9 @@ public class DatabaseUtil implements AutoCloseable {
     List<Map<String, Object>> resultList = new ArrayList<>();
 
     try (PreparedStatement statement = getConnection().prepareStatement(sql)) {
-      setParameters(statement, params);
+      if (params != null) {
+        setParameters(statement, params);
+      }
 
       try (ResultSet resultSet = statement.executeQuery()) {
         ResultSetMetaData metaData = resultSet.getMetaData();
@@ -187,7 +189,7 @@ public class DatabaseUtil implements AutoCloseable {
         while (resultSet.next()) {
           Map<String, Object> row = new HashMap<>();
           for (int i = 1; i <= columnCount; i++) {
-            String columnName = metaData.getColumnName(i);
+            String columnName = metaData.getColumnName(i).toLowerCase(); // Convert to lowercase
             Object value = resultSet.getObject(i);
             row.put(columnName, value);
           }
@@ -199,6 +201,44 @@ public class DatabaseUtil implements AutoCloseable {
     }
 
     return resultList;
+  }
+
+  /**
+   * Executes the given SQL query and returns the result as a list of maps.
+   *
+   * @param sql The SQL query to execute.
+   * @return A list of maps, where each map represents a row in the result set. The keys are column names, and values are corresponding column values.
+   * @throws SQLException If an error occurs while executing the query.
+   *
+   * @implNote This function can be used for queries without parameters.
+   *
+   * @example
+   * <p>Usage in the main method:</p>
+   * <pre>{@code
+   * public static void main(String[] args) {
+   *     try (DatabaseUtil databaseUtil = new DatabaseUtil()) {
+   *         String query = "SELECT * FROM user";
+   *
+   *         List<Map<String, Object>> resultList = databaseUtil.executeQuery(query);
+   *
+   *         for (Map<String, Object> row : resultList) {
+   *             System.out.println("Row:");
+   *             for (Map.Entry<String, Object> entry : row.entrySet()) {
+   *                 String columnName = entry.getKey();
+   *                 Object value = entry.getValue();
+   *                 System.out.println(columnName + ": " + value);
+   *             }
+   *             System.out.println();
+   *         }
+   *     } catch (SQLException e) {
+   *         e.printStackTrace();
+   *     }
+   * }
+   * }</pre>
+   */
+  public List<Map<String, Object>> executeQuery(String sql)
+    throws SQLException {
+    return executeQuery(sql, null);
   }
 
   /**
@@ -502,5 +542,18 @@ public class DatabaseUtil implements AutoCloseable {
         sql.toString(),
         new ArrayList<>(criteriaMap.values())
       );
+  }
+
+  public static String queryToString(List<Map<String, Object>> resultList) {
+    StringBuilder sb = new StringBuilder();
+    for (Map<String, Object> row : resultList) {
+      for (Map.Entry<String, Object> entry : row.entrySet()) {
+        String columnName = entry.getKey();
+        Object value = entry.getValue();
+        sb.append(columnName).append(": ").append(value).append("\n");
+      }
+      sb.append("\n");
+    }
+    return sb.toString();
   }
 }

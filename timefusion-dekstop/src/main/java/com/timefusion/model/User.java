@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class User {
 
-  private Long id;
+  private int id;
   private String email;
   private String firstName;
   private String lastName;
@@ -20,7 +20,7 @@ public class User {
    * @param password
    */
   public User(
-    long id,
+    int id,
     String email,
     String firstName,
     String lastName,
@@ -55,7 +55,7 @@ public class User {
    *
    * @return the ID of the user
    */
-  public long getId() {
+  public int getId() {
     return this.id;
   }
 
@@ -100,7 +100,7 @@ public class User {
    *
    * @param id the ID to set
    */
-  public void setId(long id) {
+  public void setId(int id) {
     this.id = id;
   }
 
@@ -132,6 +132,11 @@ public class User {
     this.password = password;
   }
 
+  /**
+   * Returns a string representation of the User object.
+   *
+   * @return a string representation of the User object
+   */
   @Override
   public String toString() {
     return (
