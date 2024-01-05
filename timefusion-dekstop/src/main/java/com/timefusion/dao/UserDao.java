@@ -214,11 +214,6 @@ public class UserDao extends GenericDao<User> {
   }
 
   @Override
-  protected int deleteRecordById(User entity) throws SQLException {
-    return (deleteUserRecordById(entity));
-  }
-
-  @Override
   protected List<User> retrieveRecords(
     String tableName,
     Map<String, Object> criteriaMap
@@ -226,14 +221,18 @@ public class UserDao extends GenericDao<User> {
     return retrieveUsersRecords(criteriaMap);
   }
 
-  public static void main(String[] args) throws SQLException {
-    UserDao userDao = new UserDao();
-    User user = new User(
-      "test.robin44@gmail.com",
-      "Corentin",
-      "Robin",
-      EncryptionUtil.hashPassword("password")
-    );
-    userDao.insertUserRecord(user);
+  public static void main(String[] args) {
+    try {
+      UserDao userDao = new UserDao();
+      User user = new User(
+        "john.pd@gmail.com",
+        "John",
+        "Pd",
+        EncryptionUtil.hashPassword("@Password123")
+      );
+      System.out.println(userDao.insertUserRecord(user));
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 }

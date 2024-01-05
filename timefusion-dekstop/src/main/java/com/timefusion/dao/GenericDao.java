@@ -56,16 +56,6 @@ public abstract class GenericDao<T> {
   protected abstract int updateRecordById(T entity) throws SQLException;
 
   /**
-   * Deletes a record from the table.
-   * Subclasses should implement this method to delete a record from the specific table.
-   *
-   * @param entity the entity representing the record to be deleted
-   * @return the number of rows affected by the delete operation
-   * @throws SQLException if an error occurs while deleting the record
-   */
-  protected abstract int deleteRecordById(T entity) throws SQLException;
-
-  /**
    * Retrieves a record from the specified table based on the given criteria.
    *
    * @param tableName    the name of the table to retrieve the record from
@@ -76,4 +66,16 @@ public abstract class GenericDao<T> {
     String tableName,
     Map<String, Object> criteriaMap
   ) throws SQLException;
+
+  /**
+   * Deletes a record from the specified table by its ID.
+   *
+   * @param tableName the name of the table
+   * @param id the ID of the record to be deleted
+   * @return the number of rows affected by the deletion
+   * @throws SQLException if an error occurs while deleting the record
+   */
+  public int deleteRecordById(String tableName, int id) throws SQLException {
+    return this.databaseUtil.deleteRecordById(tableName, "id", id);
+  }
 }

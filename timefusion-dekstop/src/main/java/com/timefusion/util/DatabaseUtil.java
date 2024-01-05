@@ -378,7 +378,7 @@ public class DatabaseUtil implements AutoCloseable {
   public int updateRecordById(
     String tableName,
     String idColumnName,
-    long recordId,
+    int recordId,
     Map<String, Object> columnValues
   ) throws SQLException, IllegalArgumentException {
     if (tableName.isEmpty()) {
@@ -412,7 +412,7 @@ public class DatabaseUtil implements AutoCloseable {
         statement.setObject(parameterIndex++, value);
       }
 
-      statement.setLong(parameterIndex, recordId);
+      statement.setInt(parameterIndex, recordId);
 
       return statement.executeUpdate();
     }
@@ -457,7 +457,7 @@ public class DatabaseUtil implements AutoCloseable {
   public int deleteRecordById(
     String tableName,
     String idColumnName,
-    long recordId
+    int recordId
   ) throws SQLException {
     if (tableName.isEmpty()) {
       throw new IllegalArgumentException("Table name is empty.");
@@ -470,7 +470,7 @@ public class DatabaseUtil implements AutoCloseable {
       "DELETE FROM " + tableName + " WHERE " + idColumnName + " = ?";
 
     try (PreparedStatement statement = connection.prepareStatement(deleteSql)) {
-      statement.setLong(1, recordId);
+      statement.setInt(1, recordId);
 
       return statement.executeUpdate();
     }
