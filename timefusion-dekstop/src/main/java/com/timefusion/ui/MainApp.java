@@ -23,9 +23,6 @@ public class MainApp extends Application {
 
     Scene scene = new Scene(root);
 
-    // Omitted stylesheet for no additional styling
-    // scene.getStylesheets().add("/styles/Styles.css");
-
     stage.setTitle("Login");
     stage.setScene(scene);
     stage.show();
