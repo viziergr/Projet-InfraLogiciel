@@ -131,7 +131,10 @@ public class LogInController {
       Boolean emailValidationResult = ValidationUtil.isValidEmail(email);
 
       if (emailValidationResult == null || !emailValidationResult) {
-        showAlert("Invalid Email", "Please enter a valid email address.");
+        showAlert(
+          "Invalid Email",
+          "There is no existing account for this email."
+        );
         return;
       }
 
@@ -142,7 +145,7 @@ public class LogInController {
       if (passwordValidationResult == null || !passwordValidationResult) {
         showAlert(
           "Invalid Password",
-          "The password is invalid. Please try again."
+          "The password is incorrect. Please try again."
         );
         return;
       }
