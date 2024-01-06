@@ -11,8 +11,10 @@ import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
 public class LogInController {
@@ -28,6 +30,8 @@ public class LogInController {
 
   @FXML
   private TextField tf_email;
+
+  private Label lbl_emailError;
 
   @FXML
   private Button button_login;
@@ -49,6 +53,9 @@ public class LogInController {
     null : "fx:id=\"tf_email\" was not injected: check your FXML file 'log-in.fxml'.";
     assert button_login !=
     null : "fx:id=\"button_login\" was not injected: check your FXML file 'log-in.fxml'.";
+
+    lbl_emailError = new Label();
+    lbl_emailError.setTextFill(Color.RED);
 
     // Add focus listeners to trigger validation on focus lost
     tf_email
