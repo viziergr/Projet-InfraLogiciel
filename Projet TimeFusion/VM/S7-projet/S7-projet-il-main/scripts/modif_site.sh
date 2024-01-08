@@ -13,7 +13,7 @@ echo "START - Deplacement des fichiers - "$IP
 cd /var/www/html/
 mkdir git
 cd git
-git clone git@github.com:viziergr/Projet-InfraLogiciel.git
+git clone https://github.com/viziergr/Projet-InfraLogiciel.git
 
 cd /var/www/html/git/Projet-InfraLogiciel/timefusion-web/src/main/webapp/
 mkdir /var/www/html/siteweb/
