@@ -1,0 +1,11 @@
+@startuml
+actor user 
+participant backend
+database db
+
+user->backend: login
+backend->db: query
+backend->user: return
+
+@enduml
+
