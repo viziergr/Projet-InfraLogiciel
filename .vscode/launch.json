@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "MainApp",
+            "request": "launch",
+            "mainClass": "com.timefusion/com.timefusion.jfxcalendar.model.MainApp",
+            "projectName": "timefusion-dekstop"
+        },
+        {
+            "type": "java",
+            "name": "CalendarView",
+            "request": "launch",
+            "mainClass": "com.timefusion/com.timefusion.ui.CalendarView",
+            "projectName": "timefusion-dekstop"
+        },
+        {
+            "type": "java",
             "name": "AuthService",
             "request": "launch",
             "mainClass": "com.timefusion/com.timefusion.service.AuthService",
