@@ -23,7 +23,7 @@ public class MainApp extends Application {
     // Set up the scene and stage
     Scene scene = new Scene(rootPane, 800, 600);
     primaryStage.setScene(scene);
-    primaryStage.setTitle("Your Calendar App");
+    primaryStage.setTitle("TimeFusion");
     primaryStage.show();
   }
 
