@@ -19,7 +19,7 @@
         <img id="img2" src="..\pictures\Logo.png" alt="Logo Time Fusion">
         <form method="post">
             <div>          
-                <input type="email" id="email1" name="email" placeholder="E-mail" required>
+                <input type="email" id="email1" name="mail" placeholder="E-mail" required>
             </div>
             <div>
                 <input type="password" id="password1" name="password" placeholder="Mot de passe" required>
@@ -36,7 +36,7 @@
         <div class="text-center mt-5">
             <?php echo "Bonjour " . $prenom . " " . $nom . ", vous êtes désormais connecté." ?>
             <br>
-            <a href="http://192.168.56.80/pwnd?logout=1" class="btn btn-secondary mt-3">Se déconnecter</a>
+            <a href="?logout=1" class="btn btn-secondary mt-3">Se déconnecter</a>
         </div>
     <?php endif; ?>
 </body>

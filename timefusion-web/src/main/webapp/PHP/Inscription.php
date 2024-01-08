@@ -25,25 +25,25 @@
     </div>
     <form method="post">
         <div>
-            <input type="text" id="prenom" name="prenom" placeholder="Prénom" required><br><br>
+            <input type="text" id="prenom" name="fname" placeholder="Prénom" required><br><br>
         </div>
         <div>
-            <input type="text" id="nom" name="nom" placeholder="Nom" required><br><br>
+            <input type="text" id="nom" name="lname" placeholder="Nom" required><br><br>
         </div>
         <div>
-            <input type="email" id="email2" name="email" placeholder="E-mail" required><br><br>
+            <input type="email" id="email2" name="mail" placeholder="E-mail" required><br><br>
         </div>
         <div>
-            <input type="date" id="date" name="date" required><br><br>
+            <input type="date" id="date" name="year" required><br><br>
         </div>
         <div>
             <input type="text" id="username" name="username" placeholder="Nom d'utilisateur" required><br><br>
         </div>
         <div>
-            <input type="password" id="password2" name="password" placeholder="Mot de passe" required><br><br>
+            <input type="password" id="password2" name="pwd" placeholder="Mot de passe" required><br><br>
         </div>
         <div>
-            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirmer le mot de passe" required><br><br>
+            <input type="password" id="confirmPassword" name="cpwd" placeholder="Confirmer le mot de passe" required><br><br>
         </div>
         <div>
             <button type="submit" id="boutonBleu2" value="2" name="inscription_submit">Inscription</button>
