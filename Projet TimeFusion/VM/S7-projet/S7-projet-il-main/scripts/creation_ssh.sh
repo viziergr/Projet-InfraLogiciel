@@ -8,12 +8,10 @@ APT_OPT="-o Dpkg::Progress-Fancy="0" -q -y"
 LOG_FILE="/vagrant/logs/install_git.log"
 DEBIAN_FRONTEND="noninteractive"
 
-echo "START - install git - "$IP
 
-echo "=> [1]: Installing required packages..."
-apt-get install $APT_OPT \
-  git \
-  >> $LOG_FILE 2>&1
+# Générer la clé SSH
+ssh-keygen -t rsa -b 2048 -f ~/.ssh/id_rsa -N ""
 
-echo "END - install git"
-
+# Afficher la clé générée
+echo "La clé SSH a été générée avec succès:"
+cat ~/.ssh/id_rsa.pub
