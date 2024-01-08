@@ -24,5 +24,6 @@ sed -i 's/127.0.0.1/0.0.0.0/g' /etc/mysql/mariadb.conf.d/50-server.cnf
 sed -i 's/# port = 3306/port = 3306/g' /etc/mysql/my.cnf
 echo "END - Modification des fichiers de configuration"
 
-echo "END - Link des deux VM"
+service mariadb restart
 
+echo "END - Link des deux VM"
