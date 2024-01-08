@@ -2,6 +2,8 @@ package com.timefusion.dao;
 
 import com.timefusion.util.DatabaseUtil;
 import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
 
 /**
  * The GenericDao class is an abstract class that provides a generic implementation for data access objects (DAOs).
@@ -20,8 +22,9 @@ public abstract class GenericDao<T> {
    * Constructs a new GenericDao object with the specified table name.
    *
    * @param tableName the name of the database table
+   * @throws SQLException
    */
-  public GenericDao(String tableName) {
+  public GenericDao(String tableName) throws SQLException {
     this.databaseUtil = new DatabaseUtil();
     this.tableName = tableName;
   }
@@ -31,16 +34,6 @@ public abstract class GenericDao<T> {
    * Subclasses should implement this method to define the schema for the specific table.
    */
   protected abstract void defineSchema();
-
-  /**
-   * Validates the schema of a record.
-   * Subclasses should implement this method to validate the schema of the specific table.
-   *
-   * @param entity the entity representing the record to be validated
-   * @return true if the schema is valid, false otherwise
-   * @throws SQLException if an error occurs while validating the schema
-   */
-  protected abstract boolean validateSchema(T entity) throws SQLException;
 
   /**
    * Inserts a record into the table.
@@ -63,12 +56,26 @@ public abstract class GenericDao<T> {
   protected abstract int updateRecordById(T entity) throws SQLException;
 
   /**
-   * Deletes a record from the table.
-   * Subclasses should implement this method to delete a record from the specific table.
+   * Retrieves a record from the specified table based on the given criteria.
    *
-   * @param entity the entity representing the record to be deleted
-   * @return the number of rows affected by the delete operation
+   * @param tableName    the name of the table to retrieve the record from
+   * @param criteriaMap  a map containing the criteria for retrieving the record
+   * @return the retrieved record of type T
+   */
+  protected abstract List<T> retrieveRecords(
+    String tableName,
+    Map<String, Object> criteriaMap
+  ) throws SQLException;
+
+  /**
+   * Deletes a record from the specified table by its ID.
+   *
+   * @param tableName the name of the table
+   * @param id the ID of the record to be deleted
+   * @return the number of rows affected by the deletion
    * @throws SQLException if an error occurs while deleting the record
    */
-  protected abstract int deleteRecordById(T entity) throws SQLException;
+  public int deleteRecordById(String tableName, int id) throws SQLException {
+    return this.databaseUtil.deleteRecordById(tableName, "id", id);
+  }
 }

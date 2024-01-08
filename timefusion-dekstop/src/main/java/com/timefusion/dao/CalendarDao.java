@@ -27,11 +27,11 @@ public class CalendarDao extends GenericDao<Calendar> {
   @Override
   protected void defineSchema() {
     try {
-      schema.put("id", Integer.class);
+      schema.put("id", Long.class);
       schema.put("name", String.class);
-      schema.put("user_id", Integer.class);
-      schema.put("team_id", Integer.class);
-      schema.put("event_id", Integer.class);
+      schema.put("user_id", Long.class);
+      schema.put("team_id", Long.class);
+      schema.put("event_id", Long.class);
     } catch (Exception e) {
       e.printStackTrace();
     }

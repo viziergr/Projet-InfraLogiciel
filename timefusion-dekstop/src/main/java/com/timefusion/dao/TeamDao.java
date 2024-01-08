@@ -27,7 +27,7 @@ public class TeamDao extends GenericDao<Team> {
   @Override
   protected void defineSchema() {
     try {
-      schema.put("id", Integer.class);
+      schema.put("id", Long.class);
       schema.put("name", String.class);
       schema.put("created_at", java.sql.Timestamp.class); // Consider using a more appropriate type
     } catch (Exception e) {
@@ -132,12 +132,11 @@ public class TeamDao extends GenericDao<Team> {
   }
 
   /**
-   * Deletes a record from the database.
+   * Deletes a record from the database by its ID.
    *
-   * @param obj the object representing the record to be deleted
-   * @return the number of rows affected by the delete operation
+   * @param teamToDelete the Team object to be deleted
+   * @return the number of rows affected by the deletion
    * @throws SQLException if an error occurs while deleting the record
-   * @throws IllegalArgumentException if the provided object is not of type Team or does not adhere to the expected schema
    */
   @Override
   protected int deleteRecordById(Team teamToDelete) throws SQLException {

@@ -1,0 +1,62 @@
+/* Styles CSS */
+body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+}
+
+.agenda {
+    display: grid;
+    grid-template-columns: 100px repeat(7, 1fr);
+    grid-gap: 1px;
+}
+
+.heure {
+    border: 1px solid #ccc;
+    background-color: #f2f2f2;
+    text-align: center;
+    padding: 10px;
+}
+
+.case {
+    /* Ajoutez les styles pour améliorer l'apparence de la case */
+    border: 1px solid #ccc;
+    min-height: 50px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.evenement {
+    /* Styles pour l'affichage de l'événement dans la case */
+    background-color: #ffcc00; /* Couleur de fond attrayante */
+    color: #000; /* Couleur du texte */
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Ombre légère */
+    padding: 5px;
+    text-align: left;
+    width: 80%;
+}
+
+.home {
+    position: absolute;
+    width: 1440px;
+    height: 42px;
+    background-color: #00023C;
+    top: 0; /* Ajout d'une position top pour placer l'élément au début de la page */
+    left: 0; /* Ajout d'une position left pour placer l'élément à gauche */
+}
+
+#home {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    top: 1px; /* Ajustement de la position top pour éviter le chevauchement */
+    left: 1320px; /* Positionnement de l'élément à une distance différente */
+    background-color: #00023C;
+}
+
+h2 {
+    margin-top: 60px; /* Ajout d'une marge pour décaler le titre en dessous de l'élément home */
+}

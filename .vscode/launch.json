@@ -6,6 +6,62 @@
     "configurations": [
         {
             "type": "java",
+            "name": "AuthService",
+            "request": "launch",
+            "mainClass": "com.timefusion/com.timefusion.service.AuthService",
+            "projectName": "timefusion-dekstop"
+        },
+        {
+            "type": "java",
+            "name": "ValidationUtil",
+            "request": "launch",
+            "mainClass": "com.timefusion/com.timefusion.util.ValidationUtil",
+            "projectName": "timefusion-dekstop"
+        },
+        {
+            "type": "java",
+            "name": "MainApp",
+            "request": "launch",
+            "mainClass": "com.timefusion/com.timefusion.ui.MainApp",
+            "projectName": "timefusion-dekstop"
+        },
+        {
+            "type": "java",
+            "name": "Team",
+            "request": "launch",
+            "mainClass": "com.timefusion/com.timefusion.model.Team",
+            "projectName": "timefusion-dekstop"
+        },
+        {
+            "type": "java",
+            "name": "User",
+            "request": "launch",
+            "mainClass": "com.timefusion/com.timefusion.model.User",
+            "projectName": "timefusion-dekstop"
+        },
+        {
+            "type": "java",
+            "name": "UserDao",
+            "request": "launch",
+            "mainClass": "com.timefusion/com.timefusion.dao.UserDao",
+            "projectName": "timefusion-dekstop"
+        },
+        {
+            "type": "java",
+            "name": "EncryptionUtil",
+            "request": "launch",
+            "mainClass": "com.timefusion/com.timefusion.util.EncryptionUtil",
+            "projectName": "timefusion-dekstop"
+        },
+        {
+            "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "com.timefusion/com.timefusion.Main",
+            "projectName": "timefusion-dekstop"
+        },
+        {
+            "type": "java",
             "name": "ImpressiveJavaFXApp",
             "request": "launch",
             "mainClass": "com.timefusion/com.timefusion.ui.ImpressiveJavaFXApp",

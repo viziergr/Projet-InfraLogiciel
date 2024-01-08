@@ -7,9 +7,9 @@ function connectDB() {
 
     $infoBdd = [
         'server' => 'localhost',
-        'login' => 'pwnd',
-        'password' => 'network',
-        'db_name' => 'projet',
+        'login' => 'root',
+        'password' => '',
+        'db_name' => 'essai_infra',
     ];
 
     $mysqli = new mysqli(

@@ -1,8 +1,9 @@
 package com.timefusion.service;
 
 import com.timefusion.dao.UserDao;
+import com.timefusion.exception.AuthenticationException;
 import com.timefusion.model.User;
-import java.util.Optional;
+import com.timefusion.util.EncryptionUtil;
 
 public class AuthService {
 
@@ -17,32 +18,25 @@ public class AuthService {
    *
    * @param email The user's email address.
    * @param password The user's password.
-   * @return Optional<User> if authentication is successful, empty otherwise.
+   * @return The id of the authenticated user.
+   * @throws AuthenticationException if authentication fails.
    */
-  public Optional<User> authenticate(String email, String password) {
-    // Retrieve the user by email
-    Optional<User> user = userDao.findByEmail(email);
+  public User authenticate(String email, String password)
+    throws AuthenticationException {
+    try {
+      User user = this.userDao.findByEmail(email);
 
-    if (user.isPresent()) {
-      // Check if the password matches
-      // Note: The stored password should be hashed. Use a hashing library to compare.
-      if (hashingFunction(password).equals(user.get().getPassword())) {
-        return user;
+      if (user != null) {
+        if (EncryptionUtil.verifyPassword(password, user.getPassword())) {
+          return user;
+        } else {
+          throw new AuthenticationException("Incorrect password");
+        }
+      } else {
+        throw new AuthenticationException("User not found");
       }
+    } catch (AuthenticationException e) {
+      throw new AuthenticationException("Error authenticating user", e);
     }
-
-    return Optional.empty();
   }
-
-  /**
-   * Hashing function for passwords.
-   *
-   * @param password The password to hash.
-   * @return The hashed password.
-   */
-  private String hashingFunction(String password) {
-    // Implement password hashing (e.g., using BCrypt)
-    return password; // Placeholder, replace with actual hashing
-  }
-  // Additional methods for session management, password reset, etc., can be added here.
 }
