@@ -23,6 +23,7 @@ apt-get install $APT_OPT \
   gnupg \
   unzip \
   iptables \
+  git \
   >> $LOG_FILE 2>&1
 
 echo "=> [2]: Server configuration"
