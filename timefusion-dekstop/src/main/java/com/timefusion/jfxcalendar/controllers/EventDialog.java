@@ -22,7 +22,10 @@ public class EventDialog extends JFXDialog {
     JFXDialogLayout content = new JFXDialogLayout();
 
     FXMLLoader loader = new FXMLLoader(
-      this.getClass().getResource("/views/fxml/AddEventDialog.fxml")
+      this.getClass()
+        .getResource(
+          "/com/timefusion/jfxcalendar/views/fxml/AddEventDialog.fxml"
+        )
     );
 
     VBox bodyPane = null;
@@ -68,7 +71,9 @@ public class EventDialog extends JFXDialog {
 
     getStylesheets()
       .add(
-        this.getClass().getResource("/style/DialogStyle.css").toExternalForm()
+        this.getClass()
+          .getResource("/com/timefusion/jfxcalendar/style/DialogStyle.css")
+          .toExternalForm()
       );
   }
 

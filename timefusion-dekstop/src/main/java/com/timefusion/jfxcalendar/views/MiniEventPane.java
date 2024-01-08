@@ -33,7 +33,7 @@ public class MiniEventPane extends VBox {
     getStylesheets()
       .add(
         this.getClass()
-          .getResource("/style/EventPaneStyle.css")
+          .getResource("/com/timefusion/jfxcalendar/style/EventPaneStyle.css")
           .toExternalForm()
       );
 

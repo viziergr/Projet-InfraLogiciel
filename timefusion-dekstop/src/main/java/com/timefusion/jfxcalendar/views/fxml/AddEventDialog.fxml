@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="468.0" prefWidth="485.0" spacing="10.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AddEventDialogController">
+<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="468.0" prefWidth="485.0" spacing="10.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.timefusion.jfxcalendar.controllers.AddEventDialogController">
    <children>
       <JFXTextField fx:id="titleField" prefHeight="34.0" prefWidth="435.0" promptText="Title" style="-fx-prompt-text-fill: #B2B2B2;">
          <font>

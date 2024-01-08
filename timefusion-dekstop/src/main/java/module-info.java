@@ -11,6 +11,7 @@ module com.timefusion {
 
   opens com.timefusion.ui to javafx.fxml; // Changer le nom du package avec le nom du package où JavaFX est utilisé (com.timefusion.ui)
   opens com.timefusion.util to java.sql;
+  opens com.timefusion.jfxcalendar.controllers to javafx.fxml;
 
   exports com.timefusion.config ;
   exports com.timefusion.dao ;

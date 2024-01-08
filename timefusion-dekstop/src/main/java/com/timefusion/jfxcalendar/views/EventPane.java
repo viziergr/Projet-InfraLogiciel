@@ -80,7 +80,7 @@ public class EventPane extends VBox {
     getStylesheets()
       .add(
         this.getClass()
-          .getResource("/style/EventPaneStyle.css")
+          .getResource("/com/timefusion/jfxcalendar/style/EventPaneStyle.css")
           .toExternalForm()
       );
 
@@ -180,7 +180,10 @@ public class EventPane extends VBox {
     JFXDialogLayout content = new JFXDialogLayout();
 
     FXMLLoader eventDetailsPaneLoader = new FXMLLoader(
-      this.getClass().getResource("/views/fxml/EventDetailPane.fxml")
+      this.getClass()
+        .getResource(
+          "/com/timefusion/jfxcalendar/views/fxml/EventDetailPane.fxml"
+        )
     );
 
     try {
@@ -197,7 +200,9 @@ public class EventPane extends VBox {
     dialog
       .getStylesheets()
       .add(
-        this.getClass().getResource("/style/DialogStyle.css").toExternalForm()
+        this.getClass()
+          .getResource("/com/timefusion/jfxcalendar/style/DialogStyle.css")
+          .toExternalForm()
       );
 
     dialog.setDialogContainer(this.eventStackPane);
