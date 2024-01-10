@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['connexion_submit']) &
         $row = $result->fetch_assoc();
         $_SESSION['compte'] = $row['id'];
 
-        $sqlEtudiant = "SELECT id, firstname, lastname, email, password, year FROM User WHERE id = {$row['id']}";
+        $sqlEtudiant = "SELECT id, first_name, last_name, email, password, year FROM User WHERE id = {$row['id']}";
         $resultEtudiant = $mysqli->query($sqlEtudiant);
         $nbEtu = $resultEtudiant->num_rows;
         if ($nbEtu) {
