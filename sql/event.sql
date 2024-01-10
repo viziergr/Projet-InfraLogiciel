@@ -9,5 +9,4 @@ CREATE TABLE `event` (
   `creator_id` int NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
-  KEY `creator_id` (`creator_id`),
 ) 
