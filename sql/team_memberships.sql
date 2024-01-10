@@ -4,5 +4,5 @@ CREATE TABLE `team_memberships` (
   `team_id` int NOT NULL,
   `role` enum('Leader','Co-leader','Elder','Member') NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `id_UNIQUE` (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`)
 )

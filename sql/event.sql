@@ -8,5 +8,5 @@ CREATE TABLE `event` (
   `is_private` tinyint(1) NOT NULL,
   `creator_id` int NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `id_UNIQUE` (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`)
 ) 
