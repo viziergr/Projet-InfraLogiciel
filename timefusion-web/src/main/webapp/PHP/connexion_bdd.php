@@ -8,7 +8,7 @@ function connectDB() {
     $infoBdd = [
         'server' => 'localhost',
         'login' => 'root',
-        'password' => '',
+        'password' => 'root',
         'db_name' => 'essai_infra',
     ];
 
