@@ -18,6 +18,8 @@ git clone https://github.com/viziergr/Projet-InfraLogiciel.git
 mkdir /var/www/html/siteweb/
 cp -r /var/www/html/git/Projet-InfraLogiciel/timefusion-web/src/main/webapp/* /var/www/html/siteweb/
 cp -r /var/www/html/siteweb/HTML/* /var/www/html/siteweb/
+mkdir /var/www/html/siteweb/myadmin
+mv /var/www/html/myadmin/* /var/www/html/siteweb/myadmin/
 
 # modification de la configuration du site 000-default.conf pour pointer sur le dossier siteweb
 sed -i 's/DocumentRoot \/var\/www\/html/DocumentRoot \/var\/www\/html\/siteweb/g' /etc/apache2/sites-available/000-default.conf
