@@ -6,6 +6,4 @@ CREATE TABLE `event_participant` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `unique_participant` (`event_id`,`participant_id`),
   KEY `event_participant_ibfk_2` (`participant_id`),
---   CONSTRAINT `event_participant_ibfk_1` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`),
---   CONSTRAINT `event_participant_ibfk_2` FOREIGN KEY (`participant_id`) REFERENCES `user` (`id`)
 )

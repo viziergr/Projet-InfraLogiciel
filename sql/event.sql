@@ -10,5 +10,4 @@ CREATE TABLE `event` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   KEY `creator_id` (`creator_id`),
---   CONSTRAINT `event_ibfk_1` FOREIGN KEY (`creator_id`) REFERENCES `user` (`id`)
 ) 
