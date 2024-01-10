@@ -32,12 +32,6 @@
         <a href="..\PHP\Inscription.php">
             <button id="btnRed1" type="button">Inscrivez vous</button>
         </a>
-    <?php else: ?>
-        <div class="text-center mt-5">
-            <?php echo "Bonjour " . $prenom . " " . $nom . ", vous êtes désormais connecté." ?>
-            <br>
-            <a href="?logout=1" class="btn btn-secondary mt-3">Se déconnecter</a>
-        </div>
     <?php endif; ?>
 </body>
 
