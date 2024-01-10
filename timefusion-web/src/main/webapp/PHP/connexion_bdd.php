@@ -6,9 +6,9 @@ ini_set('display_startup_errors', 'On');
 function connectDB() {
 
     $infoBdd = [
-        'server' => 'localhost',
+        'server' => '192.168.56.81',
         'login' => 'root',
-        'password' => '',
+        'password' => 'root',
         'db_name' => 'essai_infra',
     ];
 
