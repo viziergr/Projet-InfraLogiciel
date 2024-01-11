@@ -1,6 +1,6 @@
 <?php
 
-namespace TimeFusion\Date;
+namespace TimeFusion\Calendar;
 
 class Month {
 

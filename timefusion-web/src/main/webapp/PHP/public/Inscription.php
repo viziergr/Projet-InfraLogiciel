@@ -1,11 +1,11 @@
-<?php include 'gestion_inscription.php'; ?>
+<?php include '/src/Log/gestion_inscription.php'; ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <html>
 <head>
     <title>Inscription</title>
-    <link rel="stylesheet" href="..\CSS\code.css">
+    <link rel="stylesheet" href="..\..\CSS\code.css">
     <meta charset="utf-8">
     <style>
         input[type="text"], input[type="password"], input[type="email"], input[type="date"] {
@@ -17,10 +17,10 @@
 </head>
 <body>
     <h1 id="bvn2">Bienvenue</h1>
-    <img id="img2" src="..\pictures\Logo.png" alt="Logo Time Fusion">
+    <img id="img2" src="..\..\pictures\Logo.png" alt="Logo Time Fusion">
     <div class="home">
         <a href="..\HTML\index.html">
-            <img id="home" src="..\pictures\home.png" alt="Accueil">
+            <img id="home" src="..\..\pictures\home.png" alt="Accueil">
         </a>
     </div>
     <form method="post">
@@ -50,7 +50,7 @@
         </div>
     </form>
     <p id="dc">Déjà un compte ?</p>
-    <a href="..\PHP\Connexion.php">
+    <a href="..\..\PHP\Connexion.php">
         <button id="btnRed2" type="button">Connectez vous</button>
     </a>
 </body>
