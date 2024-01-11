@@ -8,7 +8,7 @@ function connectDB() {
     $infoBdd = [
         'server' => '192.168.56.81',
         'login' => 'root',
-        'password' => 'root',
+        'password' => '',
         'db_name' => 'TimeFusion',
     ];
 
