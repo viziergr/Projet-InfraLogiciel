@@ -25,7 +25,7 @@
     <div class="inscription">
         <img src="..\..\pictures\Logo.png" alt="Logo Time Fusion">
         <h1>Bienvenue</h1>
-         <form method="post">
+        <form method="post">
             <div>
                 <input type="text" id="prenom" name="fname" placeholder="Prénom" required><br><br>
             </div>
