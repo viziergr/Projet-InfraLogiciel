@@ -35,7 +35,7 @@ if (isset($_POST['inscription_submit']) && $_POST['inscription_submit'] == 2) {
                 while (!$id_defined){
                     try {
                         $id = rand();
-                        $sql = "INSERT INTO `User` (id, first_name, last_name, email, password) VALUES ('$id','$nom', '$prenom', '$email', '$pwd')";
+                        $sql = "INSERT INTO `User` (id, first_name, last_name, email, password, year) VALUES ('$id','$nom', '$prenom', '$email', '$pwd', '$annee')";
                         $mysqli->query($sql);
                         $id_defined = true;
                         echo "Inscrit";
