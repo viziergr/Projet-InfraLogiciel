@@ -4,9 +4,9 @@
 
 IP=$(hostname -I | awk '{print $2}')
 #Utilisateur a créer (si vide pas de création)
-NOM=""
-MDP=""
-HDIR=""
+NOM="aaa"
+MDP="aaa"
+HDIR="/home/aaa"
 
 APT_OPT="-o Dpkg::Progress-Fancy="0" -q -y"
 LOG_FILE="/vagrant/logs/install_sys.log"
