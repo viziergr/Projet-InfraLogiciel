@@ -6,10 +6,10 @@ ini_set('display_startup_errors', 'On');
 function connectDB() {
 
     $infoBdd = [
-        'server' => '192.168.56.80',
+        'server' => '192.168.56.81',
         'login' => 'root',
-        'password' => 'root',
-        'db_name' => 'essai_infra',
+        'password' => '',
+        'db_name' => 'TimeFusion',
     ];
 
     $mysqli = new mysqli(

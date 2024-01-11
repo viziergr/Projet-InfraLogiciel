@@ -50,7 +50,7 @@
         </div>
     </form>
     <p id="dc">Déjà un compte ?</p>
-    <a href="..\..\PHP\Connexion.php">
+    <a href="..\..\PHP\public\Connexion.php">
         <button id="btnRed2" type="button">Connectez vous</button>
     </a>
 </body>

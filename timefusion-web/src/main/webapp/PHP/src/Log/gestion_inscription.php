@@ -35,12 +35,10 @@ if (isset($_POST['inscription_submit']) && $_POST['inscription_submit'] == 2) {
                 while (!$id_defined){
                     try {
                         $id = rand();
-                        $sql = "INSERT INTO `User` (id, first_name, last_name, email, password, year) VALUES ('$id','$nom', '$prenom', '$email', '$pwd', '$annee')";
+                        $sql = "INSERT INTO `User` (id, first_name, last_name, email, password) VALUES ('$id','$nom', '$prenom', '$email', '$pwd')";
                         $mysqli->query($sql);
                         $id_defined = true;
                         echo "Inscrit";
-                        // affichage de l'annee pour le test
-                        echo $annee;
                     } catch (mysqli_sql_exception $e) {
                         echo "". $e->getMessage() ."";
                     }
@@ -48,6 +46,7 @@ if (isset($_POST['inscription_submit']) && $_POST['inscription_submit'] == 2) {
 
             } else {
                 echo "Le mot de passe n'est pas le même.";
+                echo $annee;
             }
         }
     } else {
