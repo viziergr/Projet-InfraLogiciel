@@ -34,4 +34,20 @@ public class EncryptionUtil {
   public static boolean verifyPassword(String password, String hashedPassword) {
     return BCrypt.checkpw(password, hashedPassword);
   }
+
+  public static void main(String[] args) {
+    // Retrieve hashedPassword from your storage (e.g., database)
+    String hashedPassword =
+      "$2y$10$qFjmYe7LWXKXF9/.fUqQKu03oO/hfKT.wVgJWUL.t1KJMW4YJYrcy";
+
+    // User enters password to check
+    String userInputPassword = "your_password";
+
+    // Verify password
+    if (BCrypt.checkpw(userInputPassword, hashedPassword)) {
+      System.out.println("Password is valid!");
+    } else {
+      System.out.println("Password is NOT valid!");
+    }
+  }
 }
