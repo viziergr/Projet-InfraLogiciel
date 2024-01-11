@@ -39,6 +39,8 @@ if (isset($_POST['inscription_submit']) && $_POST['inscription_submit'] == 2) {
                         $mysqli->query($sql);
                         $id_defined = true;
                         echo "Inscrit";
+                        // affichage de l'annee pour le test
+                        echo $annee;
                     } catch (mysqli_sql_exception $e) {
                         echo "". $e->getMessage() ."";
                     }
