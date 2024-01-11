@@ -17,13 +17,13 @@ git clone https://github.com/viziergr/Projet-InfraLogiciel.git
 
 mkdir /var/www/html/siteweb/
 
-rm -r /var/www/html/git/Projet-InfraLogiciel.vscode
-rm -r /var/www/html/git/Projet-InfraLogiciellivrables
-rm -r /var/www/html/git/Projet-InfraLogicieltimefusion-desktop
-rm -r /var/www/html/git/Projet-InfraLogicielVM
-rm /var/www/html/git/Projet-InfraLogicielConfigurations.txt
-rm /var/www/html/git/Projet-InfraLogicielProjetInfraLog.drawio
-rm /var/www/html/git/Projet-InfraLogicielREADME.md
+rm -r /var/www/html/git/Projet-InfraLogiciel/.vscode
+rm -r /var/www/html/git/Projet-InfraLogiciel/livrables
+rm -r /var/www/html/git/Projet-InfraLogiciel/timefusion-desktop
+rm -r /var/www/html/git/Projet-InfraLogiciel/VM
+rm /var/www/html/git/Projet-InfraLogiciel/Configurations.txt
+rm /var/www/html/git/Projet-InfraLogiciel/ProjetInfraLog.drawio
+rm /var/www/html/git/Projet-InfraLogiciel/README.md
 
 cp -r /var/www/html/git/Projet-InfraLogiciel/timefusion-web/src/main/webapp/* /var/www/html/siteweb/
 cp -r /var/www/html/siteweb/HTML/* /var/www/html/siteweb/
