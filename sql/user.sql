@@ -4,7 +4,7 @@ CREATE TABLE `User` (
   `password` varchar(80) NOT NULL,
   `first_name` varchar(45) NOT NULL,
   `last_name` varchar(45) NOT NULL,
-  `year` date NOT NULL,
+  `year` DATE NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
 ) 

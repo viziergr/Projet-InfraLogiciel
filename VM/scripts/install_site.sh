@@ -19,7 +19,7 @@ mkdir /var/www/html/siteweb/
 
 rm -r /var/www/html/git/Projet-InfraLogiciel/.vscode
 rm -r /var/www/html/git/Projet-InfraLogiciel/livrables
-rm -r /var/www/html/git/Projet-InfraLogiciel/timefusion-desktop
+rm -r /var/www/html/git/Projet-InfraLogiciel/timefusion-dekstop
 rm -r /var/www/html/git/Projet-InfraLogiciel/VM
 rm /var/www/html/git/Projet-InfraLogiciel/Configurations.txt
 rm /var/www/html/git/Projet-InfraLogiciel/ProjetInfraLog.drawio

@@ -32,6 +32,7 @@ if (isset($_POST['inscription_submit']) && $_POST['inscription_submit'] == 2) {
             if ($pwd == $cpwd) {
                 // Requête SQL pour insérer l'étudiant dans la table
                 $id_defined = false;
+                echo "Inscription en cours...";
                 while (!$id_defined){
                     try {
                         $id = rand();
@@ -39,8 +40,6 @@ if (isset($_POST['inscription_submit']) && $_POST['inscription_submit'] == 2) {
                         $mysqli->query($sql);
                         $id_defined = true;
                         echo "Inscrit";
-                        // affichage de l'annee pour le test
-                        echo $annee;
                     } catch (mysqli_sql_exception $e) {
                         echo "". $e->getMessage() ."";
                     }
@@ -48,6 +47,7 @@ if (isset($_POST['inscription_submit']) && $_POST['inscription_submit'] == 2) {
 
             } else {
                 echo "Le mot de passe n'est pas le même.";
+                echo $annee;
             }
         }
     } else {

@@ -3,7 +3,7 @@
 <html>
 <head>
     <title>Inscription</title>
-    <link rel="stylesheet" href="..\CSS\code.css">
+    <link rel="stylesheet" href="C:\Users\gross\Documents\Eseo\E4e\S7\LD\projetld2\Projet-InfraLogiciel\timefusion-web\src\main\webapp\CSS\code.css">
     <meta charset="utf-8">
     <style>
         input[type="text"], input[type="password"], input[type="email"], input[type="date"] {
@@ -14,42 +14,48 @@
     </style>
 </head>
 <body>
-    <h1 id="bvn2">Bienvenue</h1>
-    <img id="img2" src="..\pictures\Logo.png" alt="Logo Time Fusion">
-    <div class="home">
+    <div class="bande">
         <a href="index.html">
-            <img id="home" src="..\pictures\home.png" alt="Accueil">
+            <img src="C:\Users\gross\Documents\Eseo\E4e\S7\LD\projetld2\Projet-InfraLogiciel\timefusion-web\src\main\webapp\pictures\home.png" alt="Accueil">
         </a>
     </div>
-    <form>
-        <div>
-            <input type="text" id="prenom" name="prenom" placeholder="Prénom" required><br><br>
-        </div>
-        <div>
-            <input type="text" id="nom" name="nom" placeholder="Nom" required><br><br>
-        </div>
-        <div>
-            <input type="email" id="email2" name="email" placeholder="E-mail" required><br><br>
-        </div>
-        <div>
-            <input type="date" id="date" name="date" required><br><br>
-        </div>
-        <div>
-            <input type="text" id="username" name="username" placeholder="Nom d'utilisateur" required><br><br>
-        </div>
-        <div>
-            <input type="password" id="password2" name="password" placeholder="Mot de passe" required><br><br>
-        </div>
-        <div>
-            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirmer le mot de passe" required><br><br>
-        </div>
-        <div>
-            <input type="submit" id="boutonBleu2" value="Inscription">
-        </div>
-    </form>
-    <p id="dc">Déjà un compte ?</p>
-    <a href="Connexion.html">
-        <button id="btnRed2" type="button">Connectez vous</button>
-    </a>
+
+    <div class="inscription">
+        <img src="C:\Users\gross\Documents\Eseo\E4e\S7\LD\projetld2\Projet-InfraLogiciel\timefusion-web\src\main\webapp\pictures\Logo.png">
+        <h1>Bienvenue</h1>
+        <form>
+            <div>
+                <input type="text" id="prenom" name="prenom" placeholder="Prénom" required><br><br>
+            </div>
+            <div>
+                <input type="text" id="nom" name="nom" placeholder="Nom" required><br><br>
+            </div>
+            <div>
+                <input type="email" id="email" name="email" placeholder="E-mail" required><br><br>
+            </div>
+            <div>
+                <input type="date" id="date" name="date" placeholder="Date de naissance" required><br><br>
+            </div>
+            <div>
+                <input type="text" id="username" name="username" placeholder="Nom d'utilisateur" required><br><br>
+            </div>
+            <div>
+                <input type="password" id="password" name="password" placeholder="Mot de passe" required><br><br>
+            </div>
+            <div>
+                <input type="password" id="password" name="confirmPassword" placeholder="Confirmer le mot de passe" required><br><br>
+            </div>
+            <div>
+                <input type="submit" id="boutonInscription" value="Inscription">
+            </div>
+        </form>
+    </div>
+
+    <div class="redirectionConnexion">
+        <p>Déjà un compte ?</p>
+        <a href="Connexion.html">
+            <button type="button">Connectez vous</button>
+        </a>
+    </div>
 </body>
 </html>
