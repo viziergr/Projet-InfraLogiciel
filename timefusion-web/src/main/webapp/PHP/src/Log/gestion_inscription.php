@@ -1,6 +1,6 @@
 <?php
 
-require_once("connexion_bdd.php");
+require_once("../bootstrap.php");
 
 if (isset($_POST['inscription_submit']) && $_POST['inscription_submit'] == 2) {
     //Gestion de l'inscription

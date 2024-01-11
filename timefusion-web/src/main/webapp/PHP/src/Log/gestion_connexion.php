@@ -1,7 +1,7 @@
 <?php
 
 //Inclure la connexion à la BDD
-require_once("connexion_bdd.php");
+require_once("../bootstrap.php");
 
 session_start();
 
