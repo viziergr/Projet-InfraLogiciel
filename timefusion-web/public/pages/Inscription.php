@@ -1,12 +1,12 @@
-<?php include '/src/Log/gestion_inscription.php'; 
-require '..\src\bootstrap.php'?>
+<?php include 'scripts/gestion_inscription.php'; 
+require 'scripts/bootstrap.php'?>
 
 <!DOCTYPE html>
 <html lang="en">
 <html>
 <head>
     <title>Inscription</title>
-    <link rel="stylesheet" href="..\..\CSS\code.css">
+    <link rel="stylesheet" href="assets/CSS/code.css">
     <meta charset="utf-8">
     <style>
         input[type="text"], input[type="password"], input[type="email"], input[type="date"] {
@@ -18,13 +18,13 @@ require '..\src\bootstrap.php'?>
 </head>
 <body>
     <div class="bande">
-        <a href="..\..\HTML\index.html">
-            <img id="home" src="..\..\pictures\home.png" alt="Accueil">
+        <a href="index.html">
+            <img id="home" src="../assets/pictures/home.png" alt="Accueil">
         </a>
     </div>
 
     <div class="inscription">
-        <img src="..\..\pictures\Logo.png" alt="Logo Time Fusion">
+        <img src="assets/pictures/Logo.png" alt="Logo Time Fusion">
         <h1>Bienvenue</h1> 
         <form method="post">
             <div>
