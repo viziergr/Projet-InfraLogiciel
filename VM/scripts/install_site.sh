@@ -26,7 +26,8 @@ rm /var/www/html/git/Projet-InfraLogiciel/ProjetInfraLog.drawio
 rm /var/www/html/git/Projet-InfraLogiciel/README.md
 
 cp -r /var/www/html/git/Projet-InfraLogiciel/timefusion-web/src/main/webapp/* /var/www/html/siteweb/
-cp -r /var/www/html/siteweb/HTML/* /var/www/html/siteweb/
+cp -r /var/www/html/siteweb/PHP/public/* /var/www/html/siteweb/public/
+cp -r /var/www/html/siteweb/public/index.html /var/www/html/siteweb/index.html
 mkdir /var/www/html/siteweb/myadmin
 mv /var/www/html/myadmin/* /var/www/html/siteweb/myadmin/
 
