@@ -11,9 +11,9 @@ function e404(){
 function connectDB() {
 
     $infoBdd = [
-        'server' => '192.168.56.80',
+        'server' => 'localhost',
         'login' => 'root',
-        'password' => 'root',
+        'password' => '',
         'db_name' => 'essai_infra',
     ];
 
