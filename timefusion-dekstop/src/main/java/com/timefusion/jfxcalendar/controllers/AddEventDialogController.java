@@ -138,6 +138,16 @@ public class AddEventDialogController {
     addFocusLostListener(descriptionTextField);
   }
 
+  /**
+   * Adds a focus lost listener to the given TextField.
+   * When the TextField loses focus, it performs validation based on the type of TextField.
+   * If the TextField is fromTextField or toTextField, it validates the time format.
+   * If the TextField is titleField, it validates the title.
+   * If the TextField is locationField, it validates the location.
+   * If the TextField is descriptionTextField, it validates the description.
+   *
+   * @param textField the TextField to add the focus lost listener to
+   */
   private void addFocusLostListener(TextField textField) {
     textField
       .focusedProperty()
@@ -156,6 +166,13 @@ public class AddEventDialogController {
       });
   }
 
+  /**
+   * Validates the time format of the given text field.
+   * If the input is not empty and is not in the format HH:mm (e.g., 11:00),
+   * an error alert is displayed.
+   *
+   * @param textField the text field to validate
+   */
   private void validateTimeFormat(TextField textField) {
     String input = textField.getText().trim();
     if (!input.isEmpty() && !isValidTimeFormat(input)) {
@@ -167,10 +184,25 @@ public class AddEventDialogController {
     }
   }
 
+  /**
+   * Checks if the input string has a valid time format.
+   * The valid time format is "HH:mm" where HH is the hour in 24-hour format and mm is the minutes.
+   *
+   * @param input the string to be checked
+   * @return true if the input has a valid time format, false otherwise
+   */
   private boolean isValidTimeFormat(String input) {
     return input.matches("\\d{1,2}:\\d{2}");
   }
 
+  /**
+   * Displays an error alert with the specified title and content.
+   * Clears the provided TextField after displaying the alert.
+   *
+   * @param title     the title of the error alert
+   * @param content   the content of the error alert
+   * @param textField the TextField to be cleared after displaying the alert
+   */
   private void showErrorAlert(
     String title,
     String content,
@@ -185,6 +217,12 @@ public class AddEventDialogController {
     textField.clear();
   }
 
+  /**
+   * Validates the title entered in the text field.
+   * If the title exceeds 100 characters, an error alert is displayed.
+   *
+   * @param textField the text field containing the title
+   */
   private void validateTitle(TextField textField) {
     String input = textField.getText().trim();
     if (input.length() > 100) {
@@ -196,6 +234,12 @@ public class AddEventDialogController {
     }
   }
 
+  /**
+   * Validates the location input in the text field.
+   * If the input exceeds 50 characters, an error alert is displayed.
+   *
+   * @param textField the text field containing the location input
+   */
   private void validateLocation(TextField textField) {
     String input = textField.getText().trim();
     if (input.length() > 50) {
@@ -207,6 +251,12 @@ public class AddEventDialogController {
     }
   }
 
+  /**
+   * Validates the description entered in the text field.
+   * If the description exceeds 150 characters, an error alert is displayed.
+   *
+   * @param textField the text field containing the description
+   */
   private void validateDescription(TextField textField) {
     String input = textField.getText().trim();
     if (input.length() > 150) {
