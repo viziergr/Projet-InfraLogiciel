@@ -1,8 +1,6 @@
 <?php
 
-//Inclure la connexion à la BDD
-require_once("../bootstrap.php");
-
+require_once '../src/bootstrap.php';
 session_start();
 
 // Si le formulaire est soumis pour connexion

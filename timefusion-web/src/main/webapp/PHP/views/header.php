@@ -8,5 +8,5 @@
 <body>
 
 <nav class="navbar navbar-dark bg-primary mb-3">
-    <a href="/index.php" class="navbar-brand">Mon calendrier</a>
+    <a href="/index.php" class="navbar-brand">TimeFusion</a>
 </nav>
