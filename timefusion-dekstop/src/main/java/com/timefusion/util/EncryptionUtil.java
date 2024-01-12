@@ -18,7 +18,7 @@ public class EncryptionUtil {
    */
   public static String hashPassword(String password) {
     // Set the BCrypt workload factor
-    int workload = 12;
+    int workload = 10;
 
     // Return hashed password
     return BCrypt.hashpw(password, BCrypt.gensalt(workload));
@@ -36,18 +36,10 @@ public class EncryptionUtil {
   }
 
   public static void main(String[] args) {
-    // Retrieve hashedPassword from your storage (e.g., database)
-    String hashedPassword =
-      "$2y$10$qFjmYe7LWXKXF9/.fUqQKu03oO/hfKT.wVgJWUL.t1KJMW4YJYrcy";
+    String password = "password";
+    String hashedPassword = hashPassword(password);
 
-    // User enters password to check
-    String userInputPassword = "your_password";
-
-    // Verify password
-    if (BCrypt.checkpw(userInputPassword, hashedPassword)) {
-      System.out.println("Password is valid!");
-    } else {
-      System.out.println("Password is NOT valid!");
-    }
+    System.out.println("Password: " + password);
+    System.out.println("Hashed Password: " + hashedPassword);
   }
 }

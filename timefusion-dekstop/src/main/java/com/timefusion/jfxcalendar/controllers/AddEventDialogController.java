@@ -1,298 +1,433 @@
 package com.timefusion.jfxcalendar.controllers;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXCheckBox;
-import com.jfoenix.controls.JFXRadioButton;
-import com.jfoenix.controls.JFXTabPane;
-import com.jfoenix.controls.JFXTextField;
-import com.timefusion.jfxcalendar.model.CalendarEvent;
+/**
+ * Sample Skeleton for 'AddEventDialog.fxml' Controller Class
+ */
+
+import java.net.URL;
+import java.time.LocalDate;
+import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
 public class AddEventDialogController {
 
   @FXML
-  private JFXTabPane tabPane;
+  private ResourceBundle resources;
 
   @FXML
-  private JFXTextField titleField;
+  private URL location;
 
   @FXML
-  private JFXButton optionalEventButton;
+  private TextField fromTextField;
 
   @FXML
-  private JFXButton standardEventButton;
+  private TextField locationField;
 
   @FXML
-  private JFXButton importantEventButton;
+  private TextField titleField;
 
   @FXML
-  private JFXButton criticalEventButton;
-
-  @FXML
-  private JFXTabPane customTabPane;
+  private Button publicEventButton;
 
   @FXML
   private DatePicker dateField;
 
   @FXML
-  private TextArea eventNote1;
+  private Button addEventButton;
 
   @FXML
-  private TextArea eventNote2;
+  private Button privateEventButton;
 
   @FXML
-  private JFXRadioButton everyWeekRB;
+  private TextField toTextField;
 
   @FXML
-  private JFXRadioButton everyMonthRB;
+  private TextField descriptionTextField;
 
-  @FXML
-  private JFXRadioButton everyYearRB;
+  private boolean isPrivate;
 
-  @FXML
-  private JFXCheckBox mondayCB;
-
-  @FXML
-  private JFXCheckBox tuesdayCB;
-
-  @FXML
-  private JFXCheckBox wednesdayCB;
-
-  @FXML
-  private JFXCheckBox thursdayCB;
-
-  @FXML
-  private JFXCheckBox fridayCB;
-
-  @FXML
-  private JFXCheckBox saturdayCB;
-
-  @FXML
-  private JFXCheckBox sundayCB;
-
-  @FXML
-  private JFXCheckBox startOfTheMonthCB;
-
-  @FXML
-  private JFXCheckBox endOfTheMonthCB;
-
-  @FXML
-  private DatePicker yearlyDatePicker;
-
-  private int eventType;
-
-  @FXML
-  public void initialize() {
-    addPriorityButtonListeners();
-
-    addPeriodicChoisesListeners();
-
-    optionalEventButton.fire();
-    everyWeekRB.fire();
+  /**
+   * Sets the location field to the given location
+   * @param isPrivate
+   */
+  public void eventSetPrivate(boolean isPrivate) {
+    this.isPrivate = isPrivate;
   }
 
-  private void addPeriodicChoisesListeners() {
-    everyWeekRB.setOnAction(e -> {
-      resetAndDisableAll();
-      mondayCB.setDisable(false);
-      tuesdayCB.setDisable(false);
-      wednesdayCB.setDisable(false);
-      thursdayCB.setDisable(false);
-      fridayCB.setDisable(false);
-      saturdayCB.setDisable(false);
-      sundayCB.setDisable(false);
-    });
-
-    everyMonthRB.setOnAction(e -> {
-      resetAndDisableAll();
-      startOfTheMonthCB.setDisable(false);
-      endOfTheMonthCB.setDisable(false);
-    });
-
-    everyYearRB.setOnAction(e -> {
-      resetAndDisableAll();
-      yearlyDatePicker.setDisable(false);
-    });
+  /**
+   * Returns the location of the event
+   * @return boolean isPrivate
+   */
+  public boolean eventIsPrivate() {
+    return isPrivate;
   }
 
-  private void resetAndDisableAll() {
-    mondayCB.setSelected(false);
-    tuesdayCB.setSelected(false);
-    wednesdayCB.setSelected(false);
-    thursdayCB.setSelected(false);
-    fridayCB.setSelected(false);
-    saturdayCB.setSelected(false);
-    sundayCB.setSelected(false);
-    startOfTheMonthCB.setSelected(false);
-    endOfTheMonthCB.setSelected(false);
-    yearlyDatePicker.setValue(null);
+  @FXML
+  void mouse(ActionEvent event) {}
 
-    mondayCB.setDisable(true);
-    tuesdayCB.setDisable(true);
-    wednesdayCB.setDisable(true);
-    thursdayCB.setDisable(true);
-    fridayCB.setDisable(true);
-    saturdayCB.setDisable(true);
-    sundayCB.setDisable(true);
-    startOfTheMonthCB.setDisable(true);
-    endOfTheMonthCB.setDisable(true);
-    yearlyDatePicker.setDisable(true);
-  }
-
-  private void addPriorityButtonListeners() {
-    // Event Button Listeners
-    optionalEventButton.setOnAction(e -> {
-      cleanSelection();
-      eventType = CalendarEvent.OPTIONAL;
-      optionalEventButton.setStyle(
-        "-fx-background-color : #4C95CE; -fx-background-radius:15;"
-      );
-    });
-
-    standardEventButton.setOnAction(e -> {
-      cleanSelection();
-      eventType = CalendarEvent.STANDARD;
-      standardEventButton.setStyle(
-        "-fx-background-color : #81C457; -fx-background-radius:15;"
-      );
-    });
-
-    importantEventButton.setOnAction(e -> {
-      cleanSelection();
-      eventType = CalendarEvent.IMPORTANT;
-      importantEventButton.setStyle(
-        "-fx-background-color : #F8D500; -fx-background-radius:15;"
-      );
-    });
-
-    criticalEventButton.setOnAction(e -> {
-      cleanSelection();
-      eventType = CalendarEvent.URGENT;
-      criticalEventButton.setStyle(
-        "-fx-background-color : #E85569; -fx-background-radius:15;"
-      );
-    });
-  }
-
-  private void cleanSelection() {
-    eventType = -1;
-    optionalEventButton.setStyle(
-      "-fx-background-color : #BDC6CC ; -fx-background-radius:15; "
+  /**
+   * Handles the action event when the public event button is clicked.
+   * Sets the event as public and updates the UI.
+   *
+   * @param event the action event triggered by clicking the public event button
+   */
+  @FXML
+  void handlePublicEvent(ActionEvent event) {
+    eventSetPrivate(false);
+    System.out.println("Public Event " + eventIsPrivate());
+    publicEventButton.setStyle(
+      "-fx-background-color: #4C95CE; -fx-background-radius: 15; -fx-border-color: #4C95CE;"
     );
-    standardEventButton.setStyle(
-      "-fx-background-color : #BDC6CC ; -fx-background-radius:15;"
-    );
-    importantEventButton.setStyle(
-      "-fx-background-color : #BDC6CC ; -fx-background-radius:15;"
-    );
-    criticalEventButton.setStyle(
-      "-fx-background-color : #BDC6CC ; -fx-background-radius:15;"
+    privateEventButton.setStyle(
+      "-fx-background-color: rgba(0, 0, 0, 0.3); -fx-background-radius: 15; -fx-border-color: rgba(0, 0, 0, 0.3);"
     );
   }
 
-  public int getEventType() {
-    return eventType;
+  /**
+   * Handles the action event when the private event button is clicked.
+   * Sets the event as private and updates the button styles accordingly.
+   *
+   * @param event the action event triggered by clicking the private event button
+   */
+  @FXML
+  void handlePrivateEvent(ActionEvent event) {
+    eventSetPrivate(true);
+    System.out.println("Private Event " + eventIsPrivate());
+    privateEventButton.setStyle(
+      "-fx-background-color: #81C457; -fx-background-radius: 15; -fx-border-color: #81C457;"
+    );
+    publicEventButton.setStyle(
+      "-fx-background-color: rgba(0, 0, 0, 0.3); -fx-background-radius: 15; -fx-border-color: rgba(0, 0, 0, 0.3);"
+    );
   }
 
-  public void clear() {
-    cleanSelection();
-    eventNote1.setText("");
-    eventNote2.setText("");
-    titleField.setText("");
-
-    dateField.setValue(null);
-    yearlyDatePicker.setValue(null);
-
-    tabPane.getSelectionModel().select(0);
-
-    optionalEventButton.fire();
-    everyWeekRB.fire();
+  @FXML
+  void handleAddEvent(ActionEvent event) {
+    // Handle logic for adding the event
   }
 
-  public CalendarEvent getEvent() {
-    String title = titleField.getText();
-    if (title.isEmpty()) {
-      return null;
-    }
+  @FXML // This method is called by the FXMLLoader when initialization is complete
+  void initialize() {
+    assert fromTextField !=
+    null : "fx:id=\"fromTextField\" was not injected: check your FXML file 'AddEventDialog.fxml'.";
+    assert locationField !=
+    null : "fx:id=\"locationField\" was not injected: check your FXML file 'AddEventDialog.fxml'.";
+    assert titleField !=
+    null : "fx:id=\"titleField\" was not injected: check your FXML file 'AddEventDialog.fxml'.";
+    assert publicEventButton !=
+    null : "fx:id=\"publicEventButton\" was not injected: check your FXML file 'AddEventDialog.fxml'.";
+    assert dateField !=
+    null : "fx:id=\"dateField\" was not injected: check your FXML file 'AddEventDialog.fxml'.";
+    assert addEventButton !=
+    null : "fx:id=\"addEventButton\" was not injected: check your FXML file 'AddEventDialog.fxml'.";
+    assert privateEventButton !=
+    null : "fx:id=\"privateEventButton\" was not injected: check your FXML file 'AddEventDialog.fxml'.";
+    assert toTextField !=
+    null : "fx:id=\"toTextField\" was not injected: check your FXML file 'AddEventDialog.fxml'.";
+    assert descriptionTextField !=
+    null : "fx:id=\"descriptionTextField\" was not injected: check your FXML file 'AddEventDialog.fxml'.";
 
-    CalendarEvent event = null;
+    addFocusLostListener(fromTextField);
+    addFocusLostListener(toTextField);
+    addFocusLostListener(titleField);
+    addFocusLostListener(locationField);
+    addFocusLostListener(descriptionTextField); //[TODO] : Create validation for description
+  }
 
-    if (tabPane.getSelectionModel().getSelectedIndex() == 0) {
-      if (dateField.getValue() != null) {
-        event = new CalendarEvent(title, eventType, eventNote1.getText());
-        event.setType(CalendarEvent.ONE_TIME_EVENT);
-        event.setDate(dateField.getValue());
-      }
-    } else {
-      if (everyWeekRB.isSelected() && hasDaysSelected()) {
-        // per week
-        event = new CalendarEvent(title, eventType, eventNote2.getText());
-        event.setType(CalendarEvent.RECURRING_EVENT);
-        event.setPeriodicType(CalendarEvent.PER_WEEK);
-        event.setDaysInWeek(collectDaysInWeek());
-      } else if (everyMonthRB.isSelected() && hasMonthPlaceSelected()) {
-        // per month
-        event = new CalendarEvent(title, eventType, eventNote2.getText());
-        event.setType(CalendarEvent.RECURRING_EVENT);
-        event.setPeriodicType(CalendarEvent.PER_MONTH);
-        if (startOfTheMonthCB.isSelected()) {
-          event.setPlaceInMonth(CalendarEvent.START_OF_MONTH);
-        } else {
-          event.setPlaceInMonth(CalendarEvent.END_OF_MONTH);
+  private void addFocusLostListener(TextField textField) {
+    textField
+      .focusedProperty()
+      .addListener((observable, oldValue, newValue) -> {
+        if (!newValue) {
+          if (textField == fromTextField || textField == toTextField) {
+            validateTimeFormat(textField);
+          } else if (textField == titleField) {
+            validateTitle(textField);
+          } else if (textField == locationField) {
+            validateLocation(textField);
+          }
         }
-      } else if (yearlyDatePicker.getValue() != null) {
-        // per year
-        event = new CalendarEvent(title, eventType, eventNote2.getText());
-        event.setType(CalendarEvent.RECURRING_EVENT);
-        event.setPeriodicType(CalendarEvent.PER_YEAR);
-        event.setYearlyDate(yearlyDatePicker.getValue());
-      }
-    }
-
-    return event;
+      });
   }
 
-  private boolean hasMonthPlaceSelected() {
-    return startOfTheMonthCB.isSelected() || endOfTheMonthCB.isSelected();
+  private void validateTimeFormat(TextField textField) {
+    String input = textField.getText().trim();
+    if (!input.isEmpty() && !isValidTimeFormat(input)) {
+      showErrorAlert(
+        "Invalid Time Format",
+        "Please enter time in HH:mm format (e.g., 11:00).",
+        textField
+      );
+    }
   }
 
-  private String collectDaysInWeek() {
-    String days = "";
-    if (mondayCB.isSelected()) {
-      days += "1,";
-    }
-    if (tuesdayCB.isSelected()) {
-      days += "2,";
-    }
-    if (wednesdayCB.isSelected()) {
-      days += "3,";
-    }
-    if (thursdayCB.isSelected()) {
-      days += "4,";
-    }
-    if (fridayCB.isSelected()) {
-      days += "5,";
-    }
-    if (saturdayCB.isSelected()) {
-      days += "6,";
-    }
-    if (sundayCB.isSelected()) {
-      days += "7,";
-    }
-    return days;
+  private boolean isValidTimeFormat(String input) {
+    return input.matches("\\d{1,2}:\\d{2}");
   }
 
-  private boolean hasDaysSelected() {
-    return (
-      mondayCB.isSelected() ||
-      tuesdayCB.isSelected() ||
-      wednesdayCB.isSelected() ||
-      thursdayCB.isSelected() ||
-      fridayCB.isSelected() ||
-      saturdayCB.isSelected() ||
-      sundayCB.isSelected()
-    );
+  private void showErrorAlert(
+    String title,
+    String content,
+    TextField textField
+  ) {
+    Alert alert = new Alert(Alert.AlertType.ERROR);
+    alert.setTitle(title);
+    alert.setHeaderText(null);
+    alert.setContentText(content);
+    alert.showAndWait();
+
+    textField.clear();
+  }
+
+  private void validateTitle(TextField textField) {
+    String input = textField.getText().trim();
+    if (input.length() > 100) {
+      showErrorAlert(
+        "Title is Too Long",
+        "Title cannot exceed 100 characters.",
+        textField
+      );
+    }
+  }
+
+  private void validateLocation(TextField textField) {
+    String input = textField.getText().trim();
+    if (input.length() > 50) {
+      showErrorAlert(
+        "Location is Too Long",
+        "Location cannot exceed 50 characters.",
+        textField
+      );
+    }
   }
 }
+//   @FXML
+//   private TabPane tabPane;
+//   @FXML
+//   private TextField titleField;
+//   @FXML
+//   private Button optionalEventButton;
+//   @FXML
+//   private Button standardEventButton;
+//   @FXML
+//   private Button importantEventButton;
+//   @FXML
+//   private Button criticalEventButton;
+//   @FXML
+//   private Tab customTab;
+//   @FXML
+//   private DatePicker dateField;
+//   @FXML
+//   private TextArea eventNote1;
+//   @FXML
+//   private TextArea eventNote2;
+//   @FXML
+//   private RadioButton everyWeekRB;
+//   @FXML
+//   private RadioButton everyMonthRB;
+//   @FXML
+//   private RadioButton everyYearRB;
+//   @FXML
+//   private CheckBox mondayCB;
+//   @FXML
+//   private CheckBox tuesdayCB;
+//   @FXML
+//   private CheckBox wednesdayCB;
+//   @FXML
+//   private CheckBox thursdayCB;
+//   @FXML
+//   private CheckBox fridayCB;
+//   @FXML
+//   private CheckBox saturdayCB;
+//   @FXML
+//   private CheckBox sundayCB;
+//   @FXML
+//   private CheckBox startOfTheMonthCB;
+//   @FXML
+//   private CheckBox endOfTheMonthCB;
+//   @FXML
+//   private DatePicker yearlyDatePicker;
+//   private int eventType;
+//   @FXML
+//   public void initialize() {
+//     addPriorityButtonListeners();
+//     addPeriodicChoicesListeners();
+//     optionalEventButton.fire();
+//     everyWeekRB.fire();
+//   }
+//   private void addPeriodicChoicesListeners() {
+//     everyWeekRB.setOnAction(e -> {
+//       resetAndDisableAll();
+//       enableDaysOfWeek();
+//     });
+//     everyMonthRB.setOnAction(e -> {
+//       resetAndDisableAll();
+//       enableMonthOptions();
+//     });
+//     everyYearRB.setOnAction(e -> {
+//       resetAndDisableAll();
+//       yearlyDatePicker.setDisable(false);
+//     });
+//   }
+//   private void enableDaysOfWeek() {
+//     mondayCB.setDisable(false);
+//     tuesdayCB.setDisable(false);
+//     wednesdayCB.setDisable(false);
+//     thursdayCB.setDisable(false);
+//     fridayCB.setDisable(false);
+//     saturdayCB.setDisable(false);
+//     sundayCB.setDisable(false);
+//   }
+//   private void enableMonthOptions() {
+//     startOfTheMonthCB.setDisable(false);
+//     endOfTheMonthCB.setDisable(false);
+//   }
+//   private void resetAndDisableAll() {
+//     disableAll();
+//   }
+//   private void disableAll() {
+//     disableDaysOfWeek();
+//     disableMonthOptions();
+//     yearlyDatePicker.setDisable(true);
+//   }
+//   private void disableDaysOfWeek() {
+//     mondayCB.setDisable(true);
+//     tuesdayCB.setDisable(true);
+//     wednesdayCB.setDisable(true);
+//     thursdayCB.setDisable(true);
+//     fridayCB.setDisable(true);
+//     saturdayCB.setDisable(true);
+//     sundayCB.setDisable(true);
+//   }
+//   private void disableMonthOptions() {
+//     startOfTheMonthCB.setDisable(true);
+//     endOfTheMonthCB.setDisable(true);
+//   }
+//   private void addPriorityButtonListeners() {
+//     optionalEventButton.setOnAction(e -> setEventType(CalendarEvent.OPTIONAL));
+//     standardEventButton.setOnAction(e -> setEventType(CalendarEvent.STANDARD));
+//     importantEventButton.setOnAction(e -> setEventType(CalendarEvent.IMPORTANT)
+//     );
+//     criticalEventButton.setOnAction(e -> setEventType(CalendarEvent.URGENT));
+//   }
+//   private void setEventType(int type) {
+//     cleanSelection();
+//     eventType = type;
+//     switch (type) {
+//       case CalendarEvent.OPTIONAL:
+//         optionalEventButton.setStyle(
+//           "-fx-background-color : #4C95CE; -fx-background-radius:15;"
+//         );
+//         break;
+//       case CalendarEvent.STANDARD:
+//         standardEventButton.setStyle(
+//           "-fx-background-color : #81C457; -fx-background-radius:15;"
+//         );
+//         break;
+//       case CalendarEvent.IMPORTANT:
+//         importantEventButton.setStyle(
+//           "-fx-background-color : #F8D500; -fx-background-radius:15;"
+//         );
+//         break;
+//       case CalendarEvent.URGENT:
+//         criticalEventButton.setStyle(
+//           "-fx-background-color : #E85569; -fx-background-radius:15;"
+//         );
+//         break;
+//     }
+//   }
+//   private void cleanSelection() {
+//     eventType = -1;
+//     optionalEventButton.setStyle(
+//       "-fx-background-color : #BDC6CC ; -fx-background-radius:15; "
+//     );
+//     standardEventButton.setStyle(
+//       "-fx-background-color : #BDC6CC ; -fx-background-radius:15;"
+//     );
+//     importantEventButton.setStyle(
+//       "-fx-background-color : #BDC6CC ; -fx-background-radius:15;"
+//     );
+//     criticalEventButton.setStyle(
+//       "-fx-background-color : #BDC6CC ; -fx-background-radius:15;"
+//     );
+//   }
+//   public int getEventType() {
+//     return eventType;
+//   }
+//   public void clear() {
+//     cleanSelection();
+//     eventNote1.setText("");
+//     eventNote2.setText("");
+//     titleField.setText("");
+//     dateField.setValue(null);
+//     yearlyDatePicker.setValue(null);
+//     tabPane.getSelectionModel().select(0);
+//     optionalEventButton.fire();
+//     everyWeekRB.fire();
+//   }
+//   public CalendarEvent getEvent() {
+//     String title = titleField.getText();
+//     if (title.isEmpty()) {
+//       return null;
+//     }
+//     CalendarEvent event = null;
+//     if (tabPane.getSelectionModel().getSelectedIndex() == 0) {
+//       if (dateField.getValue() != null) {
+//         event = new CalendarEvent(title, eventType, eventNote1.getText());
+//         event.setType(CalendarEvent.ONE_TIME_EVENT);
+//         event.setDate(dateField.getValue());
+//       }
+//     } else {
+//       if (everyWeekRB.isSelected() && hasDaysSelected()) {
+//         event = new CalendarEvent(title, eventType, eventNote2.getText());
+//         event.setType(CalendarEvent.RECURRING_EVENT);
+//         event.setPeriodicType(CalendarEvent.PER_WEEK);
+//         event.setDaysInWeek(collectDaysInWeek());
+//       } else if (everyMonthRB.isSelected() && hasMonthPlaceSelected()) {
+//         event = new CalendarEvent(title, eventType, eventNote2.getText());
+//         event.setType(CalendarEvent.RECURRING_EVENT);
+//         event.setPeriodicType(CalendarEvent.PER_MONTH);
+//         if (startOfTheMonthCB.isSelected()) {
+//           event.setPlaceInMonth(CalendarEvent.START_OF_MONTH);
+//         } else {
+//           event.setPlaceInMonth(CalendarEvent.END_OF_MONTH);
+//         }
+//       } else if (yearlyDatePicker.getValue() != null) {
+//         event = new CalendarEvent(title, eventType, eventNote2.getText());
+//         event.setType(CalendarEvent.RECURRING_EVENT);
+//         event.setPeriodicType(CalendarEvent.PER_YEAR);
+//         event.setYearlyDate(yearlyDatePicker.getValue());
+//       }
+//     }
+//     return event;
+//   }
+//   private boolean hasMonthPlaceSelected() {
+//     return startOfTheMonthCB.isSelected() || endOfTheMonthCB.isSelected();
+//   }
+//   private String collectDaysInWeek() {
+//     StringBuilder days = new StringBuilder();
+//     if (mondayCB.isSelected()) days.append("1,");
+//     if (tuesdayCB.isSelected()) days.append("2,");
+//     if (wednesdayCB.isSelected()) days.append("3,");
+//     if (thursdayCB.isSelected()) days.append("4,");
+//     if (fridayCB.isSelected()) days.append("5,");
+//     if (saturdayCB.isSelected()) days.append("6,");
+//     if (sundayCB.isSelected()) days.append("7,");
+//     return days.toString();
+//   }
+//   private boolean hasDaysSelected() {
+//     return (
+//       mondayCB.isSelected() ||
+//       tuesdayCB.isSelected() ||
+//       wednesdayCB.isSelected() ||
+//       thursdayCB.isSelected() ||
+//       fridayCB.isSelected() ||
+//       saturdayCB.isSelected() ||
+//       sundayCB.isSelected()
+//     );
+//   }
+// }
