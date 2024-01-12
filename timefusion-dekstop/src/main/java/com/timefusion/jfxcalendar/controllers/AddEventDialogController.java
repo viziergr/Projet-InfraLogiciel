@@ -135,7 +135,7 @@ public class AddEventDialogController {
     addFocusLostListener(toTextField);
     addFocusLostListener(titleField);
     addFocusLostListener(locationField);
-    addFocusLostListener(descriptionTextField); //[TODO] : Create validation for description
+    addFocusLostListener(descriptionTextField);
   }
 
   private void addFocusLostListener(TextField textField) {
@@ -149,6 +149,8 @@ public class AddEventDialogController {
             validateTitle(textField);
           } else if (textField == locationField) {
             validateLocation(textField);
+          } else if (textField == descriptionTextField) {
+            validateDescription(textField);
           }
         }
       });
@@ -200,6 +202,17 @@ public class AddEventDialogController {
       showErrorAlert(
         "Location is Too Long",
         "Location cannot exceed 50 characters.",
+        textField
+      );
+    }
+  }
+
+  private void validateDescription(TextField textField) {
+    String input = textField.getText().trim();
+    if (input.length() > 150) {
+      showErrorAlert(
+        "Description is Too Long",
+        "Description cannot exceed 150 characters.",
         textField
       );
     }
