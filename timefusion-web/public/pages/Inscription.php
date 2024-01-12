@@ -1,5 +1,4 @@
-<?php include 'scripts/gestion_inscription.php'; 
-require 'scripts/bootstrap.php'?>
+<?php include 'scripts/gestion_inscription.php'; ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -24,7 +23,7 @@ require 'scripts/bootstrap.php'?>
     </div>
 
     <div class="inscription">
-        <img src="assets/pictures/Logo.png" alt="Logo Time Fusion">
+        <img src="../assets/pictures/Logo.png" alt="Logo Time Fusion">
         <h1>Bienvenue</h1> 
         <form method="post">
             <div>

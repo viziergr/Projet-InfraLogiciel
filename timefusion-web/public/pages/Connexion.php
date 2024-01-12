@@ -1,24 +1,24 @@
-<?php include '../src/Log/gestion_connexion.php'; ?>
+<?php include '../scripts/gestion_connexion.php'; ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <html>
 <head>
     <title>Formulaire de connexion</title>
-    <link rel="stylesheet" href="..\..\CSS\code.css">
+    <link rel="stylesheet" href="assets/CSS/code.css">
     <meta charset="utf-8">
 </head>
 <body>
 
     <div class="bande">
-        <a href="..\..\HTML\index.html">
-            <img id="home" src="..\..\pictures\home.png" alt="Accueil">
+        <a href="../index.html">
+            <img id="home" src="../assets/pictures/home.png" alt="Accueil">
         </a>
     </div>
 
     <?php if (empty($_SESSION['compte'])): ?>
     <div class="cnx">
-        <img src="..\..\pictures\Logo.png" alt="Logo Time Fusion">    
+        <img src="../assets/pictures/Logo.png" alt="Logo Time Fusion">    
         <h1>Bienvenue</h1>
         <form method="post">
             <div>          
@@ -35,7 +35,7 @@
 
     <div class = "redirectionInscription">  
         <p>Pas de compte ?</p>
-        <a href="..\..\PHP\Inscription.php">
+        <a href="Inscription.php">
             <button type="button">Inscrivez vous</button>
         </a>
     </div>
