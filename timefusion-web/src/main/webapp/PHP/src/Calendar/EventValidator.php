@@ -4,11 +4,9 @@ namespace TimeFusion\Calendar;
 
 class EventValidator {
 
-    public function __construct() {
-    
+    public function validate(array $data) {
+        $this->validate('name','minlength',3);
     }
-
-    public function validate($event) {}
 
 }
 
