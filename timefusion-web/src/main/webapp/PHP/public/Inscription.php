@@ -1,4 +1,5 @@
-<?php include '/src/Log/gestion_inscription.php'; ?>
+<?php include '/src/Log/gestion_inscription.php'; 
+require '..\src\bootstrap.php'?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -45,7 +46,7 @@
                 <input type="password" id="password" name="pwd" placeholder="Mot de passe" required><br><br>
             </div>
             <div>
-                <input type="password" id="confirmPassword" name="cpwd" placeholder="Confirmer le mot de passe" required><br><br>
+                <input type="password" id="password" name="cpwd" placeholder="Confirmer le mot de passe" required><br><br>
             </div>
             <div>
                 <button type="submit" id="boutonInscription" value="2" name="inscription_submit">Inscription</button>

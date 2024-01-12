@@ -29,7 +29,10 @@ cp -r /var/www/html/git/Projet-InfraLogiciel/timefusion-web/src/main/webapp/* /v
 mkdir /var/www/html/siteweb/myadmin
 mv /var/www/html/myadmin/* /var/www/html/siteweb/myadmin/
 mkdir /var/www/html/siteweb/PHP/public/CSS
+mkdir /var/www/html/siteweb/PHP/public/pictures
 cp -r /var/www/html/siteweb/CSS/* /var/www/html/siteweb/PHP/public/CSS
+cp -r /var/www/html/siteweb/pictures/* /var/www/html/siteweb/PHP/public/pictures
+
 # modification de la configuration du site 000-default.conf pour pointer sur le dossier siteweb/PHP/public
 sed -i 's/\/var\/www\/html/\/var\/www\/html\/siteweb\/PHP\/public/g' /etc/apache2/sites-available/000-default.conf
 
