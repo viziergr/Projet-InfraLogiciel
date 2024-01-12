@@ -5,13 +5,10 @@ package com.timefusion.jfxcalendar.controllers;
  */
 
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 
 public class AddEventDialogController {
 
