@@ -32,11 +32,10 @@ if (isset($_POST['inscription_submit']) && $_POST['inscription_submit'] == 2) {
             if ($pwd == $cpwd) {
                 // Requête SQL pour insérer l'étudiant dans la table
                 $id_defined = false;
-                echo "Inscription en cours...";
                 while (!$id_defined){
                     try {
                         $id = rand();
-                        $sql = "INSERT INTO `User` (id, first_name, last_name, email, password, year) VALUES ('$id','$nom', '$prenom', '$email', '$pwd', '$annee')";
+                        $sql = "INSERT INTO User (id, first_name, last_name, email, password, year) VALUES ('$id','$nom', '$prenom', '$email', '$pwd', '$annee')";
                         $mysqli->query($sql);
                         $id_defined = true;
                         echo "Inscrit";
@@ -47,7 +46,6 @@ if (isset($_POST['inscription_submit']) && $_POST['inscription_submit'] == 2) {
 
             } else {
                 echo "Le mot de passe n'est pas le même.";
-                echo $annee;
             }
         }
     } else {

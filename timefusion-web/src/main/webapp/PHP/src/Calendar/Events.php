@@ -75,14 +75,19 @@ class Events {
      * @return array The event details as an associative array.
      * @throws \Exception If no event is found with the given ID.
      */
-    public function find(int $id): array {
+    public function find(int $id): Event {
+        require 'Event.php';
         $result = $this->mysqli->query("SELECT * FROM event WHERE id = $id LIMIT 1")->fetch_assoc();
+    
         if ($result === null) {
-            throw new \Exception("Aucun évènement n\'a été trouvé");
+            throw new \Exception("Aucun évènement n'a été trouvé");
         }
-        return $result;            
+    
+        // Create an instance of Event using the static method
+        $event = Event::createFromDbResult($result);
+    
+        return $event;
     }
-
 }
 
 ?>

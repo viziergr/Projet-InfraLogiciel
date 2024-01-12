@@ -1,3 +1,5 @@
+<?php require '../src/Log/gestion_deconnexion.php'; ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -8,5 +10,12 @@
 <body>
 
 <nav class="navbar navbar-dark bg-primary mb-3">
-    <a href="/index.php" class="navbar-brand">Mon calendrier</a>
+    <a href="/index.php" class="navbar-brand">TimeFusion</a>
+
+    <?php
+    // Check if the user is logged in and display the logout button accordingly
+    if (isset($_SESSION['compte'])) {
+        echo '<a href="?logout=1" class="btn btn-light">Déconnexion</a>';
+    }
+    ?>
 </nav>

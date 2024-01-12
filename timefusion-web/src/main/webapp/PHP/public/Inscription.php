@@ -1,4 +1,5 @@
-<?php include '/src/Log/gestion_inscription.php'; ?>
+<?php include '/src/Log/gestion_inscription.php'; 
+require '..\src\bootstrap.php'?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -18,13 +19,13 @@
 <body>
     <div class="bande">
         <a href="..\..\HTML\index.html">
-            <img  src="..\..\pictures\home.png" alt="Accueil">
+            <img id="home" src="..\..\pictures\home.png" alt="Accueil">
         </a>
     </div>
 
     <div class="inscription">
         <img src="..\..\pictures\Logo.png" alt="Logo Time Fusion">
-        <h1>Bienvenue</h1>
+        <h1>Bienvenue</h1> 
         <form method="post">
             <div>
                 <input type="text" id="prenom" name="fname" placeholder="Prénom" required><br><br>
@@ -53,12 +54,11 @@
         </form>
     </div>
 
-    <div class="redirectionConnexion">
+    <div class = "redirectionConnexion">
         <p>Déjà un compte ?</p>
-        <a href="..\..\PHP\public\Connexion.php">
+        <a href="Connexion.php">
             <button type="button">Connectez vous</button>
         </a>
     </div>
-
 </body>
 </html>
