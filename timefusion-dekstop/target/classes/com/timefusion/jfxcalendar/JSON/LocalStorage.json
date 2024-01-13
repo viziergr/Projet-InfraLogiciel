@@ -43,30 +43,6 @@
             "email": ""
           }
         ]
-      },
-      {
-        "id": 1,
-        "nature": "nature",
-        "is_online": true,
-        "title": "title",
-        "description": "description",
-        "location": "location",
-        "start_time": "start_time",
-        "end_time": "end_time",
-        "participants": [
-          {
-            "id": 1,
-            "first_name": "first_name",
-            "last_name": "last_name",
-            "email": "email"
-          },
-          {
-            "id": 2,
-            "first_name": "first_name",
-            "last_name": "last_name",
-            "email": "email"
-          }
-        ]
       }
     ]
   }

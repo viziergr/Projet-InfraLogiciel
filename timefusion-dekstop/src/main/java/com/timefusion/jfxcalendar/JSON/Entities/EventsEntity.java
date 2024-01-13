@@ -124,6 +124,23 @@ public class EventsEntity {
     );
   }
 
+  public void updateEventEntity() {
+    JsonUtils.updateEntityArray(
+      JsonUtils.JSON_FILENAME,
+      EVENTS_ENTITY_NAME,
+      this.getId(),
+      this.toJsonObject()
+    );
+  }
+
+  public void deleteEventEntity() {
+    JsonUtils.deleteEntityArray(
+      JsonUtils.JSON_FILENAME,
+      EVENTS_ENTITY_NAME,
+      this.getId()
+    );
+  }
+
   private JsonObject toJsonObject() {
     JsonObject jsonObject = new JsonObject();
     jsonObject.addProperty("id", id);
@@ -148,7 +165,7 @@ public class EventsEntity {
 
   public static void main(String[] args) {
     EventsEntity event = new EventsEntity();
-    event.setId(1);
+    event.setId(2);
     event.setNature("nature");
     event.setIs_online(true);
     event.setTitle("title");
@@ -158,19 +175,19 @@ public class EventsEntity {
     event.setEndTime("end_time");
     ParticipantsEntity participant1 = new ParticipantsEntity(
       1,
-      "first_name",
+      "caca1",
       "last_name",
       "email"
     );
     ParticipantsEntity participant2 = new ParticipantsEntity(
       2,
-      "first_name",
+      "cacae",
       "last_name",
       "email"
     );
     event.setParticipants(
       new ParticipantsEntity[] { participant1, participant2 }
     );
-    event.addEventEntity();
+    event.deleteEventEntity();
   }
 }
