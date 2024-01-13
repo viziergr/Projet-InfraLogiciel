@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "EventsEntity",
+            "request": "launch",
+            "mainClass": "com.timefusion/com.timefusion.jfxcalendar.JSON.Entities.EventsEntity",
+            "projectName": "timefusion-dekstop"
+        },
+        {
+            "type": "java",
             "name": "ParticipantsEntity",
             "request": "launch",
             "mainClass": "com.timefusion/com.timefusion.jfxcalendar.JSON.Entities.ParticipantsEntity",

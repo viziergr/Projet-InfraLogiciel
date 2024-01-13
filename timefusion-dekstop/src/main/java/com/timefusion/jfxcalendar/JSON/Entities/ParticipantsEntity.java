@@ -70,20 +70,14 @@ public class ParticipantsEntity implements JsonEntity {
     );
   }
 
-  public JsonArray toJsonArray(ParticipantsEntity[] participantsEntities) {
+  public static JsonArray participantsArrayToJsonArray(
+    ParticipantsEntity[] participants
+  ) {
     JsonArray jsonArray = new JsonArray();
-    jsonArray.add(this.toJsonObject());
+    for (ParticipantsEntity participant : participants) {
+      jsonArray.add(participant.toJsonObject());
+    }
     return jsonArray;
-  }
-
-  @Override
-  public String toJson() {
-    return new Gson().toJson(this);
-  }
-
-  @Override
-  public String toString() {
-    return "ParticipantsEntity{" + "id=" + id + '}';
   }
 
   @Override
@@ -94,6 +88,16 @@ public class ParticipantsEntity implements JsonEntity {
     jsonObject.addProperty("last_name", lastName);
     jsonObject.addProperty("email", email);
     return jsonObject;
+  }
+
+  @Override
+  public String toJson() {
+    return new Gson().toJson(this);
+  }
+
+  @Override
+  public String toString() {
+    return "ParticipantsEntity{" + "id=" + id + '}';
   }
 
   public static void main(String[] args) {

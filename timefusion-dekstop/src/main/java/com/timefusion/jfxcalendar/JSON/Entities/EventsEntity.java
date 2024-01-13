@@ -136,7 +136,7 @@ public class EventsEntity {
     jsonObject.addProperty("end_time", endTime);
     jsonObject.add(
       "participants",
-      ParticipantsEntity.toJsonArray(participants)
+      ParticipantsEntity.participantsArrayToJsonArray(participants)
     );
     return jsonObject;
   }
@@ -144,5 +144,33 @@ public class EventsEntity {
   @Override
   public String toString() {
     return "EventEntity{" + "id=" + id + '}';
+  }
+
+  public static void main(String[] args) {
+    EventsEntity event = new EventsEntity();
+    event.setId(1);
+    event.setNature("nature");
+    event.setIs_online(true);
+    event.setTitle("title");
+    event.setDesciption("description");
+    event.setLocation("location");
+    event.setStartTime("start_time");
+    event.setEndTime("end_time");
+    ParticipantsEntity participant1 = new ParticipantsEntity(
+      1,
+      "first_name",
+      "last_name",
+      "email"
+    );
+    ParticipantsEntity participant2 = new ParticipantsEntity(
+      2,
+      "first_name",
+      "last_name",
+      "email"
+    );
+    event.setParticipants(
+      new ParticipantsEntity[] { participant1, participant2 }
+    );
+    event.addEventEntity();
   }
 }
