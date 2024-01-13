@@ -106,7 +106,7 @@
               </VBox>
       <HBox alignment="CENTER" prefHeight="22.0" prefWidth="310.0">
          <children>
-            <Button fx:id="addEventButton" alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" prefWidth="46.0" style="-fx-background-color: #888c88; -fx-background-radius: 15;" text="Add" textFill="WHITE">
+            <Button fx:id="addEventButton" onAction="#handleAddEvent" alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" prefWidth="46.0" style="-fx-background-color: #888c88; -fx-background-radius: 15;" text="Add" textFill="WHITE">
                <font>
                   <Font name="Calibri" size="14.0" />
                </font>

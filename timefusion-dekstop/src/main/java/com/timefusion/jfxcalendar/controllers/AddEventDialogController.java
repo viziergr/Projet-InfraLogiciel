@@ -37,9 +37,6 @@ public class AddEventDialogController {
   private DatePicker dateField;
 
   @FXML
-  private Button addEventButton;
-
-  @FXML
   private Button privateEventButton;
 
   @FXML
@@ -47,6 +44,9 @@ public class AddEventDialogController {
 
   @FXML
   private TextField descriptionTextField;
+
+  @FXML
+  private Button addEventButton;
 
   private boolean isPrivate;
 
@@ -107,7 +107,7 @@ public class AddEventDialogController {
 
   @FXML
   void handleAddEvent(ActionEvent event) {
-    // Handle logic for adding the event
+    System.out.println("Add Event Button Clicked");
   }
 
   @FXML // This method is called by the FXMLLoader when initialization is complete
@@ -167,12 +167,12 @@ public class AddEventDialogController {
       });
   }
 
-  private void addFocusLostListener(DatePicker datefield) {
-    datefield
+  private void addFocusLostListener(DatePicker dateField) {
+    dateField
       .focusedProperty()
       .addListener((observable, oldValue, newValue) -> {
         if (!newValue) {
-          validateDateFormat(datefield);
+          validateDateFormat(dateField);
         }
       });
   }

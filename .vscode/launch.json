@@ -6,6 +6,48 @@
     "configurations": [
         {
             "type": "java",
+            "name": "ParticipantsEntity",
+            "request": "launch",
+            "mainClass": "com.timefusion/com.timefusion.jfxcalendar.JSON.Entities.ParticipantsEntity",
+            "projectName": "timefusion-dekstop"
+        },
+        {
+            "type": "java",
+            "name": "TeamsEntity",
+            "request": "launch",
+            "mainClass": "com.timefusion/com.timefusion.jfxcalendar.JSON.Entities.TeamsEntity",
+            "projectName": "timefusion-dekstop"
+        },
+        {
+            "type": "java",
+            "name": "InformationEntity",
+            "request": "launch",
+            "mainClass": "com.timefusion/com.timefusion.jfxcalendar.JSON.Entities.InformationEntity",
+            "projectName": "timefusion-dekstop"
+        },
+        {
+            "type": "java",
+            "name": "UserEntity",
+            "request": "launch",
+            "mainClass": "com.timefusion/com.timefusion.jfxcalendar.JSON.Entities.UserEntity",
+            "projectName": "timefusion-dekstop"
+        },
+        {
+            "type": "java",
+            "name": "User",
+            "request": "launch",
+            "mainClass": "com.timefusion/com.timefusion.jfxcalendar.JSON.Entities.User",
+            "projectName": "timefusion-dekstop"
+        },
+        {
+            "type": "java",
+            "name": "JsonUtils",
+            "request": "launch",
+            "mainClass": "com.timefusion/com.timefusion.jfxcalendar.JSON.JsonUtils",
+            "projectName": "timefusion-dekstop"
+        },
+        {
+            "type": "java",
             "name": "MainApp",
             "request": "launch",
             "mainClass": "com.timefusion/com.timefusion.jfxcalendar.model.MainApp",
