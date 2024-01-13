@@ -51,7 +51,7 @@
                                     <Font name="Calibri" size="18.0" />
                                 </font>
                             </Label>
-                            <DatePicker fx:id="dateField" prefHeight="30.0" prefWidth="260.0" promptText="Date" style="-fx-font-size: 16px; -fx-font-family: Calibri;" />
+                            <DatePicker fx:id="dateField" prefHeight="30.0" prefWidth="260.0" promptText="Ex: 13/01/2024" style="-fx-font-size: 16px; -fx-font-family: Calibri;" />
                         </children>
                         <padding>
                             <Insets bottom="10.0" right="10.0" top="15.0" />

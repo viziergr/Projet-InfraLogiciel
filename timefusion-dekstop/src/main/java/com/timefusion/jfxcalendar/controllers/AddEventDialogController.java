@@ -5,6 +5,9 @@ package com.timefusion.jfxcalendar.controllers;
  */
 
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -133,6 +136,7 @@ public class AddEventDialogController {
     addFocusLostListener(titleField);
     addFocusLostListener(locationField);
     addFocusLostListener(descriptionTextField);
+    addFocusLostListener(dateField);
   }
 
   /**
@@ -163,6 +167,16 @@ public class AddEventDialogController {
       });
   }
 
+  private void addFocusLostListener(DatePicker datefield) {
+    datefield
+      .focusedProperty()
+      .addListener((observable, oldValue, newValue) -> {
+        if (!newValue) {
+          validateDateFormat(datefield);
+        }
+      });
+  }
+
   /**
    * Validates the time format of the given text field.
    * If the input is not empty and is not in the format HH:mm (e.g., 11:00),
@@ -179,39 +193,6 @@ public class AddEventDialogController {
         textField
       );
     }
-  }
-
-  /**
-   * Checks if the input string has a valid time format.
-   * The valid time format is "HH:mm" where HH is the hour in 24-hour format and mm is the minutes.
-   *
-   * @param input the string to be checked
-   * @return true if the input has a valid time format, false otherwise
-   */
-  private boolean isValidTimeFormat(String input) {
-    return input.matches("\\d{1,2}:\\d{2}");
-  }
-
-  /**
-   * Displays an error alert with the specified title and content.
-   * Clears the provided TextField after displaying the alert.
-   *
-   * @param title     the title of the error alert
-   * @param content   the content of the error alert
-   * @param textField the TextField to be cleared after displaying the alert
-   */
-  private void showErrorAlert(
-    String title,
-    String content,
-    TextField textField
-  ) {
-    Alert alert = new Alert(Alert.AlertType.ERROR);
-    alert.setTitle(title);
-    alert.setHeaderText(null);
-    alert.setContentText(content);
-    alert.showAndWait();
-
-    textField.clear();
   }
 
   /**
@@ -263,6 +244,86 @@ public class AddEventDialogController {
         textField
       );
     }
+  }
+
+  private void validateDateFormat(DatePicker dateField) {
+    String input = dateField.getEditor().getText().trim();
+    if (!input.isEmpty()) {
+      try {
+        if (!isValidDateFormat(input)) {
+          showErrorAlert(
+            "Invalid Date Format",
+            "Please enter a valid date.",
+            dateField
+          );
+        }
+      } catch (DateTimeParseException e) {
+        showErrorAlert(
+          "Invalid Date Format",
+          "Please enter a valid date.",
+          dateField
+        );
+      }
+    }
+  }
+
+  private boolean isValidDateFormat(String input) {
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+    try {
+      LocalDate parsedDate = LocalDate.parse(input, formatter);
+
+      return !LocalDate.now().isAfter(parsedDate);
+    } catch (DateTimeParseException e) {
+      return false;
+    }
+  }
+
+  /**
+   * Checks if the input string has a valid time format.
+   * The valid time format is "HH:mm" where HH is the hour in 24-hour format and mm is the minutes.
+   *
+   * @param input the string to be checked
+   * @return true if the input has a valid time format, false otherwise
+   */
+  private boolean isValidTimeFormat(String input) {
+    return input.matches("\\d{1,2}:\\d{2}");
+  }
+
+  /**
+   * Displays an error alert with the specified title and content.
+   * Clears the provided TextField after displaying the alert.
+   *
+   * @param title     the title of the error alert
+   * @param content   the content of the error alert
+   * @param textField the TextField to be cleared after displaying the alert
+   */
+  private void showErrorAlert(
+    String title,
+    String content,
+    TextField textField
+  ) {
+    Alert alert = new Alert(Alert.AlertType.ERROR);
+    alert.setTitle(title);
+    alert.setHeaderText(null);
+    alert.setContentText(content);
+    alert.showAndWait();
+
+    textField.clear();
+  }
+
+  private void showErrorAlert(
+    String title,
+    String content,
+    DatePicker dateField
+  ) {
+    Alert alert = new Alert(Alert.AlertType.ERROR);
+    alert.setTitle(title);
+    alert.setHeaderText(null);
+    alert.setContentText(content);
+    alert.showAndWait();
+
+    dateField.getEditor().clear();
   }
 }
 //   @FXML
