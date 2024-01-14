@@ -36,28 +36,17 @@ public class InformationEntity implements JsonEntity {
     this.lastSynced = LocalDateTime.now().toString();
   }
 
-  public void getInformation() {
-    System.out.println("Last updated: " + lastUpdated);
-    System.out.println("Last synced: " + lastSynced);
-  }
-
-  @Override
-  public String toString() {
-    return (
-      "InformationEntity{" +
-      "last_updated=" +
-      lastUpdated +
-      ", last_synced=" +
-      lastSynced +
-      '}'
+  public static boolean isJsonInformationEntityEmpty() {
+    JsonElement informationJsonElement = JsonUtils.readJsonPart(
+      INFORMATION_ENTITY_NAME
     );
-  }
 
-  public JsonObject toJsonObject() {
-    JsonObject jsonObject = new JsonObject();
-    jsonObject.addProperty("last_updated", lastUpdated);
-    jsonObject.addProperty("last_synced", lastSynced);
-    return jsonObject;
+    if (informationJsonElement.isJsonObject()) {
+      JsonObject informationObject = informationJsonElement.getAsJsonObject();
+      return informationObject.entrySet().isEmpty();
+    }
+
+    return true;
   }
 
   public void addInformationEntity() {
@@ -99,6 +88,44 @@ public class InformationEntity implements JsonEntity {
     );
   }
 
+  public static InformationEntity getInfoEntityFromJson() {
+    JsonElement infoJsonElement = JsonUtils.readJsonPart(
+      INFORMATION_ENTITY_NAME
+    );
+
+    if (infoJsonElement.isJsonObject()) {
+      JsonObject jsonObject = infoJsonElement.getAsJsonObject();
+      if (!jsonObject.entrySet().isEmpty()) {
+        return new InformationEntity(
+          jsonObject.get("last_updated").getAsString(),
+          jsonObject.get("last_synced").getAsString()
+        );
+      }
+    }
+
+    return new InformationEntity();
+  }
+
+  @Override
+  public JsonObject toJsonObject() {
+    JsonObject jsonObject = new JsonObject();
+    jsonObject.addProperty("last_updated", lastUpdated);
+    jsonObject.addProperty("last_synced", lastSynced);
+    return jsonObject;
+  }
+
+  @Override
+  public String toString() {
+    return (
+      "InformationEntity{" +
+      "last_updated=" +
+      lastUpdated +
+      ", last_synced=" +
+      lastSynced +
+      '}'
+    );
+  }
+
   @Override
   public String toJson() {
     return new Gson().toJson(this);
@@ -110,5 +137,8 @@ public class InformationEntity implements JsonEntity {
     information.setLast_synced();
     information.updateInformationEntity();
     // information.deleteInformationEntity();
+    information.deleteInformationEntity();
+    System.out.println(InformationEntity.getInfoEntityFromJson().toString());
+    System.out.println(InformationEntity.isJsonInformationEntityEmpty());
   }
 }

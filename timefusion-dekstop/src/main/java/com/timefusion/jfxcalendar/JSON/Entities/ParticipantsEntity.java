@@ -1,9 +1,16 @@
 package com.timefusion.jfxcalendar.JSON.Entities;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.timefusion.jfxcalendar.JSON.JsonUtils;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class ParticipantsEntity implements JsonEntity {
 
@@ -13,6 +20,10 @@ public class ParticipantsEntity implements JsonEntity {
   private String email;
 
   public static final String PARTICIPANTS_ENTITY_NAME = "participants";
+
+  private static final Gson gson = new GsonBuilder()
+    .setPrettyPrinting()
+    .create();
 
   public ParticipantsEntity() {
     // Default constructor
@@ -62,12 +73,59 @@ public class ParticipantsEntity implements JsonEntity {
     this.email = email;
   }
 
-  public void addParticipantEntity() {
-    JsonUtils.addEntityArray(
+  public void addParticipantEntity(int eventId) {
+    addParticipantEntityArray(
       JsonUtils.JSON_FILENAME,
       PARTICIPANTS_ENTITY_NAME,
-      this.toJsonObject()
+      this.toJsonObject(),
+      eventId
     );
+  }
+
+  public void addParticipantEntityArray(
+    String filePath,
+    String entityName,
+    JsonObject newEntity,
+    int eventId
+  ) {
+    try (FileReader fileReader = new FileReader(filePath)) {
+      JsonArray jsonArray = JsonParser.parseReader(fileReader).getAsJsonArray();
+
+      for (JsonElement jsonElement : jsonArray) {
+        JsonObject jsonObject = jsonElement.getAsJsonObject();
+
+        if (jsonObject.has("events")) {
+          JsonArray eventsArray = jsonObject.getAsJsonArray("events");
+
+          for (JsonElement eventElement : eventsArray) {
+            JsonObject eventObject = eventElement.getAsJsonObject();
+
+            if (
+              eventObject.has("id") &&
+              eventObject.get("id").getAsInt() == eventId
+            ) {
+              JsonArray participantsArray = eventObject.getAsJsonArray(
+                "participants"
+              );
+
+              if (participantsArray != null) {
+                participantsArray.add(newEntity);
+                System.out.println("Participant added to the event.");
+              }
+              break;
+            }
+          }
+        }
+      }
+
+      try (FileWriter fileWriter = new FileWriter(filePath)) {
+        gson.toJson(jsonArray, fileWriter);
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 
   public static JsonArray participantsArrayToJsonArray(
@@ -78,6 +136,76 @@ public class ParticipantsEntity implements JsonEntity {
       jsonArray.add(participant.toJsonObject());
     }
     return jsonArray;
+  }
+
+  public static ParticipantsEntity[] jsonArrayToParticipantsArray(
+    JsonArray jsonArray
+  ) {
+    ParticipantsEntity[] participants = new ParticipantsEntity[jsonArray.size()];
+    for (int i = 0; i < jsonArray.size(); i++) {
+      JsonObject participantJson = jsonArray.get(i).getAsJsonObject();
+      ParticipantsEntity participant = new ParticipantsEntity();
+
+      if (participantJson.has("id")) {
+        participant.setId(participantJson.get("id").getAsInt());
+      }
+
+      if (participantJson.has("first_name")) {
+        participant.setFirstName(
+          participantJson.get("first_name").getAsString()
+        );
+      }
+
+      if (participantJson.has("last_name")) {
+        participant.setLastName(participantJson.get("last_name").getAsString());
+      }
+
+      if (participantJson.has("email")) {
+        participant.setEmail(participantJson.get("email").getAsString());
+      }
+
+      participants[i] = participant;
+    }
+    return participants;
+  }
+
+  public static ParticipantsEntity[] getParticipantsArray(int eventId) {
+    try (FileReader fileReader = new FileReader(JsonUtils.JSON_FILENAME)) {
+      JsonArray jsonArray = JsonParser.parseReader(fileReader).getAsJsonArray();
+      ParticipantsEntity[] participants = null;
+
+      for (JsonElement jsonElement : jsonArray) {
+        JsonObject jsonObject = jsonElement.getAsJsonObject();
+
+        if (jsonObject.has("events")) {
+          JsonArray eventsArray = jsonObject.getAsJsonArray("events");
+
+          for (JsonElement eventElement : eventsArray) {
+            JsonObject eventObject = eventElement.getAsJsonObject();
+
+            if (
+              eventObject.has("id") &&
+              eventObject.get("id").getAsInt() == eventId
+            ) {
+              JsonArray participantsArray = eventObject.getAsJsonArray(
+                "participants"
+              );
+
+              if (participantsArray != null) {
+                participants = jsonArrayToParticipantsArray(participantsArray);
+                break;
+              }
+            }
+          }
+        }
+      }
+      return participants;
+    } catch (FileNotFoundException e) {
+      System.err.println("File not found: " + JsonUtils.JSON_FILENAME);
+    } catch (IOException e) {
+      System.err.println("Error reading the file: " + e.getMessage());
+    }
+    return null;
   }
 
   @Override
@@ -97,16 +225,31 @@ public class ParticipantsEntity implements JsonEntity {
 
   @Override
   public String toString() {
-    return "ParticipantsEntity{" + "id=" + id + '}';
+    return (
+      "ParticipantsEntity{" +
+      "id=" +
+      id +
+      ", firstName=\"" +
+      firstName +
+      "\", lastName=\"" +
+      lastName +
+      "\", email=\"" +
+      email +
+      "\"}"
+    );
   }
 
   public static void main(String[] args) {
-    ParticipantsEntity participantsEntity = new ParticipantsEntity(
-      1,
-      "John",
-      "Doe",
-      "John@doe.com"
+    ParticipantsEntity[] participants = ParticipantsEntity.getParticipantsArray(
+      12
     );
-    participantsEntity.addParticipantEntity();
+
+    if (participants != null) {
+      for (ParticipantsEntity participant : participants) {
+        System.out.println(participant);
+      }
+    } else {
+      System.out.println("No participants found for the specified event ID.");
+    }
   }
 }

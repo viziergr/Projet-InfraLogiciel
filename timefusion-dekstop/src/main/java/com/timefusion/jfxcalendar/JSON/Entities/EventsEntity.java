@@ -6,7 +6,7 @@ import com.timefusion.jfxcalendar.JSON.JsonUtils;
 public class EventsEntity {
 
   private int id;
-  private String nature;
+  private EventNature nature;
   private boolean isOnline;
   private String title;
   private String description;
@@ -18,13 +18,11 @@ public class EventsEntity {
   public static final String EVENTS_ENTITY_NAME = "events";
   public static final int EVENTS_ENTITY_POSITION = 4;
 
-  public EventsEntity() {
-    // Default constructor
-  }
+  public EventsEntity() {}
 
   public EventsEntity(
     int id,
-    String nature,
+    EventNature nature,
     boolean isOnline,
     String title,
     String description,
@@ -52,11 +50,11 @@ public class EventsEntity {
     this.id = id;
   }
 
-  public String getNature() {
+  public EventNature getNature() {
     return nature;
   }
 
-  public void setNature(String nature) {
+  public void setNature(EventNature nature) {
     this.nature = nature;
   }
 
@@ -144,7 +142,7 @@ public class EventsEntity {
   private JsonObject toJsonObject() {
     JsonObject jsonObject = new JsonObject();
     jsonObject.addProperty("id", id);
-    jsonObject.addProperty("nature", nature);
+    jsonObject.addProperty("nature", nature.toString());
     jsonObject.addProperty("is_online", isOnline);
     jsonObject.addProperty("title", title);
     jsonObject.addProperty("description", description);
@@ -165,8 +163,8 @@ public class EventsEntity {
 
   public static void main(String[] args) {
     EventsEntity event = new EventsEntity();
-    event.setId(2);
-    event.setNature("nature");
+    event.setId(12);
+    event.setNature(EventNature.ADDED);
     event.setIs_online(true);
     event.setTitle("title");
     event.setDesciption("description");
@@ -175,7 +173,7 @@ public class EventsEntity {
     event.setEndTime("end_time");
     ParticipantsEntity participant1 = new ParticipantsEntity(
       1,
-      "caca1",
+      "test",
       "last_name",
       "email"
     );
@@ -188,6 +186,6 @@ public class EventsEntity {
     event.setParticipants(
       new ParticipantsEntity[] { participant1, participant2 }
     );
-    event.deleteEventEntity();
+    event.addEventEntity();
   }
 }

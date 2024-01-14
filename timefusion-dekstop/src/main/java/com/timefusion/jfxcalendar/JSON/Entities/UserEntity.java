@@ -75,6 +75,65 @@ public class UserEntity implements JsonEntity {
     this.password = "password";
   }
 
+  public static boolean isJsonUserEntityEmpty() {
+    JsonElement userJsonElement = JsonUtils.readJsonPart(USER_ENTITY_NAME);
+
+    if (userJsonElement.isJsonObject()) {
+      JsonObject userObject = userJsonElement.getAsJsonObject();
+      return userObject.entrySet().isEmpty();
+    }
+
+    return true;
+  }
+
+  public void addUserEntity() {
+    JsonElement existingInformation = JsonUtils.readJsonPart(USER_ENTITY_NAME);
+
+    if (
+      existingInformation != null &&
+      existingInformation.getAsJsonObject().entrySet().isEmpty()
+    ) {
+      JsonUtils.addEntityElement(
+        JsonUtils.JSON_FILENAME,
+        USER_ENTITY_NAME,
+        this.toJsonObject(),
+        USER_ENTITY_POSITION
+      );
+    } else {
+      System.out.println("User already exists");
+    }
+  }
+
+  public void updateUserEntity() {
+    JsonUtils.addEntityElement(
+      JsonUtils.JSON_FILENAME,
+      USER_ENTITY_NAME,
+      this.toJsonObject(),
+      USER_ENTITY_POSITION
+    );
+  }
+
+  public void deleteUserEntity() {
+    JsonUtils.deleteEntityElement(
+      JsonUtils.JSON_FILENAME,
+      USER_ENTITY_NAME,
+      USER_ENTITY_POSITION
+    );
+  }
+
+  public static UserEntity getuserEntityFromJson() {
+    JsonElement userJsonElement = JsonUtils.readJsonPart(USER_ENTITY_NAME);
+    if (!UserEntity.isJsonUserEntityEmpty() && userJsonElement.isJsonObject()) {
+      JsonObject userObject = userJsonElement.getAsJsonObject();
+      UserEntity userEntity = new Gson().fromJson(userObject, UserEntity.class);
+      userEntity.setFirstName(userObject.get("first_name").getAsString());
+      userEntity.setLastName(userObject.get("last_name").getAsString());
+      return userEntity;
+    } else {
+      return new UserEntity();
+    }
+  }
+
   public User toUser() {
     return new User(id, firstName, lastName, email, password);
   }
@@ -116,41 +175,6 @@ public class UserEntity implements JsonEntity {
     );
   }
 
-  public void addUserEntity() {
-    JsonElement existingInformation = JsonUtils.readJsonPart(USER_ENTITY_NAME);
-
-    if (
-      existingInformation != null &&
-      existingInformation.getAsJsonObject().entrySet().isEmpty()
-    ) {
-      JsonUtils.addEntityElement(
-        JsonUtils.JSON_FILENAME,
-        USER_ENTITY_NAME,
-        this.toJsonObject(),
-        USER_ENTITY_POSITION
-      );
-    } else {
-      System.out.println("User already exists");
-    }
-  }
-
-  public void updateUserEntity() {
-    JsonUtils.addEntityElement(
-      JsonUtils.JSON_FILENAME,
-      USER_ENTITY_NAME,
-      this.toJsonObject(),
-      USER_ENTITY_POSITION
-    );
-  }
-
-  public void deleteUserEntity() {
-    JsonUtils.deleteEntityElement(
-      JsonUtils.JSON_FILENAME,
-      USER_ENTITY_NAME,
-      USER_ENTITY_POSITION
-    );
-  }
-
   public static void main(String[] args) {
     UserEntity userEntity = new UserEntity(
       1,
@@ -160,6 +184,8 @@ public class UserEntity implements JsonEntity {
       "password"
     );
     // userEntity.addUserEntity();
-    userEntity.updateUserEntity();
+    userEntity.deleteUserEntity();
+    System.out.println(UserEntity.isJsonUserEntityEmpty());
+    System.out.println(UserEntity.getuserEntityFromJson());
   }
 }
