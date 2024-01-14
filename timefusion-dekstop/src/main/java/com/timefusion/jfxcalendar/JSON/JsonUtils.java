@@ -6,6 +6,10 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.timefusion.jfxcalendar.JSON.Entities.EventsEntity;
+import com.timefusion.jfxcalendar.JSON.Entities.InformationEntity;
+import com.timefusion.jfxcalendar.JSON.Entities.TeamsEntity;
+import com.timefusion.jfxcalendar.JSON.Entities.UserEntity;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -31,6 +35,12 @@ public class JsonUtils {
     }
   }
 
+  /**
+   * Reads a specific part from a JSON file and returns it as a JsonElement.
+   *
+   * @param partName the name of the part to read from the JSON file
+   * @return the JsonElement representing the specified part, or null if the part is not found
+   */
   public static JsonElement readJsonPart(String partName) {
     try {
       Path filePath = Path.of(JSON_FILENAME);
@@ -58,10 +68,23 @@ public class JsonUtils {
     return null;
   }
 
+  /**
+   * Converts an object to its JSON representation.
+   *
+   * @param object the object to be converted
+   * @return the JSON representation of the object
+   */
   public static String convertObjectToJson(Object object) {
     return gson.toJson(object);
   }
 
+  /**
+   * Adds a new entity to the JSON array stored in the specified file path.
+   *
+   * @param filePath   The path of the JSON file.
+   * @param entityName The name of the entity array.
+   * @param newEntity  The new entity to be added.
+   */
   public static void addEntityArray(
     String filePath,
     String entityName,
@@ -76,6 +99,14 @@ public class JsonUtils {
     writeToFile(jsonArray, filePath);
   }
 
+  /**
+   * Adds an entity element to a JSON file at a specified position.
+   *
+   * @param filePath    The path of the JSON file.
+   * @param entityName  The name of the entity to be added.
+   * @param newEntity   The JsonObject representing the new entity.
+   * @param position    The position at which the entity should be added in the JSON array.
+   */
   public static void addEntityElement(
     String filePath,
     String entityName,
@@ -106,6 +137,14 @@ public class JsonUtils {
     writeToFileElement(jsonArray, filePath);
   }
 
+  /**
+   * Updates an entity in a JSON array based on its ID.
+   *
+   * @param filePath      The path to the JSON file.
+   * @param entityName    The name of the entity.
+   * @param entityId      The ID of the entity to be updated.
+   * @param updatedEntity The updated entity object.
+   */
   public static void updateEntityArray(
     String filePath,
     String entityName,
@@ -133,6 +172,13 @@ public class JsonUtils {
     writeToFile(jsonArray, filePath);
   }
 
+  /**
+   * Updates the specified entity element in a JSON file.
+   *
+   * @param filePath The path to the JSON file.
+   * @param entityName The name of the entity to be updated.
+   * @param updatedEntity The updated entity object containing the new values.
+   */
   public static void updateEntityElement(
     String filePath,
     String entityName,
@@ -164,6 +210,13 @@ public class JsonUtils {
     writeToFileElement(jsonArray, filePath);
   }
 
+  /**
+   * Deletes an entity from a JSON file based on its ID.
+   *
+   * @param filePath   The path of the JSON file.
+   * @param entityName The name of the entity.
+   * @param entityId   The ID of the entity to be deleted.
+   */
   public static void deleteEntityArray(
     String filePath,
     String entityName,
@@ -189,6 +242,13 @@ public class JsonUtils {
     writeToFile(jsonArray, filePath);
   }
 
+  /**
+   * Deletes the specified entity element from a JSON file.
+   *
+   * @param filePath    The path of the JSON file.
+   * @param entityName  The name of the entity to be deleted.
+   * @param position    The position of the entity element in the JSON array.
+   */
   public static void deleteEntityElement(
     String filePath,
     String entityName,
@@ -225,6 +285,24 @@ public class JsonUtils {
     }
   }
 
+  /**
+   * Deletes all entities in the JSON file.
+   * This method deletes all information entities, user entities, team entities, and event entities.
+   * @param filePath The path of the JSON file.
+   */
+  public static void deleteAllEntities() {
+    InformationEntity.deleteInformationEntity();
+    UserEntity.deleteUserEntity();
+    TeamsEntity.deleteAllTeamEntities();
+    EventsEntity.deleteAllEventEntities();
+  }
+
+  /**
+   * Reads a JSON array from a file.
+   *
+   * @param filePath the path of the file to read from
+   * @return the JSON array read from the file, or an empty JSON array if an error occurs
+   */
   private static JsonArray readFromFile(String filePath) {
     try (FileReader fileReader = new FileReader(filePath)) {
       return JsonParser.parseReader(fileReader).getAsJsonArray();
@@ -234,6 +312,12 @@ public class JsonUtils {
     }
   }
 
+  /**
+   * Writes a JsonArray to a file.
+   *
+   * @param jsonArray the JsonArray to write
+   * @param filePath the path of the file to write to
+   */
   private static void writeToFile(JsonArray jsonArray, String filePath) {
     try (FileWriter fileWriter = new FileWriter(filePath)) {
       gson.toJson(jsonArray, fileWriter);
@@ -242,6 +326,12 @@ public class JsonUtils {
     }
   }
 
+  /**
+   * Writes the given JsonElement to a file at the specified file path.
+   *
+   * @param jsonElement The JsonElement to be written to the file.
+   * @param filePath The path of the file to write the JsonElement to.
+   */
   private static void writeToFileElement(
     JsonElement jsonElement,
     String filePath
@@ -253,6 +343,10 @@ public class JsonUtils {
     }
   }
 
+  /**
+   * Represents a JSON object, which is a collection of key-value pairs.
+   * This class provides methods to manipulate and access the elements of a JSON object.
+   */
   private static JsonObject getOrCreateEntityArray(
     JsonArray jsonArray,
     String entityName
@@ -270,6 +364,13 @@ public class JsonUtils {
     return newEntityArray;
   }
 
+  /**
+   * Retrieves the first JsonObject in a JsonArray that contains a specific entity name.
+   *
+   * @param jsonArray  The JsonArray to search in.
+   * @param entityName The name of the entity to look for.
+   * @return The JsonObject that contains the specified entity name, or null if not found.
+   */
   private static JsonObject getEntityArray(
     JsonArray jsonArray,
     String entityName
@@ -281,9 +382,5 @@ public class JsonUtils {
       }
     }
     return null;
-  }
-
-  public static void main(String[] args) {
-    JsonUtils.printJson();
   }
 }

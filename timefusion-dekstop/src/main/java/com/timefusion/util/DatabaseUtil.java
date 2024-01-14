@@ -262,7 +262,7 @@ public class DatabaseUtil implements AutoCloseable {
    *
    * @param tableName     the name of the table to insert the record into
    * @param columnValues  a map containing the column names and their corresponding values
-   * @return the number of rows affected by the insert operation
+   * @return the ID of the inserted record
    * @throws SQLException if a database access error occurs
    * @throws IllegalArgumentException if the columnValues map is empty or if the tableName is empty
    *
@@ -315,14 +315,29 @@ public class DatabaseUtil implements AutoCloseable {
 
     try (
       PreparedStatement statement = getConnection()
-        .prepareStatement(insertSql.toString())
+        .prepareStatement(
+          insertSql.toString(),
+          PreparedStatement.RETURN_GENERATED_KEYS
+        )
     ) {
       int parameterIndex = 1;
       for (Object value : columnValues.values()) {
         statement.setObject(parameterIndex++, value);
       }
 
-      return statement.executeUpdate();
+      int rowsAffected = statement.executeUpdate();
+
+      if (rowsAffected > 0) {
+        try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+          if (generatedKeys.next()) {
+            return generatedKeys.getInt(1);
+          } else {
+            throw new SQLException("Failed to retrieve the generated ID.");
+          }
+        }
+      } else {
+        throw new SQLException("Insert operation did not affect any rows.");
+      }
     }
   }
 
