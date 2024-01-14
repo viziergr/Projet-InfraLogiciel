@@ -8,7 +8,7 @@ import java.util.Objects;
  */
 public class Event {
 
-  private Long id;
+  private int id;
   private String title;
   private LocalDateTime startTime;
   private LocalDateTime endTime;
@@ -29,7 +29,7 @@ public class Event {
    * @param creator
    */
   public Event(
-    Long id,
+    int id,
     String title,
     LocalDateTime startTime,
     LocalDateTime endTime,
@@ -67,7 +67,7 @@ public class Event {
     User creator
   ) {
     this(
-      null,
+      0,
       title,
       startTime,
       endTime,
@@ -95,16 +95,7 @@ public class Event {
     Boolean isPrivate,
     User creator
   ) {
-    this(
-      null,
-      title,
-      startTime,
-      endTime,
-      null,
-      description,
-      isPrivate,
-      creator
-    );
+    this(0, title, startTime, endTime, null, description, isPrivate, creator);
   }
 
   /**
@@ -122,7 +113,7 @@ public class Event {
     Boolean isPrivate,
     User creator
   ) {
-    this(null, title, startTime, endTime, null, null, isPrivate, creator);
+    this(0, title, startTime, endTime, null, null, isPrivate, creator);
   }
 
   /**
@@ -142,7 +133,7 @@ public class Event {
     String location,
     Boolean isPrivate
   ) {
-    this(null, title, startTime, endTime, location, null, isPrivate, creator);
+    this(0, title, startTime, endTime, location, null, isPrivate, creator);
   }
 
   /**
@@ -150,7 +141,7 @@ public class Event {
    *
    * @return the ID of the event
    */
-  public Long getId() {
+  public int getId() {
     return this.id;
   }
 
@@ -159,7 +150,7 @@ public class Event {
    *
    * @param id the ID of the event
    */
-  public void setId(Long id) {
+  public void setId(int id) {
     this.id = id;
   }
 

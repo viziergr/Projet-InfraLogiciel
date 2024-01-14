@@ -7,9 +7,9 @@ import java.util.Objects;
  */
 public class TeamMemberships {
 
-  private Long id;
-  private Long userId;
-  private Long teamId;
+  private int id;
+  private int userId;
+  private int teamId;
   private String role;
 
   /**
@@ -19,22 +19,22 @@ public class TeamMemberships {
    * @param teamId
    * @param role
    */
-  public TeamMemberships(Long id, Long userId, Long teamId, String role) {
+  public TeamMemberships(int id, int userId, int teamId, String role) {
     this.id = id;
     this.userId = userId;
     this.teamId = teamId;
     this.role = role;
   }
 
-  public TeamMemberships(Long userId, Long teamId, String role) {
-    this(null, userId, teamId, role);
+  public TeamMemberships(int userId, int teamId, String role) {
+    this(0, userId, teamId, role);
   }
 
   /**
    * Returns the ID of the team membership.
    * @return the ID of the team membership
    */
-  public Long getId() {
+  public int getId() {
     return this.id;
   }
 
@@ -42,7 +42,7 @@ public class TeamMemberships {
    * Returns the ID of the user.
    * @return the ID of the user
    */
-  public Long getUserId() {
+  public int getUserId() {
     return this.userId;
   }
 
@@ -50,7 +50,7 @@ public class TeamMemberships {
    * Returns the ID of the team.
    * @return the ID of the team
    */
-  public Long getTeamId() {
+  public int getTeamId() {
     return this.teamId;
   }
 
@@ -74,7 +74,7 @@ public class TeamMemberships {
    * Sets the ID of the team membership.
    * @param id the ID of the team membership
    */
-  public void setId(Long id) {
+  public void setId(int id) {
     this.id = id;
   }
 
@@ -82,7 +82,7 @@ public class TeamMemberships {
    * Sets the ID of the user.
    * @param userId the ID of the user
    */
-  public void setUserId(Long userId) {
+  public void setUserId(int userId) {
     this.userId = userId;
   }
 
@@ -90,7 +90,7 @@ public class TeamMemberships {
    * Sets the ID of the team.
    * @param teamId the ID of the team
    */
-  public void setTeamId(Long teamId) {
+  public void setTeamId(int teamId) {
     this.teamId = teamId;
   }
 

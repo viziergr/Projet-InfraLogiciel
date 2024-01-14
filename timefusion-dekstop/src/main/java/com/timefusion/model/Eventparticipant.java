@@ -4,45 +4,49 @@ import java.util.Objects;
 
 public class Eventparticipant {
 
-  private Long id;
-  private Long userId;
-  private Long eventId;
+  private int id;
+  private int participantId;
+  private int eventId;
   private String participant_type;
 
   /**
    * Constructor for Eventparticipant
    * @param id
-   * @param userId
+   * @param participantId
    * @param eventId
    * @param participant_type
    */
   public Eventparticipant(
-    Long id,
-    Long userId,
-    Long eventId,
-    String participant_type
+    int id,
+    int participantId,
+    int eventId,
+    String participant_type //team or user
   ) {
     this.id = id;
-    this.userId = userId;
+    this.participantId = participantId;
     this.eventId = eventId;
     this.participant_type = participant_type;
   }
 
   /**
    * Constructor for Eventparticipant
-   * @param userId
+   * @param participantId
    * @param eventId
    * @param participant_type
    */
-  public Eventparticipant(Long userId, Long eventId, String participant_type) {
-    this(null, userId, eventId, participant_type);
+  public Eventparticipant(
+    int participantId,
+    int eventId,
+    String participant_type
+  ) {
+    this(0, participantId, eventId, participant_type);
   }
 
   /**
    * Returns the ID of the event participant.
    * @return the ID of the event participant
    */
-  public Long getId() {
+  public int getId() {
     return this.id;
   }
 
@@ -50,15 +54,15 @@ public class Eventparticipant {
    * Returns the ID of the user.
    * @return the ID of the user
    */
-  public Long getUserId() {
-    return this.userId;
+  public int getparticipantId() {
+    return this.participantId;
   }
 
   /**
    * Returns the ID of the event.
    * @return the ID of the event
    */
-  public Long getEventId() {
+  public int getEventId() {
     return this.eventId;
   }
 
@@ -74,23 +78,23 @@ public class Eventparticipant {
    * Sets the ID of the event participant.
    * @param id the ID of the event participant
    */
-  public void setId(Long id) {
+  public void setId(int id) {
     this.id = id;
   }
 
   /**
    * Sets the ID of the user.
-   * @param userId the ID of the user
+   * @param participantId the ID of the user
    */
-  public void setUserId(Long userId) {
-    this.userId = userId;
+  public void setparticipantId(int participantId) {
+    this.participantId = participantId;
   }
 
   /**
    * Sets the ID of the event.
    * @param eventId the ID of the event
    */
-  public void setEventId(Long eventId) {
+  public void setEventId(int eventId) {
     this.eventId = eventId;
   }
 
@@ -104,7 +108,7 @@ public class Eventparticipant {
 
   /**
    * Compares this Eventparticipant object with the specified object for equality.
-   * Returns true if the given object is also an Eventparticipant and has the same values for id, userId, eventId, and participant_type.
+   * Returns true if the given object is also an Eventparticipant and has the same values for id, participantId, eventId, and participant_type.
    *
    * @param o the object to compare with
    * @return true if the objects are equal, false otherwise
@@ -118,7 +122,7 @@ public class Eventparticipant {
     Eventparticipant eventparticipant = (Eventparticipant) o;
     return (
       Objects.equals(id, eventparticipant.id) &&
-      Objects.equals(userId, eventparticipant.userId) &&
+      Objects.equals(participantId, eventparticipant.participantId) &&
       Objects.equals(eventId, eventparticipant.eventId) &&
       Objects.equals(participant_type, eventparticipant.participant_type)
     );
@@ -134,8 +138,8 @@ public class Eventparticipant {
       "Eventparticipant{" +
       "id=" +
       id +
-      ", userId=" +
-      userId +
+      ", participantId=" +
+      participantId +
       ", eventId=" +
       eventId +
       ", participant_type=" +
