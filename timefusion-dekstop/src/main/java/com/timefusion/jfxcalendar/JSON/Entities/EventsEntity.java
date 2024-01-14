@@ -1,5 +1,7 @@
 package com.timefusion.jfxcalendar.JSON.Entities;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.timefusion.jfxcalendar.JSON.JsonUtils;
 
@@ -114,6 +116,58 @@ public class EventsEntity {
     this.endTime = endTime;
   }
 
+  public static boolean isJsonEventsEntityEmpty() {
+    JsonElement eventsJsonElement = JsonUtils.readJsonPart(EVENTS_ENTITY_NAME);
+
+    if (eventsJsonElement.isJsonArray()) {
+      JsonArray teamJsonArray = eventsJsonElement.getAsJsonArray();
+      return teamJsonArray.size() == 0;
+    } else {
+      return true;
+    }
+  }
+
+  public static EventsEntity getEventEntityById(int id) {
+    JsonElement eventsJsonElement = JsonUtils.readJsonPart(EVENTS_ENTITY_NAME);
+
+    if (eventsJsonElement.isJsonArray()) {
+      JsonArray eventsJsonArray = eventsJsonElement.getAsJsonArray();
+      for (JsonElement eventElement : eventsJsonArray) {
+        JsonObject eventObject = eventElement.getAsJsonObject();
+        int eventId = eventObject.get("id").getAsInt();
+        if (eventId == id) {
+          return new EventsEntity(
+            eventId,
+            EventNature.valueOf(
+              eventObject.get("nature").getAsString().toUpperCase()
+            ),
+            eventObject.get("is_online").getAsBoolean(),
+            eventObject.get("title").getAsString(),
+            eventObject.get("description").getAsString(),
+            eventObject.get("location").getAsString(),
+            eventObject.get("start_time").getAsString(),
+            eventObject.get("end_time").getAsString(),
+            ParticipantsEntity.jsonArrayToParticipantsArray(
+              eventObject.get("participants").getAsJsonArray()
+            )
+          );
+        }
+      }
+    }
+
+    return null;
+  }
+
+  public static JsonArray getAllEventEntities() {
+    JsonElement eventsJsonElement = JsonUtils.readJsonPart(EVENTS_ENTITY_NAME);
+
+    if (eventsJsonElement.isJsonArray()) {
+      return eventsJsonElement.getAsJsonArray();
+    }
+
+    return null;
+  }
+
   public void addEventEntity() {
     JsonUtils.addEntityArray(
       JsonUtils.JSON_FILENAME,
@@ -131,12 +185,21 @@ public class EventsEntity {
     );
   }
 
-  public void deleteEventEntity() {
+  public static void deleteEventEntity(int eventId) {
     JsonUtils.deleteEntityArray(
       JsonUtils.JSON_FILENAME,
       EVENTS_ENTITY_NAME,
-      this.getId()
+      eventId
     );
+  }
+
+  public static void deleteAllEventEntities() {
+    JsonArray eventsJsonArray = getAllEventEntities();
+    for (JsonElement eventElement : eventsJsonArray) {
+      JsonObject eventObject = eventElement.getAsJsonObject();
+      int eventId = eventObject.get("id").getAsInt();
+      EventsEntity.deleteEventEntity(eventId);
+    }
   }
 
   private JsonObject toJsonObject() {
@@ -158,34 +221,21 @@ public class EventsEntity {
 
   @Override
   public String toString() {
-    return "EventEntity{" + "id=" + id + '}';
-  }
+    StringBuilder stringBuilder = new StringBuilder();
 
-  public static void main(String[] args) {
-    EventsEntity event = new EventsEntity();
-    event.setId(12);
-    event.setNature(EventNature.ADDED);
-    event.setIs_online(true);
-    event.setTitle("title");
-    event.setDesciption("description");
-    event.setLocation("location");
-    event.setStartTime("start_time");
-    event.setEndTime("end_time");
-    ParticipantsEntity participant1 = new ParticipantsEntity(
-      1,
-      "test",
-      "last_name",
-      "email"
-    );
-    ParticipantsEntity participant2 = new ParticipantsEntity(
-      2,
-      "cacae",
-      "last_name",
-      "email"
-    );
-    event.setParticipants(
-      new ParticipantsEntity[] { participant1, participant2 }
-    );
-    event.addEventEntity();
+    stringBuilder.append("Event ID: ").append(id).append("\n");
+    stringBuilder.append("Nature: ").append(nature).append("\n");
+    stringBuilder.append("Is Online: ").append(isOnline).append("\n");
+    stringBuilder.append("Title: ").append(title).append("\n");
+    stringBuilder.append("Description: ").append(description).append("\n");
+    stringBuilder.append("Location: ").append(location).append("\n");
+    stringBuilder.append("Start Time: ").append(startTime).append("\n");
+    stringBuilder.append("End Time: ").append(endTime).append("\n");
+    stringBuilder.append("Participants: \n");
+    for (ParticipantsEntity participant : participants) {
+      stringBuilder.append(participant.toString()).append("\n");
+    }
+
+    return stringBuilder.toString();
   }
 }

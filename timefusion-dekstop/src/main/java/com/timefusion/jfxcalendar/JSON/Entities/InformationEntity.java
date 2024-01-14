@@ -5,6 +5,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.timefusion.jfxcalendar.JSON.JsonUtils;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class InformationEntity implements JsonEntity {
 
@@ -24,16 +25,22 @@ public class InformationEntity implements JsonEntity {
     return lastUpdated;
   }
 
-  public void setLast_updated() {
-    this.lastUpdated = LocalDateTime.now().toString();
+  public void setLast_updatedNow() {
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(
+      "dd-MM-yyyy'T'HH:mm:ss"
+    );
+    this.lastUpdated = LocalDateTime.now().format(formatter).toString();
   }
 
   public String getLast_synced() {
     return lastSynced;
   }
 
-  public void setLast_synced() {
-    this.lastSynced = LocalDateTime.now().toString();
+  public void setLast_syncedNow() {
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(
+      "dd-MM-yyyy'T'HH:mm:ss"
+    );
+    this.lastSynced = LocalDateTime.now().format(formatter).toString();
   }
 
   public static boolean isJsonInformationEntityEmpty() {
@@ -80,7 +87,7 @@ public class InformationEntity implements JsonEntity {
     );
   }
 
-  public void deleteInformationEntity() {
+  public static void deleteInformationEntity() {
     JsonUtils.deleteEntityElement(
       JsonUtils.JSON_FILENAME,
       INFORMATION_ENTITY_NAME,
@@ -133,11 +140,11 @@ public class InformationEntity implements JsonEntity {
 
   public static void main(String[] args) {
     InformationEntity information = new InformationEntity();
-    information.setLast_updated();
-    information.setLast_synced();
+    information.setLast_updatedNow();
+    information.setLast_syncedNow();
     information.updateInformationEntity();
     // information.deleteInformationEntity();
-    information.deleteInformationEntity();
+    // information.deleteInformationEntity();
     System.out.println(InformationEntity.getInfoEntityFromJson().toString());
     System.out.println(InformationEntity.isJsonInformationEntityEmpty());
   }

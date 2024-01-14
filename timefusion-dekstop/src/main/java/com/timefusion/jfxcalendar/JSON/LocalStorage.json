@@ -1,63 +1,30 @@
 [
   {
-    "information": {}
+    "information": {
+      "last_updated": "14-01-2024T15:01:33",
+      "last_synced": "14-01-2024T15:01:33"
+    }
   },
   {
-    "user": {}
+    "user": {
+      "id": 1,
+      "first_name": "John",
+      "last_name": "Doe",
+      "email": "john@doe.com",
+      "password": "password"
+    }
   },
   {
-    "teams": []
+    "teams": [
+      {
+        "id": 2,
+        "name": "Team 2",
+        "description": "Team 1 description"
+      }
+    ]
   },
   {
     "events": [
-      {
-        "id": 14,
-        "nature": "Added",
-        "is_online": true,
-        "title": "title",
-        "description": "description",
-        "location": "location",
-        "start_time": "start_time",
-        "end_time": "end_time",
-        "participants": [
-          {
-            "id": 1,
-            "first_name": "caca1",
-            "last_name": "last_name",
-            "email": "email"
-          },
-          {
-            "id": 2,
-            "first_name": "cacae",
-            "last_name": "last_name",
-            "email": "email"
-          }
-        ]
-      },
-      {
-        "id": 1,
-        "nature": "Added",
-        "is_online": true,
-        "title": "title",
-        "description": "description",
-        "location": "location",
-        "start_time": "start_time",
-        "end_time": "end_time",
-        "participants": [
-          {
-            "id": 1,
-            "first_name": "caca1",
-            "last_name": "last_name",
-            "email": "email"
-          },
-          {
-            "id": 2,
-            "first_name": "cacae",
-            "last_name": "last_name",
-            "email": "email"
-          }
-        ]
-      },
       {
         "id": 12,
         "nature": "Added",

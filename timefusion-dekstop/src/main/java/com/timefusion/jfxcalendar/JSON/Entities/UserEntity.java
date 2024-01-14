@@ -113,7 +113,7 @@ public class UserEntity implements JsonEntity {
     );
   }
 
-  public void deleteUserEntity() {
+  public static void deleteUserEntity() {
     JsonUtils.deleteEntityElement(
       JsonUtils.JSON_FILENAME,
       USER_ENTITY_NAME,
@@ -173,19 +173,5 @@ public class UserEntity implements JsonEntity {
       '\'' +
       '}'
     );
-  }
-
-  public static void main(String[] args) {
-    UserEntity userEntity = new UserEntity(
-      1,
-      "John",
-      "Doe",
-      "john@doe.com",
-      "password"
-    );
-    // userEntity.addUserEntity();
-    userEntity.deleteUserEntity();
-    System.out.println(UserEntity.isJsonUserEntityEmpty());
-    System.out.println(UserEntity.getuserEntityFromJson());
   }
 }
