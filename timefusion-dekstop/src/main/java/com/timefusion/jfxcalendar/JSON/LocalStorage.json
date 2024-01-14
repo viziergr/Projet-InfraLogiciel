@@ -48,6 +48,42 @@
             "email": "email"
           }
         ]
+      },
+      {
+        "id": -2,
+        "nature": "Added",
+        "is_online": true,
+        "title": "Test Event",
+        "description": "Test Description",
+        "location": "Test Location",
+        "start_time": "2021-05-05 12:00:00",
+        "end_time": "2021-05-05 13:00:00",
+        "participants": [
+          {
+            "id": 1,
+            "first_name": "Test Participant",
+            "last_name": "c",
+            "email": ""
+          }
+        ]
+      },
+      {
+        "id": -3,
+        "nature": "Added",
+        "is_online": true,
+        "title": "Test Event",
+        "description": "Test Description",
+        "location": "Test Location",
+        "start_time": "2021-05-05 12:00:00",
+        "end_time": "2021-05-05 13:00:00",
+        "participants": [
+          {
+            "id": 1,
+            "first_name": "Test Participant",
+            "last_name": "c",
+            "email": ""
+          }
+        ]
       }
     ]
   }

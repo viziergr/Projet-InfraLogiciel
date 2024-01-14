@@ -17,6 +17,9 @@ public class EventsEntity {
   private String endTime;
   private ParticipantsEntity[] participants;
 
+  private static int nextNegativeId = -1;
+  public static boolean isOffline = true;
+
   public static final String EVENTS_ENTITY_NAME = "events";
   public static final int EVENTS_ENTITY_POSITION = 4;
 
@@ -33,7 +36,10 @@ public class EventsEntity {
     String endTime,
     ParticipantsEntity[] participants
   ) {
-    this.id = id;
+    if (isOffline) {
+      resetNextNegativeId();
+    }
+    this.id = !isOffline ? id : generateNextOfflineId();
     this.nature = nature;
     this.isOnline = isOnline;
     this.title = title;
@@ -114,6 +120,34 @@ public class EventsEntity {
 
   public void setEndTime(String endTime) {
     this.endTime = endTime;
+  }
+
+  public static int generateNextOfflineId() {
+    return nextNegativeId--;
+  }
+
+  public static void resetNextNegativeId() {
+    nextNegativeId = getLastOfflineId();
+  }
+
+  public static int getLastOfflineId() {
+    JsonElement eventsJsonElement = JsonUtils.readJsonPart(EVENTS_ENTITY_NAME);
+
+    if (eventsJsonElement.isJsonArray()) {
+      JsonArray eventsJsonArray = eventsJsonElement.getAsJsonArray();
+      int lastOfflineId = -1;
+      for (JsonElement eventElement : eventsJsonArray) {
+        JsonObject eventObject = eventElement.getAsJsonObject();
+        int eventId = eventObject.get("id").getAsInt();
+        if (eventId < 0 && eventId < lastOfflineId) {
+          lastOfflineId = eventId;
+        }
+      }
+      nextNegativeId = lastOfflineId;
+      return lastOfflineId;
+    }
+
+    return -1;
   }
 
   public static boolean isJsonEventsEntityEmpty() {
