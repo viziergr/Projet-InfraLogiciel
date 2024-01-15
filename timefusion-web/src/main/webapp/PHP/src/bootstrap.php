@@ -43,4 +43,9 @@ function h(string $value): string {
     return htmlentities($value);
 }
 
+function render(string $view, $parameters = []) {
+    extract($parameters);
+    include "../views/{$view}.php";
+}
+
 ?>

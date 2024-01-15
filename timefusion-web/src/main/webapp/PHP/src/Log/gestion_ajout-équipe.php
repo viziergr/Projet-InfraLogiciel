@@ -44,6 +44,8 @@ if (isset($_POST['ajout_equipe_submit']) && $_POST['ajout_equipe_submit'] == 2) 
 
         //Affichage de l'état de chaque condition
         echo "isset(nom_equipe): " . isset($_POST['nom_equipe']) . "<br>";
+    }
+}
 ?>
 
 
