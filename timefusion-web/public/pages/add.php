@@ -1,9 +1,9 @@
 <?php
-require '../src/bootstrap.php';
-require '../views/header.php';
-require '../src/Calendar/EventValidator.php';
-require '../src/Calendar/Event.php';
-require '../src/Calendar/Events.php';
+require '../scripts/bootstrap.php';
+require '../includes/header.php';
+require '../scripts/Calendar/EventValidator.php';
+require '../scripts/Calendar/Event.php';
+require '../scripts/Calendar/Events.php';
 
 $data = [];
 $errors = [];
@@ -17,7 +17,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $events = new TimeFusion\Calendar\Events($mysqli);
         $event = $events->hydrate(new TimeFusion\Calendar\Event(),$data);
         $events->create($event);
-        header('Location: /PHP/public/Calendrier.php?success=1');
+        header('Location: Calendrier.php?success=1');
         exit();
     }
 }
@@ -39,5 +39,5 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 <?php
-require '../views/footer.php';
+require '../includes/footer.php';
 ?>

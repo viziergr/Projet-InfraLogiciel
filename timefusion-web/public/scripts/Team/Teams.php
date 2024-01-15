@@ -2,8 +2,8 @@
 
 namespace TimeFusion\Team;
 
-require '../src/Team/Team.php';
-require '../src/Team/User.php';
+require 'Team.php';
+require 'User.php';
 
 class Teams
 {
