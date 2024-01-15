@@ -2,7 +2,10 @@ package com.timefusion.dao;
 
 import com.timefusion.model.Event;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -14,146 +17,138 @@ public class EventDao extends GenericDao<Event> {
   private static final String TABLE_NAME = "Event";
   private final Map<String, Class<?>> schema = new HashMap<>();
 
-  public EventDao() {
+  public EventDao() throws SQLException {
     super(TABLE_NAME);
     defineSchema();
   }
 
-  /**
-   * Defines the schema for the EventDao class.
-   * This method is responsible for defining the structure of the database table for events.
-   * It sets the column names and their corresponding data types.
-   */
+  private Object getColumnValue(String columnName, Event event) {
+    switch (columnName) {
+      case "id":
+        return event.getId();
+      case "title":
+        return event.getTitle();
+      case "start_time":
+        return event.getStartTime();
+      case "end_time":
+        return event.getEndTime();
+      case "location":
+        return event.getLocation();
+      case "description":
+        return event.getDescription();
+      case "is_personal":
+        return event.getIsPersonal();
+      default:
+        return null;
+    }
+  }
+
+  private Event mapResultSetToUser(List<Map<String, Object>> result) {
+    if (result.isEmpty()) {
+      return null;
+    } else if (result.size() > 1) {
+      throw new IllegalArgumentException("More than event user found");
+    }
+    Event event = new Event(
+      (int) result.get(0).get("id"),
+      (String) result.get(0).get("title"),
+      ((java.sql.Timestamp) result.get(0).get("start_time")).toLocalDateTime(),
+      ((java.sql.Timestamp) result.get(0).get("end_time")).toLocalDateTime(),
+      (String) result.get(0).get("location"),
+      (String) result.get(0).get("description"),
+      (boolean) result.get(0).get("is_personal")
+    );
+    return event;
+  }
+
+  private Map<String, Object> mapEventToColumnValues(Event event) {
+    Map<String, Object> columnValues = new HashMap<>();
+
+    for (String columnName : schema.keySet()) {
+      columnValues.put(columnName, getColumnValue(columnName, event));
+    }
+
+    return columnValues;
+  }
+
+  public int insertEventRecord(Event event) throws SQLException {
+    return super.databaseUtil.insertRecord(
+      tableName,
+      this.mapEventToColumnValues(event)
+    );
+  }
+
+  public int updateEventRecord(Event event) throws SQLException {
+    Map<String, Object> columnValues = mapEventToColumnValues(event);
+    columnValues.remove("id");
+    return super.databaseUtil.updateRecordById(
+      tableName,
+      "id",
+      event.getId(),
+      columnValues
+    );
+  }
+
+  public int deleteEventRecord(Event event) throws SQLException {
+    return super.databaseUtil.deleteRecordById(tableName, "id", event.getId());
+  }
+
+  public List<Event> retrieveEventsRecords(Map<String, Object> criteriaMap)
+    throws SQLException {
+    return this.mapEventToColumnValues(
+        super.databaseUtil.retrieveRecords(tableName, criteriaMap)
+      );
+  }
+
+  private List<Event> mapEventToColumnValues(List<Map<String, Object>> result) {
+    List<Event> events = new ArrayList<>();
+
+    for (Map<String, Object> row : result) {
+      Event event = new Event(
+        (int) row.get("id"),
+        (String) row.get("title"),
+        ((java.sql.Timestamp) row.get("start_time")).toLocalDateTime(),
+        ((java.sql.Timestamp) row.get("end_time")).toLocalDateTime(),
+        (String) row.get("location"),
+        (String) row.get("description"),
+        (boolean) row.get("is_personal")
+      );
+      events.add(event);
+    }
+
+    return events;
+  }
+
   @Override
   protected void defineSchema() {
     try {
-      schema.put("id", Long.class);
+      schema.put("id", int.class);
       schema.put("title", String.class);
-      schema.put("start_time", java.sql.Timestamp.class);
-      schema.put("end_time", java.sql.Timestamp.class);
+      schema.put("start_time", LocalDateTime.class);
+      schema.put("end_time", LocalDateTime.class);
       schema.put("location", String.class);
       schema.put("description", String.class);
-      schema.put("is_personal", Boolean.class);
-      schema.put("creator_id", Integer.class);
+      schema.put("is_personal", boolean.class);
     } catch (Exception e) {
       e.printStackTrace();
     }
   }
 
-  /**
-   * Retrieves the value of a specific column from the given Event object.
-   *
-   * @param columnName the name of the column to retrieve the value from
-   * @param event the Event object from which to retrieve the value
-   * @return the value of the specified column in the Event object, or null if an exception occurs
-   */
-  private Object getColumnValue(String columnName, Event event) {
-    try {
-      return Event.class.getDeclaredMethod(
-          "get" +
-          columnName.substring(0, 1).toUpperCase() +
-          columnName.substring(1)
-        )
-        .invoke(event);
-    } catch (Exception e) {
-      e.printStackTrace(); // Handle the exception appropriately
-      return null;
-    }
-  }
-
-  /**
-   * Inserts a record into the database.
-   *
-   * @param event the Event object representing the record to be inserted
-   * @return the number of rows affected by the insert operation
-   * @throws SQLException if an error occurs while inserting the record
-   * @throws IllegalArgumentException if the provided object is not of type Event or does not adhere to the expected schema
-   */
   @Override
-  public int insertRecord(Event event) throws SQLException {
-    if (!this.validateSchema(event)) {
-      throw new IllegalArgumentException(
-        "Event object does not adhere to the expected schema."
-      );
-    }
-
-    Map<String, Object> columnValues = new HashMap<>();
-    for (String columnName : schema.keySet()) {
-      columnValues.put(columnName, getColumnValue(columnName, event));
-    }
-
-    return super.databaseUtil.insertRecord(TABLE_NAME, columnValues);
-  }
-
-  /**
-   * Validates the schema of an event.
-   *
-   * @param event the event to validate
-   * @return true if the schema is valid, false otherwise
-   */
-  @Override
-  protected boolean validateSchema(Event event) {
-    for (Map.Entry<String, Class<?>> entry : schema.entrySet()) {
-      String columnName = entry.getKey();
-      Class<?> expectedType = entry.getValue();
-      Object columnValue = getColumnValue(columnName, event);
-
-      if (columnValue == null || !expectedType.isInstance(columnValue)) {
-        return false;
-      }
-    }
-    return true;
-  }
-
-  /**
-   * Updates a record in the database.
-   *
-   * @param updatedEvent the Event object representing the record to be updated
-   * @return the number of rows affected by the update operation
-   * @throws SQLException if an error occurs while updating the record
-   * @throws IllegalArgumentException if the provided object is not of type Event or does not adhere to the expected schema
-   */
-  @Override
-  protected int updateRecordById(Event updatedEvent) throws SQLException {
-    if (!this.validateSchema(updatedEvent)) {
-      throw new IllegalArgumentException(
-        "Updated Event object does not adhere to the expected schema."
-      );
-    }
-
-    Map<String, Object> columnValues = new HashMap<>();
-    for (String columnName : schema.keySet()) {
-      columnValues.put(columnName, getColumnValue(columnName, updatedEvent));
-    }
-
-    long recordId = updatedEvent.getId();
-
-    return super.databaseUtil.updateRecordById(
-      TABLE_NAME,
-      "id",
-      recordId,
-      columnValues
-    );
-  }
-
-  /**
-   * Deletes a record from the database.
-   *
-   * @param eventToDelete the Event object representing the record to be deleted
-   * @return the number of rows affected by the delete operation
-   * @throws SQLException if an error occurs while deleting the record
-   * @throws IllegalArgumentException if the provided object is not of type Event or does not adhere to the expected schema
-   */
-  @Override
-  protected int deleteRecordById(Event eventToDelete) throws SQLException {
-    long recordId = eventToDelete.getId();
-
-    return super.databaseUtil.deleteRecordById(TABLE_NAME, "id", recordId);
+  protected int insertRecord(Event event) throws SQLException {
+    return this.insertEventRecord(event);
   }
 
   @Override
-  protected Event retrieveRecordsWithCriteria(
-    String tableName,
+  protected int updateRecordByEntity(Event event) throws SQLException {
+    return this.updateEventRecord(event);
+  }
+
+  @Override
+  protected List<Event> retrieveRecords(
+    String tablename,
     Map<String, Object> criteriaMap
-  ) {}
+  ) throws SQLException {
+    return this.retrieveEventsRecords(criteriaMap);
+  }
 }

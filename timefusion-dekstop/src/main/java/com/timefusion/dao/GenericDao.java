@@ -53,7 +53,7 @@ public abstract class GenericDao<T> {
    * @return the number of rows affected by the update operation
    * @throws SQLException if an error occurs while updating the record
    */
-  protected abstract int updateRecordById(T entity) throws SQLException;
+  protected abstract int updateRecordByEntity(T entity) throws SQLException;
 
   /**
    * Retrieves a record from the specified table based on the given criteria.
@@ -75,7 +75,8 @@ public abstract class GenericDao<T> {
    * @return the number of rows affected by the deletion
    * @throws SQLException if an error occurs while deleting the record
    */
-  public int deleteRecordById(String tableName, int id) throws SQLException {
+  public int deleteRecordByEntity(String tableName, int id)
+    throws SQLException {
     return this.databaseUtil.deleteRecordById(tableName, "id", id);
   }
 }

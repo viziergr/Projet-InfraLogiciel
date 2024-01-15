@@ -35,8 +35,7 @@ public class Event {
     LocalDateTime endTime,
     String location,
     String description,
-    Boolean isPrivate,
-    User creator
+    Boolean isPrivate
   ) {
     this.id = id;
     this.title = title;
@@ -45,7 +44,6 @@ public class Event {
     this.location = location;
     this.description = description;
     this.isPrivate = isPrivate;
-    this.creator = creator;
   }
 
   /**
@@ -63,19 +61,9 @@ public class Event {
     LocalDateTime endTime,
     String location,
     String description,
-    Boolean isPrivate,
-    User creator
+    Boolean isPrivate
   ) {
-    this(
-      0,
-      title,
-      startTime,
-      endTime,
-      location,
-      description,
-      isPrivate,
-      creator
-    );
+    this(0, title, startTime, endTime, location, description, isPrivate);
   }
 
   /**
@@ -92,10 +80,9 @@ public class Event {
     LocalDateTime startTime,
     LocalDateTime endTime,
     String description,
-    Boolean isPrivate,
-    User creator
+    Boolean isPrivate
   ) {
-    this(0, title, startTime, endTime, null, description, isPrivate, creator);
+    this(0, title, startTime, endTime, null, description, isPrivate);
   }
 
   /**
@@ -110,10 +97,9 @@ public class Event {
     String title,
     LocalDateTime startTime,
     LocalDateTime endTime,
-    Boolean isPrivate,
-    User creator
+    Boolean isPrivate
   ) {
-    this(0, title, startTime, endTime, null, null, isPrivate, creator);
+    this(0, title, startTime, endTime, null, null, isPrivate);
   }
 
   /**
@@ -133,7 +119,7 @@ public class Event {
     String location,
     Boolean isPrivate
   ) {
-    this(0, title, startTime, endTime, location, null, isPrivate, creator);
+    this(0, title, startTime, endTime, location, null, isPrivate);
   }
 
   /**
