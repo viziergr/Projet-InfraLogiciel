@@ -5,8 +5,8 @@ CREATE TABLE `event` (
   `end_time` datetime NOT NULL,
   `location` varchar(45) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
-  `is_private` tinyint(1) NOT NULL,
-  `creator_id` int NOT NULL,
+  `is_private` tinyint(1) DEFAULT NULL,
+  `creator_id` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
 ) 
