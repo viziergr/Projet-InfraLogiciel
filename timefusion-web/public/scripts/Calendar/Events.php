@@ -97,16 +97,34 @@ class Events {
         return $event;
     }
 
-    public function create (Event $event) {
+    public function create(Event $event) {
         $sql = "INSERT INTO event (title, description, start_time, end_time) VALUES (?, ?, ?, ?)";
         $stmt = $this->mysqli->prepare($sql);
-        return $stmt->execute([
-            $event->getTitle(),
-            $event->getDescription(),
-            $event->getStartTime()->format('Y-m-d H:i:s'),
-            $event->getEndTime()->format('Y-m-d H:i:s')
-        ]);
+    
+        // Check if the statement was prepared successfully
+        if ($stmt) {
+            // Get values
+            $title = $event->getTitle();
+            $description = $event->getDescription();
+            $startTime = $event->getStartTime()->format('Y-m-d H:i:s');
+            $endTime = $event->getEndTime()->format('Y-m-d H:i:s');
+    
+            // Bind parameters
+            $stmt->bind_param("ssss", $title, $description, $startTime, $endTime);
+    
+            // Execute the statement
+            $result = $stmt->execute();
+    
+            // Close the statement
+            $stmt->close();
+    
+            return $result;
+        } else {
+            // Handle error if the statement was not prepared successfully
+            return false;
+        }
     }
+    
 
     public function update (Event $event) {
         $sql = "UPDATE event SET title = ?, description = ?, start_time = ?, end_time = ? WHERE id = ?";
