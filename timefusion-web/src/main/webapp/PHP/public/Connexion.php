@@ -21,10 +21,10 @@
         <h1>Bienvenue</h1>
         <form method="post">
             <div>          
-                <input type="email" id="email1" name="mail" placeholder="E-mail" required>
+                <input type="email" id="email" name="mail" placeholder="E-mail" required>
             </div>
             <div>
-                <input type="password" id="password1" name="password" placeholder="Mot de passe" required>
+                <input type="password" id="password" name="password" placeholder="Mot de passe" required>
             </div>
             <div>
                 <button type="submit" id="boutonConnexion" value="1" name="connexion_submit">Connexion</button>
