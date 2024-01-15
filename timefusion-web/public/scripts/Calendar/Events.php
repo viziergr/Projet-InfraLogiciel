@@ -88,6 +88,37 @@ class Events {
     
         return $event;
     }
+
+    public function hydrate(Event $event, array $data){
+        $event->setTitle($data['name']);
+        $event->setStart(\DateTime::createFromFormat('Y-m-d H:i',$data['date'] . ' ' . $data['start'])->format('Y-m-d H:i:s'));
+        $event->setEnd(\DateTime::createFromFormat('Y-m-d H:i',$data['date'] . ' ' . $data['end'])->format('Y-m-d H:i:s'));
+        $event->setDescription($data['description']);
+        return $event;
+    }
+
+    public function create (Event $event) {
+        $sql = "INSERT INTO event (title, description, start_time, end_time) VALUES (?, ?, ?, ?)";
+        $stmt = $this->mysqli->prepare($sql);
+        return $stmt->execute([
+            $event->getTitle(),
+            $event->getDescription(),
+            $event->getStartTime()->format('Y-m-d H:i:s'),
+            $event->getEndTime()->format('Y-m-d H:i:s')
+        ]);
+    }
+
+    public function update (Event $event) {
+        $sql = "UPDATE event SET title = ?, description = ?, start_time = ?, end_time = ? WHERE id = ?";
+        $stmt = $this->mysqli->prepare($sql);
+        return $stmt->execute([
+            $event->getTitle(),
+            $event->getDescription(),
+            $event->getStartTime()->format('Y-m-d H:i:s'),
+            $event->getEndTime()->format('Y-m-d H:i:s'),
+            $event->getId()
+        ]);
+    }
 }
 
 ?>
