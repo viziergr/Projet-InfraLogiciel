@@ -1,6 +1,6 @@
 <?php
-require '../src/bootstrap.php';
-require '../views/header.php';
+require '../scripts/bootstrap.php';
+require '../includes/header.php';
 
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
     $errors = [];
@@ -58,5 +58,5 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 <?php
-require '../views/footer.php';
+require '../includes/footer.php';
 ?>

@@ -1,7 +1,7 @@
 <?php
 
-require '../src/bootstrap.php';
-require '../src/Calendar/Events.php';
+require '../scripts/bootstrap.php';
+require '../scripts/Calendar/Events.php';
 
 $mysqli = connectDB();
 $events = new TimeFusion\Calendar\Events($mysqli);
@@ -15,7 +15,7 @@ try{
     e404();
 }
 
-require '../views/header.php';
+require '../includes/header.php';
 ?>
 
 <h1>Evènement: <?= h($event->getTitle()); ?></h1>
@@ -33,5 +33,5 @@ require '../views/header.php';
 
 
 <?php 
-require '../views/footer.php';
+require '../includes/footer.php';
 ?>

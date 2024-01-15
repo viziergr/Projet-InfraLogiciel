@@ -1,8 +1,8 @@
 <?php 
 
-require '../src/bootstrap.php';
-require '../src/Calendar/Month.php';
-require '../src/Calendar/Events.php';
+require '../scripts/bootstrap.php';
+require '../scripts/Calendar/Month.php';
+require '../scripts/Calendar/Events.php';
 
 $mysqli = connectDB();
 $events = new TimeFusion\Calendar\Events($mysqli);
@@ -13,7 +13,7 @@ if ($start->format('N') !== '1') {
 }
 $end = (clone $start)->modify('+'. (4 * 7 -1).' days');
 $events = $events->getEventsBetweenByDay($start,$end);
-require '../views/header.php';
+require '../includes/header.php';
 ?>
 
 <div class="calendar">
@@ -48,11 +48,11 @@ require '../views/header.php';
         </tr>
         <?php endfor; ?>
     </table>
-    <a href="/PHP/public/add.php" class="calendar__button">+</a>
+    <a href="add.php" class="calendar__button">+</a>
 </div>
 
 
 
 <?php 
-require '../views/footer.php';
+require '../includes/footer.php';
 ?>
