@@ -7,33 +7,30 @@ if (isset($_POST['ajout_equipe_submit']) && $_POST['ajout_equipe_submit'] == 2) 
     $mysqli = connectDB();
 
     if (
-        isset($_POST['nom_equipe']) && isset($_POST['id_equipe']) && isset($_POST['id_projet']) &&
-        isset($_POST['id_user'])
+        isset($_POST['nomequipe']) && isset($_POST['email']) && isset($_POST['color'])
     ) {
 
-        $nom_equipe = $_POST['nom_equipe'];
-        $id_equipe = $_POST['id_equipe'];
-        $id_projet = $_POST['id_projet'];
-        $id_user = $_POST['id_user'];
+        $nom_equipe = $_POST['nomequipe'];
+        $membre_equipe = $_POST['email'];
+        $couleur_equipe = $_POST['color'];
 
         $nom_equipe_escaped = $mysqli->real_escape_string(trim($nom_equipe));
-        $id_equipe_escaped = $mysqli->real_escape_string(trim($id_equipe));
-        $id_projet_escaped = $mysqli->real_escape_string(trim($id_projet));
-        $id_user_escaped = $mysqli->real_escape_string(trim($id_user));
+        $membre_equipe_escaped = $mysqli->real_escape_string(trim($membre_equipe));
+        $color_escaped = $mysqli->real_escape_string(trim($couleur_equipe));
 
         // Vérification de l'existence de l'email dans la base de données
-        $check_id_equipe_query = "SELECT * FROM Equipe WHERE id_equipe = '$id_equipe_escaped'";
-        $id_equipe_result = $mysqli->query($check_id_equipe_query);
+        $check_nom_equipe_query = "SELECT * FROM Equipe WHERE nomequipe = '$nom_equipe_escaped'";
+        $nom_equipe_result = $mysqli->query($check_nom_equipe_query);
 
-        if ($id_equipe_result->num_rows > 0) {
-            // L'email existe déjà dans la base de données
-            echo "Cet id d'équipe est déjà associé à un compte existant.";
+        if ($nom_equipe_result->num_rows > 0) {
+
+            echo "Ce nom d'équipe est déjà associé à un compte existant.";
         }else{
-            // Requête SQL pour insérer l'étudiant dans la table
+
             $id_defined = false;
             while (!$id_defined){
                 try {
-                    $sql = "INSERT INTO Equipe (nom_equipe, id_equipe, id_projet, id_user) VALUES ('$nom_equipe_escaped', '$id_equipe_escaped', '$id_projet_escaped', '$id_user_escaped')";
+                    $sql = "INSERT INTO Equipe (nomequipe, email, color) VALUES ('$nom_equipe_escaped', '$membre_equipe_escaped', '$color_escaped')";
                     $mysqli->query($sql);
                     $id_defined = true;
                     echo "Equipe ajoutée";
@@ -47,6 +44,8 @@ if (isset($_POST['ajout_equipe_submit']) && $_POST['ajout_equipe_submit'] == 2) 
 
         //Affichage de l'état de chaque condition
         echo "isset(nom_equipe): " . isset($_POST['nom_equipe']) . "<br>";
+    }
+}
 ?>
 
 
