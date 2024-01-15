@@ -4,17 +4,17 @@ ini_set('display_errors', 'On');
 ini_set('display_startup_errors', 'On');
 
 function e404(){
-    require '../public/404.php';
+    require '../pages/404.php';
     exit();
 }
 
 function connectDB() {
 
     $infoBdd = [
-        'server' => 'localhost',
+        'server' => '192.168.56.81',
         'login' => 'root',
         'password' => '',
-        'db_name' => 'essai_infra',
+        'db_name' => 'TimeFusion',
     ];
 
     $mysqli = new mysqli(

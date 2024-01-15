@@ -1,6 +1,6 @@
 <?php
 
-require_once '../src/bootstrap.php';
+require_once 'bootstrap.php';
 session_start();
 
 // Si le formulaire est soumis pour connexion

@@ -1,11 +1,11 @@
-<?php include 'scripts/gestion_inscription.php'; ?>
+<?php include '../scripts/gestion_inscription.php'; ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <html>
 <head>
     <title>Inscription</title>
-    <link rel="stylesheet" href="assets/CSS/code.css">
+    <link rel="stylesheet" href="../assets/CSS/code.css">
     <meta charset="utf-8">
     <style>
         input[type="text"], input[type="password"], input[type="email"], input[type="date"] {

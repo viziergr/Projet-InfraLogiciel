@@ -5,7 +5,7 @@
 <html>
 <head>
     <title>Formulaire de connexion</title>
-    <link rel="stylesheet" href="assets/CSS/code.css">
+    <link rel="stylesheet" href="../assets/CSS/code.css">
     <meta charset="utf-8">
 </head>
 <body>
