@@ -1,6 +1,6 @@
 <?php
-require '../scripts/bootstrap.php';
 require '../includes/header.php';
+require '../scripts/bootstrap.php';
 require '../scripts/Calendar/EventValidator.php';
 require '../scripts/Calendar/Event.php';
 require '../scripts/Calendar/Events.php';
