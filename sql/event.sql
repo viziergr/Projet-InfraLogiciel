@@ -10,4 +10,3 @@ CREATE TABLE `event` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
 ) 
-pd
