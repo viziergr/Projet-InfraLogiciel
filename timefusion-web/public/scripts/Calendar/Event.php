@@ -69,4 +69,24 @@ class Event {
     public function __toString() {
         return sprintf($this->id, $this->start_time, $this->end_time, $this->title, $this->description);
     }
+
+    public function setTitle(string $title) {
+        $this->title = $title;
+    }
+
+    public function setDate(string $date) {
+        $this->date = $date;
+    }
+
+    public function setStart(string $start) {
+        $this->start_time = $start;
+    }
+
+    public function setEnd(string $end) {
+        $this->end_time = $end;
+    }
+
+    public function setDescription(string $description) {
+        $this->description = $description;
+    }
 }

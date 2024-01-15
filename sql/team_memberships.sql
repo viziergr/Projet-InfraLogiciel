@@ -1,4 +1,4 @@
-CREATE TABLE `team_memberships` (
+CREATE TABLE `team_membership` (
   `id` int NOT NULL AUTO_INCREMENT,
   `user_id` int NOT NULL,
   `team_id` int NOT NULL,
