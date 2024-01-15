@@ -575,12 +575,12 @@
     margin-top :20%;
 }
 
-.bande{
+.bandeCalendrier{
     width:100%;
     background-color:#5458b8;
 }
 
-.bande img{
+.bandeCalendrier img{
     width:4%;
     padding-top:0%;
     padding-bottom:0;
