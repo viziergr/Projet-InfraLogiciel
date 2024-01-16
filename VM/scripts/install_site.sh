@@ -21,6 +21,9 @@ chaine_a_rechercher="DocumentRoot /var/www/html"
 # Nouvelle chaîne de caractères
 nouvelle_chaine="DocumentRoot /var/www/html/Projet-InfraLogiciel/timefusion-web/public/"
 
+# Configurer les pull de git
+git config pull.rebase false --global
+
 # Vérifier si le répertoire existe
 if [ -d "$repertoire/Projet-InfraLogiciel" ]; then
     echo "=> [1] - Le répertoire existe"
