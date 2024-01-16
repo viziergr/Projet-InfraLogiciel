@@ -29,7 +29,7 @@ Vagrant.configure("2") do |config|
       machine.vm.provision "shell", path: "scripts/install_bdd.sh"
       machine.vm.provision "shell", path: "scripts/install_myadmin.sh"
       machine.vm.provision "shell", path: "scripts/install_site.sh"
-      # machine.vm.provision "shell", path: "scripts/modif_pass.sh"
+      machine.vm.provision "shell", path: "scripts/install_ssl.sh"
   end
 
   # Serveur virtuel accueillant la base de données
