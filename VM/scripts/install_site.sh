@@ -33,16 +33,6 @@ if [ -d "$repertoire/Projet-InfraLogiciel" ]; then
     mkdir /var/www/html/Projet-InfraLogiciel/timefusion-web/myadmin
     mv /var/www/html/myadmin/* /var/www/html/Projet-InfraLogiciel/timefusion-web/myadmin/
 
-    # Vérifier si la chaîne de caractères à rechercher existe dans le fichier
-    if grep -q "$chaine_a_rechercher" "$fichier_conf"; then
-        # La chaîne existe, ne rien faire
-        echo "=> [5] - Le chemin d'accès au site existe déjà."
-    else
-        # La chaîne n'existe pas, la remplacer
-        sed -i "s|$chaine_a_rechercher|$nouvelle_chaine|g" "$fichier_conf"
-        echo "=> [5] - La chemin d'accès au site a été modifié."
-    fi
-
 else
     # Le répertoire n'existe pas, exécuter git clone
     cd "$repertoire" || exit
@@ -65,8 +55,15 @@ rm /var/www/html/Projet-InfraLogiciel/README.md
 echo "END - Suppression des fichiers inutiles"
 
 echo "START - Modification de la configuration du site 000-default.conf"
-# Modification de la configuration du site 000-default.conf pour pointer sur le dossier Projet-InfraLogiciel/timefusion-web/public
-sed -i "s|$chaine_a_rechercher|$nouvelle_chaine|g" "$fichier_conf"
+# Vérifier si la chaîne de caractères à rechercher existe dans le fichier
+if grep -q "$chaine_a_rechercher" "$fichier_conf"; then
+    # La chaîne existe, ne rien faire
+    echo "=> Le chemin d'accès au site existe déjà."
+else
+    # La chaîne n'existe pas, la remplacer
+    sed -i "s|$chaine_a_rechercher|$nouvelle_chaine|g" "$fichier_conf"
+    echo "=> La chemin d'accès au site a été modifié."
+fi
 echo "END - Modification de la configuration du site 000-default.conf"
 
 service apache2 reload
