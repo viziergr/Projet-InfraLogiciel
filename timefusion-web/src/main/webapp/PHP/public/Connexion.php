@@ -35,7 +35,7 @@
 
     <div class = "redirectionInscription">  
         <p>Pas de compte ?</p>
-        <a href="..\..\PHP\Inscription.php">
+        <a href="..\..\Inscription.php">
             <button type="button">Inscrivez vous</button>
         </a>
     </div>
