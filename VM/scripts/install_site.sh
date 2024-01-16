@@ -60,7 +60,7 @@ echo "END - Suppression des fichiers inutiles"
 
 echo "START - Modification de la configuration du site 000-default.conf"
 # Vérifier si la chaîne de caractères à rechercher existe dans le fichier
-if grep -q "$chaine_a_rechercher" "$fichier_conf"; then
+if grep -q "$nouvelle_chaine" "$fichier_conf"; then
     # La chaîne existe, ne rien faire
     echo "=> Le chemin d'accès au site existe déjà."
 else
