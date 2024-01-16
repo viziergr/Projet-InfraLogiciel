@@ -10,7 +10,7 @@ DEBIAN_FRONTEND="noninteractive"
 
 echo "START - Deplacement des fichiers - "$IP
 # Définir le chemin du répertoire
-repertoire="/var/www/html/Projet-InfraLogiciel"
+repertoire="/var/www/html/"
 
 # Vérifier si le répertoire existe
 if [ -d "$repertoire" ]; then
