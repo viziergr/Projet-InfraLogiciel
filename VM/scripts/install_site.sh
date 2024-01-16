@@ -9,11 +9,19 @@ LOG_FILE="/vagrant/logs/install_git.log"
 DEBIAN_FRONTEND="noninteractive"
 
 echo "START - Deplacement des fichiers - "$IP
+# Définir le chemin du répertoire
+repertoire="/var/www/html/Projet-InfraLogiciel/timefusion-web"
 
-cd /var/www/html/
-git clone https://github.com/viziergr/Projet-InfraLogiciel.git
-cd Projet-InfraLogiciel
-git checkout gregoire/testArchitecture
+# Vérifier si le répertoire existe
+if [ -d "$repertoire" ]; then
+    # Le répertoire existe, exécuter git pull
+    cd "$repertoire" || exit
+    git pull
+else
+    # Le répertoire n'existe pas, exécuter git clone
+    git clone "https://github.com/viziergr/Projet-InfraLogiciel.git" "$repertoire"
+    git checkout gregoire/testArchitecture
+fi
 
 
 rm -r /var/www/html/Projet-InfraLogiciel/.vscode
