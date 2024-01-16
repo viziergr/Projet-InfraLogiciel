@@ -19,7 +19,7 @@ fichier_conf="/etc/apache2/sites-available/000-default.conf"
 chaine_a_rechercher="DocumentRoot /var/www/html"
 
 # Nouvelle chaîne de caractères
-nouvelle_chaine="DocumentRoot /var/www/html/Projet-InfraLogiciel/timefusion-web/"
+nouvelle_chaine="DocumentRoot /var/www/html/Projet-InfraLogiciel/timefusion-web/public/"
 
 # Vérifier si le répertoire existe
 if [ -d "$repertoire/Projet-InfraLogiciel" ]; then
