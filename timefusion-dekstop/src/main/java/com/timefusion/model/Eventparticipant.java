@@ -2,7 +2,7 @@ package com.timefusion.model;
 
 import java.util.Objects;
 
-public class Eventparticipant {
+public class EventParticipant {
 
   private int id;
   private int participantId;
@@ -14,7 +14,7 @@ public class Eventparticipant {
    * @param participantId
    * @param eventId
    */
-  public Eventparticipant(int id, int participantId, int eventId) {
+  public EventParticipant(int id, int participantId, int eventId) {
     this.id = id;
     this.participantId = participantId;
     this.eventId = eventId;
@@ -25,7 +25,7 @@ public class Eventparticipant {
    * @param participantId
    * @param eventId
    */
-  public Eventparticipant(int participantId, int eventId) {
+  public EventParticipant(int participantId, int eventId) {
     this(0, participantId, eventId);
   }
 
@@ -41,7 +41,7 @@ public class Eventparticipant {
    * Returns the ID of the user.
    * @return the ID of the user
    */
-  public int getparticipantId() {
+  public int getParticipantId() {
     return this.participantId;
   }
 
@@ -65,7 +65,7 @@ public class Eventparticipant {
    * Sets the ID of the user.
    * @param participantId the ID of the user
    */
-  public void setparticipantId(int participantId) {
+  public void setParticipantId(int participantId) {
     this.participantId = participantId;
   }
 
@@ -87,10 +87,10 @@ public class Eventparticipant {
   @Override
   public boolean equals(Object o) {
     if (o == this) return true;
-    if (!(o instanceof Eventparticipant)) {
+    if (!(o instanceof EventParticipant)) {
       return false;
     }
-    Eventparticipant eventparticipant = (Eventparticipant) o;
+    EventParticipant eventparticipant = (EventParticipant) o;
     return (
       Objects.equals(id, eventparticipant.id) &&
       Objects.equals(participantId, eventparticipant.participantId) &&

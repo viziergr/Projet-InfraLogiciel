@@ -26,35 +26,6 @@
   {
     "events": [
       {
-        "id": 1,
-        "nature": "Added",
-        "is_online": true,
-        "title": "Test Event",
-        "description": "Test Description",
-        "location": "Test Location",
-        "start_time": "2024-01-16 18:28:48",
-        "end_time": "2024-01-16 18:28:48",
-        "participants": []
-      },
-      {
-        "id": 1,
-        "nature": "Added",
-        "is_online": true,
-        "title": "Test Event",
-        "description": "Test Description",
-        "location": "Test Location",
-        "start_time": "2024-01-16 18:29:51",
-        "end_time": "2024-01-16 18:29:51",
-        "participants": [
-          {
-            "id": 1,
-            "first_name": "Louis",
-            "last_name": "Pecullier",
-            "email": "Louis@gmail.com"
-          }
-        ]
-      },
-      {
         "id": -11,
         "nature": "Added",
         "is_online": true,
@@ -71,6 +42,59 @@
             "email": "Louis@gmail.com"
           }
         ]
+      },
+      {
+        "id": 1,
+        "nature": "Unchanged",
+        "is_online": true,
+        "title": "meeting",
+        "description": "description",
+        "location": "location",
+        "start_time": "2024-01-16 19:16:08",
+        "end_time": "2024-01-16 19:16:08",
+        "participants": [
+          {
+            "id": 1,
+            "first_name": "Doe",
+            "last_name": "John@doe.com",
+            "email": "John"
+          },
+          {
+            "id": 2,
+            "first_name": "Doe",
+            "last_name": "Johny@doe.com",
+            "email": "Johny"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "nature": "Unchanged",
+        "is_online": true,
+        "title": "tea",
+        "description": "description",
+        "location": "location",
+        "start_time": "2024-01-16 19:17:31",
+        "end_time": "2024-01-16 19:17:31",
+        "participants": [
+          {
+            "id": 2,
+            "first_name": "Doe",
+            "last_name": "Johny@doe.com",
+            "email": "Johny"
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "nature": "Unchanged",
+        "is_online": true,
+        "title": "Chocolate",
+        "description": "description",
+        "location": "location",
+        "start_time": "2024-01-16 20:21:03",
+        "end_time": "2024-01-16 20:21:03",
+        "participants": []
       }
     ]
   }

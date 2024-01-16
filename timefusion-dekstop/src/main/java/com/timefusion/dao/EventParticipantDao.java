@@ -1,15 +1,16 @@
 package com.timefusion.dao;
 
-import com.timefusion.model.Eventparticipant;
+import com.timefusion.model.EventParticipant;
+import com.timefusion.model.User;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class EventParticipantDao extends GenericDao<Eventparticipant> {
+public class EventParticipantDao extends GenericDao<EventParticipant> {
 
-  private static final String TABLE_NAME = "event_participant";
+  public static final String TABLE_NAME = "event_participant";
   private final Map<String, Class<?>> schema = new HashMap<>();
 
   public EventParticipantDao() throws SQLException {
@@ -19,13 +20,13 @@ public class EventParticipantDao extends GenericDao<Eventparticipant> {
 
   private Object getColumnValue(
     String columnName,
-    Eventparticipant eventparticipant
+    EventParticipant eventparticipant
   ) {
     switch (columnName) {
       case "id":
         return eventparticipant.getId();
       case "participant_id":
-        return eventparticipant.getparticipantId();
+        return eventparticipant.getParticipantId();
       case "event_id":
         return eventparticipant.getEventId();
       default:
@@ -33,15 +34,13 @@ public class EventParticipantDao extends GenericDao<Eventparticipant> {
     }
   }
 
-  private Eventparticipant mapResultSetToEventparticipant(
+  public static EventParticipant mapResultSetToEventParticipant(
     Map<String, Object> resultSet
   ) {
     if (resultSet.isEmpty()) {
       return null;
-    } else if (resultSet.size() == 1) {
-      throw new IllegalArgumentException("Invalid number of results found");
     }
-    return new Eventparticipant(
+    return new EventParticipant(
       (Integer) resultSet.get("id"),
       (Integer) resultSet.get("participant_id"),
       (Integer) resultSet.get("event_id")
@@ -49,7 +48,7 @@ public class EventParticipantDao extends GenericDao<Eventparticipant> {
   }
 
   private Map<String, Object> mapEventparticipantToColumnValues(
-    Eventparticipant eventParticipant
+    EventParticipant eventParticipant
   ) {
     Map<String, Object> columnValues = new HashMap<>();
     for (String columnName : schema.keySet()) {
@@ -61,7 +60,7 @@ public class EventParticipantDao extends GenericDao<Eventparticipant> {
     return columnValues;
   }
 
-  public int insertEventParticipantRecord(Eventparticipant eventParticipant)
+  public int insertEventParticipantRecord(EventParticipant eventParticipant)
     throws SQLException {
     return super.databaseUtil.insertRecord(
       tableName,
@@ -69,7 +68,7 @@ public class EventParticipantDao extends GenericDao<Eventparticipant> {
     );
   }
 
-  public int updateEventParticipantRecord(Eventparticipant eventParticipant)
+  public int updateEventParticipantRecord(EventParticipant eventParticipant)
     throws SQLException {
     Map<String, Object> columnValues =
       this.mapEventparticipantToColumnValues(eventParticipant);
@@ -81,7 +80,7 @@ public class EventParticipantDao extends GenericDao<Eventparticipant> {
     );
   }
 
-  public int deleteEventParticipantRecord(Eventparticipant eventParticipant)
+  public int deleteEventParticipantRecord(EventParticipant eventParticipant)
     throws SQLException {
     return super.databaseUtil.deleteRecordById(
       tableName,
@@ -90,7 +89,7 @@ public class EventParticipantDao extends GenericDao<Eventparticipant> {
     );
   }
 
-  public List<Eventparticipant> retrieveEventParticipantRecords(
+  public List<EventParticipant> retrieveEventParticipantRecords(
     Map<String, Object> criteriaMap
   ) throws SQLException {
     return this.mapEventparticipantSetToEventparticipants(
@@ -98,12 +97,12 @@ public class EventParticipantDao extends GenericDao<Eventparticipant> {
       );
   }
 
-  private List<Eventparticipant> mapEventparticipantSetToEventparticipants(
+  private List<EventParticipant> mapEventparticipantSetToEventparticipants(
     List<Map<String, Object>> resultSet
   ) {
-    List<Eventparticipant> eventparticipants = new ArrayList<>();
+    List<EventParticipant> eventparticipants = new ArrayList<>();
     for (Map<String, Object> result : resultSet) {
-      Eventparticipant eventparticipant = new Eventparticipant(
+      EventParticipant eventparticipant = new EventParticipant(
         (Integer) result.get("id"),
         (Integer) result.get("participant_id"),
         (Integer) result.get("event_id")
@@ -125,19 +124,19 @@ public class EventParticipantDao extends GenericDao<Eventparticipant> {
   }
 
   @Override
-  protected int insertRecord(Eventparticipant eventParticipant)
+  protected int insertRecord(EventParticipant eventParticipant)
     throws SQLException {
     return this.insertEventParticipantRecord(eventParticipant);
   }
 
   @Override
-  protected int updateRecordByEntity(Eventparticipant eventParticipant)
+  protected int updateRecordByEntity(EventParticipant eventParticipant)
     throws SQLException {
     return this.updateEventParticipantRecord(eventParticipant);
   }
 
   @Override
-  protected List<Eventparticipant> retrieveRecordsWithCriteria(
+  protected List<EventParticipant> retrieveRecordsWithCriteria(
     String tableName,
     Map<String, Object> criteriaMap
   ) throws SQLException {
@@ -147,7 +146,7 @@ public class EventParticipantDao extends GenericDao<Eventparticipant> {
   public static void main(String[] args) {
     try {
       EventParticipantDao eventParticipantDao = new EventParticipantDao();
-      Eventparticipant eventparticipant = new Eventparticipant(2, 10, 1);
+      EventParticipant eventparticipant = new EventParticipant(0, 2, 2);
       eventParticipantDao.insertEventParticipantRecord(eventparticipant);
       //   eventParticipantDao.deleteTEventParticipantRecord(eventparticipant);
     } catch (Exception e) {

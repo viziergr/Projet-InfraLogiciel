@@ -14,7 +14,7 @@ import java.util.Map;
  */
 public class EventDao extends GenericDao<Event> {
 
-  private static final String TABLE_NAME = "event";
+  public static final String TABLE_NAME = "event";
   private final Map<String, Class<?>> schema = new HashMap<>();
 
   public EventDao() throws SQLException {

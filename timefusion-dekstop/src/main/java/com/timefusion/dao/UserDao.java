@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class UserDao extends GenericDao<User> {
 
-  private static final String TABLE_NAME = "User";
+  public static final String TABLE_NAME = "User";
   private final Map<String, Class<?>> schema = new HashMap<>();
 
   public UserDao() throws SQLException {
@@ -74,7 +74,7 @@ public class UserDao extends GenericDao<User> {
    * @param result the result set to be mapped
    * @return the User object
    */
-  private User mapResultSetToUser(List<Map<String, Object>> result) {
+  public static User mapResultSetToUser(List<Map<String, Object>> result) {
     if (result.isEmpty()) {
       return null;
     } else if (result.size() > 1) {

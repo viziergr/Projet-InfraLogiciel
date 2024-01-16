@@ -5,8 +5,11 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.timefusion.jfxcalendar.JSON.JsonUtils;
 import com.timefusion.jfxcalendar.controllers.OnlineOfflineSwitch;
+import com.timefusion.model.Event;
+import com.timefusion.model.User;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 public class EventsEntity {
 
@@ -26,6 +29,43 @@ public class EventsEntity {
   public static final int EVENTS_ENTITY_POSITION = 4;
 
   public EventsEntity() {}
+
+  public EventsEntity(Event event, EventNature nature) {
+    this.id = event.getId();
+    this.nature = nature;
+    this.isOnline = true;
+    this.title = event.getTitle();
+    this.description = event.getDescription();
+    this.location = event.getLocation();
+    this.startTime = event.getStartTime();
+    this.endTime = event.getEndTime();
+    this.participants = new ParticipantsEntity[] { new ParticipantsEntity() };
+  }
+
+  public EventsEntity(
+    Event event,
+    EventNature nature,
+    List<User> participants
+  ) {
+    this.id = event.getId();
+    this.nature = nature;
+    this.isOnline = true;
+    this.title = event.getTitle();
+    this.description = event.getDescription();
+    this.location = event.getLocation();
+    this.startTime = event.getStartTime();
+    this.endTime = event.getEndTime();
+
+    if (participants != null && participants.size() > 0) {
+      this.participants = new ParticipantsEntity[participants.size()];
+
+      for (int i = 0; i < participants.size(); i++) {
+        this.participants[i] = new ParticipantsEntity(participants.get(i));
+      }
+    } else {
+      this.participants = new ParticipantsEntity[0];
+    }
+  }
 
   public EventsEntity(
     int id,

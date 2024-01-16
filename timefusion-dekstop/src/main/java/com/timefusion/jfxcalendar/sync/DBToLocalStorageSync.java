@@ -2,8 +2,15 @@ package com.timefusion.jfxcalendar.sync;
 
 import com.google.gson.JsonObject;
 import com.timefusion.dao.EventDao;
+import com.timefusion.dao.EventParticipantDao;
+import com.timefusion.dao.UserDao;
+import com.timefusion.exception.EventException;
+import com.timefusion.jfxcalendar.JSON.Entities.EventNature;
 import com.timefusion.jfxcalendar.JSON.Entities.EventsEntity;
+import com.timefusion.jfxcalendar.JSON.Entities.ParticipantsEntity;
 import com.timefusion.model.Event;
+import com.timefusion.model.EventParticipant;
+import com.timefusion.model.User;
 import com.timefusion.util.DatabaseUtil;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -97,7 +104,9 @@ public class DBToLocalStorageSync {
       databaseUtil
     );
     String query =
-      "SELECT * FROM event WHERE id IN (" +
+      "SELECT * FROM " +
+      EventDao.TABLE_NAME +
+      " WHERE id IN (" +
       DBIdsNotInLocalStorage.toString().replace("[", "").replace("]", "") +
       ")";
     try {
@@ -114,12 +123,99 @@ public class DBToLocalStorageSync {
     return null;
   }
 
+  public static List<EventParticipant> getDBEventParticipants(
+    DatabaseUtil databaseUtil,
+    int eventId
+  ) {
+    String query =
+      "SELECT * FROM " +
+      EventParticipantDao.TABLE_NAME +
+      " WHERE event_id = " +
+      eventId +
+      ";";
+    try {
+      List<Map<String, Object>> mapEventParticipants = databaseUtil.executeQuery(
+        query
+      );
+      List<EventParticipant> DBEventParticipants = new ArrayList<>();
+      for (Map<String, Object> mapEventParticipant : mapEventParticipants) {
+        EventParticipant eventParticipant = EventParticipantDao.mapResultSetToEventParticipant(
+          mapEventParticipant
+        );
+        DBEventParticipants.add(eventParticipant);
+      }
+      return DBEventParticipants;
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return null;
+  }
+
+  public static List<User> getDBParticipantsFromEventId(
+    DatabaseUtil databaseUtil,
+    int eventId
+  ) {
+    List<User> DBUsers = new ArrayList<>();
+    List<EventParticipant> DBEventParticipants = getDBEventParticipants(
+      databaseUtil,
+      eventId
+    );
+    List<Integer> participantIds = new ArrayList<>();
+    for (EventParticipant eventParticipant : DBEventParticipants) {
+      participantIds.add(eventParticipant.getParticipantId());
+    }
+    if (participantIds.isEmpty()) {
+      return DBUsers;
+    }
+    try {
+      String query =
+        "SELECT * FROM " +
+        UserDao.TABLE_NAME +
+        " WHERE id IN (" +
+        participantIds.toString().replace("[", "").replace("]", "") +
+        ")";
+      List<Map<String, Object>> result = databaseUtil.executeQuery(query);
+
+      if (!result.isEmpty()) {
+        for (Map<String, Object> mapUser : result) {
+          List<Map<String, Object>> listMapUser = new ArrayList<>();
+          listMapUser.add(mapUser);
+          User user = UserDao.mapResultSetToUser(listMapUser);
+          DBUsers.add(user);
+        }
+      } else {
+        System.out.println("No user found");
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+
+    return DBUsers;
+  }
+
+  public static void addUnimplementedDBEventsToLocal(
+    DatabaseUtil databaseUtil
+  ) {
+    List<Event> unimplementedDBEvents = getUnimplementedDBEvents(databaseUtil);
+    for (Event event : unimplementedDBEvents) {
+      // for each event retrieve the participants
+      EventsEntity eventsEntity = new EventsEntity(
+        event,
+        EventNature.UNCHANGED,
+        getDBParticipantsFromEventId(databaseUtil, event.getId())
+      );
+      eventsEntity.addEventEntity();
+    }
+  }
+
   public static void main(String[] args) {
     try {
       DatabaseUtil databaseUtil = new DatabaseUtil();
-      //   System.out.println(getDBIdsNotInLocalStorage(databaseUtil));
-      //   System.out.println(getLocalOnlineIdsNotInDB(databaseUtil));
-      System.out.println(getUnimplementedDBEvents(databaseUtil).toString());
+      // System.out.println(getUnimplementedDBEvents(databaseUtil).toString());
+      addUnimplementedDBEventsToLocal(databaseUtil);
+      System.out.println(
+        getDBParticipantsFromEventId(databaseUtil, 2).toString()
+      );
     } catch (SQLException e) {
       e.printStackTrace();
     }

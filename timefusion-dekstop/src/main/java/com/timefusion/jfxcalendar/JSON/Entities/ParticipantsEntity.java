@@ -7,6 +7,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.timefusion.jfxcalendar.JSON.JsonUtils;
+import com.timefusion.model.User;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -39,6 +40,13 @@ public class ParticipantsEntity implements JsonEntity {
     this.firstName = firstName;
     this.lastName = lastName;
     this.email = email;
+  }
+
+  public ParticipantsEntity(User user) {
+    this.id = user.getId();
+    this.firstName = user.getFirstName();
+    this.lastName = user.getLastName();
+    this.email = user.getEmail();
   }
 
   public int getId() {

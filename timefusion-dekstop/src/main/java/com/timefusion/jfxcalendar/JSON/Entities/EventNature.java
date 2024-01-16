@@ -3,7 +3,8 @@ package com.timefusion.jfxcalendar.JSON.Entities;
 public enum EventNature {
   ADDED("Added"),
   UPDATED("Updated"),
-  DELETED("Deleted");
+  DELETED("Deleted"),
+  UNCHANGED("Unchanged");
 
   private final String displayName;
 
