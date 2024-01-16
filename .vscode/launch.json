@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "DBToLocalStorageSync",
+            "request": "launch",
+            "mainClass": "com.timefusion/com.timefusion.jfxcalendar.sync.DBToLocalStorageSync",
+            "projectName": "timefusion-dekstop"
+        },
+        {
+            "type": "java",
+            "name": "OnlineOfflineSwitch",
+            "request": "launch",
+            "mainClass": "com.timefusion/com.timefusion.jfxcalendar.controllers.OnlineOfflineSwitch",
+            "projectName": "timefusion-dekstop"
+        },
+        {
+            "type": "java",
             "name": "TeamDao",
             "request": "launch",
             "mainClass": "com.timefusion/com.timefusion.dao.TeamDao",

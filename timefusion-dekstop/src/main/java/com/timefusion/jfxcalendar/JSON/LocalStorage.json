@@ -1,122 +1,76 @@
 [
   {
-    "information": {}
+    "information": {
+      "last_updated": "16-01-2024 18:21:54",
+      "last_synced": "16-01-2024 18:21:54"
+    }
   },
   {
-    "user": {}
+    "user": {
+      "id": 1,
+      "first_name": "John",
+      "last_name": "Doe",
+      "email": "John.doe@gmail.com",
+      "password": "password"
+    }
   },
   {
-    "teams": []
+    "teams": [
+      {
+        "id": 1,
+        "name": "Team 1",
+        "description": "Team 1 description"
+      }
+    ]
   },
   {
     "events": [
       {
-        "id": -1,
-        "nature": "Added",
-        "is_online": false,
-        "title": "Test",
-        "description": "Test",
-        "location": "Eseo",
-        "start_time": "2024-01-16 12:00",
-        "end_time": "2024-01-16 13:00",
-        "participants": [
-          {
-            "id": 0
-          }
-        ]
-      },
-      {
-        "id": -1,
-        "nature": "Added",
-        "is_online": false,
-        "title": "Title2",
-        "description": "TEST",
-        "location": "ESEO2",
-        "start_time": "2024-01-16 17:00",
-        "end_time": "2024-01-16 17:30",
-        "participants": [
-          {
-            "id": 0
-          }
-        ]
-      },
-      {
-        "id": -1,
-        "nature": "Added",
-        "is_online": false,
-        "title": "Title7",
-        "description": "Test7",
-        "location": "310",
-        "start_time": "2024-01-25 10:00",
-        "end_time": "2024-01-25 15:14",
-        "participants": [
-          {
-            "id": 0
-          }
-        ]
-      },
-      {
-        "id": -1,
-        "nature": "Added",
-        "is_online": false,
-        "title": "Title 8",
-        "description": "garjgagjnqgz",
-        "location": "311",
-        "start_time": "2024-01-18 10:00:00",
-        "end_time": "2024-01-18 11:00:00",
-        "participants": []
-      },
-      {
-        "id": -1,
+        "id": 1,
         "nature": "Added",
         "is_online": true,
         "title": "Test Event",
         "description": "Test Description",
         "location": "Test Location",
-        "start_time": "2024-01-16 16:46:09",
-        "end_time": "2024-01-16 16:46:09",
-        "participants": [
-          {
-            "id": 0
-          }
-        ]
+        "start_time": "2024-01-16 18:28:48",
+        "end_time": "2024-01-16 18:28:48",
+        "participants": []
       },
       {
-        "id": -1,
+        "id": 1,
         "nature": "Added",
         "is_online": true,
         "title": "Test Event",
         "description": "Test Description",
         "location": "Test Location",
-        "start_time": "2024-01-16 16:47:06",
-        "end_time": "2024-01-16 16:47:06",
+        "start_time": "2024-01-16 18:29:51",
+        "end_time": "2024-01-16 18:29:51",
         "participants": [
           {
-            "id": 0
+            "id": 1,
+            "first_name": "Louis",
+            "last_name": "Pecullier",
+            "email": "Louis@gmail.com"
           }
         ]
       },
       {
-        "id": -1,
+        "id": -11,
         "nature": "Added",
         "is_online": true,
         "title": "Test Event",
         "description": "Test Description",
         "location": "Test Location",
-        "start_time": "2024-01-16 16:52:49",
-        "end_time": "2024-01-16 16:52:49",
-        "participants": []
-      },
-      {
-        "id": -1,
-        "nature": "Added",
-        "is_online": false,
-        "title": "Faire un calin a PP",
-        "description": "Miam miam",
-        "location": "Les chiottes aux -1",
-        "start_time": "2024-01-17 08:00:00",
-        "end_time": "2024-01-17 08:05:00",
-        "participants": []
+        "start_time": "2024-01-16 18:50:27",
+        "end_time": "2024-01-16 18:50:27",
+        "participants": [
+          {
+            "id": 1,
+            "first_name": "Louis",
+            "last_name": "Pecullier",
+            "email": "Louis@gmail.com"
+          }
+        ]
       }
     ]
   }

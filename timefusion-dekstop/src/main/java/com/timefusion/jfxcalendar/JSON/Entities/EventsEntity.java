@@ -4,6 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.timefusion.jfxcalendar.JSON.JsonUtils;
+import com.timefusion.jfxcalendar.controllers.OnlineOfflineSwitch;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -20,7 +21,6 @@ public class EventsEntity {
   private ParticipantsEntity[] participants;
 
   private static int nextNegativeId = -1;
-  public static boolean isOffline = true;
 
   public static final String EVENTS_ENTITY_NAME = "events";
   public static final int EVENTS_ENTITY_POSITION = 4;
@@ -38,10 +38,7 @@ public class EventsEntity {
     LocalDateTime endTime,
     ParticipantsEntity[] participants
   ) {
-    if (isOffline) {
-      resetNextNegativeId();
-    }
-    this.id = !isOffline ? id : generateNextOfflineId();
+    this.id = !OnlineOfflineSwitch.isOnline ? id : generateNextOfflineId();
     this.nature = nature;
     this.isOnline = isOnline;
     this.title = title;
@@ -293,7 +290,7 @@ public class EventsEntity {
 
   public static void main(String[] args) {
     EventsEntity event = new EventsEntity(
-      1,
+      -11,
       EventNature.ADDED,
       true,
       "Test Event",
@@ -301,7 +298,9 @@ public class EventsEntity {
       "Test Location",
       LocalDateTime.now(),
       LocalDateTime.now(),
-      new ParticipantsEntity[] { new ParticipantsEntity() }
+      new ParticipantsEntity[] {
+        new ParticipantsEntity(1, "Louis", "Pecullier", "Louis@gmail.com"),
+      }
     );
     event.addEventEntity();
   }

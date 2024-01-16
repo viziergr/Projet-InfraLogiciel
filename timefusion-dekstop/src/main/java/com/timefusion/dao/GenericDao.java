@@ -79,4 +79,9 @@ public abstract class GenericDao<T> {
     throws SQLException {
     return this.databaseUtil.deleteRecordById(tableName, "id", id);
   }
+
+  public List<Map<String, Object>> executeQuery(String query)
+    throws SQLException {
+    return this.databaseUtil.executeQuery(query);
+  }
 }

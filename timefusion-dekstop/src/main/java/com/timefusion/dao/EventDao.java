@@ -14,7 +14,7 @@ import java.util.Map;
  */
 public class EventDao extends GenericDao<Event> {
 
-  private static final String TABLE_NAME = "Event";
+  private static final String TABLE_NAME = "event";
   private final Map<String, Class<?>> schema = new HashMap<>();
 
   public EventDao() throws SQLException {
@@ -45,17 +45,15 @@ public class EventDao extends GenericDao<Event> {
     }
   }
 
-  private Event mapResultSetToUser(Map<String, Object> result) {
+  public static Event mapResultSetToEvent(Map<String, Object> result) {
     if (result.isEmpty()) {
       return null;
-    } else if (result.size() > 1) {
-      throw new IllegalArgumentException("More than event user found");
     }
     Event event = new Event(
       (int) result.get("id"),
       (String) result.get("title"),
-      ((java.sql.Timestamp) result.get("start_time")).toLocalDateTime(),
-      ((java.sql.Timestamp) result.get("end_time")).toLocalDateTime(),
+      ((LocalDateTime) result.get("start_time")),
+      ((LocalDateTime) result.get("end_time")),
       (String) result.get("location"),
       (String) result.get("description"),
       (boolean) result.get("is_private"),
@@ -107,7 +105,7 @@ public class EventDao extends GenericDao<Event> {
     List<Event> events = new ArrayList<>();
 
     for (Map<String, Object> row : result) {
-      events.add(mapResultSetToUser(row));
+      events.add(mapResultSetToEvent(row));
     }
 
     return events;
@@ -150,14 +148,14 @@ public class EventDao extends GenericDao<Event> {
   public static void main(String[] args) throws SQLException {
     EventDao eventDao = new EventDao();
     Event event = new Event(
-      1,
-      "title",
+      0,
+      "Chocolate",
       LocalDateTime.now(),
       LocalDateTime.now(),
       "location",
       "description",
       true,
-      10
+      2
     );
     eventDao.insertEventRecord(event);
   }

@@ -219,4 +219,10 @@ public class UserDao extends GenericDao<User> {
   ) throws SQLException {
     return retrieveUsersRecords(criteriaMap);
   }
+
+  public static void main(String[] args) throws SQLException {
+    UserDao userDao = new UserDao();
+    User user = new User(2, "Johny@doe.com", "Johny", "Doe", "password");
+    userDao.insertUserRecord(user);
+  }
 }
