@@ -9,7 +9,7 @@
 
     <div class="bandeV">
         <div class="dropdown">
-            <img id="trbar" src="C:\Users\gross\Documents\Eseo\E4e\S7\LD\projetld\Projet-InfraLogiciel\timefusion-web\src\main\webapp\pictures\trois_barres-removebg-preview.png" alt="Mon panneau déroulant" />
+            <img id="trbar" src="..\..\pictures\trBarre.png" alt="redirection"/>
             <div class="dropdown-content">
                 <p>Team</p>
                 <p>Profil</p>
@@ -18,7 +18,7 @@
         </div>
         <h1>TimeFusion</h1>
         <a href="index.html">
-            <img id ="logo" src="C:\Users\gross\Documents\Eseo\E4e\S7\LD\projetld\Projet-InfraLogiciel\timefusion-web\src\main\webapp\pictures\Logo.png" alt="Logo Time Fusion">
+            <img id ="logo" src="..\..\pictures\Logo.png">
         </a>
     </div>
 
