@@ -29,7 +29,7 @@ if [ -d "$repertoire/Projet-InfraLogiciel" ]; then
 else
     # Le répertoire n'existe pas, exécuter git clone
     echo "=> [1] - Git clone"
-    git clone "https://github.com/viziergr/Projet-InfraLogiciel.git" "$repertoire"
+    git clone "https://github.com/viziergr/Projet-InfraLogiciel.git" "$repertoire/Projet-InfraLogiciel"
     echo "=> [2] - Git checkout gregoire/testArchitecture"
     git checkout gregoire/testArchitecture
 fi
