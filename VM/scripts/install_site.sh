@@ -13,7 +13,7 @@ echo "START - Deplacement des fichiers - "$IP
 repertoire="/var/www/html/"
 
 # Vérifier si le répertoire existe
-if [ -d "$repertoire" ]; then
+if [ -d "$repertoire/var/www/html" ]; then
     echo "=> [1] - Le répertoire existe"
     # Le répertoire existe, exécuter git pull
     cd "$repertoire" || exit
