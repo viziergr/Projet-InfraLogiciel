@@ -29,10 +29,6 @@ if [ -d "$repertoire/Projet-InfraLogiciel" ]; then
     echo "=> [2] - Git pull"
     git pull
     echo "=> [4] - Déplacement du répertoire myadmin"
-    # Déplacement des fichiers de myadmin
-    mkdir /var/www/html/Projet-InfraLogiciel/timefusion-web/myadmin
-    mv /var/www/html/myadmin/* /var/www/html/Projet-InfraLogiciel/timefusion-web/myadmin/
-
 else
     # Le répertoire n'existe pas, exécuter git clone
     cd "$repertoire" || exit
@@ -41,6 +37,9 @@ else
     cd Projet-InfraLogiciel || exit
     echo "=> [2] - Git checkout gregoire/testArchitecture"
     git checkout gregoire/testArchitecture
+    # Déplacement des fichiers de myadmin
+    mkdir /var/www/html/Projet-InfraLogiciel/timefusion-web/myadmin
+    mv /var/www/html/myadmin/* /var/www/html/Projet-InfraLogiciel/timefusion-web/myadmin/
 fi
 
 echo "START - Suppression des fichiers inutiles"
