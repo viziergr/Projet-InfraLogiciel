@@ -10,17 +10,17 @@ DEBIAN_FRONTEND="noninteractive"
 
 echo "START - Installation du certificat SSL - "$IP
 
-echo "=> [1] - Installation de snapd"
-sudo apt install snapd -y
-echo "=> [2] - Installation de snap core"
-sudo snap install core 
-echo "=> [3] - Suppression de certbot"
-sudo apt-get remove certbot
-echo "=> [4] - Installation de certbot"
-sudo snap install --classic certbot
-echo "=> [5] - Préparation de la commande Certbot"
-sudo ln -s /snap/bin/certbot /usr/bin/certbot
-echo "=> [6] - Installation du certificat SSL"
-sudo certbot --apache --register-unsafely-without-email --agree-tos
+# echo "=> [1] - Installation de snapd"
+# sudo apt install snapd -y >> $LOG_FILE 2>&1
+# echo "=> [2] - Installation de snap core"
+# sudo snap install core >> $LOG_FILE 2>&1
+# echo "=> [3] - Suppression de certbot"
+# sudo apt-get remove certbot >> $LOG_FILE 2>&1
+# echo "=> [4] - Installation de certbot"
+# sudo snap install --classic certbot >> $LOG_FILE 2>&1
+# echo "=> [5] - Préparation de la commande Certbot"
+# sudo ln -s /snap/bin/certbot /usr/bin/certbot 
+# echo "=> [6] - Installation du certificat SSL"
+# sudo certbot --apache --register-unsafely-without-email --agree-tos
 
 echo "END - Installation du certificat SSL - "$IP
