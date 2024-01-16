@@ -12,6 +12,15 @@ echo "START - Deplacement des fichiers - "$IP
 # Définir le chemin du répertoire
 repertoire="/var/www/html/"
 
+# Chemin du fichier de configuration Apache
+fichier_conf="/etc/apache2/sites-available/000-default.conf"
+
+# Chaîne de caractères à rechercher
+chaine_a_rechercher="DocumentRoot /var/www/html"
+
+# Nouvelle chaîne de caractères
+nouvelle_chaine="DocumentRoot /var/www/html/Projet-InfraLogiciel/timefusion-web/"
+
 # Vérifier si le répertoire existe
 if [ -d "$repertoire/Projet-InfraLogiciel" ]; then
     echo "=> [1] - Le répertoire existe"
@@ -19,13 +28,21 @@ if [ -d "$repertoire/Projet-InfraLogiciel" ]; then
     cd "$repertoire" || exit
     echo "=> [2] - Git pull"
     git pull
-    echo "=> [3] - Git Modification de la configuration du site 000-default.conf"
-    # Modification de la configuration du site 000-default.conf pour pointer sur le dossier Projet-InfraLogiciel/timefusion-web/public
-    sed -i 's/DocumentRoot \/var\/www\/html/DocumentRoot \/var\/www\/html\/Projet-InfraLogiciel\/timefusion-web\/public/g' /etc/apache2/sites-available/000-default.conf
     echo "=> [4] - Déplacement du répertoire myadmin"
     # Déplacement des fichiers de myadmin
     mkdir /var/www/html/Projet-InfraLogiciel/timefusion-web/myadmin
     mv /var/www/html/myadmin/* /var/www/html/Projet-InfraLogiciel/timefusion-web/myadmin/
+
+    # Vérifier si la chaîne de caractères à rechercher existe dans le fichier
+    if grep -q "$chaine_a_rechercher" "$fichier_conf"; then
+        # La chaîne existe, ne rien faire
+        echo "=> [5] - Le chemin d'accès au site existe déjà."
+    else
+        # La chaîne n'existe pas, la remplacer
+        sed -i "s|$chaine_a_rechercher|$nouvelle_chaine|g" "$fichier_conf"
+        echo "=> [5] - La chemin d'accès au site a été modifié."
+    fi
+
 else
     # Le répertoire n'existe pas, exécuter git clone
     cd "$repertoire" || exit
@@ -46,6 +63,11 @@ rm /var/www/html/Projet-InfraLogiciel/Configurations.txt
 rm /var/www/html/Projet-InfraLogiciel/ProjetInfraLog.drawio
 rm /var/www/html/Projet-InfraLogiciel/README.md
 echo "END - Suppression des fichiers inutiles"
+
+echo "START - Modification de la configuration du site 000-default.conf"
+# Modification de la configuration du site 000-default.conf pour pointer sur le dossier Projet-InfraLogiciel/timefusion-web/public
+sed -i "s|$chaine_a_rechercher|$nouvelle_chaine|g" "$fichier_conf"
+echo "END - Modification de la configuration du site 000-default.conf"
 
 service apache2 reload
 echo "END - Deplacement des fichiers"
