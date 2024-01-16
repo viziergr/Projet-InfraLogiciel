@@ -21,26 +21,28 @@ chaine_a_rechercher="DocumentRoot /var/www/html"
 # Nouvelle chaîne de caractères
 nouvelle_chaine="DocumentRoot /var/www/html/Projet-InfraLogiciel/timefusion-web/public/"
 
-# Configurer les pull de git
-git config pull.rebase false --global
-
 # Vérifier si le répertoire existe
 if [ -d "$repertoire/Projet-InfraLogiciel" ]; then
     echo "=> [1] - Le répertoire existe"
-    # Le répertoire existe, exécuter git pull
     cd "$repertoire/Projet-InfraLogiciel" || exit
+
     echo "=> [2] - Git pull"
     git pull
-    echo "=> [4] - Déplacement du répertoire myadmin"
 else
-    # Le répertoire n'existe pas, exécuter git clone
     cd "$repertoire" || exit
+
     echo "=> [1] - Git clone"
     git clone "https://github.com/viziergr/Projet-InfraLogiciel.git"
+
     cd Projet-InfraLogiciel || exit
+
     echo "=> [2] - Git checkout gregoire/testArchitecture"
     git checkout gregoire/testArchitecture
-    # Déplacement des fichiers de myadmin
+
+    echo "=> [3] - Configuration du git pull"
+    git config pull.rebase false --global
+
+    echo "=> [4] - Déplacement du répertoire myadmin"
     mkdir /var/www/html/Projet-InfraLogiciel/timefusion-web/myadmin
     mv /var/www/html/myadmin/* /var/www/html/Projet-InfraLogiciel/timefusion-web/myadmin/
 fi
