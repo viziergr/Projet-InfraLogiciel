@@ -9,7 +9,7 @@
 
     <div class="bandeV">
         <div class="dropdown">
-            <img id="trbar" src="..\..\pictures\home.png" alt="home"/>
+            <img id="trbar" src="..\..\pictures\trBarre.png" alt="redirection"/>
             <div class="dropdown-content">
                 <p>Team</p>
                 <p>Profil</p>
