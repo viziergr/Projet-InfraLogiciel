@@ -1,89 +1,122 @@
 [
   {
-    "information": {
-      "last_updated": "14-01-2024T15:01:33",
-      "last_synced": "14-01-2024T15:01:33"
-    }
+    "information": {}
   },
   {
-    "user": {
-      "id": 1,
-      "first_name": "John",
-      "last_name": "Doe",
-      "email": "john@doe.com",
-      "password": "password"
-    }
+    "user": {}
   },
   {
-    "teams": [
-      {
-        "id": 2,
-        "name": "Team 2",
-        "description": "Team 1 description"
-      }
-    ]
+    "teams": []
   },
   {
     "events": [
       {
-        "id": 12,
+        "id": -1,
         "nature": "Added",
-        "is_online": true,
-        "title": "title",
-        "description": "description",
-        "location": "location",
-        "start_time": "start_time",
-        "end_time": "end_time",
+        "is_online": false,
+        "title": "Test",
+        "description": "Test",
+        "location": "Eseo",
+        "start_time": "2024-01-16 12:00",
+        "end_time": "2024-01-16 13:00",
         "participants": [
           {
-            "id": 1,
-            "first_name": "test",
-            "last_name": "last_name",
-            "email": "email"
-          },
-          {
-            "id": 2,
-            "first_name": "cacae",
-            "last_name": "last_name",
-            "email": "email"
+            "id": 0
           }
         ]
       },
       {
-        "id": -2,
+        "id": -1,
+        "nature": "Added",
+        "is_online": false,
+        "title": "Title2",
+        "description": "TEST",
+        "location": "ESEO2",
+        "start_time": "2024-01-16 17:00",
+        "end_time": "2024-01-16 17:30",
+        "participants": [
+          {
+            "id": 0
+          }
+        ]
+      },
+      {
+        "id": -1,
+        "nature": "Added",
+        "is_online": false,
+        "title": "Title7",
+        "description": "Test7",
+        "location": "310",
+        "start_time": "2024-01-25 10:00",
+        "end_time": "2024-01-25 15:14",
+        "participants": [
+          {
+            "id": 0
+          }
+        ]
+      },
+      {
+        "id": -1,
+        "nature": "Added",
+        "is_online": false,
+        "title": "Title 8",
+        "description": "garjgagjnqgz",
+        "location": "311",
+        "start_time": "2024-01-18 10:00:00",
+        "end_time": "2024-01-18 11:00:00",
+        "participants": []
+      },
+      {
+        "id": -1,
         "nature": "Added",
         "is_online": true,
         "title": "Test Event",
         "description": "Test Description",
         "location": "Test Location",
-        "start_time": "2021-05-05 12:00:00",
-        "end_time": "2021-05-05 13:00:00",
+        "start_time": "2024-01-16 16:46:09",
+        "end_time": "2024-01-16 16:46:09",
         "participants": [
           {
-            "id": 1,
-            "first_name": "Test Participant",
-            "last_name": "c",
-            "email": ""
+            "id": 0
           }
         ]
       },
       {
-        "id": -3,
+        "id": -1,
         "nature": "Added",
         "is_online": true,
         "title": "Test Event",
         "description": "Test Description",
         "location": "Test Location",
-        "start_time": "2021-05-05 12:00:00",
-        "end_time": "2021-05-05 13:00:00",
+        "start_time": "2024-01-16 16:47:06",
+        "end_time": "2024-01-16 16:47:06",
         "participants": [
           {
-            "id": 1,
-            "first_name": "Test Participant",
-            "last_name": "c",
-            "email": ""
+            "id": 0
           }
         ]
+      },
+      {
+        "id": -1,
+        "nature": "Added",
+        "is_online": true,
+        "title": "Test Event",
+        "description": "Test Description",
+        "location": "Test Location",
+        "start_time": "2024-01-16 16:52:49",
+        "end_time": "2024-01-16 16:52:49",
+        "participants": []
+      },
+      {
+        "id": -1,
+        "nature": "Added",
+        "is_online": false,
+        "title": "Faire un calin a PP",
+        "description": "Miam miam",
+        "location": "Les chiottes aux -1",
+        "start_time": "2024-01-17 08:00:00",
+        "end_time": "2024-01-17 08:05:00",
+        "participants": []
       }
     ]
   }

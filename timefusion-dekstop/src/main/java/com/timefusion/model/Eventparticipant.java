@@ -7,39 +7,26 @@ public class Eventparticipant {
   private int id;
   private int participantId;
   private int eventId;
-  private String participant_type;
 
   /**
    * Constructor for Eventparticipant
    * @param id
    * @param participantId
    * @param eventId
-   * @param participant_type
    */
-  public Eventparticipant(
-    int id,
-    int participantId,
-    int eventId,
-    String participant_type //team or user
-  ) {
+  public Eventparticipant(int id, int participantId, int eventId) {
     this.id = id;
     this.participantId = participantId;
     this.eventId = eventId;
-    this.participant_type = participant_type;
   }
 
   /**
    * Constructor for Eventparticipant
    * @param participantId
    * @param eventId
-   * @param participant_type
    */
-  public Eventparticipant(
-    int participantId,
-    int eventId,
-    String participant_type
-  ) {
-    this(0, participantId, eventId, participant_type);
+  public Eventparticipant(int participantId, int eventId) {
+    this(0, participantId, eventId);
   }
 
   /**
@@ -67,14 +54,6 @@ public class Eventparticipant {
   }
 
   /**
-   * Returns the type of the participant.
-   * @return the type of the participant
-   */
-  public String getParticipant_type() {
-    return this.participant_type;
-  }
-
-  /**
    * Sets the ID of the event participant.
    * @param id the ID of the event participant
    */
@@ -99,14 +78,6 @@ public class Eventparticipant {
   }
 
   /**
-   * Sets the type of the participant.
-   * @param participant_type the type of the participant
-   */
-  public void setParticipant_type(String participant_type) {
-    this.participant_type = participant_type;
-  }
-
-  /**
    * Compares this Eventparticipant object with the specified object for equality.
    * Returns true if the given object is also an Eventparticipant and has the same values for id, participantId, eventId, and participant_type.
    *
@@ -123,8 +94,7 @@ public class Eventparticipant {
     return (
       Objects.equals(id, eventparticipant.id) &&
       Objects.equals(participantId, eventparticipant.participantId) &&
-      Objects.equals(eventId, eventparticipant.eventId) &&
-      Objects.equals(participant_type, eventparticipant.participant_type)
+      Objects.equals(eventId, eventparticipant.eventId)
     );
   }
 
@@ -142,8 +112,6 @@ public class Eventparticipant {
       participantId +
       ", eventId=" +
       eventId +
-      ", participant_type=" +
-      participant_type +
       '}'
     );
   }

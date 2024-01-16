@@ -36,27 +36,30 @@ public class EventDao extends GenericDao<Event> {
         return event.getLocation();
       case "description":
         return event.getDescription();
-      case "is_personal":
-        return event.getIsPersonal();
+      case "is_private":
+        return event.getIsPrivate();
+      case "creator_id":
+        return event.getCreatorId();
       default:
         return null;
     }
   }
 
-  private Event mapResultSetToUser(List<Map<String, Object>> result) {
+  private Event mapResultSetToUser(Map<String, Object> result) {
     if (result.isEmpty()) {
       return null;
     } else if (result.size() > 1) {
       throw new IllegalArgumentException("More than event user found");
     }
     Event event = new Event(
-      (int) result.get(0).get("id"),
-      (String) result.get(0).get("title"),
-      ((java.sql.Timestamp) result.get(0).get("start_time")).toLocalDateTime(),
-      ((java.sql.Timestamp) result.get(0).get("end_time")).toLocalDateTime(),
-      (String) result.get(0).get("location"),
-      (String) result.get(0).get("description"),
-      (boolean) result.get(0).get("is_personal")
+      (int) result.get("id"),
+      (String) result.get("title"),
+      ((java.sql.Timestamp) result.get("start_time")).toLocalDateTime(),
+      ((java.sql.Timestamp) result.get("end_time")).toLocalDateTime(),
+      (String) result.get("location"),
+      (String) result.get("description"),
+      (boolean) result.get("is_private"),
+      (int) result.get("creator_id")
     );
     return event;
   }
@@ -104,16 +107,7 @@ public class EventDao extends GenericDao<Event> {
     List<Event> events = new ArrayList<>();
 
     for (Map<String, Object> row : result) {
-      Event event = new Event(
-        (int) row.get("id"),
-        (String) row.get("title"),
-        ((java.sql.Timestamp) row.get("start_time")).toLocalDateTime(),
-        ((java.sql.Timestamp) row.get("end_time")).toLocalDateTime(),
-        (String) row.get("location"),
-        (String) row.get("description"),
-        (boolean) row.get("is_personal")
-      );
-      events.add(event);
+      events.add(mapResultSetToUser(row));
     }
 
     return events;
@@ -128,7 +122,8 @@ public class EventDao extends GenericDao<Event> {
       schema.put("end_time", LocalDateTime.class);
       schema.put("location", String.class);
       schema.put("description", String.class);
-      schema.put("is_personal", boolean.class);
+      schema.put("is_private", boolean.class);
+      schema.put("creator_id", int.class);
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -145,10 +140,25 @@ public class EventDao extends GenericDao<Event> {
   }
 
   @Override
-  protected List<Event> retrieveRecords(
+  protected List<Event> retrieveRecordsWithCriteria(
     String tablename,
     Map<String, Object> criteriaMap
   ) throws SQLException {
     return this.retrieveEventsRecords(criteriaMap);
+  }
+
+  public static void main(String[] args) throws SQLException {
+    EventDao eventDao = new EventDao();
+    Event event = new Event(
+      1,
+      "title",
+      LocalDateTime.now(),
+      LocalDateTime.now(),
+      "location",
+      "description",
+      true,
+      10
+    );
+    eventDao.insertEventRecord(event);
   }
 }

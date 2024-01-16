@@ -73,6 +73,22 @@ public class ParticipantsEntity implements JsonEntity {
     this.email = email;
   }
 
+  public boolean isParticipantEmpty() {
+    if (firstName != null && !firstName.isEmpty()) {
+      return false;
+    }
+
+    if (lastName != null && !lastName.isEmpty()) {
+      return false;
+    }
+
+    if (email != null && !email.isEmpty()) {
+      return false;
+    }
+
+    return true;
+  }
+
   public static boolean isParticipantInEventEmpty(int eventId) {
     ParticipantsEntity[] participants = getParticipantsArray(eventId);
 
@@ -257,9 +273,17 @@ public class ParticipantsEntity implements JsonEntity {
     ParticipantsEntity[] participants
   ) {
     JsonArray jsonArray = new JsonArray();
-    for (ParticipantsEntity participant : participants) {
-      jsonArray.add(participant.toJsonObject());
+
+    // Check if participants array is not null and not empty
+    if (participants != null && participants.length > 0) {
+      for (ParticipantsEntity participant : participants) {
+        if (participant.isParticipantEmpty()) {
+          continue;
+        }
+        jsonArray.add(participant.toJsonObject());
+      }
     }
+
     return jsonArray;
   }
 

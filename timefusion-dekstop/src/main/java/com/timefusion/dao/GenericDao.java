@@ -62,7 +62,7 @@ public abstract class GenericDao<T> {
    * @param criteriaMap  a map containing the criteria for retrieving the record
    * @return the retrieved record of type T
    */
-  protected abstract List<T> retrieveRecords(
+  protected abstract List<T> retrieveRecordsWithCriteria(
     String tableName,
     Map<String, Object> criteriaMap
   ) throws SQLException;

@@ -28,8 +28,6 @@ public class EventParticipantDao extends GenericDao<Eventparticipant> {
         return eventparticipant.getparticipantId();
       case "event_id":
         return eventparticipant.getEventId();
-      case "participant_type":
-        return eventparticipant.getParticipant_type();
       default:
         return null;
     }
@@ -46,8 +44,7 @@ public class EventParticipantDao extends GenericDao<Eventparticipant> {
     return new Eventparticipant(
       (Integer) resultSet.get("id"),
       (Integer) resultSet.get("participant_id"),
-      (Integer) resultSet.get("event_id"),
-      (String) resultSet.get("participant_type")
+      (Integer) resultSet.get("event_id")
     );
   }
 
@@ -84,7 +81,7 @@ public class EventParticipantDao extends GenericDao<Eventparticipant> {
     );
   }
 
-  public int deleteTEventParticipantRecord(Eventparticipant eventParticipant)
+  public int deleteEventParticipantRecord(Eventparticipant eventParticipant)
     throws SQLException {
     return super.databaseUtil.deleteRecordById(
       tableName,
@@ -109,8 +106,7 @@ public class EventParticipantDao extends GenericDao<Eventparticipant> {
       Eventparticipant eventparticipant = new Eventparticipant(
         (Integer) result.get("id"),
         (Integer) result.get("participant_id"),
-        (Integer) result.get("event_id"),
-        (String) result.get("participant_type")
+        (Integer) result.get("event_id")
       );
       eventparticipants.add(eventparticipant);
     }
@@ -123,7 +119,6 @@ public class EventParticipantDao extends GenericDao<Eventparticipant> {
       schema.put("id", Integer.class);
       schema.put("participant_id", Integer.class);
       schema.put("event_id", Integer.class);
-      schema.put("participant_type", String.class);
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -142,10 +137,21 @@ public class EventParticipantDao extends GenericDao<Eventparticipant> {
   }
 
   @Override
-  protected List<Eventparticipant> retrieveRecords(
+  protected List<Eventparticipant> retrieveRecordsWithCriteria(
     String tableName,
     Map<String, Object> criteriaMap
   ) throws SQLException {
     return this.retrieveEventParticipantRecords(criteriaMap);
+  }
+
+  public static void main(String[] args) {
+    try {
+      EventParticipantDao eventParticipantDao = new EventParticipantDao();
+      Eventparticipant eventparticipant = new Eventparticipant(2, 10, 1);
+      eventParticipantDao.insertEventParticipantRecord(eventparticipant);
+      //   eventParticipantDao.deleteTEventParticipantRecord(eventparticipant);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 }

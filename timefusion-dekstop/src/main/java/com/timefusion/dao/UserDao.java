@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class UserDao extends GenericDao<User> {
 
-  private static final String TABLE_NAME = "user";
+  private static final String TABLE_NAME = "User";
   private final Map<String, Class<?>> schema = new HashMap<>();
 
   public UserDao() throws SQLException {
@@ -213,7 +213,7 @@ public class UserDao extends GenericDao<User> {
   }
 
   @Override
-  protected List<User> retrieveRecords(
+  protected List<User> retrieveRecordsWithCriteria(
     String tableName,
     Map<String, Object> criteriaMap
   ) throws SQLException {

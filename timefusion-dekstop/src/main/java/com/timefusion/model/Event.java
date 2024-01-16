@@ -15,7 +15,7 @@ public class Event {
   private String location;
   private String description;
   private Boolean isPrivate;
-  private User creator;
+  private int creatorId;
 
   /**
    * Constructor for Event
@@ -26,7 +26,7 @@ public class Event {
    * @param location
    * @param description
    * @param isPrivate
-   * @param creator
+   * @param creatorId
    */
   public Event(
     int id,
@@ -35,7 +35,8 @@ public class Event {
     LocalDateTime endTime,
     String location,
     String description,
-    Boolean isPrivate
+    Boolean isPrivate,
+    int creatorId
   ) {
     this.id = id;
     this.title = title;
@@ -44,6 +45,7 @@ public class Event {
     this.location = location;
     this.description = description;
     this.isPrivate = isPrivate;
+    this.creatorId = creatorId;
   }
 
   /**
@@ -53,7 +55,7 @@ public class Event {
    * @param endTime
    * @param description
    * @param isPrivate
-   * @param creator
+   * @param creatorId
    */
   public Event(
     String title,
@@ -61,9 +63,19 @@ public class Event {
     LocalDateTime endTime,
     String location,
     String description,
-    Boolean isPrivate
+    Boolean isPrivate,
+    int creatorId
   ) {
-    this(0, title, startTime, endTime, location, description, isPrivate);
+    this(
+      0,
+      title,
+      startTime,
+      endTime,
+      location,
+      description,
+      isPrivate,
+      creatorId
+    );
   }
 
   /**
@@ -73,16 +85,17 @@ public class Event {
    * @param endTime
    * @param description
    * @param isPrivate
-   * @param creator
+   * @param creatorId
    */
   public Event(
     String title,
     LocalDateTime startTime,
     LocalDateTime endTime,
     String description,
-    Boolean isPrivate
+    Boolean isPrivate,
+    int creatorId
   ) {
-    this(0, title, startTime, endTime, null, description, isPrivate);
+    this(0, title, startTime, endTime, null, description, isPrivate, creatorId);
   }
 
   /**
@@ -91,15 +104,16 @@ public class Event {
    * @param startTime
    * @param endTime
    * @param isPrivate
-   * @param creator
+   * @param creatorId
    */
   public Event(
     String title,
     LocalDateTime startTime,
     LocalDateTime endTime,
-    Boolean isPrivate
+    Boolean isPrivate,
+    int creatorId
   ) {
-    this(0, title, startTime, endTime, null, null, isPrivate);
+    this(0, title, startTime, endTime, null, null, isPrivate, creatorId);
   }
 
   /**
@@ -109,17 +123,17 @@ public class Event {
    * @param endTime
    * @param location
    * @param isPrivate
-   * @param creator
+   * @param creatorId
    */
   public Event(
     String title,
     LocalDateTime startTime,
     LocalDateTime endTime,
-    User creator,
+    int creatorId,
     String location,
     Boolean isPrivate
   ) {
-    this(0, title, startTime, endTime, location, null, isPrivate);
+    this(0, title, startTime, endTime, location, null, isPrivate, creatorId);
   }
 
   /**
@@ -235,7 +249,7 @@ public class Event {
    *
    * @return whether the event is private or not
    */
-  public Boolean getIsPersonal() {
+  public Boolean getIsPrivate() {
     return this.isPrivate;
   }
 
@@ -244,26 +258,26 @@ public class Event {
    *
    * @param isPersonal whether the event is private or not
    */
-  public void setIsPersonal(Boolean isPersonal) {
-    this.isPrivate = isPersonal;
+  public void setIsPrivate(Boolean isPrivate) {
+    this.isPrivate = isPrivate;
   }
 
   /**
-   * Returns the creator of the event.
+   * Returns the creatorId of the event.
    *
-   * @return the creator of the event
+   * @return the creatorId of the event
    */
-  public User getCreator() {
-    return this.creator;
+  public int getCreatorId() {
+    return this.creatorId;
   }
 
   /**
-   * Sets the creator of the event.
+   * Sets the creatorId of the event.
    *
-   * @param creator the creator of the event
+   * @param creatorId the creatorId of the event
    */
-  public void setCreator(User creator) {
-    this.creator = creator;
+  public void setCreatorId(int creatorId) {
+    this.creatorId = creatorId;
   }
 
   /**
@@ -289,8 +303,8 @@ public class Event {
       description +
       ", isPrivate='" +
       isPrivate +
-      ", creator='" +
-      creator +
+      ", creatorId='" +
+      creatorId +
       "}"
     );
   }
@@ -314,7 +328,7 @@ public class Event {
       Objects.equals(location, event.location) &&
       Objects.equals(description, event.description) &&
       Objects.equals(isPrivate, event.isPrivate) &&
-      Objects.equals(creator, event.creator)
+      Objects.equals(creatorId, event.creatorId)
     );
   }
 }

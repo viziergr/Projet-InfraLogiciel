@@ -124,10 +124,20 @@ public class TeamDao extends GenericDao<Team> {
   }
 
   @Override
-  protected List<Team> retrieveRecords(
+  protected List<Team> retrieveRecordsWithCriteria(
     String tableName,
     Map<String, Object> criteriaMap
   ) throws SQLException {
     return this.retrieveTeamsRecords(criteriaMap);
+  }
+
+  public static void main(String[] args) throws SQLException {
+    TeamDao teamDao = new TeamDao();
+    Team team = new Team(1, "Team 1", "Team 1 description");
+    // teamDao.insertTeamRecord(team);
+    // Map<String, Object> criteriaMap = new HashMap<>();
+    // criteriaMap.put("id", 1);
+    // List<Team> teams = teamDao.retrieveTeamsRecords(criteriaMap);
+    // System.out.println(teams.get(0).getName());
   }
 }
