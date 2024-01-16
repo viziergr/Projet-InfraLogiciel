@@ -11,30 +11,24 @@ DEBIAN_FRONTEND="noninteractive"
 echo "START - Deplacement des fichiers - "$IP
 
 cd /var/www/html/
-mkdir git
-cd git
 git clone https://github.com/viziergr/Projet-InfraLogiciel.git
 cd Projet-InfraLogiciel
 git checkout gregoire/testArchitecture
 
-mkdir /var/www/html/siteweb/
 
-rm -r /var/www/html/git/Projet-InfraLogiciel/.vscode
-rm -r /var/www/html/git/Projet-InfraLogiciel/livrables
-rm -r /var/www/html/git/Projet-InfraLogiciel/timefusion-dekstop
-rm -r /var/www/html/git/Projet-InfraLogiciel/VM
-rm /var/www/html/git/Projet-InfraLogiciel/Configurations.txt
-rm /var/www/html/git/Projet-InfraLogiciel/ProjetInfraLog.drawio
-rm /var/www/html/git/Projet-InfraLogiciel/README.md
+rm -r /var/www/html/Projet-InfraLogiciel/.vscode
+rm -r /var/www/html/Projet-InfraLogiciel/livrables
+rm -r /var/www/html/Projet-InfraLogiciel/timefusion-dekstop
+rm -r /var/www/html/Projet-InfraLogiciel/VM
+rm /var/www/html/Projet-InfraLogiciel/Configurations.txt
+rm /var/www/html/Projet-InfraLogiciel/ProjetInfraLog.drawio
+rm /var/www/html/Projet-InfraLogiciel/README.md
 
-cp -r /var/www/html/git/Projet-InfraLogiciel/timefusion-web/* /var/www/html/siteweb/
-mkdir /var/www/html/siteweb/myadmin
-mv /var/www/html/myadmin/* /var/www/html/siteweb/myadmin/
-
-
+mkdir /var/www/html/Projet-InfraLogiciel/timefusion-web/myadmin
+mv /var/www/html/myadmin/* /var/www/html/Projet-InfraLogiciel/timefusion-web/myadmin/
 
 # modification de la configuration du site 000-default.conf pour pointer sur le dossier siteweb/PHP/public
-sed -i 's/\/var\/www\/html/\/var\/www\/html\/siteweb\/public/g' /etc/apache2/sites-available/000-default.conf
+sed -i 's/\/var\/www\/html/\/var\/www\/html\/Projet-Infralogiciel\/timefusion-web\/public/g' /etc/apache2/sites-available/000-default.conf
 
 service apache2 reload
 echo "END - Deplacement des fichiers"

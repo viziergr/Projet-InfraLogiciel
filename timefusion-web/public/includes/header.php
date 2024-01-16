@@ -10,7 +10,7 @@
 <body>
 
 <nav class="navbar navbar-dark bg-primary mb-3">
-    <a href="/index.php" class="navbar-brand">TimeFusion</a>
+    <a href="/index.html" class="navbar-brand">TimeFusion</a>
 
     <?php
     // Check if the user is logged in and display the logout button accordingly
