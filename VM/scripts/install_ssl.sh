@@ -20,6 +20,6 @@ sudo snap install --classic certbot
 echo "=> [5] - Préparation de la commande Certbot"
 sudo ln -s /snap/bin/certbot /usr/bin/certbot
 echo "=> [6] - Installation du certificat SSL"
-sudo certbot --apache
+sudo certbot --apache --register-unsafely-without-email --agree-tos
 
 echo "END - Installation du certificat SSL - "$IP
