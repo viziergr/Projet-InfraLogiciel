@@ -20,8 +20,8 @@ if [ -d "$repertoire/Projet-InfraLogiciel" ]; then
     echo "=> [2] - Git pull"
     git pull
     echo "=> [3] - Git Modification de la configuration du site 000-default.conf"
-    # Modification de la configuration du site 000-default.conf pour pointer sur le dossier siteweb/PHP/public
-    sed -i 's/\/var\/www\/html/\/var\/www\/html\/Projet-Infralogiciel\/timefusion-web\/public/g' /etc/apache2/sites-available/000-default.conf
+    # Modification de la configuration du site 000-default.conf pour pointer sur le dossier Projet-InfraLogiciel/timefusion-web/public
+    sed -i 's/DocumentRoot \/var\/www\/html/DocumentRoot \/var\/www\/html\/Projet-InfraLogiciel\/timefusion-web\/public/g' /etc/apache2/sites-available/000-default.conf
     echo "=> [4] - Déplacement du répertoire myadmin"
     # Déplacement des fichiers de myadmin
     mkdir /var/www/html/Projet-InfraLogiciel/timefusion-web/myadmin
