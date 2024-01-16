@@ -28,8 +28,10 @@ if [ -d "$repertoire/Projet-InfraLogiciel" ]; then
     mv /var/www/html/myadmin/* /var/www/html/Projet-InfraLogiciel/timefusion-web/myadmin/
 else
     # Le répertoire n'existe pas, exécuter git clone
+    cd "$repertoire" || exit
     echo "=> [1] - Git clone"
-    git clone "https://github.com/viziergr/Projet-InfraLogiciel.git" "$repertoire/Projet-InfraLogiciel"
+    git clone "https://github.com/viziergr/Projet-InfraLogiciel.git"
+    cd Projet-InfraLogiciel || exit
     echo "=> [2] - Git checkout gregoire/testArchitecture"
     git checkout gregoire/testArchitecture
 fi
