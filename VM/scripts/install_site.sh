@@ -25,7 +25,7 @@ nouvelle_chaine="DocumentRoot /var/www/html/Projet-InfraLogiciel/timefusion-web/
 if [ -d "$repertoire/Projet-InfraLogiciel" ]; then
     echo "=> [1] - Le répertoire existe"
     # Le répertoire existe, exécuter git pull
-    cd "$repertoire" || exit
+    cd "$repertoire/Projet-InfraLogiciel" || exit
     echo "=> [2] - Git pull"
     git pull
     echo "=> [4] - Déplacement du répertoire myadmin"
