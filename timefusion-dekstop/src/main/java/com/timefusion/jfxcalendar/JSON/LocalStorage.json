@@ -7,7 +7,7 @@
   },
   {
     "user": {
-      "id": 1,
+      "id": 4,
       "first_name": "John",
       "last_name": "Doe",
       "email": "John.doe@gmail.com",
@@ -15,84 +15,60 @@
     }
   },
   {
-    "teams": [
-      {
-        "id": 1,
-        "name": "Team 1",
-        "description": "Team 1 description"
-      }
-    ]
+    "teams": []
   },
   {
     "events": [
       {
-        "id": 1,
+        "id": 6,
         "nature": "Unchanged",
         "is_online": true,
-        "title": "meeting",
+        "title": "event4",
         "description": "description",
         "location": "location",
-        "start_time": "2024-01-16 19:16:08",
-        "end_time": "2024-01-16 19:16:08",
-        "participants": [
-          {
-            "id": 2,
-            "first_name": "Doe",
-            "last_name": "Johny@doe.com",
-            "email": "Johny"
-          }
-        ]
-      },
-      {
-        "id": 4,
-        "nature": "Unchanged",
-        "is_online": true,
-        "title": "coca",
-        "description": "description",
-        "location": "location",
-        "start_time": "2024-01-17 16:25:24",
-        "end_time": "2024-01-17 16:25:24",
+        "start_time": "2024-01-17 21:37:20",
+        "end_time": "2024-01-17 21:37:20",
         "participants": []
       },
       {
-        "id": 3,
+        "id": 7,
         "nature": "Unchanged",
         "is_online": true,
-        "title": "Chocolate",
+        "title": "event5",
         "description": "description",
         "location": "location",
-        "start_time": "2024-01-16 20:21:03",
-        "end_time": "2024-01-16 20:21:03",
+        "start_time": "2024-01-17 21:37:24",
+        "end_time": "2024-01-17 21:37:24",
         "participants": [
           {
-            "id": 2,
-            "first_name": "Doe",
-            "last_name": "Johny@doe.com",
-            "email": "Johny"
+            "id": 5,
+            "first_name": "lastNameuser2",
+            "last_name": "user2@gmail.com",
+            "email": "FirstNameuser2"
           },
           {
-            "id": 2,
-            "first_name": "Doe",
-            "last_name": "Johny@doe.com",
-            "email": "Johny"
+            "id": 6,
+            "first_name": "lastNameuser3",
+            "last_name": "user3@gmail.com",
+            "email": "FirstNameuser3"
           }
         ]
       },
       {
-        "id": 5,
+        "id": 8,
         "nature": "Unchanged",
         "is_online": true,
-        "title": "iceTea",
+        "title": "event6",
         "description": "description",
         "location": "location",
-        "start_time": "2024-01-17 18:30:24",
-        "end_time": "2024-01-17 18:30:24",
+        "start_time": "2024-01-17 21:38:04",
+        "end_time": "2024-01-17 21:38:04",
         "participants": [
           {
-            "id": 3,
-            "first_name": "Doe",
-            "last_name": "Johny@doe.com",
-            "email": "Johny"
+            "id": 5,
+            "first_name": "lastNameuser2",
+            "last_name": "user2@gmail.com",
+            "email": "FirstNameuser2"
           }
         ]
       }

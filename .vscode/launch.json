@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "SyncUtil",
+            "request": "launch",
+            "mainClass": "com.timefusion/com.timefusion.jfxcalendar.sync.SyncUtil",
+            "projectName": "timefusion-dekstop"
+        },
+        {
+            "type": "java",
             "name": "DBToLocalStorageSync",
             "request": "launch",
             "mainClass": "com.timefusion/com.timefusion.jfxcalendar.sync.DBToLocalStorageSync",
