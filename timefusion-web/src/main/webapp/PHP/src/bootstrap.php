@@ -11,10 +11,10 @@ function e404(){
 function connectDB() {
 
     $infoBdd = [
-        'server' => 'localhost',
+        'server' => '192.168.56.81',
         'login' => 'root',
         'password' => '',
-        'db_name' => 'essai_infra',
+        'db_name' => 'TimeFusion',
     ];
 
     $mysqli = new mysqli(
@@ -41,6 +41,39 @@ function dd(...$vars){
 function h(string $value): string {
     if($value === null) return 'null';
     return htmlentities($value);
+}
+
+function render(string $view, $parameters = []) {
+    extract($parameters);
+    include __DIR__ . "\..\\views\\" . $view .".php";
+}
+
+function sess_exists(){
+    session_start();
+    // Redirige vers la page de connexion si l'utilisateur n'est pas connecté
+    if (!isset($_SESSION['compte'])) {
+        header("Location: /PHP/public/Connexion.php");
+        exit();
+    }
+}
+
+function convertirEnArray($variable) {
+    // Vérifier si la variable est déjà un tableau
+    if (is_array($variable)) {
+        // La variable est déjà un tableau, rien à faire
+        return $variable;
+    } else {
+        // La variable n'est pas un tableau, créer un tableau avec la variable
+        return array($variable);
+    }
+}
+
+function estCouleurValide($couleur) {
+    // Expression régulière pour vérifier le format hexadécimal de la couleur
+    $pattern = '/^#[0-9A-Fa-f]{6}$/';
+
+    // Vérification avec la fonction preg_match
+    return preg_match($pattern, $couleur) === 1;
 }
 
 ?>

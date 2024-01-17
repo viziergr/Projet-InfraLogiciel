@@ -1,7 +1,9 @@
 <?php
 
-require '../src/bootstrap.php';
-require '../src/Calendar/Events.php';
+require __DIR__ . '\..\..\src\bootstrap.php';
+require __DIR__ . '\..\..\src\Calendar\Events.php';
+
+sess_exists();
 
 $mysqli = connectDB();
 $events = new TimeFusion\Calendar\Events($mysqli);
@@ -15,7 +17,7 @@ try{
     e404();
 }
 
-require '../views/header.php';
+require __DIR__ . '\..\..\views\header.php';
 ?>
 
 <h1>Evènement: <?= h($event->getTitle()); ?></h1>
@@ -33,5 +35,5 @@ require '../views/header.php';
 
 
 <?php 
-require '../views/footer.php';
+require __DIR__ . '\..\..\views\footer.php';
 ?>

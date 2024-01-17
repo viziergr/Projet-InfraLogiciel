@@ -1,11 +1,12 @@
 <?php
 
-require_once '../src/bootstrap.php';
-session_start();
+require_once __DIR__ . '\..\bootstrap.php';
 
 // Si le formulaire est soumis pour connexion
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['connexion_submit']) && $_POST['connexion_submit'] == 1) {
     // Établir la connexion à la base de données
+    session_start();
+
     $mysqli = connectDB();
 
     // Code de traitement du formulaire de connexion ici
@@ -33,17 +34,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['connexion_submit']) &
         $nbEtu = $resultEtudiant->num_rows;
         if ($nbEtu) {
             $rowEtu = $resultEtudiant->fetch_assoc();
-            header("Location: ./Calendrier.php");
+            header("Location: /PHP/public/needLog/Calendrier.php");
         }
     }
 
     // Fermer la connexion après avoir terminé le traitement
     $mysqli->close();
-}
-
-if (isset($_GET['logout']) && $_GET['logout'] == 1) {
-    unset($_SESSION['compte']);
-    header("Location: /index.html");
 }
 
 ?>
