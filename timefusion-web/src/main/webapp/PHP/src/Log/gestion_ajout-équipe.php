@@ -47,5 +47,3 @@ if (isset($_POST['ajout_equipe_submit']) && $_POST['ajout_equipe_submit'] == 2) 
     }
 }
 ?>
-
-
