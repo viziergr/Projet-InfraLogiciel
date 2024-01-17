@@ -11,10 +11,10 @@ function e404(){
 function connectDB() {
 
     $infoBdd = [
-        'server' => 'localhost',
+        'server' => '192.168.56.81',
         'login' => 'root',
         'password' => '',
-        'db_name' => 'essai_infra',
+        'db_name' => 'TimeFusion',
     ];
 
     $mysqli = new mysqli(
