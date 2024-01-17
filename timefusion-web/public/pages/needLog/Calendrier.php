@@ -8,9 +8,9 @@ include __DIR__ .'/../../scripts/Team/Teams.php';
 sess_exists();
 
 $mysqli = connectDB();
-$events = new TimeFusion\Calendar\Events($mysqli);
-$month = new TimeFusion\Calendar\Month($_GET['month'] ?? null, $_GET['year'] ?? null);
-$teams = new TimeFusion\Team\Teams($mysqli);
+$events = new TimeFusion/Calendar/Events($mysqli);
+$month = new TimeFusion/Calendar/Month($_GET['month'] ?? null, $_GET['year'] ?? null);
+$teams = new TimeFusion/Team/Teams($mysqli);
 $start = $month->getFirstDay();
 if ($start->format('N') !== '1') {
     $start->modify('last monday');
@@ -25,7 +25,7 @@ elseif($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['team_id'])) {
     $usersId = [$_SESSION['compte']];
 }
 $events = $events->getEventsBetweenByDay($start,$end,$usersId);
-include __DIR__ .'\..\..\views\header.php';
+include __DIR__ .'/../../views/header.php';
 ?>
 
 <div class="calendar">
@@ -76,7 +76,7 @@ include __DIR__ .'\..\..\views\header.php';
                 <div class='calendar__day'><?= $date->format('d'); ?></div>
                 <?php foreach ($eventsForDay as $event): ?>
                 <div class="calendar__event">
-                    <?= (new \DateTime($event['start_time']))->format('H:i') ?> - <a href="edit.php?id=<?= $event['id']; ?>"> <?= h($event['title']); ?></a>
+                    <?= (new /DateTime($event['start_time']))->format('H:i') ?> - <a href="edit.php?id=<?= $event['id']; ?>"> <?= h($event['title']); ?></a>
                 </div>
                 <?php endforeach; ?>
             </td>
