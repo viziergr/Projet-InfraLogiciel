@@ -1,7 +1,6 @@
 package com.timefusion.dao;
 
 import com.timefusion.model.User;
-import com.timefusion.util.EncryptionUtil;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,7 +10,7 @@ import java.util.Map;
 
 public class UserDao extends GenericDao<User> {
 
-  private static final String TABLE_NAME = "User";
+  public static final String TABLE_NAME = "User";
   private final Map<String, Class<?>> schema = new HashMap<>();
 
   public UserDao() throws SQLException {
@@ -75,7 +74,7 @@ public class UserDao extends GenericDao<User> {
    * @param result the result set to be mapped
    * @return the User object
    */
-  private User mapResultSetToUser(List<Map<String, Object>> result) {
+  public static User mapResultSetToUser(List<Map<String, Object>> result) {
     if (result.isEmpty()) {
       return null;
     } else if (result.size() > 1) {
@@ -114,7 +113,7 @@ public class UserDao extends GenericDao<User> {
    * Inserts a record into the database for the given user.
    *
    * @param user The user object to be inserted.
-   * @return The number of rows affected by the insert operation.
+   * @return The id of the inserted record.
    * @throws SQLException If an error occurs while inserting the record.
    */
   public int insertUserRecord(User user) throws SQLException {
@@ -131,7 +130,7 @@ public class UserDao extends GenericDao<User> {
    * @return The number of rows affected by the update operation.
    * @throws SQLException If an error occurs while updating the record.
    */
-  public int updateUserRecordById(User user) throws SQLException {
+  public int updateUserRecord(User user) throws SQLException {
     Map<String, Object> columnValues = mapUserToColumnValues(user);
     columnValues.remove("id");
     return super.databaseUtil.updateRecordById(
@@ -149,7 +148,7 @@ public class UserDao extends GenericDao<User> {
    * @return The number of rows affected by the deletion operation.
    * @throws SQLException If an error occurs while deleting the record.
    */
-  public int deleteUserRecordById(User user) throws SQLException {
+  public int deleteUserRecord(User user) throws SQLException {
     return super.databaseUtil.deleteRecordById(tableName, "id", user.getId());
   }
 
@@ -162,7 +161,7 @@ public class UserDao extends GenericDao<User> {
    */
   public List<User> retrieveUsersRecords(Map<String, Object> criteriaMap)
     throws SQLException {
-    return this.mapUserSetToUser(
+    return this.mapUserSetToUsers(
         super.databaseUtil.retrieveRecords(tableName, criteriaMap)
       );
   }
@@ -173,7 +172,7 @@ public class UserDao extends GenericDao<User> {
    * @param resultSet the result set containing the user data
    * @return a list of User objects
    */
-  private List<User> mapUserSetToUser(List<Map<String, Object>> resultSet) {
+  private List<User> mapUserSetToUsers(List<Map<String, Object>> resultSet) {
     List<User> users = new ArrayList<>();
 
     for (Map<String, Object> row : resultSet) {
@@ -209,30 +208,21 @@ public class UserDao extends GenericDao<User> {
   }
 
   @Override
-  protected int updateRecordById(User entity) throws SQLException {
-    return (updateUserRecordById(entity));
+  protected int updateRecordByEntity(User entity) throws SQLException {
+    return (updateUserRecord(entity));
   }
 
   @Override
-  protected List<User> retrieveRecords(
+  protected List<User> retrieveRecordsWithCriteria(
     String tableName,
     Map<String, Object> criteriaMap
   ) throws SQLException {
     return retrieveUsersRecords(criteriaMap);
   }
 
-  public static void main(String[] args) {
-    try {
-      UserDao userDao = new UserDao();
-      User user = new User(
-        "john.pd@gmail.com",
-        "John",
-        "Pd",
-        EncryptionUtil.hashPassword("@Password123")
-      );
-      System.out.println(userDao.insertUserRecord(user));
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
+  public static void main(String[] args) throws SQLException {
+    UserDao userDao = new UserDao();
+    User user = new User(2, "Johny@doe.com", "Johny", "Doe", "password");
+    userDao.insertUserRecord(user);
   }
 }

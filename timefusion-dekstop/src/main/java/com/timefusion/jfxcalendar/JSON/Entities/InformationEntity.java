@@ -27,7 +27,7 @@ public class InformationEntity implements JsonEntity {
 
   public void setLast_updatedNow() {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern(
-      "dd-MM-yyyy'T'HH:mm:ss"
+      "dd-MM-yyyy HH:mm:ss"
     );
     this.lastUpdated = LocalDateTime.now().format(formatter).toString();
   }
@@ -38,7 +38,7 @@ public class InformationEntity implements JsonEntity {
 
   public void setLast_syncedNow() {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern(
-      "dd-MM-yyyy'T'HH:mm:ss"
+      "dd-MM-yyyy HH:mm:ss"
     );
     this.lastSynced = LocalDateTime.now().format(formatter).toString();
   }

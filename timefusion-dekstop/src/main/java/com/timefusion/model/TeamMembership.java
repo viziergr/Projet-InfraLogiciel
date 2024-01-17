@@ -5,7 +5,7 @@ import java.util.Objects;
 /**
  * Represents a team membership in the application.
  */
-public class TeamMemberships {
+public class TeamMembership {
 
   private int id;
   private int userId;
@@ -19,14 +19,14 @@ public class TeamMemberships {
    * @param teamId
    * @param role
    */
-  public TeamMemberships(int id, int userId, int teamId, String role) {
+  public TeamMembership(int id, int userId, int teamId, String role) {
     this.id = id;
     this.userId = userId;
     this.teamId = teamId;
     this.role = role;
   }
 
-  public TeamMemberships(int userId, int teamId, String role) {
+  public TeamMembership(int userId, int teamId, String role) {
     this(0, userId, teamId, role);
   }
 
@@ -121,10 +121,10 @@ public class TeamMemberships {
   @Override
   public boolean equals(Object o) {
     if (o == this) return true;
-    if (!(o instanceof TeamMemberships)) {
+    if (!(o instanceof TeamMembership)) {
       return false;
     }
-    TeamMemberships teamMemberships = (TeamMemberships) o;
+    TeamMembership teamMemberships = (TeamMembership) o;
     return (
       Objects.equals(id, teamMemberships.id) &&
       Objects.equals(userId, teamMemberships.userId) &&

@@ -4,6 +4,12 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.timefusion.jfxcalendar.JSON.JsonUtils;
+import com.timefusion.jfxcalendar.controllers.OnlineOfflineSwitch;
+import com.timefusion.model.Event;
+import com.timefusion.model.User;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 public class EventsEntity {
 
@@ -13,17 +19,53 @@ public class EventsEntity {
   private String title;
   private String description;
   private String location;
-  private String startTime;
-  private String endTime;
+  private LocalDateTime startTime;
+  private LocalDateTime endTime;
   private ParticipantsEntity[] participants;
 
   private static int nextNegativeId = -1;
-  public static boolean isOffline = true;
 
   public static final String EVENTS_ENTITY_NAME = "events";
   public static final int EVENTS_ENTITY_POSITION = 4;
 
   public EventsEntity() {}
+
+  public EventsEntity(Event event, EventNature nature) {
+    this.id = event.getId();
+    this.nature = nature;
+    this.isOnline = true;
+    this.title = event.getTitle();
+    this.description = event.getDescription();
+    this.location = event.getLocation();
+    this.startTime = event.getStartTime();
+    this.endTime = event.getEndTime();
+    this.participants = new ParticipantsEntity[] { new ParticipantsEntity() };
+  }
+
+  public EventsEntity(
+    Event event,
+    EventNature nature,
+    List<User> participants
+  ) {
+    this.id = event.getId();
+    this.nature = nature;
+    this.isOnline = true;
+    this.title = event.getTitle();
+    this.description = event.getDescription();
+    this.location = event.getLocation();
+    this.startTime = event.getStartTime();
+    this.endTime = event.getEndTime();
+
+    if (participants != null && participants.size() > 0) {
+      this.participants = new ParticipantsEntity[participants.size()];
+
+      for (int i = 0; i < participants.size(); i++) {
+        this.participants[i] = new ParticipantsEntity(participants.get(i));
+      }
+    } else {
+      this.participants = new ParticipantsEntity[0];
+    }
+  }
 
   public EventsEntity(
     int id,
@@ -32,14 +74,11 @@ public class EventsEntity {
     String title,
     String description,
     String location,
-    String startTime,
-    String endTime,
+    LocalDateTime startTime,
+    LocalDateTime endTime,
     ParticipantsEntity[] participants
   ) {
-    if (isOffline) {
-      resetNextNegativeId();
-    }
-    this.id = !isOffline ? id : generateNextOfflineId();
+    this.id = !OnlineOfflineSwitch.isOnline ? id : generateNextOfflineId();
     this.nature = nature;
     this.isOnline = isOnline;
     this.title = title;
@@ -106,19 +145,19 @@ public class EventsEntity {
     this.participants = participants;
   }
 
-  public String getStartTime() {
+  public LocalDateTime getStartTime() {
     return startTime;
   }
 
-  public void setStartTime(String startTime) {
+  public void setStartTime(LocalDateTime startTime) {
     this.startTime = startTime;
   }
 
-  public String getEndTime() {
+  public LocalDateTime getEndTime() {
     return endTime;
   }
 
-  public void setEndTime(String endTime) {
+  public void setEndTime(LocalDateTime endTime) {
     this.endTime = endTime;
   }
 
@@ -179,8 +218,8 @@ public class EventsEntity {
             eventObject.get("title").getAsString(),
             eventObject.get("description").getAsString(),
             eventObject.get("location").getAsString(),
-            eventObject.get("start_time").getAsString(),
-            eventObject.get("end_time").getAsString(),
+            parseLocalDateTime(eventObject.get("start_time").getAsString()),
+            parseLocalDateTime(eventObject.get("end_time").getAsString()),
             ParticipantsEntity.jsonArrayToParticipantsArray(
               eventObject.get("participants").getAsJsonArray()
             )
@@ -190,6 +229,13 @@ public class EventsEntity {
     }
 
     return null;
+  }
+
+  private static LocalDateTime parseLocalDateTime(String dateTimeString) {
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(
+      "yyyy-MM-dd HH:mm"
+    );
+    return LocalDateTime.parse(dateTimeString, formatter);
   }
 
   public static JsonArray getAllEventEntities() {
@@ -244,8 +290,17 @@ public class EventsEntity {
     jsonObject.addProperty("title", title);
     jsonObject.addProperty("description", description);
     jsonObject.addProperty("location", location);
-    jsonObject.addProperty("start_time", startTime);
-    jsonObject.addProperty("end_time", endTime);
+
+    // Format start and end times using DateTimeFormatter
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(
+      "yyyy-MM-dd HH:mm:ss"
+    );
+    String formattedStartTime = startTime.format(formatter);
+    String formattedEndTime = endTime.format(formatter);
+
+    jsonObject.addProperty("start_time", formattedStartTime);
+    jsonObject.addProperty("end_time", formattedEndTime);
+
     jsonObject.add(
       "participants",
       ParticipantsEntity.participantsArrayToJsonArray(participants)
@@ -271,5 +326,22 @@ public class EventsEntity {
     }
 
     return stringBuilder.toString();
+  }
+
+  public static void main(String[] args) {
+    EventsEntity event = new EventsEntity(
+      -11,
+      EventNature.ADDED,
+      true,
+      "Test Event",
+      "Test Description",
+      "Test Location",
+      LocalDateTime.now(),
+      LocalDateTime.now(),
+      new ParticipantsEntity[] {
+        new ParticipantsEntity(1, "Louis", "Pecullier", "Louis@gmail.com"),
+      }
+    );
+    event.addEventEntity();
   }
 }

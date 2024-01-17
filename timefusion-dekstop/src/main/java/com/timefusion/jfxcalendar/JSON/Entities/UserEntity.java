@@ -174,4 +174,15 @@ public class UserEntity implements JsonEntity {
       '}'
     );
   }
+
+  public static void main(String[] args) {
+    UserEntity userEntity = new UserEntity(
+      1,
+      "John",
+      "Doe",
+      "John.doe@gmail.com",
+      "password"
+    );
+    userEntity.addUserEntity();
+  }
 }

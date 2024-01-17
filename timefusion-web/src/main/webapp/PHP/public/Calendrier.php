@@ -13,25 +13,10 @@ if ($start->format('N') !== '1') {
 }
 $end = (clone $start)->modify('+'. (4 * 7 -1).' days');
 $events = $events->getEventsBetweenByDay($start,$end);
-
 require '../views/header.php';
 ?>
 
 <div class="calendar">
-
-    <?php if (isset($_GET['success'])): ?>
-        <div class="container">
-            <div class="alert alert-success">
-                L'évènement a bien été 
-                <?php if($_GET['success'] === '1'): ?>
-                    ajouté
-                <?php elseif($_GET['success'] === '2'): ?>
-                    modifié
-                <?php endif; ?>
-            </div>
-        </div>
-    <?php endif; ?>
-
     <div class='d-flex flex-row align-items-center justify-content-between mx-sm-3'>
         <h1><?= $month->__toString(); ?></h1>
         <div>
@@ -55,7 +40,7 @@ require '../views/header.php';
                 <div class='calendar__day'><?= $date->format('d'); ?></div>
                 <?php foreach ($eventsForDay as $event): ?>
                 <div class="calendar__event">
-                    <?= (new \DateTime($event['start_time']))->format('H:i') ?> - <a href="edit.php?id=<?= $event['id']; ?>"> <?= h($event['title']); ?></a>
+                    <?= (new \DateTime($event['start_time']))->format('H:i') ?> - <a href="eventpanel.php?id=<?= $event['id']; ?>"> <?= h($event['title']); ?></a>
                 </div>
                 <?php endforeach; ?>
             </td>
@@ -64,7 +49,6 @@ require '../views/header.php';
         <?php endfor; ?>
     </table>
     <a href="/PHP/public/add.php" class="calendar__button">+</a>
-    <a href="/PHP/public/teampanel.php">Equipe</a>
 </div>
 
 

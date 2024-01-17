@@ -1,11 +1,15 @@
 package com.timefusion.jfxcalendar.controllers;
 
+import com.timefusion.jfxcalendar.JSON.Entities.EventNature;
+import com.timefusion.jfxcalendar.JSON.Entities.EventsEntity;
 /**
  * Sample Skeleton for 'AddEventDialog.fxml' Controller Class
  */
-
+import com.timefusion.jfxcalendar.JSON.Entities.ParticipantsEntity;
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ResourceBundle;
@@ -107,7 +111,80 @@ public class AddEventDialogController {
 
   @FXML
   void handleAddEvent(ActionEvent event) {
-    System.out.println("Add Event Button Clicked");
+    // Retrieve values from the fields
+    String title = titleField.getText();
+    String location = locationField.getText();
+    String description = descriptionTextField.getText();
+    LocalDate date = dateField.getValue();
+    String startTime = formatTime(fromTextField.getText());
+    String endTime = formatTime(toTextField.getText());
+
+    boolean isPrivate = eventIsPrivate();
+
+    // Change date format to "yyyy/MM/dd"
+    DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    String formattedDate = date.format(dateFormatter);
+
+    // Validate start time is before end time
+    if (!isStartTimeBeforeEndTime(startTime, endTime)) {
+      showErrorAlert(
+        "Invalid Time Range",
+        "Start time must be before end time.",
+        toTextField
+      );
+    } else {
+      LocalDateTime startDateTime = LocalDateTime.parse(
+        formattedDate + " " + startTime + ":00",
+        DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+      );
+
+      LocalDateTime endDateTime = LocalDateTime.parse(
+        formattedDate + " " + endTime + ":00",
+        DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+      );
+
+      // Now you can use startDateTime and endDateTime for further processing
+      EventsEntity eventsEntity = createEventsEntity(
+        title,
+        description,
+        location,
+        startDateTime,
+        endDateTime,
+        isPrivate
+      );
+      eventsEntity.addEventEntity();
+    }
+  }
+
+  private String formatTime(String time) {
+    return time.length() < 5 ? "0" + time : time;
+  }
+
+  private EventsEntity createEventsEntity(
+    String title,
+    String description,
+    String location,
+    LocalDateTime startDateTime,
+    LocalDateTime endDateTime,
+    boolean isPrivate
+  ) {
+    return new EventsEntity(
+      1,
+      EventNature.ADDED,
+      false,
+      title,
+      description,
+      location,
+      startDateTime,
+      endDateTime,
+      new ParticipantsEntity[] { new ParticipantsEntity() }
+    );
+  }
+
+  private boolean isStartTimeBeforeEndTime(String startTime, String endTime) {
+    LocalTime start = LocalTime.parse(startTime);
+    LocalTime end = LocalTime.parse(endTime);
+    return start.isBefore(end);
   }
 
   @FXML // This method is called by the FXMLLoader when initialization is complete

@@ -1,8 +1,8 @@
 [
   {
     "information": {
-      "last_updated": "14-01-2024T15:01:33",
-      "last_synced": "14-01-2024T15:01:33"
+      "last_updated": "16-01-2024 18:21:54",
+      "last_synced": "16-01-2024 18:21:54"
     }
   },
   {
@@ -10,15 +10,15 @@
       "id": 1,
       "first_name": "John",
       "last_name": "Doe",
-      "email": "john@doe.com",
+      "email": "John.doe@gmail.com",
       "password": "password"
     }
   },
   {
     "teams": [
       {
-        "id": 2,
-        "name": "Team 2",
+        "id": 1,
+        "name": "Team 1",
         "description": "Team 1 description"
       }
     ]
@@ -26,64 +26,75 @@
   {
     "events": [
       {
-        "id": 12,
+        "id": -11,
         "nature": "Added",
         "is_online": true,
-        "title": "title",
-        "description": "description",
-        "location": "location",
-        "start_time": "start_time",
-        "end_time": "end_time",
+        "title": "Test Event",
+        "description": "Test Description",
+        "location": "Test Location",
+        "start_time": "2024-01-16 18:50:27",
+        "end_time": "2024-01-16 18:50:27",
         "participants": [
           {
             "id": 1,
-            "first_name": "test",
-            "last_name": "last_name",
-            "email": "email"
+            "first_name": "Louis",
+            "last_name": "Pecullier",
+            "email": "Louis@gmail.com"
+          }
+        ]
+      },
+      {
+        "id": 1,
+        "nature": "Unchanged",
+        "is_online": true,
+        "title": "meeting",
+        "description": "description",
+        "location": "location",
+        "start_time": "2024-01-16 19:16:08",
+        "end_time": "2024-01-16 19:16:08",
+        "participants": [
+          {
+            "id": 1,
+            "first_name": "Doe",
+            "last_name": "John@doe.com",
+            "email": "John"
           },
           {
             "id": 2,
-            "first_name": "cacae",
-            "last_name": "last_name",
-            "email": "email"
+            "first_name": "Doe",
+            "last_name": "Johny@doe.com",
+            "email": "Johny"
           }
         ]
       },
       {
-        "id": -2,
-        "nature": "Added",
+        "id": 2,
+        "nature": "Unchanged",
         "is_online": true,
-        "title": "Test Event",
-        "description": "Test Description",
-        "location": "Test Location",
-        "start_time": "2021-05-05 12:00:00",
-        "end_time": "2021-05-05 13:00:00",
+        "title": "tea",
+        "description": "description",
+        "location": "location",
+        "start_time": "2024-01-16 19:17:31",
+        "end_time": "2024-01-16 19:17:31",
         "participants": [
           {
-            "id": 1,
-            "first_name": "Test Participant",
-            "last_name": "c",
-            "email": ""
+            "id": 2,
+            "first_name": "Doe",
+            "last_name": "Johny@doe.com",
+            "email": "Johny"
           }
         ]
       },
       {
-        "id": -3,
-        "nature": "Added",
+        "id": 3,
+        "nature": "Unchanged",
         "is_online": true,
-        "title": "Test Event",
-        "description": "Test Description",
-        "location": "Test Location",
-        "start_time": "2021-05-05 12:00:00",
-        "end_time": "2021-05-05 13:00:00",
-        "participants": [
-          {
-            "id": 1,
-            "first_name": "Test Participant",
-            "last_name": "c",
-            "email": ""
-          }
-        ]
+        "title": "Chocolate",
+        "description": "description",
+        "location": "location",
+        "start_time": "2024-01-16 20:21:03",
+        "end_time": "2024-01-16 20:21:03",
+        "participants": []
       }
     ]
   }

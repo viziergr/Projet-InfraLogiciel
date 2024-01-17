@@ -7,6 +7,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.timefusion.jfxcalendar.JSON.JsonUtils;
+import com.timefusion.model.User;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -41,6 +42,13 @@ public class ParticipantsEntity implements JsonEntity {
     this.email = email;
   }
 
+  public ParticipantsEntity(User user) {
+    this.id = user.getId();
+    this.firstName = user.getFirstName();
+    this.lastName = user.getLastName();
+    this.email = user.getEmail();
+  }
+
   public int getId() {
     return id;
   }
@@ -71,6 +79,22 @@ public class ParticipantsEntity implements JsonEntity {
 
   public void setEmail(String email) {
     this.email = email;
+  }
+
+  public boolean isParticipantEmpty() {
+    if (firstName != null && !firstName.isEmpty()) {
+      return false;
+    }
+
+    if (lastName != null && !lastName.isEmpty()) {
+      return false;
+    }
+
+    if (email != null && !email.isEmpty()) {
+      return false;
+    }
+
+    return true;
   }
 
   public static boolean isParticipantInEventEmpty(int eventId) {
@@ -257,9 +281,17 @@ public class ParticipantsEntity implements JsonEntity {
     ParticipantsEntity[] participants
   ) {
     JsonArray jsonArray = new JsonArray();
-    for (ParticipantsEntity participant : participants) {
-      jsonArray.add(participant.toJsonObject());
+
+    // Check if participants array is not null and not empty
+    if (participants != null && participants.length > 0) {
+      for (ParticipantsEntity participant : participants) {
+        if (participant.isParticipantEmpty()) {
+          continue;
+        }
+        jsonArray.add(participant.toJsonObject());
+      }
     }
+
     return jsonArray;
   }
 
