@@ -1,4 +1,4 @@
-<?php require __DIR__ . '/../../scripts/gestion_deconnexion.php'; ?>
+<?php include __DIR__ . '/../../scripts/gestion_deconnexion.php'; ?>
 
 <!DOCTYsPE html>
 <html lang="fr">
