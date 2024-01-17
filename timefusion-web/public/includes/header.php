@@ -10,7 +10,7 @@
 <body>
 
 <nav class="navbar navbar-dark custom-navbar mb-3" style="color: #000352;">
-    <a href="/PHP/public/index.html" class="header_title">TimeFusion</a>
+    <a href="/index.html" class="header_title">TimeFusion</a>
 
     <?php
     // Check if the user is logged in and display the logout button accordingly
@@ -22,10 +22,10 @@
     <div class="dropdown">
         <img src="/pictures/lat.png" alt="Mon panneau déroulant" onclick="toggleDropdown()">
         <div class="dropdown-content">
-            <a href="/PHP/public/needLog/Calendrier.php">Mon calendrier</a><br>
-            <a href="/PHP/public/needLog/teampanel.php">Mes équipes</a><br>
-            <a href="/PHP/public/needLog/requestpanel.php">Mes notifications</a><br>
-            <a href="/PHP/public/needLog/Profil.php">Mon profil</a>
+            <a href="/pages/needLog/Calendrier.php">Mon calendrier</a><br>
+            <a href="/pages/needLog/teampanel.php">Mes équipes</a><br>
+            <a href="/pages/needLog/requestpanel.php">Mes notifications</a><br>
+            <a href="/pages/needLog/Profil.php">Mon profil</a>
         </div>
     </div>
 </nav>
