@@ -8,9 +8,9 @@ include __DIR__ .'/../../scripts/Team/Teams.php';
 sess_exists();
 
 $mysqli = connectDB();
-$events = new TimeFusion/Calendar/Events($mysqli);
-$month = new TimeFusion/Calendar/Month($_GET['month'] ?? null, $_GET['year'] ?? null);
-$teams = new TimeFusion/Team/Teams($mysqli);
+$events = new TimeFusion\Calendar\Events($mysqli);
+$month = new TimeFusion\Calendar\Month($_GET['month'] ?? null, $_GET['year'] ?? null);
+$teams = new TimeFusion\Team\Teams($mysqli);
 $start = $month->getFirstDay();
 if ($start->format('N') !== '1') {
     $start->modify('last monday');
