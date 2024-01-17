@@ -29,7 +29,7 @@ openssl x509 -signkey domain.key -in domain.csr -req -days 365 -out domain.crt -
 echo "=> [5] - Activation du SSL"
 openssl req -x509 -sha256 -days 1825 -newkey rsa:2048 -keyout rootCA.key -out rootCA.crt -passin pass:TimeFusion -subj "/C=FR/ST=Maine-et-Loire/L=Angers/O=ESEO/CN=TimeFusion"
 
-echo "=> [6] - Création d'un fichier domain.ext avec le contenu :"
+echo "=> [6] - Création d'un fichier domain.ext"
 # Création d'un fichier domain.ext avec le contenu :
 echo "authorityKeyIdentifier=keyid,issuer
 basicConstraints=CA:FALSE
