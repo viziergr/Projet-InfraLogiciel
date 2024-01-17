@@ -52,7 +52,7 @@ function sess_exists(){
     session_start();
     // Redirige vers la page de connexion si l'utilisateur n'est pas connecté
     if (!isset($_SESSION['compte'])) {
-        header("Location: /PHP/public/Connexion.php");
+        header("Location: ../pages/Connexion.php");
         exit();
     }
 }
