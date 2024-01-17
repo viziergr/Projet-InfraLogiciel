@@ -26,7 +26,7 @@ elseif($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['team_id'])) {
 }
 $events = $events->getEventsBetweenByDay($start,$end,$usersId);
 
-require __DIR__ .'\..\..\views\header.php';
+require __DIR__ .'\..\..\includes\header.php';
 ?>
 
 <div class="calendar">
@@ -85,10 +85,10 @@ require __DIR__ .'\..\..\views\header.php';
         </tr>
         <?php endfor; ?>
     </table>
-    <a href="/PHP/public/needLog/add.php" class="calendar__button">+</a>
+    <a href="add.php" class="calendar__button">+</a>
 </div>
 
 
 <?php 
-require __DIR__ .'\..\..\views\footer.php';
+require __DIR__ .'\..\..\includes\footer.php';
 ?>
