@@ -4,31 +4,29 @@ import com.google.gson.JsonObject;
 import com.timefusion.dao.EventDao;
 import com.timefusion.dao.EventParticipantDao;
 import com.timefusion.dao.UserDao;
-import com.timefusion.exception.EventException;
 import com.timefusion.jfxcalendar.JSON.Entities.EventNature;
 import com.timefusion.jfxcalendar.JSON.Entities.EventsEntity;
-import com.timefusion.jfxcalendar.JSON.Entities.ParticipantsEntity;
+import com.timefusion.jfxcalendar.JSON.Entities.InformationEntity;
+import com.timefusion.jfxcalendar.JSON.Entities.UserEntity;
 import com.timefusion.model.Event;
 import com.timefusion.model.EventParticipant;
 import com.timefusion.model.User;
 import com.timefusion.util.DatabaseUtil;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
 public class DBToLocalStorageSync {
 
-  //   private List<EventsEntity> getUnimplementedEvents() {
-  //       //Retrieve all the id of the online that are stored locally and
-  //       //try to see which one are not implemented in the db
-
-  //       return null;
-  //   }
-
-  //   private void createOrUpdateLocalEvents(List<EventsEntity> events) {
-
-  //   }
+  public static int getLocalUserId() {
+    if (UserEntity.isJsonUserEntityEmpty()) {
+      return 0;
+    }
+    UserEntity userEntity = UserEntity.getuserEntityFromJson();
+    return userEntity.getId();
+  }
 
   public static List<Integer> getLocalOnlineEventsIds() {
     List<Integer> nonNegativeIds = new ArrayList<>();
@@ -69,7 +67,8 @@ public class DBToLocalStorageSync {
   public static List<Integer> getDBEventsIds(DatabaseUtil databaseUtil) {
     try {
       List<Integer> listIds = new ArrayList<>();
-      String query = "SELECT id FROM event";
+      String query =
+        "SELECT id FROM event WHERE creator_id = " + getLocalUserId() + ";";
       List<Map<String, Object>> mapIds = databaseUtil.executeQuery(query);
       for (Map<String, Object> mapId : mapIds) {
         listIds.add((Integer) mapId.get("id"));
@@ -103,6 +102,9 @@ public class DBToLocalStorageSync {
     List<Integer> DBIdsNotInLocalStorage = getDBIdsNotInLocalStorage(
       databaseUtil
     );
+    if (DBIdsNotInLocalStorage.isEmpty() || DBIdsNotInLocalStorage == null) {
+      return null;
+    }
     String query =
       "SELECT * FROM " +
       EventDao.TABLE_NAME +
@@ -111,6 +113,9 @@ public class DBToLocalStorageSync {
       ")";
     try {
       List<Map<String, Object>> mapEvents = databaseUtil.executeQuery(query);
+      if (mapEvents.isEmpty() || mapEvents == null) {
+        return null;
+      }
       List<Event> unimplementedDBEvents = new ArrayList<>();
       for (Map<String, Object> mapEvent : mapEvents) {
         Event event = EventDao.mapResultSetToEvent(mapEvent);
@@ -123,7 +128,7 @@ public class DBToLocalStorageSync {
     return null;
   }
 
-  public static List<EventParticipant> getDBEventParticipants(
+  public static List<EventParticipant> getDBEventParticipantsFromEventID(
     DatabaseUtil databaseUtil,
     int eventId
   ) {
@@ -156,7 +161,7 @@ public class DBToLocalStorageSync {
     int eventId
   ) {
     List<User> DBUsers = new ArrayList<>();
-    List<EventParticipant> DBEventParticipants = getDBEventParticipants(
+    List<EventParticipant> DBEventParticipants = getDBEventParticipantsFromEventID(
       databaseUtil,
       eventId
     );
@@ -193,6 +198,26 @@ public class DBToLocalStorageSync {
     return DBUsers;
   }
 
+  public static List<Event> addParticipantEventsCreatedByOthersToLocal(
+    DatabaseUtil databaseUtil
+  ) {
+    /*
+     * 1: Get the ids of the events where the local user is a participant and
+     * get the information of the user that created this event
+     * 2: Get the retrieved events content required to create event object
+     * 3: Create a participant with the creator and add it to the list of participants without the id of the local user
+     */
+
+    return null;
+  }
+
+  /**
+   * Adds unimplemented database events to the local storage.
+   * Retrieves unimplemented database events using the provided DatabaseUtil object,
+   * and for each event, retrieves the participants and adds the event to the local storage.
+   *
+   * @param databaseUtil The DatabaseUtil object used to retrieve unimplemented database events.
+   */
   public static void addUnimplementedDBEventsToLocal(
     DatabaseUtil databaseUtil
   ) {
@@ -206,16 +231,137 @@ public class DBToLocalStorageSync {
       );
       eventsEntity.addEventEntity();
     }
+    List<Event> participantEvents = getParticipantEvents(databaseUtil);
+    for (Event event : participantEvents) {
+      EventsEntity eventsEntity = new EventsEntity(
+        event,
+        EventNature.UNCHANGED,
+        getEventParticipants(databaseUtil, event.getId())
+      );
+      eventsEntity.addEventEntity();
+    }
+  }
+
+  /**
+   * Adds or updates the information entity based on the specified flags.
+   *
+   * @param updateLastUpdated Flag indicating whether to update the last updated timestamp.
+   * @param updateLastSynced Flag indicating whether to update the last synced timestamp.
+   */
+  public static void addOrUpdateInformationEntity(
+    boolean updateLastUpdated,
+    boolean updateLastSynced
+  ) {
+    InformationEntity informationEntity = InformationEntity.getInformationEntity();
+    if (!updateLastSynced && !updateLastUpdated) {
+      return;
+    }
+    if (updateLastUpdated) {
+      informationEntity.setLastUpdatedNow();
+    }
+
+    if (updateLastSynced) {
+      informationEntity.setLastSyncedNow();
+    }
+
+    informationEntity.updateInformationEntity();
+  }
+
+  /**
+   * Adds or updates a user entity in the database.
+   *
+   * @param user The user object to be added or updated.
+   */
+  public static void addOrUpdateUserEntity(User user) {
+    UserEntity userEntity = UserEntity.userToUserEntity(user);
+    userEntity.updateUserEntity();
+  }
+
+  public static List<Event> getParticipantEvents(DatabaseUtil databaseUtil) {
+    List<Map<String, Object>> mapTeams = new ArrayList<>();
+    try {
+      String query =
+        "SELECT * FROM " +
+        EventDao.TABLE_NAME +
+        " WHERE id IN (SELECT event_id FROM " +
+        EventParticipantDao.TABLE_NAME +
+        " WHERE participant_id = " +
+        getLocalUserId() +
+        ");";
+      mapTeams = databaseUtil.executeQuery(query);
+      if (mapTeams.isEmpty() || mapTeams == null) {
+        return null;
+      }
+      List<Event> events = new ArrayList<>();
+      for (Map<String, Object> mapTeam : mapTeams) {
+        Event event = EventDao.mapResultSetToEvent(mapTeam);
+        events.add(event);
+      }
+      return events;
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return null;
+  }
+
+  public static List<User> getEventParticipants(
+    DatabaseUtil databaseUtil,
+    int eventId
+  ) {
+    List<User> DBUsers = new ArrayList<>();
+
+    try {
+      String participantsQuery =
+        "SELECT * FROM " +
+        UserDao.TABLE_NAME +
+        " WHERE id IN (SELECT participant_id FROM " +
+        EventParticipantDao.TABLE_NAME +
+        " WHERE event_id = " +
+        eventId +
+        " AND participant_id != " +
+        getLocalUserId() +
+        ")";
+      List<Map<String, Object>> mapUsers = databaseUtil.executeQuery(
+        participantsQuery
+      );
+
+      for (Map<String, Object> mapUser : mapUsers) {
+        User user = UserDao.mapResultSetToUser(
+          Collections.singletonList(mapUser)
+        );
+        DBUsers.add(user);
+      }
+
+      String creatorQuery =
+        "SELECT * FROM " +
+        UserDao.TABLE_NAME +
+        " WHERE id IN (SELECT creator_id FROM " +
+        EventDao.TABLE_NAME +
+        " WHERE id = " +
+        eventId +
+        ")";
+      List<Map<String, Object>> mapCreator = databaseUtil.executeQuery(
+        creatorQuery
+      );
+
+      for (Map<String, Object> mapUser : mapCreator) {
+        User user = UserDao.mapResultSetToUser(
+          Collections.singletonList(mapUser)
+        );
+        DBUsers.add(user);
+      }
+
+      return DBUsers;
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return null;
   }
 
   public static void main(String[] args) {
     try {
       DatabaseUtil databaseUtil = new DatabaseUtil();
-      // System.out.println(getUnimplementedDBEvents(databaseUtil).toString());
       addUnimplementedDBEventsToLocal(databaseUtil);
-      System.out.println(
-        getDBParticipantsFromEventId(databaseUtil, 2).toString()
-      );
     } catch (SQLException e) {
       e.printStackTrace();
     }

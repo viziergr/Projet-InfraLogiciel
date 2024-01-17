@@ -1,8 +1,8 @@
 [
   {
     "information": {
-      "last_updated": "16-01-2024 18:21:54",
-      "last_synced": "16-01-2024 18:21:54"
+      "last_updated": "17-01-2024 14:38:06",
+      "last_synced": "17-01-2024 14:38:06"
     }
   },
   {
@@ -26,24 +26,6 @@
   {
     "events": [
       {
-        "id": -11,
-        "nature": "Added",
-        "is_online": true,
-        "title": "Test Event",
-        "description": "Test Description",
-        "location": "Test Location",
-        "start_time": "2024-01-16 18:50:27",
-        "end_time": "2024-01-16 18:50:27",
-        "participants": [
-          {
-            "id": 1,
-            "first_name": "Louis",
-            "last_name": "Pecullier",
-            "email": "Louis@gmail.com"
-          }
-        ]
-      },
-      {
         "id": 1,
         "nature": "Unchanged",
         "is_online": true,
@@ -54,12 +36,6 @@
         "end_time": "2024-01-16 19:16:08",
         "participants": [
           {
-            "id": 1,
-            "first_name": "Doe",
-            "last_name": "John@doe.com",
-            "email": "John"
-          },
-          {
             "id": 2,
             "first_name": "Doe",
             "last_name": "Johny@doe.com",
@@ -68,22 +44,15 @@
         ]
       },
       {
-        "id": 2,
+        "id": 4,
         "nature": "Unchanged",
         "is_online": true,
-        "title": "tea",
+        "title": "coca",
         "description": "description",
         "location": "location",
-        "start_time": "2024-01-16 19:17:31",
-        "end_time": "2024-01-16 19:17:31",
-        "participants": [
-          {
-            "id": 2,
-            "first_name": "Doe",
-            "last_name": "Johny@doe.com",
-            "email": "Johny"
-          }
-        ]
+        "start_time": "2024-01-17 16:25:24",
+        "end_time": "2024-01-17 16:25:24",
+        "participants": []
       },
       {
         "id": 3,
@@ -94,7 +63,38 @@
         "location": "location",
         "start_time": "2024-01-16 20:21:03",
         "end_time": "2024-01-16 20:21:03",
-        "participants": []
+        "participants": [
+          {
+            "id": 2,
+            "first_name": "Doe",
+            "last_name": "Johny@doe.com",
+            "email": "Johny"
+          },
+          {
+            "id": 2,
+            "first_name": "Doe",
+            "last_name": "Johny@doe.com",
+            "email": "Johny"
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "nature": "Unchanged",
+        "is_online": true,
+        "title": "iceTea",
+        "description": "description",
+        "location": "location",
+        "start_time": "2024-01-17 18:30:24",
+        "end_time": "2024-01-17 18:30:24",
+        "participants": [
+          {
+            "id": 3,
+            "first_name": "Doe",
+            "last_name": "Johny@doe.com",
+            "email": "Johny"
+          }
+        ]
       }
     ]
   }

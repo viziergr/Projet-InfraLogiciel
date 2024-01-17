@@ -222,7 +222,7 @@ public class UserDao extends GenericDao<User> {
 
   public static void main(String[] args) throws SQLException {
     UserDao userDao = new UserDao();
-    User user = new User(2, "Johny@doe.com", "Johny", "Doe", "password");
+    User user = new User(0, "Johny@doe.com", "Johny", "Doe", "password");
     userDao.insertUserRecord(user);
   }
 }
