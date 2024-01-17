@@ -8,14 +8,13 @@ if (isset($_POST['inscription_submit']) && $_POST['inscription_submit'] == 2) {
 
     if (
         isset($_POST['fname']) && isset($_POST['lname']) && isset($_POST['year']) &&
-        isset($_POST['mail']) &&isset($_POST['username']) && isset($_POST['pwd']) && isset($_POST['cpwd'])
+        isset($_POST['mail']) && isset($_POST['pwd']) && isset($_POST['cpwd'])
     ) {
 
         $nom = $_POST['fname'];
         $prenom = $_POST['lname'];
         $annee = $_POST['year'];
         $email = $_POST['mail'];
-        $username = $_POST['username'];
         $pwd = $_POST['pwd'];
         $cpwd = $_POST['cpwd'];
 
@@ -36,7 +35,7 @@ if (isset($_POST['inscription_submit']) && $_POST['inscription_submit'] == 2) {
                 while (!$id_defined){
                     try {
                         $id = rand();
-                        $sql = "INSERT INTO User (id, first_name, last_name, email, password, year) VALUES ('$id','$nom', '$prenom', '$email', '$pwd', '$annee')";
+                        $sql = "INSERT INTO User (id, first_name, last_name, email, username password, year) VALUES ('$id','$nom', '$prenom', '$email', '$pwd', '$annee')";
                         $mysqli->query($sql);
                         $id_defined = true;
                         echo "Inscrit";
