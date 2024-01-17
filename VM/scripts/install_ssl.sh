@@ -22,7 +22,7 @@ openssl req -key domain.key -new -out domain.csr -passin pass:TimeFusion -subj "
 # Création d'un certificat auto-signé avec la clé et le CSR
 openssl x509 -signkey domain.key -in domain.csr -req -days 365 -out domain.crt -passin pass:TimeFusion 
 
-openssl req -x509 -sha256 -days 1825 -newkey rsa:2048 -keyout rootCA.key -out rootCA.crt -passout pass:TimeFusion -subj "/C=FR/ST=Maine-et-Loire/L=Angers/O=ESEO/CN=TimeFusion"
+openssl req -x509 -sha256 -days 1825 -newkey rsa:2048 -keyout rootCA.key -out rootCA.crt -passin pass:TimeFusion -subj "/C=FR/ST=Maine-et-Loire/L=Angers/O=ESEO/CN=TimeFusion"
 
 # Création d'un fichier domain.ext avec le contenu :
 echo "authorityKeyIdentifier=keyid,issuer
@@ -31,6 +31,6 @@ subjectAltName = @alt_names
 [alt_names]
 DNS.1 = 192.168.56.80" > domain.ext
 
-openssl x509 -req -CA rootCA.crt -CAkey rootCA.key -in domain.csr -out domain.crt -days 365 -CAcreateserial -extfile domain.ext
+openssl x509 -req -CA rootCA.crt -CAkey rootCA.key -in domain.csr -out domain.crt -days 365 -CAcreateserial -extfile domain.ext -passin pass:TimeFusion
 
 echo "END - Installation du certificat SSL - "$IP
