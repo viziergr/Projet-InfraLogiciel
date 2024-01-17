@@ -17,7 +17,7 @@ cd /etc/apache2/ssl || exit
 openssl genrsa -des3 -passout pass:TimeFusion -out domain.key 2048
 
 # Création d'un CSR (Certificate Signing Request) avec la clé
-openssl req -key domain.key -new -out domain.csr -passint pass:TimeFusion -subj "/C=FR/ST=Maine-et-Loire/L=Angers/O=ESEO/CN=TimeFusion"
+openssl req -key domain.key -new -out domain.csr -passin pass:TimeFusion -subj "/C=FR/ST=Maine-et-Loire/L=Angers/O=ESEO/CN=TimeFusion"
 
 # Création d'un certificat auto-signé avec la clé et le CSR
 openssl x509 -signkey domain.key -in domain.csr -req -days 365 -out domain.crt -passin pass:TimeFusion 
