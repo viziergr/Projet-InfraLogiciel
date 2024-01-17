@@ -28,6 +28,7 @@ $events = $events->getEventsBetweenByDay($start,$end,$usersId);
 
 include __DIR__ .'/../../includes/header.php';
 ?>
+<p>Calendrier<?php echo __DIR__;?></p>
 
 <div class="calendar">
 
