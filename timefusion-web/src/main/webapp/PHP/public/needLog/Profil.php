@@ -1,3 +1,4 @@
+<?php include '../src/Log/gestion_inscription.php'; ?>
 
 <?php require __DIR__ . '\..\bootstrap.php'; 
 sess_exists();
