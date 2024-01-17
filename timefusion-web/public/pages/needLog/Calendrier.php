@@ -76,7 +76,7 @@ include __DIR__ .'/../../views/header.php';
                 <div class='calendar__day'><?= $date->format('d'); ?></div>
                 <?php foreach ($eventsForDay as $event): ?>
                 <div class="calendar__event">
-                    <?= (new /DateTime($event['start_time']))->format('H:i') ?> - <a href="edit.php?id=<?= $event['id']; ?>"> <?= h($event['title']); ?></a>
+                    <?= (new \DateTime($event['start_time']))->format('H:i') ?> - <a href="edit.php?id=<?= $event['id']; ?>"> <?= h($event['title']); ?></a>
                 </div>
                 <?php endforeach; ?>
             </td>
