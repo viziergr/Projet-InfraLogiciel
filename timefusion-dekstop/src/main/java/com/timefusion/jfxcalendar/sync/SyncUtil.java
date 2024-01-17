@@ -53,7 +53,7 @@ public class SyncUtil {
     return negativeIds;
   }
 
-  public static List<Integer> getDBEventsIds(DatabaseUtil databaseUtil) {
+  public static List<Integer> getRemoteEventsIds(DatabaseUtil databaseUtil) {
     try {
       List<Integer> listIds = new ArrayList<>();
       String query =
@@ -76,27 +76,27 @@ public class SyncUtil {
     return new ArrayList<>();
   }
 
-  public static List<Integer> getDBIdsNotInLocalStorage(
+  public static List<Integer> getRemoteIdsNotInLocalStorage(
     DatabaseUtil databaseUtil
   ) {
-    List<Integer> DBEventIds = getDBEventsIds(databaseUtil);
+    List<Integer> DBEventIds = getRemoteEventsIds(databaseUtil);
     DBEventIds.removeAll(getLocalOnlineEventsIds());
     return DBEventIds;
   }
 
-  public static List<Integer> getLocalOnlineIcdsNotInDB(
+  public static List<Integer> getLocalOnlineIcdsNotInRemote(
     DatabaseUtil databaseUtil
   ) {
     List<Integer> localOnlineIds = getLocalOnlineEventsIds();
-    localOnlineIds.removeAll(getDBEventsIds(databaseUtil));
+    localOnlineIds.removeAll(getRemoteEventsIds(databaseUtil));
     return localOnlineIds;
   }
 
-  public static List<Integer> getLocalOfflineIdsNotInDB(
+  public static List<Integer> getLocalOfflineIdsNotInRemote(
     DatabaseUtil databaseUtil
   ) {
     List<Integer> localOfflineIds = getLocalOfflineEventsIds();
-    localOfflineIds.removeAll(getDBEventsIds(databaseUtil));
+    localOfflineIds.removeAll(getRemoteEventsIds(databaseUtil));
     return localOfflineIds;
   }
 
@@ -119,7 +119,9 @@ public class SyncUtil {
     return new ArrayList<>();
   }
 
-  public static List<Integer> getDBInvitedEvents(DatabaseUtil databaseUtil) {
+  public static List<Integer> getRemoteInvitedEvents(
+    DatabaseUtil databaseUtil
+  ) {
     try {
       List<Integer> listIds = new ArrayList<>();
       String query =
@@ -139,26 +141,37 @@ public class SyncUtil {
     return new ArrayList<>();
   }
 
-  public static List<Integer> getDBInvitedEventsNotInLocal(
+  public static List<Integer> getRemoteInvitedEventsNotInLocal(
     DatabaseUtil databaseUtil
   ) {
-    List<Integer> DBEventIds = getDBInvitedEvents(databaseUtil);
+    List<Integer> DBEventIds = getRemoteInvitedEvents(databaseUtil);
     DBEventIds.removeAll(getLocalOnlineEventsIds());
     return DBEventIds;
   }
 
-  public static List<Integer> getLocalOnlineIdsNotInDB(
+  public static List<Integer> getLocalOnlineIdsNotInRemote(
     DatabaseUtil databaseUtil
   ) {
     List<Integer> localOnlineIds = getLocalOnlineEventsIds();
-    localOnlineIds.removeAll(getDBEventsIds(databaseUtil));
+    localOnlineIds.removeAll(getRemoteEventsIds(databaseUtil));
     return localOnlineIds;
+  }
+
+  public static List<EventsEntity> getOfflineEvents() {
+    List<EventsEntity> offlineEvents = new ArrayList<>();
+    List<Integer> negativeIds = SyncUtil.getLocalOfflineEventsIds();
+    if (negativeIds.size() > 0) {
+      for (int i = 0; i < negativeIds.size(); i++) {
+        offlineEvents.add(EventsEntity.getEventEntityById(negativeIds.get(i)));
+      }
+    }
+    return offlineEvents;
   }
 
   public static void main(String[] args) {
     try {
       DatabaseUtil databaseUtil = new DatabaseUtil();
-      System.out.println(getLocalOnlineIdsNotInDB(databaseUtil).toString());
+      System.out.println(getLocalOnlineIdsNotInRemote(databaseUtil).toString());
     } catch (Exception e) {}
   }
 }

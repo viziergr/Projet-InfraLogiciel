@@ -233,7 +233,7 @@ public class EventsEntity {
 
   private static LocalDateTime parseLocalDateTime(String dateTimeString) {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern(
-      "yyyy-MM-dd HH:mm"
+      "yyyy-MM-dd HH:mm:ss"
     );
     return LocalDateTime.parse(dateTimeString, formatter);
   }
@@ -330,7 +330,7 @@ public class EventsEntity {
 
   public static void main(String[] args) {
     EventsEntity event = new EventsEntity(
-      -11,
+      -12,
       EventNature.ADDED,
       true,
       "Test Event",
