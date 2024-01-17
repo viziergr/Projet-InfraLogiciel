@@ -8,13 +8,14 @@ if (isset($_POST['inscription_submit']) && $_POST['inscription_submit'] == 2) {
 
     if (
         isset($_POST['fname']) && isset($_POST['lname']) && isset($_POST['year']) &&
-        isset($_POST['mail']) && isset($_POST['pwd']) && isset($_POST['cpwd'])
+        isset($_POST['mail']) &&isset($_POST['username']) && isset($_POST['pwd']) && isset($_POST['cpwd'])
     ) {
 
         $nom = $_POST['fname'];
         $prenom = $_POST['lname'];
         $annee = $_POST['year'];
         $email = $_POST['mail'];
+        $username = $_POST['username'];
         $pwd = $_POST['pwd'];
         $cpwd = $_POST['cpwd'];
 
