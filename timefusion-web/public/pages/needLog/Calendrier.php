@@ -27,7 +27,6 @@ elseif($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['team_id'])) {
 $events = $events->getEventsBetweenByDay($start,$end,$usersId);
 
 ?>
-<p>Calendrier<?php echo __DIR__;?></p>
 
 <div class="calendar">
 
