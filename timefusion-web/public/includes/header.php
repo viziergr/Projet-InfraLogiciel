@@ -1,4 +1,4 @@
-<?php include '../../scripts/gestion_deconnexion.php'; 
+<?php include __DIR__.'/../scripts/gestion_deconnexion.php'; 
 ?>
 
 <!DOCTYPE html>
