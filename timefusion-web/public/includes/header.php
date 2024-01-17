@@ -1,4 +1,4 @@
-<?php include '/public/scripts/gestion_deconnexion.php'; ?>
+<?php include '../../scripts/gestion_deconnexion.php'; ?>
 
 <!DOCTYPE html>
 <html lang="fr">
