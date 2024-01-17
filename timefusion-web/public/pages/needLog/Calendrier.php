@@ -1,9 +1,9 @@
 <?php 
 
-include __DIR__ .'\..\..\scripts\bootstrap.php';
-include __DIR__ .'\..\..\scripts\Calendar\Month.php';
-include __DIR__ .'\..\..\scripts\Calendar\Events.php'; 
-include __DIR__ .'\..\..\scripts\Team\Teams.php';   
+include __DIR__ .'/../../scripts/bootstrap.php';
+include __DIR__ .'/../../scripts/Calendar/Month.php';
+include __DIR__ .'/../../scripts/Calendar/Events.php'; 
+include __DIR__ .'/../../scripts/Team/Teams.php';   
 
 sess_exists();
 
@@ -26,7 +26,7 @@ elseif($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['team_id'])) {
 }
 $events = $events->getEventsBetweenByDay($start,$end,$usersId);
 
-include __DIR__ .'\..\..\includes\header.php';
+include __DIR__ .'/../../includes/header.php';
 ?>
 
 <div class="calendar">
@@ -90,5 +90,5 @@ include __DIR__ .'\..\..\includes\header.php';
 
 
 <?php 
-include __DIR__ .'\..\..\includes\footer.php';
+include __DIR__ .'/../../includes/footer.php';
 ?>
