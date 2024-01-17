@@ -25,7 +25,7 @@ elseif($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['team_id'])) {
     $usersId = [$_SESSION['compte']];
 }
 $events = $events->getEventsBetweenByDay($start,$end,$usersId);
-include __DIR__ .'/../../views/header.php';
+include __DIR__ .'/../../includes/header.php';
 ?>
 
 <div class="calendar">
