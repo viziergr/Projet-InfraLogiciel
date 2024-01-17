@@ -2,7 +2,7 @@
 
 namespace TimeFusion\Calendar;
 
-require '../src/App/Validator.php';
+require __DIR__ . '\..\App\Validator.php';
 use TimeFusion\App\Validator;
 
 class EventValidator extends Validator{

@@ -2,8 +2,8 @@
 
 namespace TimeFusion\Team;
 
-require '../src/Team/Team.php';
-require '../src/Team/User.php';
+require __DIR__ . '\Team.php';
+require __DIR__ . '\User.php';
 
 class Teams
 {
@@ -50,6 +50,7 @@ class Teams
     
         while ($row = $result->fetch_assoc()) {
             $team = new Team($row['team_name']);
+            $team->setColor($row['Color']);
             $team->setId($row['id']); // Assurez-vous d'avoir une méthode setId dans votre classe Team
             // Ajoutez d'autres propriétés au besoin
     
@@ -76,6 +77,126 @@ class Teams
         return $teams;
     }
     
+    // Fonction pour obtenir une couleur pastel aléatoire
+    public function getRandomPastelColor() {
+        static $pastelColors = null;
+    
+        if ($pastelColors === null) {
+            // Liste prédéfinie de couleurs pastel
+            $pastelColors = array(
+                '#77dd77', '#99ddff', '#ffcccb', '#ffddca', '#c0c0c0', '#ffb6c1', '#d2b48c',
+                '#b19cd9', '#ffdb58', '#b0e0e6', '#a0d6b4', '#f0e68c', '#c2b280', '#dda0dd'
+            );
+    
+            // Mélanger la liste des couleurs
+            shuffle($pastelColors);
+        }
+    
+        // Retourner et retirer la première couleur de la liste
+        return array_shift($pastelColors);
+    }
 
+    public function getMembersByTeamId($team_id)
+    {
+        $result = $this->mysqli->query("SELECT user_id FROM team_members WHERE team_id = $team_id");
+        if ($result === false) {
+            throw new \Exception("Erreur lors de l'exécution de la requête : " . $this->mysqli->error);
+        }
+        $userIds = array(); // Initialise un tableau vide pour stocker les user_ids
+        // Boucle sur les résultats pour extraire les user_ids
+        while ($row = $result->fetch_assoc()) {
+            $userIds[] = $row['user_id'];
+        }
+        // Vérifie s'il n'y a aucun membre trouvé
+        if (empty($userIds)) {
+            throw new \Exception("Aucun membre n'a été trouvé");
+        }
+        return $userIds;
+    }
+
+    public function hydrate(Team $team, array $data){
+        $name = $data['name'];
+        $color = $data['color'];
+    
+        // Vérification de l'existence d'une équipe du même nom
+        if ($this->teamNameExists($name)) {
+            return null; // Équipe du même nom déjà existante
+        }
+    
+        // Hydratation de l'équipe
+        $team->setName($name);
+        $team->setColor($color);
+    
+        return $team;
+    }
+    
+    // Méthode pour vérifier l'existence d'une équipe du même nom
+    private function teamNameExists($name) {
+        $sql = "SELECT COUNT(*) as count FROM teams WHERE team_name = '$name'";
+        
+        // Exécutez la requête SQL
+        $result = $this->mysqli->query($sql);
+    
+        if ($result) {
+            // Récupérez la première ligne du résultat
+            $row = $result->fetch_assoc();
+            // Retournez vrai si le nombre est supérieur à 0
+            return $row['count'] > 0;
+        }
+        // Retournez faux en cas d'erreur d'exécution de la requête
+        return false;
+    }
+    
+    
+
+    public function create(Team $team, $userId) {
+        if($userId == null) {
+            return "Grosse erreur";
+        }
+        $sql = "INSERT INTO teams (team_name, color) VALUES (?, ?)";
+        $stmt = $this->mysqli->prepare($sql);
+        if (!$stmt) {return false;}
+        
+        // Extraire les valeurs des méthodes de l'objet Event
+        $name = $team->getName();
+        $color = $team->getColor();
+        // Bind parameters avec des variables
+        $stmt->bind_param("ss", $name, $color);
+        // Exécuter la requête
+        $result = $stmt->execute();
+        // Fermer le statement
+        $stmt->close();
+
+        $sql = "SELECT id FROM teams WHERE team_name = '$name' LIMIT 1";
+        // Exécution de la requête
+        $result = $this->mysqli->query($sql);
+        // Vérification des erreurs
+        if (!$result) {
+            die("Erreur dans la requête : " . $this->mysqli->error);
+        }
+        // Récupération du résultat
+        $row = $result->fetch_assoc();
+        
+        $sql = "INSERT INTO team_members (team_id, user_id, role) VALUES (?, ?, ?)";
+        $stmt = $this->mysqli->prepare($sql);
+    
+        if (!$stmt) {
+            // Gérer l'erreur, par exemple, retourner false ou lever une exception
+            return false;
+        }
+    
+        // Extraire les valeurs des méthodes de l'objet Event
+        $team_id = $row['id'];
+        $role = 'Chef';
+    
+        // Bind parameters avec des variables
+        $stmt->bind_param("sss", $team_id, $userId, $role);
+    
+        // Exécuter la requête
+        $result = $stmt->execute();
+    
+        // Fermer le statement
+        $stmt->close();
+    }
 
 }

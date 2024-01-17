@@ -1,6 +1,6 @@
 <?php
 
-require_once("../src/bootstrap.php");
+require __DIR__ . '\..\bootstrap.php';
 
 if (isset($_POST['inscription_submit']) && $_POST['inscription_submit'] == 2) {
     //Gestion de l'inscription

@@ -6,6 +6,7 @@ class Month {
 
     public $days = ['Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi','Dimanche'];
     private $months = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
+
     public $month;
     public $year;
     
@@ -79,5 +80,6 @@ class Month {
     public function withinMonth (\DateTime $date): bool{
         return $this->getFirstDay()->format('Y-m') === $date->format('Y-m');
     }
+
 
 }
