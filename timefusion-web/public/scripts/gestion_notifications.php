@@ -1,6 +1,6 @@
 <?php
-require __DIR__ . '\..\bootstrap.php';
-require __DIR__ . '\..\Request\Requests.php';
+include 'bootstrap.php';
+include 'Request/Requests.php'; 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Vérifier si le formulaire "Accepter" a été soumis

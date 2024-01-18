@@ -4,7 +4,7 @@ ini_set('display_errors', 'On');
 ini_set('display_startup_errors', 'On');
 
 function e404(){
-    require '../public/404.php';
+    include '../pages/404.php';
     exit();
 }
 
@@ -45,7 +45,7 @@ function h(string $value): string {
 
 function render(string $view, $parameters = []) {
     extract($parameters);
-    include __DIR__ . "\..\\views\\" . $view .".php";
+    include __DIR__ . "/../includes/" . $view .".php";
 }
 
 function sess_exists(){
