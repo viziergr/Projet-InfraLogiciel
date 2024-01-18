@@ -1,7 +1,7 @@
 package com.timefusion.dao;
 
 import com.timefusion.model.EventParticipant;
-import com.timefusion.model.User;
+import com.timefusion.util.DatabaseUtil;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,6 +16,10 @@ public class EventParticipantDao extends GenericDao<EventParticipant> {
   public EventParticipantDao() throws SQLException {
     super(TABLE_NAME);
     defineSchema();
+  }
+
+  public DatabaseUtil getDatabaseUtil() {
+    return super.databaseUtil;
   }
 
   private Object getColumnValue(
@@ -112,6 +116,11 @@ public class EventParticipantDao extends GenericDao<EventParticipant> {
     return eventparticipants;
   }
 
+  public void deleteEventParticipantRecordByEventId(int eventParticipantId)
+    throws SQLException {
+    super.databaseUtil.deleteRecordById(tableName, "id", eventParticipantId);
+  }
+
   @Override
   protected void defineSchema() {
     try {
@@ -146,7 +155,7 @@ public class EventParticipantDao extends GenericDao<EventParticipant> {
   public static void main(String[] args) {
     try {
       EventParticipantDao eventParticipantDao = new EventParticipantDao();
-      EventParticipant eventparticipant = new EventParticipant(0, 4, 8);
+      EventParticipant eventparticipant = new EventParticipant(0, 4, 18);
       eventParticipantDao.insertEventParticipantRecord(eventparticipant);
       //   eventParticipantDao.deleteTEventParticipantRecord(eventparticipant);
     } catch (Exception e) {

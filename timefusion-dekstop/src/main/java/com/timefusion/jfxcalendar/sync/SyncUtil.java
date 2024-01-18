@@ -212,10 +212,26 @@ public class SyncUtil {
     return localOfflineAddedIds;
   }
 
+  public static List<Integer> getLocalDeniedEventsIds() {
+    List<Integer> localOnlineEventsIds = getLocalOnlineEventsIds();
+    List<Integer> localDeniedEventsIds = new ArrayList<>();
+    for (int i = 0; i < localOnlineEventsIds.size(); i++) {
+      if (
+        EventsEntity
+          .getEventEntityById(localOnlineEventsIds.get(i))
+          .getNature()
+          .equals(EventNature.DENIED)
+      ) {
+        localDeniedEventsIds.add(localOnlineEventsIds.get(i));
+      }
+    }
+    return localDeniedEventsIds;
+  }
+
   public static void main(String[] args) {
     try {
       DatabaseUtil databaseUtil = new DatabaseUtil();
-      System.out.println(getOfflineAddedEventsIds().toString());
+      System.out.println(getLocalDeniedEventsIds().toString());
     } catch (Exception e) {}
   }
 }

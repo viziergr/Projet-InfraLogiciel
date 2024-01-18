@@ -1,12 +1,16 @@
 package com.timefusion.jfxcalendar.sync;
 
 import com.timefusion.dao.EventDao;
+import com.timefusion.dao.EventParticipantDao;
 import com.timefusion.dao.GenericDao;
+import com.timefusion.jfxcalendar.JSON.Entities.EventNature;
 import com.timefusion.jfxcalendar.JSON.Entities.EventsEntity;
 import com.timefusion.model.Event;
 import com.timefusion.util.DatabaseUtil;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class LocalToRemoteEventSync {
 
@@ -51,6 +55,7 @@ public class LocalToRemoteEventSync {
             );
             EventsEntity.deleteEventEntity(eventId);
             eventsEntity.setId(rowInsertedId);
+            eventsEntity.setNature(EventNature.UNCHANGED);
             eventsEntity.addEventEntity();
           }
         } catch (SQLException e) {
@@ -60,14 +65,69 @@ public class LocalToRemoteEventSync {
     }
   }
 
-  public static void handleOfflineDeletedEvents(DatabaseUtil databaseUtil) {
-    // #TODO
+  public static void handleOfflineDeniedEvents(
+    EventParticipantDao eventParticipantDao
+  ) {
+    List<Integer> offlineDeniedEventsIds = SyncUtil.getLocalDeniedEventsIds();
+    System.out.println(
+      "offlineDeletedEventsIds = " + offlineDeniedEventsIds.toString()
+    );
+    if (offlineDeniedEventsIds.size() > 0) {
+      for (int eventId : offlineDeniedEventsIds) {
+        {
+          try {
+            deniedEvent(
+              eventParticipantDao,
+              EventsEntity.eventEntityToEvent(
+                EventsEntity.getEventEntityById(eventId)
+              )
+            );
+          } catch (IllegalAccessError e) {
+            e.printStackTrace();
+          }
+        }
+      }
+    }
+  }
+
+  private static void deniedEvent(
+    EventParticipantDao eventParticipantDao,
+    Event event
+  ) {
+    try {
+      String query =
+        "SELECT id FROM " +
+        EventParticipantDao.TABLE_NAME +
+        " WHERE event_id = " +
+        event.getId() +
+        " AND participant_id = " +
+        SyncUtil.getLocalUserId() +
+        ";";
+
+      List<Map<String, Object>> mapId = eventParticipantDao
+        .getDatabaseUtil()
+        .executeQuery(query);
+      if (mapId.size() > 0) {
+        eventParticipantDao.deleteEventParticipantRecordByEventId(
+          (Integer) mapId.get(0).get("id")
+        );
+        EventsEntity.deleteEventEntity(event.getId());
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public static boolean isEventInvitation(int eventId) {
+    // Ajouter un champ au json isInvited? Mettre cette fonction dans EventsEntity
+    return false;
   }
 
   public static void main(String[] args) {
     try {
       EventDao eventDao = new EventDao();
-      handleOfflineAddedEvents(eventDao);
+      EventParticipantDao eventParticipantDao = new EventParticipantDao();
+      handleOfflineDeniedEvents(eventParticipantDao);
     } catch (Exception e) {}
   }
 }
