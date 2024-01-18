@@ -9,11 +9,14 @@ module com.timefusion {
   requires transitive de.jensd.fx.glyphs.fontawesome;
   requires transitive org.controlsfx.controls;
   requires transitive com.jfoenix;
+  requires transitive com.google.gson;
 
   opens com.timefusion.ui to javafx.fxml;
   opens com.timefusion.util to java.sql;
   opens com.timefusion.jfxcalendar.controllers to javafx.fxml;
   opens com.timefusion.jfxcalendar.views to com.jfoenix;
+  opens com.timefusion.JSON.Entities to com.google.gson;
+  opens com.timefusion.JSON to com.google.gson;
 
   exports com.timefusion.config ;
   exports com.timefusion.dao ;

@@ -16,7 +16,6 @@ public class ConfigUtil {
       properties.load(input);
     } catch (Exception e) {
       e.printStackTrace();
-      // Handle exception - maybe rethrow as a runtime exception
     }
   }
 

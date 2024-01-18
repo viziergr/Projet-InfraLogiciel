@@ -2,7 +2,9 @@ package com.timefusion.dao;
 
 import com.timefusion.model.Team;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -11,137 +13,131 @@ import java.util.Map;
  */
 public class TeamDao extends GenericDao<Team> {
 
-  private static final String TABLE_NAME = "Team";
+  private static final String TABLE_NAME = "team";
   private final Map<String, Class<?>> schema = new HashMap<>();
 
-  public TeamDao() {
+  public TeamDao() throws SQLException {
     super(TABLE_NAME);
     defineSchema();
   }
 
-  /**
-   * Defines the schema for the TeamDao class.
-   * This method is responsible for defining the structure of the database table for teams.
-   * It sets the column names and their corresponding data types.
-   */
-  @Override
-  protected void defineSchema() {
-    try {
-      schema.put("id", Long.class);
-      schema.put("name", String.class);
-      schema.put("created_at", java.sql.Timestamp.class); // Consider using a more appropriate type
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-  }
-
-  /**
-   * Retrieves the value of a specific column from the given Team object.
-   *
-   * @param columnName the name of the column to retrieve the value from
-   * @param team the Team object from which to retrieve the value
-   * @return the value of the specified column in the Team object, or null if an exception occurs
-   */
   private Object getColumnValue(String columnName, Team team) {
-    try {
-      return Team.class.getDeclaredMethod(
-          "get" +
-          columnName.substring(0, 1).toUpperCase() +
-          columnName.substring(1)
-        )
-        .invoke(team);
-    } catch (Exception e) {
-      e.printStackTrace(); // Handle the exception appropriately
-      return null;
+    switch (columnName) {
+      case "id":
+        return team.getId();
+      case "name":
+        return team.getName();
+      case "description":
+        return team.getDescription();
+      default:
+        return null;
     }
   }
 
-  /**
-   * Inserts a record into the database.
-   *
-   * @param obj The object representing the record to be inserted.
-   * @return The number of rows affected by the insert operation.
-   * @throws SQLException If an error occurs while inserting the record.
-   * @throws IllegalArgumentException If the provided object is not of type Team or does not adhere to the expected schema.
-   */
-  @Override
-  public int insertRecord(Team team) throws SQLException {
-    if (!this.validateSchema(team)) {
+  private Team mapResultSetToTeam(List<Map<String, Object>> result) {
+    if (result.isEmpty()) {
+      return null;
+    } else if (result.size() > 1) {
       throw new IllegalArgumentException(
-        "Team object does not adhere to the expected schema."
+        "More than one team found with the given id"
       );
     }
+    Team team = new Team(
+      (int) result.get(0).get("id"),
+      (String) result.get(0).get("name"),
+      (String) result.get(0).get("description")
+    );
 
+    return team;
+  }
+
+  private Map<String, Object> mapTeamToColumnValues(Team team) {
     Map<String, Object> columnValues = new HashMap<>();
     for (String columnName : schema.keySet()) {
       columnValues.put(columnName, getColumnValue(columnName, team));
     }
 
-    return super.databaseUtil.insertRecord(TABLE_NAME, columnValues);
+    return columnValues;
   }
 
-  /**
-   * Validates the schema of a record.
-   *
-   * @param team the Team object representing the record to be validated
-   * @return true if the schema is valid, false otherwise
-   */
-  @Override
-  protected boolean validateSchema(Team team) {
-    for (Map.Entry<String, Class<?>> entry : schema.entrySet()) {
-      String columnName = entry.getKey();
-      Class<?> expectedType = entry.getValue();
-      Object columnValue = getColumnValue(columnName, team);
-
-      if (columnValue == null || !expectedType.isInstance(columnValue)) {
-        return false;
-      }
-    }
-    return true;
+  public int insertTeamRecord(Team team) throws SQLException {
+    return super.databaseUtil.insertRecord(
+      tableName,
+      this.mapTeamToColumnValues(team)
+    );
   }
 
-  /**
-   * Updates a record in the database.
-   *
-   * @param obj the object representing the record to be updated
-   * @return the number of rows affected by the update operation
-   * @throws SQLException if an error occurs while updating the record
-   * @throws IllegalArgumentException if the provided object is not of type Team or does not adhere to the expected schema
-   */
-  @Override
-  protected int updateRecordById(Team updatedTeam) throws SQLException {
-    if (!this.validateSchema(updatedTeam)) {
-      throw new IllegalArgumentException(
-        "Updated Team object does not adhere to the expected schema."
-      );
-    }
-
-    Map<String, Object> columnValues = new HashMap<>();
-    for (String columnName : schema.keySet()) {
-      columnValues.put(columnName, getColumnValue(columnName, updatedTeam));
-    }
-
-    long recordId = updatedTeam.getId();
-
+  public int updateTeamRecord(Team team) throws SQLException {
+    Map<String, Object> columnValues = this.mapTeamToColumnValues(team);
     return super.databaseUtil.updateRecordById(
-      TABLE_NAME,
+      tableName,
       "id",
-      recordId,
+      team.getId(),
       columnValues
     );
   }
 
-  /**
-   * Deletes a record from the database by its ID.
-   *
-   * @param teamToDelete the Team object to be deleted
-   * @return the number of rows affected by the deletion
-   * @throws SQLException if an error occurs while deleting the record
-   */
-  @Override
-  protected int deleteRecordById(Team teamToDelete) throws SQLException {
-    long recordId = teamToDelete.getId();
+  public int deleteTeamRecord(Team team) throws SQLException {
+    return super.databaseUtil.deleteRecordById(tableName, "id", team.getId());
+  }
 
-    return super.databaseUtil.deleteRecordById(TABLE_NAME, "id", recordId);
+  public List<Team> retrieveTeamsRecords(Map<String, Object> criteriaMap)
+    throws SQLException {
+    return this.mapTeamSetToTeams(
+        super.databaseUtil.retrieveRecords(tableName, criteriaMap)
+      );
+  }
+
+  private List<Team> mapTeamSetToTeams(List<Map<String, Object>> resultSet) {
+    List<Team> teams = new ArrayList<>();
+    for (Map<String, Object> result : resultSet) {
+      Team team = new Team(
+        (int) result.get("id"),
+        (String) result.get("name"),
+        (String) result.get("description")
+      );
+      teams.add(team);
+    }
+
+    return teams;
+  }
+
+  @Override
+  protected void defineSchema() {
+    try {
+      schema.put("id", Long.class);
+      schema.put("name", String.class);
+      schema.put("description", String.class);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  @Override
+  protected int insertRecord(Team team) throws SQLException {
+    return this.insertTeamRecord(team);
+  }
+
+  @Override
+  protected int updateRecordByEntity(Team team) throws SQLException {
+    return this.updateTeamRecord(team);
+  }
+
+  @Override
+  protected List<Team> retrieveRecordsWithCriteria(
+    String tableName,
+    Map<String, Object> criteriaMap
+  ) throws SQLException {
+    return this.retrieveTeamsRecords(criteriaMap);
+  }
+
+  public static void main(String[] args) throws SQLException {
+    TeamDao teamDao = new TeamDao();
+    Team team = new Team(1, "Team 1", "Team 1 description");
+    // teamDao.insertTeamRecord(team);
+    // Map<String, Object> criteriaMap = new HashMap<>();
+    // criteriaMap.put("id", 1);
+    // List<Team> teams = teamDao.retrieveTeamsRecords(criteriaMap);
+    // System.out.println(teams.get(0).getName());
   }
 }
