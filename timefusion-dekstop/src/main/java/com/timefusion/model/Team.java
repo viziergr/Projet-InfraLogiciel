@@ -1,15 +1,12 @@
 package com.timefusion.model;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 public class Team {
 
-  private Long id;
+  private int id;
   private String name;
   private String description;
-  private User creator;
-  private LocalDateTime createdAt;
 
   /**
    * Represents a team in the application.
@@ -19,17 +16,9 @@ public class Team {
    * @param creator the creator of the team
    * @param description the description of the team
    */
-  public Team(
-    Long id,
-    String name,
-    LocalDateTime createdAt,
-    User creator,
-    String description
-  ) {
+  public Team(int id, String name, String description) {
     this.id = id;
     this.name = name;
-    this.createdAt = createdAt;
-    this.creator = creator;
     this.description = description;
   }
 
@@ -46,14 +35,14 @@ public class Team {
     User creator,
     String description
   ) {
-    this(null, name, createdAt, creator, description);
+    this(0, name, description);
   }
 
   /**
    * Returns the ID of the team.
    * @return the ID of the team
    */
-  public Long getId() {
+  public int getId() {
     return this.id;
   }
 
@@ -63,22 +52,6 @@ public class Team {
    */
   public String getName() {
     return this.name;
-  }
-
-  /**
-   * Returns the date and time of the creation of the team.
-   * @return the date and time of the creation of the team
-   */
-  public LocalDateTime getCreatedAt() {
-    return this.createdAt;
-  }
-
-  /**
-   * Returns the creator of the team.
-   * @return the creator of the team
-   */
-  public User getCreator() {
-    return this.creator;
   }
 
   /**
@@ -94,7 +67,7 @@ public class Team {
    *
    * @param id the ID to set
    */
-  public void setId(Long id) {
+  public void setId(int id) {
     this.id = id;
   }
 
@@ -105,24 +78,6 @@ public class Team {
    */
   public void setName(String name) {
     this.name = name;
-  }
-
-  /**
-   * Sets the date and time of the creation of the team.
-   *
-   * @param createdAt the date and time to set
-   */
-  public void setCreatedAt(LocalDateTime createdAt) {
-    this.createdAt = createdAt;
-  }
-
-  /**
-   * Sets the creator of the team.
-   *
-   * @param creator the creator to set
-   */
-  public void setCreator(User creator) {
-    this.creator = creator;
   }
 
   /**
@@ -141,19 +96,10 @@ public class Team {
    */
   @Override
   public String toString() {
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(
-      "yyyy-MM-dd HH:mm:ss"
-    );
-    String formattedDate = createdAt != null
-      ? formatter.format(createdAt)
-      : "null";
-
     return String.format(
-      "Team{id=%d, name='%s', createdAt='%s', creator=%s, description='%s'}",
+      "Team{id=%d, name='%s', description='%s'}",
       id,
       name,
-      formattedDate,
-      creator,
       description
     );
   }
@@ -169,17 +115,14 @@ public class Team {
     if (!(o instanceof Team)) return false;
     Team team = (Team) o;
     return (
-      this.id.equals(team.id) &&
+      this.id == team.id &&
       this.name.equals(team.name) &&
-      this.createdAt.equals(team.createdAt) &&
-      this.creator.equals(team.creator) &&
       this.description.equals(team.description)
     );
   }
 
   public static void main(String[] args) {
-    User user = new User(1, "email", "firstName", "lastName", "password");
-    Team team = new Team(1L, "name", LocalDateTime.now(), user, "description");
+    Team team = new Team(1, "name", "description");
     System.out.println(team);
   }
 }

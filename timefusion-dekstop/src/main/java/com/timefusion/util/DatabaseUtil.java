@@ -23,9 +23,13 @@ import java.util.Objects;
 public class DatabaseUtil implements AutoCloseable {
 
   private static final String DEFAULT_DATABASE_URL =
-    "jdbc:mysql://localhost:3306/infra";
-  private static final String DEFAULT_DATABASE_USER = "UserTest";
-  private static final String DEFAULT_DATABASE_PASSWORD = "test";
+    "jdbc:mysql://192.168.56.81:3306/TimeFusion";
+  // private static final String DEFAULT_DATABASE_URL =
+  // "jdbc:mysql://localhost:3306/infra";
+  // private static final String DEFAULT_DATABASE_USER = "UserTest";
+  // private static final String DEFAULT_DATABASE_PASSWORD = "test";
+  private static final String DEFAULT_DATABASE_USER = "root";
+  private static final String DEFAULT_DATABASE_PASSWORD = "root";
 
   private final String databaseUrl;
   private final String databaseUser;
@@ -262,7 +266,7 @@ public class DatabaseUtil implements AutoCloseable {
    *
    * @param tableName     the name of the table to insert the record into
    * @param columnValues  a map containing the column names and their corresponding values
-   * @return the number of rows affected by the insert operation
+   * @return the ID of the inserted record
    * @throws SQLException if a database access error occurs
    * @throws IllegalArgumentException if the columnValues map is empty or if the tableName is empty
    *
@@ -315,14 +319,29 @@ public class DatabaseUtil implements AutoCloseable {
 
     try (
       PreparedStatement statement = getConnection()
-        .prepareStatement(insertSql.toString())
+        .prepareStatement(
+          insertSql.toString(),
+          PreparedStatement.RETURN_GENERATED_KEYS
+        )
     ) {
       int parameterIndex = 1;
       for (Object value : columnValues.values()) {
         statement.setObject(parameterIndex++, value);
       }
 
-      return statement.executeUpdate();
+      int rowsAffected = statement.executeUpdate();
+
+      if (rowsAffected > 0) {
+        try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+          if (generatedKeys.next()) {
+            return generatedKeys.getInt(1);
+          } else {
+            throw new SQLException("Failed to retrieve the generated ID.");
+          }
+        }
+      } else {
+        throw new SQLException("Insert operation did not affect any rows.");
+      }
     }
   }
 
