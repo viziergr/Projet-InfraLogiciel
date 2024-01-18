@@ -57,7 +57,7 @@ class Teams
             // Récupérer les membres de l'équipe avec leurs informations complètes depuis la table User
             $membersResult = $this->mysqli->query("SELECT u.id as user_id, u.first_name, u.last_name, u.email, u.password, u.year, tm.role
                                                    FROM team_members tm
-                                                   JOIN User u ON tm.user_id = u.id
+                                                   JOIN user u ON tm.user_id = u.id
                                                    WHERE tm.team_id = '{$row['id']}'");
     
             $members = [];

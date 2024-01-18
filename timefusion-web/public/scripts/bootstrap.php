@@ -45,7 +45,7 @@ function h(string $value): string {
 
 function render(string $view, $parameters = []) {
     extract($parameters);
-    include __DIR__ . "/../includes/" . $view .".php";
+    include __DIR__ . "/../../includes/" . $view .".php";
 }
 
 function sess_exists(){
