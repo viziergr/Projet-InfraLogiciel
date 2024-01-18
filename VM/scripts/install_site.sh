@@ -42,11 +42,7 @@ else
     echo "=> [3] - Configuration du git pull"
     git config pull.rebase false --global
 
-    echo "=> [4] - Déplacement du répertoire myadmin"
-    mkdir /var/www/html/Projet-InfraLogiciel/timefusion-web/myadmin
-    mv /var/www/html/myadmin/* /var/www/html/Projet-InfraLogiciel/timefusion-web/myadmin/
-
-    echo "=> [5] - Suppression des fichiers inutiles"
+    echo "=> [4] - Suppression des fichiers inutiles"
     # Suppression de tous les autres fichiers inutiles
     rm -r /var/www/html/Projet-InfraLogiciel/.vscode
     rm -r /var/www/html/Projet-InfraLogiciel/livrables
@@ -56,8 +52,6 @@ else
     rm /var/www/html/Projet-InfraLogiciel/ProjetInfraLog.drawio
     rm /var/www/html/Projet-InfraLogiciel/README.md
 fi
-
-
 
 echo "START - Modification de la configuration du site 000-default.conf"
 # Vérifier si la chaîne de caractères à rechercher existe dans le fichier
