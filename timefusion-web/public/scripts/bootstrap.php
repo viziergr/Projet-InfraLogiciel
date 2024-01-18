@@ -51,10 +51,10 @@ function render(string $view, $parameters = []) {
 function sess_exists(){
     session_start();
     // Redirige vers la page de connexion si l'utilisateur n'est pas connecté
-    if (!isset($_SESSION['compte'])) {
-        header("Location: ../Connexion.php");
-        exit();
-    }
+    // if (!isset($_SESSION['compte'])) {
+    //     header("Location: ../Connexion.php");
+    //     exit();
+    // }
 }
 
 function convertirEnArray($variable) {
