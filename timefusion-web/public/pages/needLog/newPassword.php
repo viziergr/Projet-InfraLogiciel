@@ -1,6 +1,6 @@
 <?php 
-include __DIR__ . '\..\..\src\bootstrap.php';
-include __DIR__ . '\..\..\views\header.php'; 
+include __DIR__ . '/../../scripts\bootstrap.php';
+include __DIR__ . '/../../includes/header.php'; 
 ?>
 
 <DOCTYPE html>
@@ -8,7 +8,7 @@ include __DIR__ . '\..\..\views\header.php';
 <head>
     <meta charset="utf-8">
     <title>Réinitialiser le mot de passe</title>
-    <link rel="stylesheet" href="..\..\..\CSS\code.css">
+    <link rel="stylesheet" href="../../../CSS/code.css">
 </head>
 <body>
     <div class="modifPassword">
@@ -50,5 +50,7 @@ include __DIR__ . '\..\..\views\header.php';
             </div>
         </form>
     </div>
-</body>
-</html>
+
+<?php
+include __DIR__ . '/../../includes/header.php'; 
+?>
