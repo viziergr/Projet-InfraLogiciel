@@ -5,4 +5,4 @@ CREATE TABLE `event_participant` (
   `participant_type` enum('team','user') NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `unique_participant` (`event_id`,`participant_id`)
-)
+);
