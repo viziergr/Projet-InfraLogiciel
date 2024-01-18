@@ -1,9 +1,11 @@
 <?php
-require __DIR__ . '\..\..\src\bootstrap.php';
-require __DIR__ . '\..\..\views\header.php';
-require __DIR__ . '\..\..\src\Calendar\EventValidator.php';
-require __DIR__ . '\..\..\src\Calendar\Event.php';
-require __DIR__ . '\..\..\src\Calendar\Events.php';
+
+include __DIR__ .'/../../scripts/bootstrap.php';
+include __DIR__ .'/../../scripts/Calendar/EventValidator.php';
+include __DIR__ .'/../../scripts/Calendar/Events.php';
+include __DIR__ .'/../../scripts/Calendar/Event.php';  
+
+include __DIR__ .'/../../includes/header.php';
 
 sess_exists();
 
@@ -20,7 +22,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $events = new TimeFusion\Calendar\Events($mysqli);
         $event = $events->hydrate(new TimeFusion\Calendar\Event(),$data, $userId);
         $events->create($event);
-        header('Location: /PHP/public/needLog/Calendrier.php?success=1');
+        header('Location: Calendrier.php?success=1');
         exit();
     }
 }
@@ -42,5 +44,5 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 <?php
-require __DIR__ . '\..\..\views\footer.php';
+include __DIR__ .'/../../includes/footer.php';
 ?>
