@@ -33,7 +33,9 @@ echo "START - Table event_participant"
 mysql TimeFusion < /var/www/html/git/Projet-InfraLogiciel/sql/event_participant.sql
 echo "END - Table event_participant"
 
-
+echo "START - Table requests"
+mysql TimeFusion < /var/www/html/git/Projet-InfraLogiciel/sql/requests.sql
+echo "END - Table requests"
 
 service mariadb restart
 
