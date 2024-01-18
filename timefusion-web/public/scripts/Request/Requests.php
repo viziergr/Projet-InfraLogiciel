@@ -16,9 +16,9 @@ class Requests
     // Récupérer les équipes d'un utilisateur avec leurs membres
     public function getUserRequests($userId)
     {
-        $result = $this->mysqli->query("SELECT requests.*, teams.team_name
+        $result = $this->mysqli->query("SELECT requests.*, team.team_name
                                         FROM requests
-                                        JOIN teams ON requests.team_id = teams.id
+                                        JOIN team ON requests.team_id = team.id
                                         WHERE requests.user_id = '$userId' AND requests.status = 'en_attente'");
         
         

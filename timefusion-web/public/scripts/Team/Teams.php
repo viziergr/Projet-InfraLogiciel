@@ -17,7 +17,7 @@ class Teams
     public function saveToDatabase($members)
     {
         try {
-            $this->mysqli->query("INSERT INTO teams () VALUES ()"); // Ajoutez votre requête d'insertion pour les équipes
+            $this->mysqli->query("INSERT INTO team () VALUES ()"); // Ajoutez votre requête d'insertion pour les équipes
             $teamId = $this->mysqli->insert_id;
 
             $stmt = $this->mysqli->prepare("INSERT INTO team_members (team_id, user_id, role) VALUES (?, ?, ?)");
@@ -41,9 +41,9 @@ class Teams
     // Récupérer les équipes d'un utilisateur avec leurs membres
     public function getUserTeams($userId)
     {
-        $result = $this->mysqli->query("SELECT teams.*, team_members.user_id
-                                FROM teams
-                                JOIN team_members ON teams.id = team_members.team_id
+        $result = $this->mysqli->query("SELECT team.*, team_members.user_id
+                                FROM team
+                                JOIN team_members ON team.id = team_members.team_id
                                 WHERE team_members.user_id = '$userId'");
 
         if (!$result) {
