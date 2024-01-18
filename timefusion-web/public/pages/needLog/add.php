@@ -38,7 +38,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 <div class="container">
     <h1>Ajouter un évènement</h1>
     <form action="" method="POST">
-        <?php render('Calendar\form', ['data' => $data, 'errors' => $errors]); ?>
+        <?php render('Calendar/form', ['data' => $data, 'errors' => $errors]); ?>
     </form>
 </div>
 

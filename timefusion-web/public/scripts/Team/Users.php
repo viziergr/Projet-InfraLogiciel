@@ -38,6 +38,28 @@ class Users
         return $users;
     }
 
+    public function getUserById($userId) {
+        // Prépare la requête SQL pour récupérer les informations d'un utilisateur par son ID
+        $sql = "SELECT id, first_name, last_name, email, password, year FROM user WHERE id = ?";
+        $stmt = $this->mysqli->prepare($sql);
+        $stmt->bind_param("i", $userId);
+        $stmt->execute();
 
+        // Récupère le résultat
+        $result = $stmt->get_result();
+
+        // Vérifie s'il y a une ligne de résultat
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            $user = new User($row['id'], $row['first_name'], $row['last_name'], $row['email'], $row['password'], $row['year']);
+        } else {
+            $user = null; // Aucun utilisateur trouvé
+        }
+
+        // Ferme le statement
+        $stmt->close();
+
+        return $user;
+    }
 
 }

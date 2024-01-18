@@ -2,7 +2,7 @@
 
 namespace TimeFusion\Request;
 
-require __DIR__ . '\Request.php';
+require __DIR__ . '/Request.php';
 
 class Requests
 {
