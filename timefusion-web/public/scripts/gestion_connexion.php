@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['connexion_submit']) &
     $password_escaped = $mysqli->real_escape_string(trim($_POST['password']));
 
     $sql = "SELECT id
-                FROM User
+                FROM user
                 WHERE email = '" . $mail_escaped . "'
                 AND password = '" . $password_escaped . "'";
 
@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['connexion_submit']) &
         $row = $result->fetch_assoc();
         $_SESSION['compte'] = $row['id'];
 
-        $sqlEtudiant = "SELECT id, first_name, last_name, email, password, year FROM User WHERE id = {$row['id']}";
+        $sqlEtudiant = "SELECT id, first_name, last_name, email, password, year FROM user WHERE id = {$row['id']}";
         $resultEtudiant = $mysqli->query($sqlEtudiant);
         $nbEtu = $resultEtudiant->num_rows;
         if ($nbEtu) {
