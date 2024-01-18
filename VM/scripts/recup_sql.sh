@@ -14,6 +14,9 @@ cd /var/www/html/
 mkdir git
 cd git
 git clone https://github.com/viziergr/Projet-InfraLogiciel.git
+cd Projet-InfraLogiciel
+git checkout gregoire/testArchitecture
+git config pull.rebase false --global
 
 mkdir /var/www/html/siteweb/
 
