@@ -76,7 +76,7 @@ class Requests
     // Méthode pour ajouter un membre à l'équipe
     private function ajouterMembreEquipe($teamId, $userId) {
         // Vérifier si le membre n'est pas déjà dans l'équipe
-        $sql = "SELECT COUNT(*) FROM team_members WHERE team_id = ? AND user_id = ?";
+        $sql = "SELECT COUNT(*) FROM team_membership WHERE team_id = ? AND user_id = ?";
         $stmt = $this->mysqli->prepare($sql);
         $stmt->bind_param("ii", $teamId, $userId);
         $stmt->execute();
@@ -89,7 +89,7 @@ class Requests
 
         // Si le membre n'est pas déjà dans l'équipe, l'ajouter
         if ($count == 0) {
-            $sql = "INSERT INTO team_members (team_id, user_id) VALUES (?, ?)";
+            $sql = "INSERT INTO team_membership (team_id, user_id) VALUES (?, ?)";
             $stmt = $this->mysqli->prepare($sql);
             $stmt->bind_param("ii", $teamId, $userId);
             $stmt->execute();
@@ -151,7 +151,7 @@ class Requests
     
     // Méthode pour vérifier si la team_id existe dans la table teams
     private function checkTeamExists($teamId) {
-        $sql = "SELECT COUNT(*) FROM teams WHERE id = ?";
+        $sql = "SELECT COUNT(*) FROM team WHERE id = ?";
         $stmt = $this->mysqli->prepare($sql);
         $stmt->bind_param("i", $teamId);
         $stmt->execute();

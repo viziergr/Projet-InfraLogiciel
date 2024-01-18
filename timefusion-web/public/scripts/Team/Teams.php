@@ -20,7 +20,7 @@ class Teams
             $this->mysqli->query("INSERT INTO team () VALUES ()"); // Ajoutez votre requête d'insertion pour les équipes
             $teamId = $this->mysqli->insert_id;
 
-            $stmt = $this->mysqli->prepare("INSERT INTO team_members (team_id, user_id, role) VALUES (?, ?, ?)");
+            $stmt = $this->mysqli->prepare("INSERT INTO team_membership (team_id, user_id, role) VALUES (?, ?, ?)");
 
             foreach ($members as $member) {
                 $userId = $member['user']->getId();
@@ -41,10 +41,10 @@ class Teams
     // Récupérer les équipes d'un utilisateur avec leurs membres
     public function getUserTeams($userId)
     {
-        $result = $this->mysqli->query("SELECT team.*, team_members.user_id
+        $result = $this->mysqli->query("SELECT team.*, team_membership.user_id
                                 FROM team
-                                JOIN team_members ON team.id = team_members.team_id
-                                WHERE team_members.user_id = '$userId'");
+                                JOIN team_membership ON team.id = team_membership.team_id
+                                WHERE team_membership.user_id = '$userId'");
 
         if (!$result) {
             die('Erreur SQL : ' . $this->mysqli->error);
@@ -60,7 +60,7 @@ class Teams
     
             // Récupérer les membres de l'équipe avec leurs informations complètes depuis la table User
             $membersResult = $this->mysqli->query("SELECT u.id as user_id, u.first_name, u.last_name, u.email, u.password, u.year, tm.role
-                                                   FROM team_members tm
+                                                   FROM team_membership tm
                                                    JOIN user u ON tm.user_id = u.id
                                                    WHERE tm.team_id = '{$row['id']}'");
     
@@ -102,7 +102,7 @@ class Teams
 
     public function getMembersByTeamId($team_id)
     {
-        $result = $this->mysqli->query("SELECT user_id FROM team_members WHERE team_id = $team_id");
+        $result = $this->mysqli->query("SELECT user_id FROM team_membership WHERE team_id = $team_id");
         if ($result === false) {
             throw new \Exception("Erreur lors de l'exécution de la requête : " . $this->mysqli->error);
         }
@@ -136,7 +136,7 @@ class Teams
     
     // Méthode pour vérifier l'existence d'une équipe du même nom
     private function teamNameExists($name) {
-        $sql = "SELECT COUNT(*) as count FROM teams WHERE team_name = '$name'";
+        $sql = "SELECT COUNT(*) as count FROM team WHERE team_name = '$name'";
         
         // Exécutez la requête SQL
         $result = $this->mysqli->query($sql);
@@ -157,7 +157,7 @@ class Teams
         if($userId == null) {
             return "Grosse erreur";
         }
-        $sql = "INSERT INTO teams (team_name, color) VALUES (?, ?)";
+        $sql = "INSERT INTO team (team_name, color) VALUES (?, ?)";
         $stmt = $this->mysqli->prepare($sql);
         if (!$stmt) {return false;}
         
@@ -171,7 +171,7 @@ class Teams
         // Fermer le statement
         $stmt->close();
 
-        $sql = "SELECT id FROM teams WHERE team_name = '$name' LIMIT 1";
+        $sql = "SELECT id FROM team WHERE team_name = '$name' LIMIT 1";
         // Exécution de la requête
         $result = $this->mysqli->query($sql);
         // Vérification des erreurs
@@ -181,7 +181,7 @@ class Teams
         // Récupération du résultat
         $row = $result->fetch_assoc();
         
-        $sql = "INSERT INTO team_members (team_id, user_id, role) VALUES (?, ?, ?)";
+        $sql = "INSERT INTO team_membership (team_id, user_id, role) VALUES (?, ?, ?)";
         $stmt = $this->mysqli->prepare($sql);
     
         if (!$stmt) {
@@ -191,7 +191,7 @@ class Teams
     
         // Extraire les valeurs des méthodes de l'objet Event
         $team_id = $row['id'];
-        $role = 'Chef';
+        $role = 'Leader';
     
         // Bind parameters avec des variables
         $stmt->bind_param("sss", $team_id, $userId, $role);
