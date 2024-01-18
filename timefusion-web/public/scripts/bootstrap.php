@@ -4,7 +4,7 @@ ini_set('display_errors', 'On');
 ini_set('display_startup_errors', 'On');
 
 function e404(){
-    include '../pages/404.php';
+    include __DIR__ . '../pages/404.php';
     exit();
 }
 

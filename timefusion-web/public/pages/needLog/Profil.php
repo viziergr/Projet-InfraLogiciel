@@ -1,12 +1,25 @@
-<?php
-require __DIR__ .'\..\..\views\header.php';
+<?php 
+include __DIR__ . '/../../scripts/gestion_inscription.php'; 
+include __DIR__ .'/../../scripts/Team/Users.php';
+
+sess_exists();
+
+$users = new TimeFusion\Team\Users(connectDB());
+$user = $users->getUserById($_SESSION['compte']);
 ?>
 
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Profil</title>
+    <link rel="stylesheet" href="../../../CSS/code.css">
+    
+</head>
 <body>
 
     <div class="bandeV">
         <div class="dropdown">
-            <img id="trbar" src="/pictures/lat.png" alt="Mon panneau déroulant" />
+            <img id="trbar" src="../../../pictures/trBarre.png" alt="redirection"/>
             <div class="dropdown-content">
                 <p>Team</p>
                 <p>Profil</p>
@@ -14,42 +27,33 @@ require __DIR__ .'\..\..\views\header.php';
             </div>
         </div>
         <h1>TimeFusion</h1>
-        <img id ="logo" src="C:\Users\gross\Documents\Eseo\E4e\S7\LD\projetld\Projet-InfraLogiciel\timefusion-web\src\main\webapp\pictures\Logo.png" alt="Logo Time Fusion">
+        <a href="/PHP/public/index.html">
+            <img id ="logo" src="../../../pictures/Logo.png">
+        </a>
     </div>
 
-    <div class="information">
+    <div class="profil">
         <h1>Profil</h1>
-        
-        <p id="username">Nom d'utilisateur: "affciher en php le nom de l'utilisateur"</p>
-        <div class="dropdownModif">
-            <img src="C:\Users\gross\Documents\Eseo\E4e\S7\LD\projetld\Projet-InfraLogiciel\timefusion-web\src\main\webapp\pictures\text-edit-tool-icon-with-pencil-free-vector-removebg-preview.png" alt="Modifier">
-            <div class="dropdownUser-content">
-                <form>
-                    <label for="new-password">Nouveau mot de passe:</label>
-                    <input type="password" id="new-password" name="new-password"><br><br>
+    </div>
+    
+    <div class="information">
 
-                    <label for="confirm-password">Confirmer le mot de passe:</label>
-                    <input type="password" id="confirm-password" name="confirm-password"><br><br>
-                </form>
-            </div>
-        </div> 
 
-        <p id="password">Mot de passe: "affciher en php le mdp de l'utilisateur"</p>
-        <div class="dropdownModif">
-            <img src="C:\Users\gross\Documents\Eseo\E4e\S7\LD\projetld\Projet-InfraLogiciel\timefusion-web\src\main\webapp\pictures\text-edit-tool-icon-with-pencil-free-vector-removebg-preview.png" alt="Modifier">
-            <div class="dropdownMDP-content">
-                <form>
-                    <label for="new-password">Nouveau mot de passe:</label>
-                    <input type="password" id="new-password" name="new-password">
+        <div class="traitV"></div>
 
-                    <label for="confirm-password">Confirmer le mot de passe:</label>
-                    <input type="password" id="confirm-password" name="confirm-password">
-                </form>
-            </div>
-        </div>
+        <?php        
+
+        echo '<p id="fname"> Prénom : ' . $user->getFirstName() . '</p>';
+
+        echo '<p id="lname"> Nom : ' . $user->getLastName() . '</p>';
+
+        echo '<p id="email"> Email : ' . $user->getEmail() . '</p>';
+
+        echo '<p id="year"> Date d\'anniversaire : ' . (new \DateTime($user->getYear()))->format('d/m/Y') . '</p>';
+
+        ?>
 
     </div>
-
 
 </body>
 </html>
