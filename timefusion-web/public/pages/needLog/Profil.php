@@ -13,19 +13,24 @@ $user = $users->getUserById($_SESSION['compte']);
 <head>
     <title>Profil</title>
     <link rel="stylesheet" href="../../assets/CSS/code.css">
-    
+    <link rel="stylesheet" href="../../assets/CSS/calendar.css">    
 </head>
 <body>
 
     <div class="bandeV">
         <div class="dropdown">
-            <img id="trbar" src="../../assets/pictures/trBarre.png" alt="redirection"/>
+            <img src="/pictures/lat.png" alt="Mon panneau déroulant" onclick="toggleDropdown()">
             <div class="dropdown-content">
-                <p>Team</p>
-                <p>Profil</p>
-                <p>Calendrier</p>
+                <a href="/PHP/public/needLog/Calendrier.php">Mon calendrier</a><br>
+                <a href="/PHP/public/needLog/teampanel.php">Mes équipes</a><br>
+                <a href="/PHP/public/needLog/requestpanel.php">Mes notifications</a><br>
             </div>
         </div>
+        <h1>TimeFusion</h1>
+        <a href="/PHP/public/index.html">
+            <img id ="logo" src="..\..\..\pictures\Logo.png">
+        </a>
+    </div>
         <h1>TimeFusion</h1>
         <a href="/PHP/public/index.html">
             <img id ="logo" src="../../assets/pictures/Logo.png">
