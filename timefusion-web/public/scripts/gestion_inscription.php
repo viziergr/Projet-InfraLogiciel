@@ -38,7 +38,7 @@ if (isset($_POST['inscription_submit']) && $_POST['inscription_submit'] == 2) {
                         $sql = "INSERT INTO user (id, first_name, last_name, email, password, year) VALUES ('$id','$nom', '$prenom', '$email', '$pwd', '$annee')";
                         $mysqli->query($sql);
                         $id_defined = true;
-                        echo "Inscrit";
+                        header("Location: ./needLog/Calendrier.php");
                     } catch (mysqli_sql_exception $e) {
                         echo "". $e->getMessage() ."";
                     }
