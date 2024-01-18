@@ -39,9 +39,6 @@
                 <input type="date" id="date" name="year" required><br><br>
             </div>
             <div>
-                <input type="text" id="username" name="username" placeholder="Nom d'utilisateur" required><br><br>
-            </div>
-            <div>
                 <input type="password" id="password" name="pwd" placeholder="Mot de passe" required><br><br>
             </div>
             <div>
