@@ -635,7 +635,7 @@
 }
 
 
-.information p{
+.information #fname, #lname, #email, #year{
     background-color : #000352;
     font-size: 1em;
     font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
@@ -647,14 +647,28 @@
     margin-top: 10%;
     color : #FFF;
     padding : 1%;
-    border-radius : 10%;
+    border-radius : 0%;
     border : 1px #000352;            
 }
 
 .information #fname{
-    margin-top: 35%;
+    margin-top: 30%;
 }
 
+.modif p{
+    font-size: 1em;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    text-transform: uppercase;
+    padding: 1%;
+    font-weight: 700;
+    margin-left: 13%;
+    margin-right : 13%;
+    margin-top: 10%;
+    color : #000352;
+    padding : 1%;
+    border-radius : 10%;
+    border : 1px #000352;
+    text-align: center;}
 
 
 .traitV{
