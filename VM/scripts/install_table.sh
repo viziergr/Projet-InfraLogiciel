@@ -5,7 +5,7 @@
 IP=$(hostname -I | awk {print $2})
 
 APT_OPT="-o Dpkg::Progress-Fancy="0" -q -y"
-LOG_FILE="/vagrant/logs/install_git.log"
+LOG_FILE="/vagrant/logs/install_table.log"
 DEBIAN_FRONTEND="noninteractive"
 REP = "/var/www/html/git/Projet-InfraLogiciel/sql"
 
@@ -32,8 +32,6 @@ echo "END - Table event"
 echo "START - Table event_participant"
 mysql TimeFusion < /var/www/html/git/Projet-InfraLogiciel/sql/event_participant.sql
 echo "END - Table event_participant"
-
-
 
 service mariadb restart
 

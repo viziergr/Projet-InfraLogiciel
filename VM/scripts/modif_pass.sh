@@ -5,7 +5,7 @@
 IP=$(hostname -I | awk '{print $2}')
 
 APT_OPT="-o Dpkg::Progress-Fancy="0" -q -y"
-LOG_FILE="/vagrant/logs/install_git.log"
+LOG_FILE="/vagrant/logs/modif_pass.log"
 DEBIAN_FRONTEND="noninteractive"
 
 echo "START - Modification des mots de passe "$IP
