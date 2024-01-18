@@ -5,6 +5,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.timefusion.jfxcalendar.JSON.JsonUtils;
 import com.timefusion.jfxcalendar.controllers.OnlineOfflineSwitch;
+import com.timefusion.jfxcalendar.sync.SyncUtil;
 import com.timefusion.model.Event;
 import com.timefusion.model.User;
 import java.time.LocalDateTime;
@@ -16,6 +17,7 @@ public class EventsEntity {
   private int id;
   private EventNature nature;
   private boolean isOnline;
+  private boolean isPrivate;
   private String title;
   private String description;
   private String location;
@@ -55,6 +57,7 @@ public class EventsEntity {
     this.location = event.getLocation();
     this.startTime = event.getStartTime();
     this.endTime = event.getEndTime();
+    this.isPrivate = event.getIsPrivate();
 
     if (participants != null && participants.size() > 0) {
       this.participants = new ParticipantsEntity[participants.size()];
@@ -71,6 +74,7 @@ public class EventsEntity {
     int id,
     EventNature nature,
     boolean isOnline,
+    boolean isPrivate,
     String title,
     String description,
     String location,
@@ -81,6 +85,7 @@ public class EventsEntity {
     this.id = !OnlineOfflineSwitch.isOnline ? id : generateNextOfflineId();
     this.nature = nature;
     this.isOnline = isOnline;
+    this.isPrivate = isPrivate;
     this.title = title;
     this.description = description;
     this.location = location;
@@ -135,6 +140,14 @@ public class EventsEntity {
 
   public void setLocation(String location) {
     this.location = location;
+  }
+
+  public boolean getIsPrivate() {
+    return isPrivate;
+  }
+
+  public void setIsPrivate(boolean isPrivate) {
+    this.isPrivate = isPrivate;
   }
 
   public ParticipantsEntity[] getParticipants() {
@@ -215,6 +228,7 @@ public class EventsEntity {
               eventObject.get("nature").getAsString().toUpperCase()
             ),
             eventObject.get("is_online").getAsBoolean(),
+            eventObject.get("is_private").getAsBoolean(),
             eventObject.get("title").getAsString(),
             eventObject.get("description").getAsString(),
             eventObject.get("location").getAsString(),
@@ -287,6 +301,7 @@ public class EventsEntity {
     jsonObject.addProperty("id", id);
     jsonObject.addProperty("nature", nature.toString());
     jsonObject.addProperty("is_online", isOnline);
+    jsonObject.addProperty("is_private", isPrivate);
     jsonObject.addProperty("title", title);
     jsonObject.addProperty("description", description);
     jsonObject.addProperty("location", location);
@@ -308,6 +323,19 @@ public class EventsEntity {
     return jsonObject;
   }
 
+  public static Event eventEntityToEvent(EventsEntity eventEntity) {
+    return new Event(
+      eventEntity.getId(),
+      eventEntity.getTitle(),
+      eventEntity.getStartTime(),
+      eventEntity.getEndTime(),
+      eventEntity.getLocation(),
+      eventEntity.getDescription(),
+      eventEntity.getIsPrivate(),
+      SyncUtil.getLocalUserId()
+    );
+  }
+
   @Override
   public String toString() {
     StringBuilder stringBuilder = new StringBuilder();
@@ -315,6 +343,7 @@ public class EventsEntity {
     stringBuilder.append("Event ID: ").append(id).append("\n");
     stringBuilder.append("Nature: ").append(nature).append("\n");
     stringBuilder.append("Is Online: ").append(isOnline).append("\n");
+    stringBuilder.append("Is Private: ").append(isPrivate).append("\n");
     stringBuilder.append("Title: ").append(title).append("\n");
     stringBuilder.append("Description: ").append(description).append("\n");
     stringBuilder.append("Location: ").append(location).append("\n");
@@ -333,6 +362,7 @@ public class EventsEntity {
       -12,
       EventNature.ADDED,
       true,
+      false,
       "Test Event",
       "Test Description",
       "Test Location",

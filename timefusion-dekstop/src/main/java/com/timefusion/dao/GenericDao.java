@@ -75,9 +75,12 @@ public abstract class GenericDao<T> {
    * @return the number of rows affected by the deletion
    * @throws SQLException if an error occurs while deleting the record
    */
-  public int deleteRecordByEntity(String tableName, int id)
-    throws SQLException {
-    return this.databaseUtil.deleteRecordById(tableName, "id", id);
+  public static int deleteRecordByTableAndId(
+    DatabaseUtil databaseUtil,
+    String tableName,
+    int id
+  ) throws SQLException {
+    return databaseUtil.deleteRecordById(tableName, "id", id);
   }
 
   public List<Map<String, Object>> executeQuery(String query)

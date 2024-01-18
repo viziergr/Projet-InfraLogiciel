@@ -1,9 +1,13 @@
 package com.timefusion.jfxcalendar.sync;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.timefusion.dao.EventParticipantDao;
+import com.timefusion.jfxcalendar.JSON.Entities.EventNature;
 import com.timefusion.jfxcalendar.JSON.Entities.EventsEntity;
 import com.timefusion.jfxcalendar.JSON.Entities.UserEntity;
+import com.timefusion.jfxcalendar.JSON.JsonUtils;
 import com.timefusion.util.DatabaseUtil;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -168,10 +172,50 @@ public class SyncUtil {
     return offlineEvents;
   }
 
+  public static List<Integer> getOfflineDeletedEventsIds() {
+    JsonElement eventsJsonElement = JsonUtils.readJsonPart(
+      EventsEntity.EVENTS_ENTITY_NAME
+    );
+    List<Integer> deletedEvents = new ArrayList<>();
+
+    if (eventsJsonElement.isJsonArray()) {
+      JsonArray eventsJsonArray = eventsJsonElement.getAsJsonArray();
+      for (JsonElement eventElement : eventsJsonArray) {
+        JsonObject eventObject = eventElement.getAsJsonObject();
+        if (
+          eventObject
+            .get("nature")
+            .getAsString()
+            .equals(EventNature.DELETED.toString())
+        ) {
+          deletedEvents.add(eventObject.get("id").getAsInt());
+        }
+      }
+    }
+    return deletedEvents;
+  }
+
+  public static List<Integer> getOfflineAddedEventsIds() {
+    List<Integer> localOfflineIds = getLocalOfflineEventsIds();
+    List<Integer> localOfflineAddedIds = new ArrayList<>();
+    for (int i = 0; i < localOfflineIds.size(); i++) {
+      if (
+        EventsEntity
+          .getEventEntityById(localOfflineIds.get(i))
+          .getNature()
+          .equals(EventNature.ADDED)
+      ) {
+        System.out.println("added");
+        localOfflineAddedIds.add(localOfflineIds.get(i));
+      }
+    }
+    return localOfflineAddedIds;
+  }
+
   public static void main(String[] args) {
     try {
       DatabaseUtil databaseUtil = new DatabaseUtil();
-      System.out.println(getLocalOnlineIdsNotInRemote(databaseUtil).toString());
+      System.out.println(getOfflineAddedEventsIds().toString());
     } catch (Exception e) {}
   }
 }

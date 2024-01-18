@@ -23,6 +23,7 @@
         "id": 6,
         "nature": "Unchanged",
         "is_online": true,
+        "is_private": true,
         "title": "event4",
         "description": "description",
         "location": "location",
@@ -34,18 +35,13 @@
         "id": 7,
         "nature": "Unchanged",
         "is_online": true,
+        "is_private": true,
         "title": "event5",
         "description": "description",
         "location": "location",
         "start_time": "2024-01-17 21:37:24",
         "end_time": "2024-01-17 21:37:24",
         "participants": [
-          {
-            "id": 5,
-            "first_name": "lastNameuser2",
-            "last_name": "user2@gmail.com",
-            "email": "FirstNameuser2"
-          },
           {
             "id": 6,
             "first_name": "lastNameuser3",
@@ -55,51 +51,40 @@
         ]
       },
       {
-        "id": 8,
-        "nature": "Unchanged",
-        "is_online": true,
-        "title": "event6",
-        "description": "description",
-        "location": "location",
-        "start_time": "2024-01-17 21:38:04",
-        "end_time": "2024-01-17 21:38:04",
-        "participants": [
-          {
-            "id": 5,
-            "first_name": "lastNameuser2",
-            "last_name": "user2@gmail.com",
-            "email": "FirstNameuser2"
-          }
-        ]
-      },
-      {
-        "id": -11,
+        "id": 10,
         "nature": "Added",
         "is_online": true,
-        "title": "Test Event",
-        "description": "Test Description",
-        "location": "Test Location",
-        "start_time": "2024-01-17 23:17:40",
-        "end_time": "2024-01-17 23:17:40",
+        "is_private": false,
+        "title": "event",
+        "description": "description",
+        "location": "location",
+        "start_time": "2024-01-18 10:07:55",
+        "end_time": "2024-01-18 10:07:55",
         "participants": []
       },
       {
-        "id": -12,
+        "id": 16,
         "nature": "Added",
         "is_online": true,
-        "title": "Test Event",
-        "description": "Test Description",
-        "location": "Test Location",
-        "start_time": "2024-01-17 23:46:26",
-        "end_time": "2024-01-17 23:46:26",
-        "participants": [
-          {
-            "id": 1,
-            "first_name": "Louis",
-            "last_name": "Pecullier",
-            "email": "Louis@gmail.com"
-          }
-        ]
+        "is_private": false,
+        "title": "caca1",
+        "description": "description",
+        "location": "location",
+        "start_time": "2024-01-18 10:08:00",
+        "end_time": "2024-01-18 10:08:00",
+        "participants": []
+      },
+      {
+        "id": 17,
+        "nature": "Added",
+        "is_online": true,
+        "is_private": false,
+        "title": "caca",
+        "description": "description",
+        "location": "location",
+        "start_time": "2024-01-18 10:08:00",
+        "end_time": "2024-01-18 10:08:00",
+        "participants": []
       }
     ]
   }
