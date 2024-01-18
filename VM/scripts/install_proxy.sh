@@ -30,6 +30,7 @@ echo "<VirtualHost *:80>
 </VirtualHost>">/etc/apache2/sites-available/001-reverse-proxy.conf
 sudo a2dissite 000-default.conf
 sudo a2ensite 001-reverse-proxy.conf
-sudo systemctl restart apache2
+sudo systemctl reload apache2
+sudo service apache2 restart
 
 echo "END - Installation reverse proxy"
