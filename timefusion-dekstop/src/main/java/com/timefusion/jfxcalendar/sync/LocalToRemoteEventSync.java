@@ -69,9 +69,7 @@ public class LocalToRemoteEventSync {
     EventParticipantDao eventParticipantDao
   ) {
     List<Integer> offlineDeniedEventsIds = SyncUtil.getLocalDeniedEventsIds();
-    System.out.println(
-      "offlineDeletedEventsIds = " + offlineDeniedEventsIds.toString()
-    );
+
     if (offlineDeniedEventsIds.size() > 0) {
       for (int eventId : offlineDeniedEventsIds) {
         {
@@ -123,11 +121,17 @@ public class LocalToRemoteEventSync {
     return false;
   }
 
+  public static void synchronize(EventDao eventDao) {
+    try {
+      handleLocalDeletedEvents(eventDao);
+      handleOfflineAddedEvents(eventDao);
+      handleOfflineDeniedEvents(new EventParticipantDao());
+    } catch (Exception e) {}
+  }
+
   public static void main(String[] args) {
     try {
-      EventDao eventDao = new EventDao();
-      EventParticipantDao eventParticipantDao = new EventParticipantDao();
-      handleOfflineDeniedEvents(eventParticipantDao);
+      synchronize(new EventDao());
     } catch (Exception e) {}
   }
 }
