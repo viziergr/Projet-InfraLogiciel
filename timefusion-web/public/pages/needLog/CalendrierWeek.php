@@ -1,9 +1,9 @@
 <?php
 
-require __DIR__ .'\..\..\src\bootstrap.php';
-require __DIR__ .'\..\..\src\Calendar\Week.php'; // Utilisez la classe Week au lieu de la classe Month
-require __DIR__ .'\..\..\src\Calendar\Events.php'; 
-require __DIR__ .'\..\..\src\Team\Teams.php';   
+include __DIR__ .'/../../scripts/bootstrap.php';
+include __DIR__ .'/../../scripts/Calendar/Week.php';
+include __DIR__ .'/../../scripts/Calendar/Events.php'; 
+include __DIR__ .'/../../scripts/Team/Teams.php';    
 
 sess_exists();
 
@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['users_id'])) {
     $usersId = [$_SESSION['compte']];
 }
 $events = $events->getEventsBetweenByDay($start, $end, $usersId);
-require __DIR__ .'\..\..\views\header.php';
+include __DIR__ .'/../../includes/header.php';
 ?>
 
 <div class="calendar">
@@ -99,9 +99,9 @@ require __DIR__ .'\..\..\views\header.php';
 
     </table>
 
-    <a href="/PHP/public/needLog/add.php" class="calendar__button">+</a>
+    <a href="add.php" class="calendar__button">+</a>
 </div>
 
 <?php 
-require __DIR__ .'\..\..\views\footer.php';
+include __DIR__ .'/../../includes/footer.php';
 ?>

@@ -66,6 +66,10 @@ class Event {
         return $this->description;
     }
 
+    public function getCreatorId(): int {
+        return $this->creator_id;
+    }
+
     public function __toString() {
         return sprintf($this->id, $this->start_time, $this->end_time, $this->title, $this->description);
     }
@@ -88,5 +92,9 @@ class Event {
 
     public function setDescription(string $description) {
         $this->description = $description;
+    }
+
+    public function setCreatorId(int $creator_id) {
+        $this->creator_id = $creator_id;
     }
 }

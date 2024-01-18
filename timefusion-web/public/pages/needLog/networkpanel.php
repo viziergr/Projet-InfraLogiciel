@@ -1,8 +1,9 @@
 <?php
 
-require __DIR__ . '\..\..\views\header.php';
-require __DIR__ . '\..\..\src\Team\Users.php';
-require __DIR__ . '\..\..\src\bootstrap.php';
+include __DIR__ .'/../../scripts/bootstrap.php';
+include __DIR__ .'/../../scripts/Team/Users.php';  
+
+include __DIR__ .'/../../includes/header.php';
 
 sess_exists();
  
@@ -39,7 +40,7 @@ $userList = $users->getEveryOtherUsers($userId);
             <p>Year: <?= $user->getYear(); ?></p>
             
             <!-- Formulaire avec le bouton "Ajouter à une équipe" -->
-            <form action="../../src/Log/gestion_notifications.php" method="post">
+            <form action='../../scripts/gestion_notifications.php' method="post">
                 <input type="hidden" name="user_id" value="<?= $user->getId(); ?>">
                 <?php 
                     if (isset($_GET['team_id'])){
@@ -57,5 +58,5 @@ $userList = $users->getEveryOtherUsers($userId);
 </html>
 
 <?php
-require __DIR__ . '\..\..\views\footer.php';
+include __DIR__ .'/../../includes/footer.php';
 ?>

@@ -79,6 +79,9 @@ class Requests
         $stmt->fetch();
         $stmt->close();
 
+        // Initialiser $count si aucune ligne n'est trouvée
+        $count = isset($count) ? $count : 0;
+
         // Si le membre n'est pas déjà dans l'équipe, l'ajouter
         if ($count == 0) {
             $sql = "INSERT INTO team_members (team_id, user_id) VALUES (?, ?)";

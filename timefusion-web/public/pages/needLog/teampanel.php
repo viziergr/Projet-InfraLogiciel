@@ -1,7 +1,7 @@
 <?php
 
-require __DIR__ . '\..\..\src\Team\Teams.php';
-require __DIR__ . '\..\..\src\bootstrap.php';
+include __DIR__ .'/../../scripts/bootstrap.php';
+include __DIR__ .'/../../scripts/Team/Teams.php';  
 
 sess_exists();
 
@@ -13,7 +13,7 @@ $userId = $_SESSION['compte']; // Assurez-vous de récupérer l'ID de l'utilisat
 
 $userTeams = $teams->getUserTeams($userId);
 
-require __DIR__ . '\..\..\views\header.php';
+include __DIR__ .'/../../includes/header.php';
 ?>
 
 <div class="grid-container">
@@ -51,8 +51,8 @@ require __DIR__ . '\..\..\views\header.php';
     }
     ?>
 </div>
-<a href="/PHP/public/needLog/addTeam.php" class="calendar__button">+</a>
+<a href="addTeam.php" class="calendar__button">+</a>
 
 <?php
-require __DIR__ . '\..\..\views\footer.php';
+include __DIR__ .'/../../includes/footer.php';
 ?>

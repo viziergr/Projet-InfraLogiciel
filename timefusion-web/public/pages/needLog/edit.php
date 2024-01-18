@@ -1,8 +1,7 @@
 <?php
-
-require __DIR__ . '\..\..\src\bootstrap.php';
-require __DIR__ . '\..\..\src\Calendar\Events.php';
-require __DIR__ . '\..\..\src\Calendar\EventValidator.php';
+include __DIR__ .'/../../scripts/bootstrap.php';
+include __DIR__ .'/../../scripts/Calendar/EventValidator.php';
+include __DIR__ .'/../../scripts/Calendar/Events.php'; 
 
 sess_exists();
 
@@ -32,14 +31,14 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     $validator = new TimeFusion\Calendar\EventValidator();
     $errors = $validator->validates($data);
     if(empty($errors)) {
-        $events->hydrate($event,$data);
+        $events->hydrate($event,$data,$_SESSION['compte']);
         $events->update($event);
         header('Location: /PHP/public/Calendrier.php?success=2');
         exit();
     }
 }
 
-require '../../views/header.php';
+include __DIR__ .'/../../includes/header.php';
 ?>
 
 <div class="container">
@@ -50,5 +49,5 @@ require '../../views/header.php';
 </div>
 
 <?php 
-require __DIR__ . '\..\..\views\footer.php';
+include __DIR__ .'/../../includes/footer.php';
 ?>

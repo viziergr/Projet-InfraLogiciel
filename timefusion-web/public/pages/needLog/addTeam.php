@@ -1,7 +1,9 @@
 <?php 
-require __DIR__ .'\..\..\views\header.php';
-require __DIR__ .'\..\..\src\bootstrap.php'; 
-require __DIR__ .'\..\..\src\Team\Teams.php';
+
+include __DIR__ .'/../../scripts/bootstrap.php';
+include __DIR__ .'/../../scripts/Team/Teams.php';  
+
+include __DIR__ .'/../../includes/header.php';
 
 sess_exists();
 
@@ -19,7 +21,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
             $errors = ['teamExists'];
         }else{
             $teams->create($team, $userId);
-            header('Location: /PHP/public/needLog/Calendrier.php?success=3');
+            header('Location: Calendrier.php?success=3');
             exit();
         }
     }elseif (isset($_POST['name']) && isset($_POST['color']) && (empty($_POST['name']) || !estCouleurValide($_POST['color']))){
@@ -69,4 +71,4 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     </form>
 </div>
 
-<?php require __DIR__ .'\..\..\views\footer.php'; ?>
+<?php include __DIR__ .'/../../includes/footer.php'; ?>
