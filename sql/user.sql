@@ -1,4 +1,4 @@
-CREATE TABLE `User` (
+CREATE TABLE `User`(
   `id` int NOT NULL AUTO_INCREMENT,
   `email` varchar(45) NOT NULL,
   `password` varchar(80) NOT NULL,
@@ -7,4 +7,4 @@ CREATE TABLE `User` (
   `year` DATE NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) 
+);
