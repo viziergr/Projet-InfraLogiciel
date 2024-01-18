@@ -15,8 +15,8 @@ module com.timefusion {
   opens com.timefusion.util to java.sql;
   opens com.timefusion.jfxcalendar.controllers to javafx.fxml;
   opens com.timefusion.jfxcalendar.views to com.jfoenix;
-  opens com.timefusion.jfxcalendar.JSON.Entities to com.google.gson;
-  opens com.timefusion.jfxcalendar.JSON to com.google.gson;
+  opens com.timefusion.JSON.Entities to com.google.gson;
+  opens com.timefusion.JSON to com.google.gson;
 
   exports com.timefusion.config ;
   exports com.timefusion.dao ;

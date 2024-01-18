@@ -1,11 +1,8 @@
 package com.timefusion.jfxcalendar.controllers;
 
-import com.timefusion.jfxcalendar.JSON.Entities.EventNature;
-import com.timefusion.jfxcalendar.JSON.Entities.EventsEntity;
-/**
- * Sample Skeleton for 'AddEventDialog.fxml' Controller Class
- */
-import com.timefusion.jfxcalendar.JSON.Entities.ParticipantsEntity;
+import com.timefusion.JSON.Entities.EventNature;
+import com.timefusion.JSON.Entities.EventsEntity;
+import com.timefusion.JSON.Entities.ParticipantsEntity;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
