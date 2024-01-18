@@ -9,32 +9,64 @@ LOG_FILE="/vagrant/logs/install_git.log"
 DEBIAN_FRONTEND="noninteractive"
 
 echo "START - Deplacement des fichiers - "$IP
+# Définir le chemin du répertoire
+repertoire="/var/www/html/"
 
-cd /var/www/html/
-mkdir git
-cd git
-git clone https://github.com/viziergr/Projet-InfraLogiciel.git
+# Chemin du fichier de configuration Apache
+fichier_conf="/etc/apache2/sites-available/000-default.conf"
 
-mkdir /var/www/html/siteweb/
+# Chaîne de caractères à rechercher
+chaine_a_rechercher="DocumentRoot /var/www/html"
 
-rm -r /var/www/html/git/Projet-InfraLogiciel/.vscode
-rm -r /var/www/html/git/Projet-InfraLogiciel/livrables
-rm -r /var/www/html/git/Projet-InfraLogiciel/timefusion-dekstop
-rm -r /var/www/html/git/Projet-InfraLogiciel/VM
-rm /var/www/html/git/Projet-InfraLogiciel/Configurations.txt
-rm /var/www/html/git/Projet-InfraLogiciel/ProjetInfraLog.drawio
-rm /var/www/html/git/Projet-InfraLogiciel/README.md
+# Nouvelle chaîne de caractères
+nouvelle_chaine="DocumentRoot /var/www/html/Projet-InfraLogiciel/timefusion-web/public/"
 
-cp -r /var/www/html/git/Projet-InfraLogiciel/timefusion-web/src/main/webapp/* /var/www/html/siteweb/
-mkdir /var/www/html/siteweb/myadmin
-mv /var/www/html/myadmin/* /var/www/html/siteweb/myadmin/
-mkdir /var/www/html/siteweb/PHP/public/CSS
-mkdir /var/www/html/siteweb/PHP/public/pictures
-cp -r /var/www/html/siteweb/CSS/* /var/www/html/siteweb/PHP/public/CSS
-cp -r /var/www/html/siteweb/pictures/* /var/www/html/siteweb/PHP/public/pictures
+# Vérifier si le répertoire existe
+if [ -d "$repertoire/Projet-InfraLogiciel" ]; then
+    echo "=> [1] - Le répertoire existe"
+    cd "$repertoire/Projet-InfraLogiciel" || exit
 
-# modification de la configuration du site 000-default.conf pour pointer sur le dossier siteweb/PHP/public
-sed -i 's/\/var\/www\/html/\/var\/www\/html\/siteweb\/PHP\/public/g' /etc/apache2/sites-available/000-default.conf
+    echo "=> [2] - Git pull"
+    git pull
+else
+    cd "$repertoire" || exit
+
+    echo "=> [1] - Git clone"
+    git clone "https://github.com/viziergr/Projet-InfraLogiciel.git"
+
+    cd Projet-InfraLogiciel || exit
+
+    echo "=> [3] - Configuration du git pull"
+    git config pull.rebase false --global
+
+    echo "=> [4] - Déplacement du répertoire myadmin"
+    mkdir /var/www/html/Projet-InfraLogiciel/timefusion-web/myadmin
+    mv /var/www/html/myadmin/* /var/www/html/Projet-InfraLogiciel/timefusion-web/myadmin/
+
+    echo "=> [5] - Suppression des fichiers inutiles"
+    # Suppression de tous les autres fichiers inutiles
+    rm -r /var/www/html/Projet-InfraLogiciel/.vscode
+    rm -r /var/www/html/Projet-InfraLogiciel/livrables
+    rm -r /var/www/html/Projet-InfraLogiciel/timefusion-dekstop
+    rm -r /var/www/html/Projet-InfraLogiciel/VM
+    rm /var/www/html/Projet-InfraLogiciel/Configurations.txt
+    rm /var/www/html/Projet-InfraLogiciel/ProjetInfraLog.drawio
+    rm /var/www/html/Projet-InfraLogiciel/README.md
+fi
+
+
+
+echo "START - Modification de la configuration du site 000-default.conf"
+# Vérifier si la chaîne de caractères à rechercher existe dans le fichier
+if grep -q "$nouvelle_chaine" "$fichier_conf"; then
+    # La chaîne existe, ne rien faire
+    echo "=> Le chemin d'accès au site existe déjà."
+else
+    # La chaîne n'existe pas, la remplacer
+    sed -i "s|$chaine_a_rechercher|$nouvelle_chaine|g" "$fichier_conf"
+    echo "=> La chemin d'accès au site a été modifié."
+fi
+echo "END - Modification de la configuration du site 000-default.conf"
 
 service apache2 reload
 echo "END - Deplacement des fichiers"
