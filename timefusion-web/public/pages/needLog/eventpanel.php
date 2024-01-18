@@ -1,7 +1,7 @@
 <?php
 
-require __DIR__ . '\..\..\src\bootstrap.php';
-require __DIR__ . '\..\..\src\Calendar\Events.php';
+include __DIR__ .'/../../scripts/bootstrap.php';
+include __DIR__ .'/../../scripts/Calendar/Events.php';
 
 sess_exists();
 
@@ -17,7 +17,7 @@ try{
     e404();
 }
 
-require __DIR__ . '\..\..\views\header.php';
+include __DIR__ .'/../../includes/header.php';
 ?>
 
 <h1>Evènement: <?= h($event->getTitle()); ?></h1>
@@ -35,5 +35,5 @@ require __DIR__ . '\..\..\views\header.php';
 
 
 <?php 
-require __DIR__ . '\..\..\views\footer.php';
+include __DIR__ .'/../../includes/footer.php';
 ?>
