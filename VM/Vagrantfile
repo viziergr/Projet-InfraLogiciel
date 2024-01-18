@@ -26,10 +26,7 @@ Vagrant.configure("2") do |config|
     SHELL
       machine.vm.provision "shell", path: "scripts/install_sys.sh"
       machine.vm.provision "shell", path: "scripts/install_web.sh"
-      # machine.vm.provision "shell", path: "scripts/install_bdd.sh"
-      # machine.vm.provision "shell", path: "scripts/install_myadmin.sh"
       machine.vm.provision "shell", path: "scripts/install_site.sh"
-      # machine.vm.provision "shell", path: "scripts/install_ssl.sh"
   end
 
   # Serveur virtuel accueillant la base de données
@@ -86,8 +83,6 @@ Vagrant.configure("2") do |config|
      SHELL
      machine.vm.provision "shell", path: "scripts/install_sys.sh"
      machine.vm.provision "shell", path: "scripts/install_web.sh"
-    #  machine.vm.provision "shell", path: "scripts/install_bdd.sh"
-    #  machine.vm.provision "shell", path: "scripts/install_myadmin.sh"
      machine.vm.provision "shell", path: "scripts/install_proxy.sh"
    end
 end
