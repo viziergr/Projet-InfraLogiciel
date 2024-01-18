@@ -12,12 +12,17 @@ echo "START - Installation reverse proxy - "$IP
 
 sudo a2enmod proxy
 sudo a2enmod proxy_http
-sudo a2enmod proxy_balancer
-sudo a2enmod lbmethod_byrequests
+
 sudo systemctl restart apache2
 
 echo "<VirtualHost *:80>
+    ProxyRequests Off
     ProxyPreserveHost On
+
+    <Proxy *>
+        Order deny,allow
+        Allow from all
+    </Proxy>
 
     ProxyPass / http://192.168.56.80/
     ProxyPassReverse / http://192.168.56.80/
