@@ -1,10 +1,10 @@
 <?php
 http_response_code(404);
-require '../includes/header.php';
+include __DIR__ . '\..\includes\header.php';
 ?>
 
 <h1>Page introuvable</h1>
 
 <?php 
-require '../includes/footer.php';
+include __DIR__ . '..\includes\footer.php';
 ?>
