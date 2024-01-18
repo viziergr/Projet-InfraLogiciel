@@ -1,4 +1,5 @@
 <?php 
+
 include __DIR__ . '/../../scripts/gestion_inscription.php'; 
 include __DIR__ .'/../../scripts/Team/Users.php';
 
@@ -13,13 +14,12 @@ $user = $users->getUserById($_SESSION['compte']);
 <head>
     <title>Profil</title>
     <link rel="stylesheet" href="../../assets/CSS/code.css">
-    <link rel="stylesheet" href="../../assets/CSS/calendar.css">    
 </head>
 <body>
 
     <div class="bandeV">
         <div class="dropdown">
-            <img src="/assets/pictures/lat.png" alt="Mon panneau déroulant" onclick="toggleDropdown()">
+            <img id="trbar" src="/assets/pictures/trBarre.png" onclick="toggleDropdown()"/>
             <div class="dropdown-content">
                 <a href="/pages/needLog/Calendrier.php">Mon calendrier</a><br>
                 <a href="/pages/needLog/teampanel.php">Mes équipes</a><br>
@@ -27,7 +27,7 @@ $user = $users->getUserById($_SESSION['compte']);
             </div>
         </div>
         <h1>TimeFusion</h1>
-        <a href="/index.html">
+        <a href="index.html">
             <img id ="logo" src="/assets/pictures/Logo.png">
         </a>
     </div>
@@ -37,22 +37,27 @@ $user = $users->getUserById($_SESSION['compte']);
     </div>
     
     <div class="information">
-
-
         <div class="traitV"></div>
 
-        <?php        
+            <?php        
 
-        echo '<p id="fname"> Prénom : ' . $user->getFirstName() . '</p>';
+            echo '<p id="fname"> Prénom : ' . $user->getFirstName() . '</p>';
 
-        echo '<p id="lname"> Nom : ' . $user->getLastName() . '</p>';
+            echo '<p id="lname"> Nom : ' . $user->getLastName() . '</p>';
 
-        echo '<p id="email"> Email : ' . $user->getEmail() . '</p>';
+            echo '<p id="email"> Email : ' . $user->getEmail() . '</p>';
 
-        echo '<p id="year"> Date d\'anniversaire : ' . (new \DateTime($user->getYear()))->format('d/m/Y') . '</p>';
+            echo '<p id="year"> Date d\'anniversaire : ' . (new \DateTime($user->getYear()))->format('d/m/Y') . '</p>';
 
-        ?>
+            ?>
 
+        </div>
+
+        <div class="modif">
+            <a href="newPassword.php">
+                <p> Modifier votre mot de passe </p>
+            </a>
+        </div>
     </div>
 
 </body>

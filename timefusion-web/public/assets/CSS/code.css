@@ -581,6 +581,26 @@
     margin-bottom: 20%;
 }
 
+.dropdown {
+    top:0;
+    margin : 1%;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #5458b8;
+    min-width: 90%;
+    min-height: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 1%;
+    z-index: 1;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
 .profil{
     width: 30%;
     height: 100%;
@@ -615,7 +635,7 @@
 }
 
 
-.information p{
+.information #fname, #lname, #email, #year{
     background-color : #000352;
     font-size: 1em;
     font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
@@ -627,14 +647,28 @@
     margin-top: 10%;
     color : #FFF;
     padding : 1%;
-    border-radius : 10%;
+    border-radius : 0%;
     border : 1px #000352;            
 }
 
 .information #fname{
-    margin-top: 35%;
+    margin-top: 30%;
 }
 
+.modif p{
+    font-size: 1em;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    text-transform: uppercase;
+    padding: 1%;
+    font-weight: 700;
+    margin-left: 13%;
+    margin-right : 13%;
+    margin-top: 10%;
+    color : #000352;
+    padding : 1%;
+    border-radius : 10%;
+    border : 1px #000352;
+    text-align: center;}
 
 
 .traitV{
@@ -706,5 +740,3 @@
 button[type="submit"]:hover {
     background-color: #452FFF;
 }
-
-
