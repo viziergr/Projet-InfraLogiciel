@@ -6,6 +6,27 @@
     "configurations": [
         {
             "type": "java",
+            "name": "RemoteToLocalEventSync",
+            "request": "launch",
+            "mainClass": "com.timefusion/com.timefusion.jfxcalendar.sync.RemoteToLocalEventSync",
+            "projectName": "timefusion-dekstop"
+        },
+        {
+            "type": "java",
+            "name": "LocalToRemoteEventSync",
+            "request": "launch",
+            "mainClass": "com.timefusion/com.timefusion.jfxcalendar.sync.LocalToRemoteEventSync",
+            "projectName": "timefusion-dekstop"
+        },
+        {
+            "type": "java",
+            "name": "SyncUtil",
+            "request": "launch",
+            "mainClass": "com.timefusion/com.timefusion.jfxcalendar.sync.SyncUtil",
+            "projectName": "timefusion-dekstop"
+        },
+        {
+            "type": "java",
             "name": "DBToLocalStorageSync",
             "request": "launch",
             "mainClass": "com.timefusion/com.timefusion.jfxcalendar.sync.DBToLocalStorageSync",

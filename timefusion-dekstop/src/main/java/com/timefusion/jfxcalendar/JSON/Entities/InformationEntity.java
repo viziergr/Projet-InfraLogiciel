@@ -21,22 +21,22 @@ public class InformationEntity implements JsonEntity {
     this.lastSynced = lastSynced;
   }
 
-  public String getLast_updated() {
+  public String getLastUpdated() {
     return lastUpdated;
   }
 
-  public void setLast_updatedNow() {
+  public void setLastUpdatedNow() {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern(
       "dd-MM-yyyy HH:mm:ss"
     );
     this.lastUpdated = LocalDateTime.now().format(formatter).toString();
   }
 
-  public String getLast_synced() {
+  public String getLastSynced() {
     return lastSynced;
   }
 
-  public void setLast_syncedNow() {
+  public void setLastSyncedNow() {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern(
       "dd-MM-yyyy HH:mm:ss"
     );
@@ -113,6 +113,16 @@ public class InformationEntity implements JsonEntity {
     return new InformationEntity();
   }
 
+  public static InformationEntity getInformationEntity() {
+    JsonObject jsonObject = JsonUtils
+      .readJsonPart(INFORMATION_ENTITY_NAME)
+      .getAsJsonObject();
+    return new InformationEntity(
+      jsonObject.get("last_updated").getAsString(),
+      jsonObject.get("last_synced").getAsString()
+    );
+  }
+
   @Override
   public JsonObject toJsonObject() {
     JsonObject jsonObject = new JsonObject();
@@ -140,12 +150,13 @@ public class InformationEntity implements JsonEntity {
 
   public static void main(String[] args) {
     InformationEntity information = new InformationEntity();
-    information.setLast_updatedNow();
-    information.setLast_syncedNow();
-    information.updateInformationEntity();
+    information.setLastUpdatedNow();
+    information.setLastSyncedNow();
+    // information.updateInformationEntity();
     // information.deleteInformationEntity();
     // information.deleteInformationEntity();
-    System.out.println(InformationEntity.getInfoEntityFromJson().toString());
-    System.out.println(InformationEntity.isJsonInformationEntityEmpty());
+    // System.out.println(InformationEntity.getInfoEntityFromJson().toString());
+    // System.out.println(InformationEntity.isJsonInformationEntityEmpty());
+    System.out.println(getInformationEntity());
   }
 }

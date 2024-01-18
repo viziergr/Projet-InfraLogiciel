@@ -149,13 +149,13 @@ public class EventDao extends GenericDao<Event> {
     EventDao eventDao = new EventDao();
     Event event = new Event(
       0,
-      "Chocolate",
+      "event",
       LocalDateTime.now(),
       LocalDateTime.now(),
       "location",
       "description",
-      true,
-      2
+      false,
+      4
     );
     eventDao.insertEventRecord(event);
   }

@@ -148,6 +148,16 @@ public class UserEntity implements JsonEntity {
     return jsonObject;
   }
 
+  public static UserEntity userToUserEntity(User user) {
+    return new UserEntity(
+      user.getId(),
+      user.getFirstName(),
+      user.getLastName(),
+      user.getEmail(),
+      user.getPassword()
+    );
+  }
+
   @Override
   public String toJson() {
     return new Gson().toJson(this);
