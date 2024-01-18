@@ -42,10 +42,14 @@ class Teams
     public function getUserTeams($userId)
     {
         $result = $this->mysqli->query("SELECT teams.*, team_members.user_id
-                                        FROM teams
-                                        JOIN team_members ON teams.id = team_members.team_id
-                                        WHERE team_members.user_id = '$userId'");
-    
+                                FROM teams
+                                JOIN team_members ON teams.id = team_members.team_id
+                                WHERE team_members.user_id = '$userId'");
+
+        if (!$result) {
+            die('Erreur SQL : ' . $this->mysqli->error);
+        }
+
         $teams = [];
     
         while ($row = $result->fetch_assoc()) {

@@ -21,6 +21,11 @@ class Requests
                                         JOIN teams ON requests.team_id = teams.id
                                         WHERE requests.user_id = '$userId' AND requests.status = 'en_attente'");
         
+        
+        if (!$result) {
+            die('Erreur SQL : ' . $this->mysqli->error);
+        }
+        
         $requests = [];
 
         while ($row = $result->fetch_assoc()) {

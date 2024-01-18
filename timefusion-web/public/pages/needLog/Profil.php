@@ -12,14 +12,14 @@ $user = $users->getUserById($_SESSION['compte']);
 <html>
 <head>
     <title>Profil</title>
-    <link rel="stylesheet" href="../../../CSS/code.css">
+    <link rel="stylesheet" href="../../assets/CSS/code.css">
     
 </head>
 <body>
 
     <div class="bandeV">
         <div class="dropdown">
-            <img id="trbar" src="../../../pictures/trBarre.png" alt="redirection"/>
+            <img id="trbar" src="../../assets/pictures/trBarre.png" alt="redirection"/>
             <div class="dropdown-content">
                 <p>Team</p>
                 <p>Profil</p>
@@ -28,7 +28,7 @@ $user = $users->getUserById($_SESSION['compte']);
         </div>
         <h1>TimeFusion</h1>
         <a href="/PHP/public/index.html">
-            <img id ="logo" src="../../../pictures/Logo.png">
+            <img id ="logo" src="../../assets/pictures/Logo.png">
         </a>
     </div>
 

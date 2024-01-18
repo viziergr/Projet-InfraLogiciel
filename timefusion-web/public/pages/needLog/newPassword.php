@@ -8,7 +8,7 @@ include __DIR__ . '/../../includes/header.php';
 <head>
     <meta charset="utf-8">
     <title>Réinitialiser le mot de passe</title>
-    <link rel="stylesheet" href="../../../CSS/code.css">
+    <link rel="stylesheet" href="../../assets/CSS/code.css">
 </head>
 <body>
     <div class="modifPassword">
