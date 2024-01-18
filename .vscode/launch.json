@@ -8,6 +8,13 @@
             "type": "java",
             "name": "RemoteToLocalEventSync",
             "request": "launch",
+            "mainClass": "com.timefusion/com.timefusion.sync.RemoteToLocalEventSync",
+            "projectName": "timefusion-dekstop"
+        },
+        {
+            "type": "java",
+            "name": "RemoteToLocalEventSync",
+            "request": "launch",
             "mainClass": "com.timefusion/com.timefusion.jfxcalendar.sync.RemoteToLocalEventSync",
             "projectName": "timefusion-dekstop"
         },
