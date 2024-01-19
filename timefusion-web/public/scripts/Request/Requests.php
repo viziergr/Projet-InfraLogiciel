@@ -112,29 +112,46 @@ class Requests
     // Dans la classe Requests
 
     public function envoyerInvitation($guestId, $teamId) {
-        // Vérifier si la user_id existe dans la table user
-        $userExists = $this->checkUserExists($guestId);
+        try {
+            // Vérifier si la user_id existe dans la table user
+            $userExists = $this->checkUserExists($guestId);
     
-        if (!$userExists) {
-            header('Location: /pages/needLog/networkpanel.php?demande_envoyee=2&team_id=' . $teamId . '');
+            if (!$userExists) {
+                throw new \Exception("L'utilisateur avec l'ID $guestId n'existe pas.");
+            }
+    
+            // Vérifier si la team_id existe dans la table teams
+            $teamExists = $this->checkTeamExists($teamId);
+    
+            if (!$teamExists) {
+                throw new \Exception("L'équipe avec l'ID $teamId n'existe pas.");
+            }
+    
+            // Commencer une transaction
+            $this->mysqli->begin_transaction();
+    
+            // Insérer une nouvelle demande d'invitation dans la base de données
+            $sql = "INSERT INTO requests (user_id, team_id, status) VALUES (?, ?, 'en_attente')";
+            $stmt = $this->mysqli->prepare($sql);
+    
+            if (!$stmt) {
+                throw new \Exception("Erreur lors de la préparation de la requête d'insertion de demande d'invitation.");
+            }
+    
+            $stmt->bind_param("ii", $guestId, $teamId);
+            $stmt->execute();
+            $stmt->close();
+    
+            // Valider la transaction
+            $this->mysqli->commit();
+        } catch (\Exception $e) {
+            // En cas d'erreur, annuler la transaction et rediriger avec un message d'erreur
+            $this->mysqli->rollback();
+            header('Location: /pages/needLog/networkpanel.php?demande_envoyee=2&team_id=' . $teamId . '&error=' . urlencode($e->getMessage()));
             exit();
         }
-    
-        // Vérifier si la team_id existe dans la table teams
-        $teamExists = $this->checkTeamExists($teamId);
-    
-        if (!$teamExists) {
-            header('Location: /pages/needLog/networkpanel.php?demande_envoyee=2&team_id=' . $teamId . '');
-            exit();
-        }
-    
-        // Insérer une nouvelle demande d'invitation dans la base de données
-        $sql = "INSERT INTO requests (user_id, team_id, status) VALUES (?, ?, 'en_attente')";
-        $stmt = $this->mysqli->prepare($sql);
-        $stmt->bind_param("ii", $guestId, $teamId);
-        $stmt->execute();
-        $stmt->close();
     }
+    
     
     // Méthode pour vérifier si la user_id existe dans la table user
     private function checkUserExists($userId) {
