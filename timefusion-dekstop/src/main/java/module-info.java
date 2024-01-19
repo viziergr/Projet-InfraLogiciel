@@ -17,6 +17,14 @@ module com.timefusion {
   opens com.timefusion.jfxcalendar.views to com.jfoenix;
   opens com.timefusion.JSON.Entities to com.google.gson;
   opens com.timefusion.JSON to com.google.gson;
+  opens com.timefusion.calendar.Application to javafx.fxml;
+  opens com.timefusion.calendar.controller to javafx.fxml;
+  opens com.timefusion.calendar.view to javafx.fxml;
+  opens com.jibbow.fastis to javafx.fxml;
+  opens com.jibbow.fastis.components to javafx.fxml;
+  opens com.jibbow.fastis.rendering to javafx.fxml;
+  opens com.jibbow.fastis.util to javafx.fxml;
+  opens demo to javafx.fxml;
 
   exports com.timefusion.config ;
   exports com.timefusion.dao ;
@@ -30,4 +38,12 @@ module com.timefusion {
   exports com.timefusion.jfxcalendar.model ;
   exports com.timefusion.jfxcalendar.validation ;
   exports com.timefusion.jfxcalendar.views ;
+  exports com.timefusion.calendar.Application ;
+  exports com.timefusion.calendar.controller ;
+  exports com.timefusion.calendar.view ;
+  exports com.jibbow.fastis ;
+  exports com.jibbow.fastis.components ;
+  exports com.jibbow.fastis.rendering ;
+  exports com.jibbow.fastis.util ;
+  exports demo ;
 }

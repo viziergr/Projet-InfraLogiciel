@@ -6,6 +6,41 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "com.timefusion/demo.Main",
+            "projectName": "timefusion-dekstop"
+        },
+        {
+            "type": "java",
+            "name": "ResourcePathTester",
+            "request": "launch",
+            "mainClass": "com.timefusion/com.timefusion.test2.src.main.java.com.jibbow.fastis.ResourcePathTester",
+            "projectName": "timefusion-dekstop"
+        },
+        {
+            "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "com.timefusion/com.timefusion.test2.src.main.java.demo.Main",
+            "projectName": "timefusion-dekstop"
+        },
+        {
+            "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "com.timefusion/com.timefusion.calendar.test.Main",
+            "projectName": "timefusion-dekstop"
+        },
+        {
+            "type": "java",
+            "name": "CalendarApp",
+            "request": "launch",
+            "mainClass": "com.timefusion/com.timefusion.calendar.Application.CalendarApp",
+            "projectName": "timefusion-dekstop"
+        },
+        {
+            "type": "java",
             "name": "RemoteToLocalEventSync",
             "request": "launch",
             "mainClass": "com.timefusion/com.timefusion.sync.RemoteToLocalEventSync",
