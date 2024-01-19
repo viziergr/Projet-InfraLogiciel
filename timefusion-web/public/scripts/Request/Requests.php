@@ -162,7 +162,6 @@ class Requests
     
             // Valider la transaction
             $this->mysqli->commit();
-            header('Location: /pages/needLog/networkpanel.php?demande_envoyee=1&team_id=' . $teamId . '&param=' . urlencode($teamId. $guestId));
             
         } catch (\Exception $e) {
             // En cas d'erreur, annuler la transaction et rediriger avec un message d'erreur
