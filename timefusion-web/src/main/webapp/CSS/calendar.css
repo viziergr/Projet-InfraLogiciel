@@ -24,6 +24,7 @@
 
 .calendar{
     position: relative;
+    padding-bottom: 3%;
 }
 
 .calendar__table {
