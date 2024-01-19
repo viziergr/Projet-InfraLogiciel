@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['connexion_submit']) &
 
     $result = $mysqli->query($sql);
     if (!$result) {
-        exit($mysqli->error);
+        $error = "Vérifiez votre adresse e-mail et votre mot de passe, puis réessayez.\nIl se peut que vous n'ayez pas créé de compte.";
     }
 
     $nb = $result->num_rows;
