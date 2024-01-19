@@ -8,39 +8,39 @@ include __DIR__ .'/../../includes/header.php';
 sess_exists();
 
 $data = [];
-$errors = [];;
+$errorMessage = '';
 
 $mysqli = connectDB();
-if($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = $_POST;
     $userId = $_SESSION['compte'];
-    if(isset($_POST['name']) && isset($_POST['color']) && !empty($_POST['name']) && estCouleurValide($_POST['color'])){
+
+    if (isset($_POST['name']) && isset($_POST['color']) && !empty($_POST['name']) && estCouleurValide($_POST['color'])) {
         $teams = new TimeFusion\Team\Teams($mysqli);
         $team = $teams->hydrate(new TimeFusion\Team\Team(), $data);
-        if($team==null) {
-            $errors = ['teamExists'];
-        }else{
-            dd($_POST); 
-            $teams->create($team, $userId);
-            // header('Location: Calendrier.php?success=3');
-            exit();
+        if ($team == null) {
+            $errorMessage = 'Une équipe avec ce nom existe déjà.';
+        } else {
+            $createResult = $teams->create($team, $userId);
+
+            if ($createResult === true) {
+                header('Location: Calendrier.php?success=3');
+                exit();
+            } else {
+                $errorMessage = 'Une erreur est survenue lors de la création de l\'équipe.';
+            }
         }
-    }elseif (isset($_POST['name']) && isset($_POST['color']) && (empty($_POST['name']) || !estCouleurValide($_POST['color']))){
-        $errors = ['nameOrColor'];
+    } elseif (isset($_POST['name']) && isset($_POST['color']) && (empty($_POST['name']) || !estCouleurValide($_POST['color']))) {
+        $errorMessage = 'Merci de corriger vos erreurs';
     }
 }
+
 ?>
 
-<?php if($errors): ?>
-    <?php if($errors == ['teamExists']): ?>
-        <div class="alert alert-danger">
-            Ce nom d'équipe est déjà pris
-        </div> 
-    <?php else: ?>
-        <div class="alert alert-danger">
-            Merci de corriger vos erreurs
-        </div>
-    <?php endif; ?>
+<?php if($errors != ''): ?>
+    <div class="alert alert-danger">
+        <?= $errorMessage; ?>
+    </div> 
 <?php endif; ?>
 
 <div class="container mt-5">

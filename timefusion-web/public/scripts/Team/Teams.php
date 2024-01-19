@@ -54,7 +54,7 @@ class Teams
     
         while ($row = $result->fetch_assoc()) {
             $team = new Team($row['name']);
-            $team->setColor($row['Color']);
+            $team->setColor($row['color']);
             $team->setId($row['id']); // Assurez-vous d'avoir une méthode setId dans votre classe Team
             // Ajoutez d'autres propriétés au besoin
     
@@ -136,7 +136,7 @@ class Teams
     
     // Méthode pour vérifier l'existence d'une équipe du même nom
     private function teamNameExists($name) {
-        $sql = "SELECT COUNT(*) as count FROM team WHERE team_name = '$name'";
+        $sql = "SELECT COUNT(*) as count FROM team WHERE name = '$name'";
         
         // Exécutez la requête SQL
         $result = $this->mysqli->query($sql);
@@ -156,7 +156,7 @@ class Teams
     public function create(Team $team, $userId) {
         try {
             if ($userId == null) {
-                throw new Exception("L'identifiant de l'utilisateur est manquant");
+                throw new \Exception("L'identifiant de l'utilisateur est manquant");
             }
     
             $this->mysqli->begin_transaction();
@@ -165,7 +165,7 @@ class Teams
             $sqlInsertTeam = "INSERT INTO team (name, color, description) VALUES (?, ?, ?)";
             $stmtInsertTeam = $this->mysqli->prepare($sqlInsertTeam);
             if (!$stmtInsertTeam) {
-                throw new Exception("Erreur lors de la préparation de la requête d'insertion d'équipe");
+                throw new \Exception("Erreur lors de la préparation de la requête d'insertion d'équipe");
             }
     
             $name = $team->getName();
@@ -180,7 +180,7 @@ class Teams
             $sqlSelectTeamId = "SELECT id FROM team WHERE name = ? LIMIT 1";
             $stmtSelectTeamId = $this->mysqli->prepare($sqlSelectTeamId);
             if (!$stmtSelectTeamId) {
-                throw new Exception("Erreur lors de la préparation de la requête de sélection de l'ID de l'équipe");
+                throw new \Exception("Erreur lors de la préparation de la requête de sélection de l'ID de l'équipe");
             }
     
             $stmtSelectTeamId->bind_param("s", $name);
@@ -188,7 +188,7 @@ class Teams
             $resultSelectTeamId = $stmtSelectTeamId->get_result();
     
             if (!$resultSelectTeamId) {
-                throw new Exception("Erreur lors de l'exécution de la requête de sélection de l'ID de l'équipe");
+                throw new \Exception("Erreur lors de l'exécution de la requête de sélection de l'ID de l'équipe");
             }
     
             $row = $resultSelectTeamId->fetch_assoc();
@@ -201,7 +201,7 @@ class Teams
             $stmtInsertTeamMembership = $this->mysqli->prepare($sqlInsertTeamMembership);
     
             if (!$stmtInsertTeamMembership) {
-                throw new Exception("Erreur lors de la préparation de la requête d'insertion de l'appartenance à l'équipe");
+                throw new \Exception("Erreur lors de la préparation de la requête d'insertion de l'appartenance à l'équipe");
             }
     
             $role = 'Leader';
@@ -211,8 +211,8 @@ class Teams
             $stmtInsertTeamMembership->close();
     
             $this->mysqli->commit();
-        } catch (Exception $e) {
-            // En cas d'erreur, annuler la transaction et gérer l'exception
+        } catch (\Exception $e) {
+            // En cas d'erreur, annuler la transaction et gérer l'\Exception
             $this->mysqli->rollback();
             dd('Erreur : ' . $e->getMessage());
             return false;
