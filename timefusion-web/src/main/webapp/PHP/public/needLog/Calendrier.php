@@ -48,7 +48,7 @@ require __DIR__ .'\..\..\views\header.php';
     <div class='d-flex flex-row align-items-center justify-content-between mx-sm-3'>
         <h1><?= $month->__toString(); ?></h1>
         <div class='d-flex flex-row'>
-            <form action="Calendrier.php" method="post">
+            <form action="Calendrier.php" method="post" style="padding-right:10%">
                 <input type="hidden" name="users_id" value="<?= implode(',', $usersId); ?>">
                 <button type="submit" class='btn btn-primary'>Mois</button>
             </form>
