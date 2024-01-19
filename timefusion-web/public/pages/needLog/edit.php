@@ -44,7 +44,7 @@ include __DIR__ .'/../../includes/header.php';
 <div class="container">
     <h1>Editer l'évènement: <small><?= h($event->getTitle()); ?></small></h1>
     <form action="" method="POST">
-        <?php render('calendar\form', ['data' => $data, 'errors' => $errors]); ?>
+        <?php render('calendar/form', ['data' => $data, 'errors' => $errors]); ?>
     </form>
 </div>
 

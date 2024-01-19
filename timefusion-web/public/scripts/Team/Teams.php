@@ -53,7 +53,7 @@ class Teams
         $teams = [];
     
         while ($row = $result->fetch_assoc()) {
-            $team = new Team($row['team_name']);
+            $team = new Team($row['name']);
             $team->setColor($row['Color']);
             $team->setId($row['id']); // Assurez-vous d'avoir une méthode setId dans votre classe Team
             // Ajoutez d'autres propriétés au besoin
