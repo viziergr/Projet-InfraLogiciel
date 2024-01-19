@@ -23,7 +23,7 @@
         <h1>Bienvenue</h1>
         <?php if (isset($error)): ?>
             <div class="container">
-                <div class="alert alert-success">
+                <div class="alert alert-danger">
                     <?= $error ?>
                 </div>
             </div>

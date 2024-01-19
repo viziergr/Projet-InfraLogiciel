@@ -20,6 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['connexion_submit']) &
     $result = $mysqli->query($sql);
     if (!$result) {
         $error = "Vérifiez votre adresse e-mail et votre mot de passe, puis réessayez.\nIl se peut que vous n'ayez pas créé de compte.";
+        exit($mysqli->error);
     }
 
     $nb = $result->num_rows;
@@ -35,6 +36,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['connexion_submit']) &
             $rowEtu = $resultEtudiant->fetch_assoc();
             header("Location: ./needLog/Calendrier.php");
         }
+    }
+    else{
+        $error = "Vérifiez votre adresse e-mail et votre mot de passe, puis réessayez.\nIl se peut que vous n'ayez pas créé de compte.";
     }
 
     // Fermer la connexion après avoir terminé le traitement
