@@ -160,7 +160,7 @@ class Teams
         if($description == null) {
             $description = "Aucune description";
         }
-        $sql = "INSERT INTO team (team_name, color, description) VALUES (?, ?, ?)";
+        $sql = "INSERT INTO team (name, color, description) VALUES (?, ?, ?)";
         $stmt = $this->mysqli->prepare($sql);
         if (!$stmt) {
             dd('error1');
@@ -177,7 +177,7 @@ class Teams
         // Fermer le statement
         $stmt->close();
 
-        $sql = "SELECT id FROM team WHERE team_name = '$name' LIMIT 1";
+        $sql = "SELECT id FROM team WHERE name = '$name' LIMIT 1";
         // Exécution de la requête
         $result = $this->mysqli->query($sql);
         // Vérification des erreurs
