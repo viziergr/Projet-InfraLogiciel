@@ -31,7 +31,7 @@
                 <button type="submit" id="boutonConnexion" value="1" name="connexion_submit">Connexion</button>
             </div>
         </form>
-    </div>
+    </div>    
 
     <div class = "redirectionInscription">  
         <p>Pas de compte ?</p>
@@ -39,8 +39,9 @@
             <button type="button">Inscrivez vous</button>
         </a>
     </div>
-
-    <?php endif; ?>
+    <?php else:
+        header('Location: ../pages/needLog/Calendrier.php');
+    endif; ?>
 </body>
 
 </html>
