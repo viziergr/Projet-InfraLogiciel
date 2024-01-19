@@ -23,13 +23,13 @@ include __DIR__ .'/../../includes/header.php';
     ?>
         <div class="team-container" style="background-color: <?php echo $team->getColor(); ?>;">
             <div class="team-header">
-                <h1>Equipe: <small><?php echo $team->getName(); ?></small></h1>
+                <h1>Equipe: <small><?php echo h($team->getName()); ?></small></h1>
             </div>
             <h3>Membres:</h3>
             <?php
             $members = $team->getMembers();
             foreach ($members as $member) {
-                echo $member['role'] . ': ' . $member['user']->getFullName() . '<br>';
+                echo h($member['role']) . ': ' . h($member['user']->getFullName()) . '<br>';
             }
             ?>
             

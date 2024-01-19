@@ -35,9 +35,9 @@ $userList = $users->getEveryOtherUsers($userId);
 <div class="grid-container">
     <?php foreach ($userList as $user): ?>
         <div class="user-card">
-            <h3><?= $user->getFirstName() . ' ' . $user->getLastName(); ?></h3>
-            <p>Email: <?= $user->getEmail(); ?></p>
-            <p>Year: <?= $user->getYear(); ?></p>
+            <h3><?= h($user->getFirstName()) . ' ' . h($user->getLastName()); ?></h3>
+            <p>Email: <?= h($user->getEmail()); ?></p>
+            <p>Year: <?= h($user->getYear()); ?></p>
             
             <!-- Formulaire avec le bouton "Ajouter à une équipe" -->
             <form action='../../scripts/gestion_notifications.php' method="post">
