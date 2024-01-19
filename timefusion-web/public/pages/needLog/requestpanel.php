@@ -1,9 +1,10 @@
 <?php
 include __DIR__ .'/../../scripts/bootstrap.php';
 include __DIR__ .'/../../scripts/Request/Requests.php';  
-include __DIR__ .'/../../includes/header.php';
 
 sess_exists();
+
+include __DIR__ .'/../../includes/header.php';
 
 $mysqli = connectDB();
 $requests = new TimeFusion\Request\Requests($mysqli);

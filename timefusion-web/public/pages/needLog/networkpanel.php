@@ -3,10 +3,9 @@
 include __DIR__ .'/../../scripts/bootstrap.php';
 include __DIR__ .'/../../scripts/Team/Users.php';  
 
-include __DIR__ .'/../../includes/header.php';
-
 sess_exists();
- 
+
+include __DIR__ .'/../../includes/header.php';
 
 $mysqli = connectDB();
 $users = new TimeFusion\Team\Users($mysqli);

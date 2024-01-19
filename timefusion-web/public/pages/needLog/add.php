@@ -5,9 +5,9 @@ include __DIR__ .'/../../scripts/Calendar/EventValidator.php';
 include __DIR__ .'/../../scripts/Calendar/Events.php';
 include __DIR__ .'/../../scripts/Calendar/Event.php';  
 
-include __DIR__ .'/../../includes/header.php';
-
 sess_exists();
+
+include __DIR__ .'/../../includes/header.php';
 
 $data = [];
 $errors = [];

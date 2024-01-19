@@ -1,5 +1,8 @@
 <?php 
 include __DIR__ . '/../../scripts\bootstrap.php';
+
+sess_exists();
+
 include __DIR__ . '/../../includes/header.php'; 
 ?>
 

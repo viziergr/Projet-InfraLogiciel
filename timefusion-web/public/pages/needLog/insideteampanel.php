@@ -1,12 +1,13 @@
 <?php
 include __DIR__ .'/../../scripts/bootstrap.php';
 include __DIR__ .'/../../scripts/Team/Teams.php';  
-include __DIR__ .'/../../includes/header.php';
 
 sess_exists();
 
+include __DIR__ .'/../../includes/header.php';
+
 $mysqli = connectDB();
-$requests = new TimeFusion\Team\Teams($mysqli);
+$members = new TimeFusion\Team\Teams($mysqli);
 
 // Supposons que vous ayez un mécanisme d'authentification qui donne l'ID de l'utilisateur connecté
 $userId = $_SESSION['compte']; // Assurez-vous de récupérer l'ID de l'utilisateur correctement
