@@ -11,12 +11,12 @@ if (isset($_POST['inscription_submit']) && $_POST['inscription_submit'] == 2) {
         isset($_POST['mail']) && isset($_POST['pwd']) && isset($_POST['cpwd'])
     ) {
 
-        $nom = $_POST['fname'];
-        $prenom = $_POST['lname'];
-        $annee = $_POST['year'];
-        $email = $_POST['mail'];
-        $pwd = $_POST['pwd'];
-        $cpwd = $_POST['cpwd'];
+        $nom = h($_POST['fname']);
+        $prenom = h($_POST['lname']);
+        $annee = h($_POST['year']);
+        $email = h($_POST['mail']);
+        $pwd = h($_POST['pwd']);
+        $cpwd = h($_POST['cpwd']);
 
         $mail_escaped = $mysqli->real_escape_string(trim($email));
         $password_escaped = $mysqli->real_escape_string(trim($pwd));
@@ -27,7 +27,7 @@ if (isset($_POST['inscription_submit']) && $_POST['inscription_submit'] == 2) {
 
         if ($email_result->num_rows > 0) {
             // L'email existe déjà dans la base de données
-            echo "Cet e-mail est déjà associé à un compte existant.";
+            $error = "Cet e-mail est déjà associé à un compte existant.";
         }else{
             if ($pwd == $cpwd) {
                 // Requête SQL pour insérer l'étudiant dans la table
@@ -45,19 +45,11 @@ if (isset($_POST['inscription_submit']) && $_POST['inscription_submit'] == 2) {
                 }
 
             } else {
-                echo "Le mot de passe n'est pas le même.";
+                $error = "Le mot de passe n'est pas le même.";
             }
         }
     } else {
-        echo "Tous les champs du formulaire doivent être remplis.";
-
-        //Affichage de l'état de chaque condition
-        echo "isset(fname): " . isset($_POST['fname']) . "<br>";
-        echo "isset(lname): " . isset($_POST['lname']) . "<br>";
-        echo "isset(year): " . isset($_POST['year']) . "<br>";
-        echo "isset(mail): " . isset($_POST['mail']) . "<br>";
-        echo "isset(pwd): " . isset($_POST['pwd']) . "<br>";
-        echo "isset(cpwd): " . isset($_POST['cpwd']) . "<br>";
+        $error = "Tous les champs du formulaire doivent être remplis.";
     }
 
     $mysqli->close();

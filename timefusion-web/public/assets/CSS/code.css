@@ -200,8 +200,8 @@
     width : 40%;
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Center items horizontally */
-    align-items: center; /* Center items vertically */
+    justify-content: center;
+    align-items: center; 
     background-color: #FFF;
     margin-left: 30%;
     border: 1px solid #000;

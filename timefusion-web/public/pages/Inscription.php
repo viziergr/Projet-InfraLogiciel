@@ -24,7 +24,14 @@
 
     <div class="inscription">
         <img src="../assets/pictures/Logo.png" alt="Logo Time Fusion">
-        <h1>Bienvenue</h1> 
+        <h1>Bienvenue</h1>
+        <?php if (isset($error)): ?>
+            <div class="container">
+                <div class="alert alert-success">
+                    <?= $error ?>
+                </div>
+            </div>
+        <?php endif; ?>
         <form method="post">
             <div>
                 <input type="text" id="prenom" name="fname" placeholder="Prénom" required><br><br>
