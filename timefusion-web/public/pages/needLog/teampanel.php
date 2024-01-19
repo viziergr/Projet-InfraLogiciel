@@ -45,6 +45,11 @@ include __DIR__ .'/../../includes/header.php';
                     <input type="hidden" name="team_id" value="<?php echo $team->getId(); ?>">
                     <button type="submit">Afficher l'agenda commun</button>
                 </form>
+
+                <form action="insideteampanel.php" method="post">
+                    <input type="hidden" name="team_id" value="<?php echo $team->getId(); ?>">
+                    <button type="submit">Gérer l'équipe</button>
+                </form>
             </div>
         </div>
     <?php
