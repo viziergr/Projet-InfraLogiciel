@@ -15,7 +15,6 @@ $users = new TimeFusion\Team\Users($mysqli);
 $userId = $_SESSION['compte']; // Assurez-vous de récupérer l'ID de l'utilisateur correctement
 
 $userList = $users->getEveryOtherUsers($userId);
-dd($_GET);
 
 ?>
 

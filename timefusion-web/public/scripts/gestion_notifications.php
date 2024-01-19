@@ -69,11 +69,9 @@ function demanderARejoindre() {
     // Envoi de l'invitation
     $requests->envoyerInvitation($guestId, $teamId);
 
-    // // Rediriger ou afficher un message de succès, etc.
-    // header('Location: /pages/needLog/networkpanel.php?demande_envoyee=1&team_id=' . $teamId . '');
-    // exit();
-
-    dd('ok');
+    // Rediriger ou afficher un message de succès, etc.
+    header('Location: /pages/needLog/networkpanel.php?demande_envoyee=1&team_id=' . $teamId . '');
+    exit();
 }
 
 
