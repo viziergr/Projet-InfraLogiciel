@@ -27,7 +27,7 @@ $user = $users->getUserById($_SESSION['compte']);
             </div>
         </div>
         <h1>TimeFusion</h1>
-        <a href="index.html">
+        <a href="/index.html">
             <img id ="logo" src="/assets/pictures/Logo.png">
         </a>
     </div>

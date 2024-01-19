@@ -581,20 +581,24 @@
     margin-bottom: 20%;
 }
 
+
 .dropdown {
-    top:0;
-    margin : 1%;
+    top: 0;
+    margin: 1%;
+    position: relative; /* Ajoutez position relative */
 }
 
-.dropdown-content {
+.dropdown-content a{
     display: none;
     position: absolute;
-    background-color: #5458b8;
-    min-width: 90%;
+    background-color: #000352;
+    min-width: 300px; /* Ajustez la largeur selon vos besoins */
     min-height: auto;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     padding: 1%;
     z-index: 1;
+    right: 0;
+    border: 2px solid #ffffff; /* Ajoutez cette ligne pour définir le contour en blanc */
 }
 
 .dropdown:hover .dropdown-content {
