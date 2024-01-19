@@ -15,8 +15,9 @@ $userId = $_SESSION['compte']; // Assurez-vous de récupérer l'ID de l'utilisat
 $userRequests = $requests->getUserRequests($userId);
 ?>
 
-<div class="request-container">
-    <?php foreach ($userRequests as $request): ?>
+
+<?php foreach ($userRequests as $request): ?>
+    <div class="request-container">
         <h3>L'équipe: <?= $request->getTeamName() ?> vous envoie une invitation à les rejoindre</h3>
         
         <!-- Ajout des boutons Accepter et Refuser -->
@@ -25,8 +26,9 @@ $userRequests = $requests->getUserRequests($userId);
             <button type="submit" name="accept_request">Accepter</button>
             <button type="submit" name="reject_request">Refuser</button>
         </form>
-    <?php endforeach; ?>
-</div>
+    </div>
+<?php endforeach; ?>
+
 
 </body>
 </html>

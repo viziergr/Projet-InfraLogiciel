@@ -21,8 +21,9 @@ if(isset($_POST['team_id'])) {
 $members = $members->getMembersByTeamId($team_id);
 ?>
 
-<div class="request-container">
-    <?php foreach ($members as $member): ?>
+
+<?php foreach ($members as $member): ?>
+    <div class="request-container">
         <h3>'Nom' 'Prenom': 'Role' de l'équipe</h3>
         
         <!-- Ajout des boutons Accepter et Refuser -->
@@ -31,8 +32,8 @@ $members = $members->getMembersByTeamId($team_id);
             <button type="submit" name="accept_request">Promouvoir</button>
             <button type="submit" name="reject_request">Relèguer</button>
         </form>
-    <?php endforeach; ?>
-</div>
+    </div>
+<?php endforeach; ?>
 
 </body>
 </html>
