@@ -11,7 +11,9 @@ class Team
     
     private $id;
 
-    public function __construct(string $name = null, array $members = [], string $color = "#000352")
+    private $description;
+
+    public function __construct(string $name = null, array $members = [], string $color = "#000352", $description = null)
     {
         $this->name = $name;
         $this->members = $members;
@@ -68,6 +70,14 @@ class Team
     public function setMembers($members)
     {
         $this->members = $members;
+    }
+
+    public function getDescription(){
+        return $this->description;
+    }
+
+    public function setDescription($description){
+        $this->description = $description;
     }
 
 }

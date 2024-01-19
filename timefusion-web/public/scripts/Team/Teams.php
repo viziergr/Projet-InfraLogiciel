@@ -157,13 +157,14 @@ class Teams
         if($userId == null) {
             return "Grosse erreur";
         }
-        $sql = "INSERT INTO team (team_name, color) VALUES (?, ?)";
+        $sql = "INSERT INTO team (team_name, color, description) VALUES (?, ?, ?)";
         $stmt = $this->mysqli->prepare($sql);
         if (!$stmt) {return false;}
         
         // Extraire les valeurs des méthodes de l'objet Event
         $name = $team->getName();
         $color = $team->getColor();
+        $description = $team->getDescription();
         // Bind parameters avec des variables
         $stmt->bind_param("ss", $name, $color);
         // Exécuter la requête
