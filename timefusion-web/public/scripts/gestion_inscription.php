@@ -11,12 +11,12 @@ if (isset($_POST['inscription_submit']) && $_POST['inscription_submit'] == 2) {
         isset($_POST['mail']) && isset($_POST['pwd']) && isset($_POST['cpwd'])
     ) {
 
-        $nom = h($_POST['fname']);
-        $prenom = h($_POST['lname']);
-        $annee = h($_POST['year']);
-        $email = h($_POST['mail']);
-        $pwd = h($_POST['pwd']);
-        $cpwd = h($_POST['cpwd']);
+        $nom = $_POST['fname'];
+        $prenom = $_POST['lname'];
+        $annee = $_POST['year'];
+        $email = $_POST['mail'];
+        $pwd = $_POST['pwd'];
+        $cpwd = $_POST['cpwd'];
 
         $mail_escaped = $mysqli->real_escape_string(trim($email));
         $password_escaped = $mysqli->real_escape_string(trim($pwd));

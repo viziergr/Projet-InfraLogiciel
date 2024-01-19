@@ -41,13 +41,13 @@ $user = $users->getUserById($_SESSION['compte']);
 
             <?php        
 
-            echo '<p id="fname"> Prénom : ' . $user->getFirstName() . '</p>';
+            echo '<p id="fname"> Prénom : ' . h($user->getFirstName()) . '</p>';
 
-            echo '<p id="lname"> Nom : ' . $user->getLastName() . '</p>';
+            echo '<p id="lname"> Nom : ' . h($user->getLastName()) . '</p>';
 
-            echo '<p id="email"> Email : ' . $user->getEmail() . '</p>';
+            echo '<p id="email"> Email : ' . h($user->getEmail()) . '</p>';
 
-            echo '<p id="year"> Date d\'anniversaire : ' . (new \DateTime($user->getYear()))->format('d/m/Y') . '</p>';
+            echo '<p id="year"> Date d\'anniversaire : ' . h((new \DateTime($user->getYear()))->format('d/m/Y')) . '</p>';
 
             ?>
 
@@ -55,7 +55,7 @@ $user = $users->getUserById($_SESSION['compte']);
 
         <div class="modif">
             <a href="newPassword.php">
-                <p> Modifier votre mot de passe </p>
+                Modifier votre mot de passe
             </a>
         </div>
     </div>
