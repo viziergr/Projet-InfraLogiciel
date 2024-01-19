@@ -3,7 +3,6 @@
 namespace TimeFusion\Team;
 
 include __DIR__ . '/Team.php';
-include __DIR__ . '/User.php';
 
 class Teams
 {
