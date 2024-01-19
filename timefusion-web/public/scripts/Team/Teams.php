@@ -153,18 +153,23 @@ class Teams
     
     
 
-    public function create(Team $team, $userId) {
+    public function create(Team $team, $userId, $description = null) {
         if($userId == null) {
             return "Grosse erreur";
         }
+        if($description == null) {
+            $description = "Aucune description";
+        }
         $sql = "INSERT INTO team (team_name, color, description) VALUES (?, ?, ?)";
         $stmt = $this->mysqli->prepare($sql);
-        if (!$stmt) {return false;}
+        if (!$stmt) {
+            dd('error1');
+            return false;
+        }
         
         // Extraire les valeurs des méthodes de l'objet Event
         $name = $team->getName();
         $color = $team->getColor();
-        $description = $team->getDescription();
         // Bind parameters avec des variables
         $stmt->bind_param("ss", $name, $color);
         // Exécuter la requête
@@ -187,6 +192,7 @@ class Teams
     
         if (!$stmt) {
             // Gérer l'erreur, par exemple, retourner false ou lever une exception
+            dd('error2');
             return false;
         }
     

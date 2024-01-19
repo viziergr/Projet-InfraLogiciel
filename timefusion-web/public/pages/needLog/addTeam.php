@@ -12,7 +12,6 @@ $errors = [];;
 
 $mysqli = connectDB();
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
-    dd($_POST); 
     $data = $_POST;
     $userId = $_SESSION['compte'];
     if(isset($_POST['name']) && isset($_POST['color']) && !empty($_POST['name']) && estCouleurValide($_POST['color'])){
@@ -21,6 +20,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         if($team==null) {
             $errors = ['teamExists'];
         }else{
+            dd($_POST); 
             $teams->create($team, $userId);
             // header('Location: Calendrier.php?success=3');
             exit();
