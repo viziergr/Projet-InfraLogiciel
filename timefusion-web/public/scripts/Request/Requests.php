@@ -156,13 +156,14 @@ class Requests
             if (!$stmt) {
                 throw new \Exception("Erreur lors de la préparation de la requête d'insertion de demande d'invitation.");
             }
-    
             $stmt->bind_param("ii", $guestId, $teamId);
             $stmt->execute();
             $stmt->close();
     
             // Valider la transaction
             $this->mysqli->commit();
+            header('Location: /pages/needLog/networkpanel.php?demande_envoyee=1&team_id=' . $teamId . '&param=' . urlencode($teamId. $guestId));
+            
         } catch (\Exception $e) {
             // En cas d'erreur, annuler la transaction et rediriger avec un message d'erreur
             $this->mysqli->rollback();
