@@ -21,3 +21,39 @@
     -fx-border-color: white;
     -fx-border-width: 0 0 0 1;
 }
+
+.appointment-private{
+    -fx-background-color: #898686;
+    -fx-background-radius: 3.0;
+    -fx-border-radius: 3.0;
+    -fx-padding: 0 2 2 1;
+    -fx-background-insets: 0 2 2 1;
+}
+
+.appointment-private .leftbar{
+    -fx-background-color: #5c5c5c;
+    -fx-background-radius: 3 0 0 3;
+}
+
+.appointment-private .lblStartTime{
+    -fx-font-size: 10;
+    -fx-text-fill: #000000;
+}
+
+.appointment-offline{
+    -fx-background-color: #cbeaf4;
+    -fx-background-radius: 3.0;
+    -fx-border-radius: 3.0;
+    -fx-padding: 0 2 2 1;
+    -fx-background-insets: 0 2 2 1;
+}
+
+.appointment-offline .leftbar{
+    -fx-background-color: #94d4f0;
+    -fx-background-radius: 3 0 0 3;
+}
+
+.appointment-offline .lblStartTime{
+    -fx-font-size: 10;
+    -fx-text-fill: #000000;
+}

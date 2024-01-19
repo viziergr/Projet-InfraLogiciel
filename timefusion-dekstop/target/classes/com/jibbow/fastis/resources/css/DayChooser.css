@@ -8,7 +8,7 @@
 
 .daychooser-day:hover {
     -fx-background-color: lightgray;
-    -fx-text-fill: gray
+    -fx-text-fill: gray;
 }
 
 .daychooser-weekend {

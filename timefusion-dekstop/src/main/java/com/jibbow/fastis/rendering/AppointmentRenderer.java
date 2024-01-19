@@ -36,7 +36,7 @@ public class AppointmentRenderer {
             )
             .toExternalForm()
         );
-      p.getStyleClass().add("appointment");
+      p.getStyleClass().add("appointment-offline"); //appointment
 
       VBox content = new VBox();
 
@@ -54,10 +54,17 @@ public class AppointmentRenderer {
       leftBar.getStyleClass().add("leftbar");
       leftBar.setPrefWidth(5.0);
 
+      p.setOnMouseClicked(event -> handleAppointmentClick(appointment));
+
       p.setLeft(leftBar);
       p.setCenter(content);
       p.setMargin(content, new Insets(0.0, 5.0, 0.0, 5.0));
       return p;
     }
+  }
+
+  private static void handleAppointmentClick(Appointment appointment) {
+    System.out.println("Clicked on appointment: " + appointment.toString());
+    // Add your custom logic here
   }
 }
