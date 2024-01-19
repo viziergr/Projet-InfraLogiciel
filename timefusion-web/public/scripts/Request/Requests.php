@@ -15,17 +15,29 @@ class Requests
     // Récupérer les équipes d'un utilisateur
     // Récupérer les équipes d'un utilisateur avec leurs membres
     public function getUserRequests($userId)
-    {
-        $result = $this->mysqli->query("SELECT requests.*, name
+{
+    try {
+        // Utilisation d'une requête préparée pour éviter les injections SQL
+        $stmt = $this->mysqli->prepare("SELECT requests.*, name
                                         FROM requests
                                         JOIN team ON requests.team_id = team.id
-                                        WHERE requests.user_id = '$userId' AND requests.status = 'en_attente'");
-        
-        
-        if (!$result) {
-            die('Erreur SQL : ' . $this->mysqli->error);
+                                        WHERE requests.user_id = ? AND requests.status = 'en_attente'");
+
+        if (!$stmt) {
+            throw new \Exception("Erreur lors de la préparation de la requête : " . $this->mysqli->error);
         }
-        
+
+        // Liaison des paramètres et exécution de la requête
+        $stmt->bind_param("i", $userId);
+        $stmt->execute();
+
+        // Récupération du résultat
+        $result = $stmt->get_result();
+
+        if (!$result) {
+            throw new \Exception("Erreur lors de l'exécution de la requête : " . $this->mysqli->error);
+        }
+
         $requests = [];
 
         while ($row = $result->fetch_assoc()) {
@@ -43,7 +55,14 @@ class Requests
         }
 
         return $requests;
+    } catch (\Exception $e) {
+        // Gérer l'erreur, par exemple, en journalisant l'erreur ou en renvoyant une valeur par défaut
+        // Dans cet exemple, on renvoie une liste vide en cas d'erreur
+        error_log("Erreur dans getUserRequests : " . $e->getMessage());
+        return [];
     }
+}
+
 
     public function refuserDemande($requestId) {
         // Mettre à jour le statut de la demande dans la base de données
