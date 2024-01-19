@@ -27,7 +27,7 @@ function traiterAcceptation() {
     $requests->accepterDemande($requestId);
 
     // Rediriger ou afficher un message de succès, etc.
-    header('Location: /PHP/public/needLog/requestpanel.php');
+    header('Location: /pages/needLog/requestpanel.php');
     exit();
 }
 
@@ -42,7 +42,7 @@ function traiterRefus() {
     $requests->refuserDemande($requestId);
 
     // Rediriger ou afficher un message de succès, etc.
-    header('Location: /PHP/public/needLog/requestpanel.php');
+    header('Location: /pages/needLog/requestpanel.php');
     exit();
 }
 
@@ -61,7 +61,7 @@ function demanderARejoindre() {
         if ($existingRequest->getTeamId() == $teamId && $existingRequest->getUserId() == $guestId && $existingRequest->getStatus() == 'en_attente') {
             // L'utilisateur a déjà une invitation en attente pour rejoindre cette équipe
             // Vous pouvez rediriger ou afficher un message d'erreur ici
-            header('Location: /PHP/public/needLog/networkpanel.php?demande_envoyee=2&team_id=' . $teamId . '');
+            header('Location: /pages/needLog/networkpanel.php?demande_envoyee=2&team_id=' . $teamId . '');
             exit();
         }
     }
@@ -70,7 +70,7 @@ function demanderARejoindre() {
     $requests->envoyerInvitation($guestId, $teamId);
 
     // Rediriger ou afficher un message de succès, etc.
-    header('Location: /PHP/public/needLog/networkpanel.php?demande_envoyee=1&team_id=' . $teamId . '');
+    header('Location: /pages/needLog/networkpanel.php?demande_envoyee=1&team_id=' . $teamId . '');
     exit();
 
 }

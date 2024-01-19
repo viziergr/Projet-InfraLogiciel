@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 ?>
 
-<?php if($errors != ''): ?>
+<?php if($errorMessage != ''): ?>
     <div class="alert alert-danger">
         <?= $errorMessage; ?>
     </div> 

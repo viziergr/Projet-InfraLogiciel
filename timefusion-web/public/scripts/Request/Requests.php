@@ -116,7 +116,7 @@ class Requests
         $userExists = $this->checkUserExists($guestId);
     
         if (!$userExists) {
-            header('Location: /PHP/public/needLog/networkpanel.php?demande_envoyee=2&team_id=' . $teamId . '');
+            header('Location: /pages/needLog/networkpanel.php?demande_envoyee=2&team_id=' . $teamId . '');
             exit();
         }
     
@@ -124,7 +124,7 @@ class Requests
         $teamExists = $this->checkTeamExists($teamId);
     
         if (!$teamExists) {
-            header('Location: /PHP/public/needLog/networkpanel.php?demande_envoyee=2&team_id=' . $teamId . '');
+            header('Location: /pages/needLog/networkpanel.php?demande_envoyee=2&team_id=' . $teamId . '');
             exit();
         }
     
