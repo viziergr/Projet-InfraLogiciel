@@ -153,61 +153,73 @@ class Teams
     
     
 
-    public function create(Team $team, $userId, $description = null) {
-        if($userId == null) {
-            return "Grosse erreur";
-        }
-        if($description == null) {
-            $description = "Aucune description";
-        }
-        $sql = "INSERT INTO team (name, color, description) VALUES (?, ?, ?)";
-        $stmt = $this->mysqli->prepare($sql);
-        if (!$stmt) {
-            dd('error1');
+    public function create(Team $team, $userId) {
+        try {
+            if ($userId == null) {
+                throw new Exception("L'identifiant de l'utilisateur est manquant");
+            }
+    
+            $this->mysqli->begin_transaction();
+    
+            // Insertion de l'équipe
+            $sqlInsertTeam = "INSERT INTO team (name, color, description) VALUES (?, ?, ?)";
+            $stmtInsertTeam = $this->mysqli->prepare($sqlInsertTeam);
+            if (!$stmtInsertTeam) {
+                throw new Exception("Erreur lors de la préparation de la requête d'insertion d'équipe");
+            }
+    
+            $name = $team->getName();
+            $color = $team->getColor();
+            $description = $team->getDescription() ?? "Aucune description";
+    
+            $stmtInsertTeam->bind_param("sss", $name, $color, $description);
+            $stmtInsertTeam->execute();
+            $stmtInsertTeam->close();
+    
+            // Récupération de l'ID de l'équipe nouvellement créée
+            $sqlSelectTeamId = "SELECT id FROM team WHERE name = ? LIMIT 1";
+            $stmtSelectTeamId = $this->mysqli->prepare($sqlSelectTeamId);
+            if (!$stmtSelectTeamId) {
+                throw new Exception("Erreur lors de la préparation de la requête de sélection de l'ID de l'équipe");
+            }
+    
+            $stmtSelectTeamId->bind_param("s", $name);
+            $stmtSelectTeamId->execute();
+            $resultSelectTeamId = $stmtSelectTeamId->get_result();
+    
+            if (!$resultSelectTeamId) {
+                throw new Exception("Erreur lors de l'exécution de la requête de sélection de l'ID de l'équipe");
+            }
+    
+            $row = $resultSelectTeamId->fetch_assoc();
+            $teamId = $row['id'];
+    
+            $stmtSelectTeamId->close();
+    
+            // Insertion de l'appartenance à l'équipe
+            $sqlInsertTeamMembership = "INSERT INTO team_membership (team_id, user_id, role) VALUES (?, ?, ?)";
+            $stmtInsertTeamMembership = $this->mysqli->prepare($sqlInsertTeamMembership);
+    
+            if (!$stmtInsertTeamMembership) {
+                throw new Exception("Erreur lors de la préparation de la requête d'insertion de l'appartenance à l'équipe");
+            }
+    
+            $role = 'Leader';
+    
+            $stmtInsertTeamMembership->bind_param("iss", $teamId, $userId, $role);
+            $stmtInsertTeamMembership->execute();
+            $stmtInsertTeamMembership->close();
+    
+            $this->mysqli->commit();
+        } catch (Exception $e) {
+            // En cas d'erreur, annuler la transaction et gérer l'exception
+            $this->mysqli->rollback();
+            dd('Erreur : ' . $e->getMessage());
             return false;
         }
-        
-        // Extraire les valeurs des méthodes de l'objet Event
-        $name = $team->getName();
-        $color = $team->getColor();
-        // Bind parameters avec des variables
-        $stmt->bind_param("ss", $name, $color);
-        // Exécuter la requête
-        $result = $stmt->execute();
-        // Fermer le statement
-        $stmt->close();
-
-        $sql = "SELECT id FROM team WHERE name = '$name' LIMIT 1";
-        // Exécution de la requête
-        $result = $this->mysqli->query($sql);
-        // Vérification des erreurs
-        if (!$result) {
-            die("Erreur dans la requête : " . $this->mysqli->error);
-        }
-        // Récupération du résultat
-        $row = $result->fetch_assoc();
-        
-        $sql = "INSERT INTO team_membership (team_id, user_id, role) VALUES (?, ?, ?)";
-        $stmt = $this->mysqli->prepare($sql);
     
-        if (!$stmt) {
-            // Gérer l'erreur, par exemple, retourner false ou lever une exception
-            dd('error2');
-            return false;
-        }
-    
-        // Extraire les valeurs des méthodes de l'objet Event
-        $team_id = $row['id'];
-        $role = 'Leader';
-    
-        // Bind parameters avec des variables
-        $stmt->bind_param("sss", $team_id, $userId, $role);
-    
-        // Exécuter la requête
-        $result = $stmt->execute();
-    
-        // Fermer le statement
-        $stmt->close();
+        return true;
     }
+    
 
 }
