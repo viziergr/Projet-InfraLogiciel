@@ -65,6 +65,5 @@ public class AppointmentRenderer {
 
   private static void handleAppointmentClick(Appointment appointment) {
     System.out.println("Clicked on appointment: " + appointment.toString());
-    // Add your custom logic here
   }
 }

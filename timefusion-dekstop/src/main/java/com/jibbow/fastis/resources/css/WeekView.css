@@ -65,6 +65,11 @@
 
 .label-date {
     -fx-padding: 5 0 11 0;
+    -fx-effect: dropshadow(three-pass-box, gray, 2, 0.0, 0, 0);
+}
+.label-date:hover {
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, gray, 5, 0.0, 0, 0);
 }
 
 .day-chooser .context-menu {
@@ -93,6 +98,7 @@
 }
 .header-button:hover {
     -fx-effect: dropshadow(three-pass-box, gray, 5, 0.0, 0, 0);
+    -fx-cursor: hand;
 }
 
 /*

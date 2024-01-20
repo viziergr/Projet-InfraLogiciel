@@ -1,7 +1,5 @@
 package com.timefusion.jfxcalendar.controllers;
 
-import com.jibbow.fastis.WeekView;
-import java.net.URL;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -20,22 +18,7 @@ public class OnlineOfflineSwitch extends Application {
   // }
 
   public static void main(String[] args) {
-    System.out.println(start());
-  }
-
-  public static int start() {
-    // Assuming the resource is in the same class's package
-    if (
-      OnlineOfflineSwitch.class.getResource(
-          "/com/jibbow/fastis/WeekView.css"
-        ) !=
-      null
-    ) {
-      System.out.println("Found styles.css");
-    } else {
-      System.out.println("Did not find styles.css");
-    }
-    return 0;
+    launch(args);
   }
 
   @Override
@@ -65,7 +48,6 @@ public class OnlineOfflineSwitch extends Application {
 
   private StackPane createSwitchContainer(ToggleButton switchButton) {
     StackPane switchContainer = new StackPane(switchButton);
-    switchContainer.getStyleClass().add("switch-container");
     return switchContainer;
   }
 

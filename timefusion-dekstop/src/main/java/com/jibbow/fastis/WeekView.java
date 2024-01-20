@@ -7,6 +7,8 @@ import com.jibbow.fastis.rendering.AbstractAppointmentFactory;
 import com.jibbow.fastis.rendering.FlexAppointmentFactory;
 import com.jibbow.fastis.rendering.WeekViewRenderer;
 import com.jibbow.fastis.util.TimeInterval;
+import com.timefusion.jfxcalendar.controllers.AddEventDialogController;
+import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -18,12 +20,16 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ListChangeListener;
 import javafx.collections.transformation.FilteredList;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.VPos;
 import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
+import javafx.stage.Stage;
 
 /**
  * Created by Jibbow on 8/12/17.
@@ -116,6 +122,15 @@ public class WeekView extends CalendarView {
           setContent();
         }
       );
+    // Button addButton = new Button("Add Event");
+    // addButton.setOnAction(event -> handleAddEventButtonClick());
+
+    // // Create a VBox to hold the button
+    // VBox buttonContainer = new VBox(addButton);
+    // buttonContainer.getStyleClass().add("addEventButton");
+
+    // // Add the button container to the WeekView layout
+    // super.getChildren().add(buttonContainer);
   }
 
   private void setLayout() {
@@ -349,5 +364,32 @@ public class WeekView extends CalendarView {
 
   public void update() {
     this.setContent();
+  }
+
+  // Event handler for the "Add Event" button click
+  private void handleAddEventButtonClick() {
+    try {
+      System.out.println("Add Event button clicked");
+      // Load the FXML file for the AddEventDialog
+      FXMLLoader loader = new FXMLLoader(
+        getClass()
+          .getResource("/com/jibbow/fastis/resources/fxml/AddEventDialog.fxml")
+      );
+      VBox dialog = loader.load();
+
+      // Instantiate the controller (if needed)
+      AddEventDialogController controller = loader.getController();
+
+      // Perform any actions using methods from AddEventDialogController
+      // For example, you can show the dialog
+      controller.eventIsPrivate();
+      Scene scene = new Scene(dialog);
+      Stage stage = new Stage();
+      stage.setScene(scene);
+      stage.show();
+      // Handle other actions as needed
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 }

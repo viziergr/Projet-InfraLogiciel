@@ -6,6 +6,11 @@
     -fx-background-insets: 0 2 2 1;
 }
 
+.appointment:hover{
+    -fx-effect: dropshadow(three-pass-box, gray, 5, 0.0, 0, 0);
+    -fx-cursor:hand;
+}
+
 .appointment .leftbar {
     -fx-background-color: #ff7043;
     -fx-background-radius: 3 0 0 3;
@@ -30,6 +35,11 @@
     -fx-background-insets: 0 2 2 1;
 }
 
+.appointment-private:hover{
+    -fx-effect: dropshadow(three-pass-box, gray, 5, 0.0, 0, 0);
+    -fx-cursor:hand;
+}
+
 .appointment-private .leftbar{
     -fx-background-color: #5c5c5c;
     -fx-background-radius: 3 0 0 3;
@@ -46,6 +56,11 @@
     -fx-border-radius: 3.0;
     -fx-padding: 0 2 2 1;
     -fx-background-insets: 0 2 2 1;
+}
+
+.appointment-offline:hover{
+    -fx-effect: dropshadow(three-pass-box, gray, 5, 0.0, 0, 0);
+    -fx-cursor:hand;
 }
 
 .appointment-offline .leftbar{
