@@ -21,9 +21,9 @@ echo "START - Table team"
 mysql TimeFusion < /var/www/html/git/Projet-InfraLogiciel/sql/team.sql
 echo "END - Table team"
 
-echo "START - Table team_memberships"
-mysql TimeFusion < /var/www/html/git/Projet-InfraLogiciel/sql/team_memberships.sql
-echo "END - Table team_memberships"
+echo "START - Table team_membership"
+mysql TimeFusion < /var/www/html/git/Projet-InfraLogiciel/sql/team_membership.sql
+echo "END - Table team_membership"
 
 echo "START - Table event"
 mysql TimeFusion < /var/www/html/git/Projet-InfraLogiciel/sql/event.sql
