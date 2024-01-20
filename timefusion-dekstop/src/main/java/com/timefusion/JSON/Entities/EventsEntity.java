@@ -25,7 +25,7 @@ public class EventsEntity {
   private LocalDateTime endTime;
   private ParticipantsEntity[] participants;
 
-  private static int nextNegativeId = -1;
+  private static int nextNegativeId = getLastOfflineId();
 
   public static final String EVENTS_ENTITY_NAME = "events";
   public static final int EVENTS_ENTITY_POSITION = 4;
@@ -175,7 +175,8 @@ public class EventsEntity {
   }
 
   public static int generateNextOfflineId() {
-    return nextNegativeId--;
+    nextNegativeId--;
+    return nextNegativeId;
   }
 
   public static void resetNextNegativeId() {

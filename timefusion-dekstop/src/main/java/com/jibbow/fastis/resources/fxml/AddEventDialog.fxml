@@ -21,7 +21,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fillWidth="false" maxHeight="346.0" maxWidth="359.0" minHeight="335.0" minWidth="359.0" prefHeight="346.0" prefWidth="359.0" spacing="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.timefusion.jfxcalendar.controllers.AddEventDialogController">
+<VBox fillWidth="false" maxHeight="346.0" maxWidth="359.0" minHeight="346.0" minWidth="359.0" prefHeight="346.0" prefWidth="359.0" spacing="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.jibbow.fastis.controlers.AddEventDialogController">
     <children>
         <TextField fx:id="titleField" maxHeight="34.0" maxWidth="305.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="34.0" prefWidth="305.0" promptText="Title" style="-fx-prompt-text-fill: #B2B2B2;">
             <font>

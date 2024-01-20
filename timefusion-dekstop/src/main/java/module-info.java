@@ -25,6 +25,7 @@ module com.timefusion {
   opens com.jibbow.fastis.rendering to javafx.fxml;
   opens com.jibbow.fastis.util to javafx.fxml;
   opens demo to javafx.fxml;
+  opens com.jibbow.fastis.controlers to javafx.fxml;
 
   exports com.timefusion.config ;
   exports com.timefusion.dao ;
@@ -46,4 +47,5 @@ module com.timefusion {
   exports com.jibbow.fastis.rendering ;
   exports com.jibbow.fastis.util ;
   exports demo ;
+  exports com.jibbow.fastis.controlers ;
 }

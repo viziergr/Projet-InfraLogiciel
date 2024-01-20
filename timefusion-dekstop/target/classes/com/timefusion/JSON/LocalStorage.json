@@ -104,6 +104,78 @@
             "email": "FirstNameuser2"
           }
         ]
+      },
+      {
+        "id": -1,
+        "nature": "Added",
+        "is_online": false,
+        "is_private": false,
+        "title": "Test 2",
+        "description": "Deuxieme test",
+        "location": "Saint Jean de Boiseau",
+        "start_time": "2024-01-21 10:00:00",
+        "end_time": "2024-01-21 14:00:00",
+        "participants": []
+      },
+      {
+        "id": -2,
+        "nature": "Added",
+        "is_online": false,
+        "is_private": false,
+        "title": "Test 3",
+        "description": "Deuxieme test",
+        "location": "Saint Jean de Boiseau",
+        "start_time": "2024-01-21 10:00:00",
+        "end_time": "2024-01-21 14:00:00",
+        "participants": []
+      },
+      {
+        "id": -3,
+        "nature": "Added",
+        "is_online": false,
+        "is_private": false,
+        "title": "Test 4",
+        "description": "Deuxieme test",
+        "location": "Saint Jean de Boiseau",
+        "start_time": "2024-01-21 10:00:00",
+        "end_time": "2024-01-21 14:00:00",
+        "participants": []
+      },
+      {
+        "id": -4,
+        "nature": "Added",
+        "is_online": false,
+        "is_private": false,
+        "title": "Test 5",
+        "description": "Deuxieme test",
+        "location": "Saint Jean de Boiseau",
+        "start_time": "2024-01-21 10:00:00",
+        "end_time": "2024-01-21 14:00:00",
+        "participants": []
+      },
+      {
+        "id": -5,
+        "nature": "Added",
+        "is_online": false,
+        "is_private": false,
+        "title": "Test7",
+        "description": "Test7 de",
+        "location": "Saint ",
+        "start_time": "2024-02-11 08:00:00",
+        "end_time": "2024-02-11 10:00:00",
+        "participants": []
+      },
+      {
+        "id": -6,
+        "nature": "Added",
+        "is_online": false,
+        "is_private": false,
+        "title": "Olivier ",
+        "description": "Sport ",
+        "location": "Saint Jean de Boiseau",
+        "start_time": "2024-01-28 10:00:00",
+        "end_time": "2024-01-28 11:00:00",
+        "participants": []
       }
     ]
   }
