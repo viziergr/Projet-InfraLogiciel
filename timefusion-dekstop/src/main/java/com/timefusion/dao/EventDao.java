@@ -148,14 +148,13 @@ public class EventDao extends GenericDao<Event> {
   public static void main(String[] args) throws SQLException {
     EventDao eventDao = new EventDao();
     Event event = new Event(
-      0,
-      "eventDenied",
+      "EventDao",
       LocalDateTime.now(),
       LocalDateTime.now(),
       "location",
       "description",
       false,
-      5
+      4
     );
     eventDao.insertEventRecord(event);
   }

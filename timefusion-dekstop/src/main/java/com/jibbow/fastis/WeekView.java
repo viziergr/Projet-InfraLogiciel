@@ -7,7 +7,6 @@ import com.jibbow.fastis.rendering.AbstractAppointmentFactory;
 import com.jibbow.fastis.rendering.FlexAppointmentFactory;
 import com.jibbow.fastis.rendering.WeekViewRenderer;
 import com.jibbow.fastis.util.TimeInterval;
-import java.net.URL;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;

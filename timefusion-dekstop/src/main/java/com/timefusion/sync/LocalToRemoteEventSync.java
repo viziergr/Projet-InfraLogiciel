@@ -4,11 +4,8 @@ import com.timefusion.JSON.Entities.EventNature;
 import com.timefusion.JSON.Entities.EventsEntity;
 import com.timefusion.dao.EventDao;
 import com.timefusion.dao.EventParticipantDao;
-import com.timefusion.dao.GenericDao;
 import com.timefusion.model.Event;
-import com.timefusion.util.DatabaseUtil;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -117,7 +114,7 @@ public class LocalToRemoteEventSync {
   }
 
   public static boolean isEventInvitation(int eventId) {
-    // Ajouter un champ au json isInvited? Mettre cette fonction dans EventsEntity
+    //TODO: Ajouter un champ au json isInvited? Mettre cette fonction dans EventsEntity
     return false;
   }
 

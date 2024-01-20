@@ -155,7 +155,7 @@ public class EventParticipantDao extends GenericDao<EventParticipant> {
   public static void main(String[] args) {
     try {
       EventParticipantDao eventParticipantDao = new EventParticipantDao();
-      EventParticipant eventparticipant = new EventParticipant(0, 4, 18);
+      EventParticipant eventparticipant = new EventParticipant(5, 19);
       eventParticipantDao.insertEventParticipantRecord(eventparticipant);
       //   eventParticipantDao.deleteTEventParticipantRecord(eventparticipant);
     } catch (Exception e) {

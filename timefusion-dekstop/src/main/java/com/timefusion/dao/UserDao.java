@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class UserDao extends GenericDao<User> {
 
-  public static final String TABLE_NAME = "User";
+  public static final String TABLE_NAME = "user";
   private final Map<String, Class<?>> schema = new HashMap<>();
 
   public UserDao() throws SQLException {

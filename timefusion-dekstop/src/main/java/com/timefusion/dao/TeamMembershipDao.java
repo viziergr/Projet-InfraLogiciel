@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class TeamMembershipDao extends GenericDao<TeamMembership> {
 
-  private static final String TABLE_NAME = "team_memberships";
+  private static final String TABLE_NAME = "team_membership";
   private final Map<String, Class<?>> schema = new HashMap<>();
 
   public TeamMembershipDao() throws SQLException {
@@ -145,7 +145,7 @@ public class TeamMembershipDao extends GenericDao<TeamMembership> {
   public static void main(String[] args) {
     try {
       TeamMembershipDao teamMembershipDao = new TeamMembershipDao();
-      TeamMembership teamMembership = new TeamMembership(9, 1, "Leader");
+      TeamMembership teamMembership = new TeamMembership(4, 1, "Leader");
       teamMembershipDao.insertTeamMembershipRecord(teamMembership);
     } catch (SQLException e) {
       e.printStackTrace();

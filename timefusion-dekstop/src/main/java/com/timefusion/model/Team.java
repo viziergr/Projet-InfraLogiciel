@@ -1,41 +1,44 @@
 package com.timefusion.model;
 
-import java.time.LocalDateTime;
-
 public class Team {
 
   private int id;
   private String name;
   private String description;
+  private String color;
 
   /**
    * Represents a team in the application.
    * @param id the id of the team
    * @param name the name of the team
-   * @param createdAt the date and time of the creation of the team
-   * @param creator the creator of the team
    * @param description the description of the team
+   * @param color the color of the team
    */
-  public Team(int id, String name, String description) {
+  public Team(int id, String name, String description, String color) {
     this.id = id;
     this.name = name;
     this.description = description;
+    this.color = color;
   }
 
   /**
    * Represents a team in the application.
-   * @param name the name of the team
-   * @param createdAt the date and time of the creation of the team
-   * @param creator the creator of the team
+   *
+   * @param name        the name of the team
    * @param description the description of the team
+   * @param color       the color associated with the team
    */
-  public Team(
-    String name,
-    LocalDateTime createdAt,
-    User creator,
-    String description
-  ) {
-    this(0, name, description);
+  public Team(String name, String description, String color) {
+    this(0, name, description, color);
+  }
+
+  /**
+   * Constructor for Team
+   * @param name
+   * @param description
+   */
+  public Team(String name, String description) {
+    this(0, name, description, null);
   }
 
   /**
@@ -90,6 +93,24 @@ public class Team {
   }
 
   /**
+   * Returns the color of the team.
+   *
+   * @return the color of the team as a String.
+   */
+  public String getColor() {
+    return this.color;
+  }
+
+  /**
+   * Sets the color of the team.
+   *
+   * @param color the color to set
+   */
+  public void setColor(String color) {
+    this.color = color;
+  }
+
+  /**
    * Returns a string representation of the Team object.
    *
    * @return The string representation of the Team object.
@@ -97,17 +118,20 @@ public class Team {
   @Override
   public String toString() {
     return String.format(
-      "Team{id=%d, name='%s', description='%s'}",
+      "Team{id=%d, name='%s', description='%s', color='%s'}",
       id,
       name,
-      description
+      description,
+      color
     );
   }
 
   /**
-   * Returns a hash code value for the Team object.
+   * Compares this Team object with the specified object for equality.
+   * Returns true if the given object is also a Team and has the same values for id, name, description, and color.
    *
-   * @return A hash code value for the Team object.
+   * @param o the object to compare with
+   * @return true if the objects are equal, false otherwise
    */
   @Override
   public boolean equals(Object o) {
@@ -117,12 +141,8 @@ public class Team {
     return (
       this.id == team.id &&
       this.name.equals(team.name) &&
-      this.description.equals(team.description)
+      this.description.equals(team.description) &&
+      this.color.equals(team.color)
     );
-  }
-
-  public static void main(String[] args) {
-    Team team = new Team(1, "name", "description");
-    System.out.println(team);
   }
 }

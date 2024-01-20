@@ -184,9 +184,4 @@ public class User {
       Objects.equals(password, user.password)
     );
   }
-
-  public static void main(String[] args) {
-    User user = new User(1, "email", "firstName", "lastName", "password");
-    System.out.println(user);
-  }
 }

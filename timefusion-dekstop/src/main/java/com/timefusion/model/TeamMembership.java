@@ -13,7 +13,7 @@ public class TeamMembership {
   private String role;
 
   /**
-   * Constructor for TeamMemberships
+   * Constructor for TeamMembership
    * @param id
    * @param userId
    * @param teamId
@@ -26,8 +26,23 @@ public class TeamMembership {
     this.role = role;
   }
 
-  public TeamMembership(int userId, int teamId, String role) {
-    this(0, userId, teamId, role);
+  /**
+   * Represents a membership of a user in a team.
+   *
+   * @param userId the ID of the user
+   * @param teamId the ID of the team
+   */
+  public TeamMembership(int userId, int teamId) {
+    this(0, userId, teamId, "Member");
+  }
+
+  /**
+   * Represents a team membership.
+   *
+   * This class stores information about a user's membership in a team, including the user ID, team ID, and color.
+   */
+  public TeamMembership(int userId, int teamId, String color) {
+    this(0, userId, teamId, color);
   }
 
   /**
@@ -101,7 +116,7 @@ public class TeamMembership {
   @Override
   public String toString() {
     return (
-      "TeamMemberships {id=" +
+      "TeamMembership {id=" +
       id +
       ", userId=" +
       userId +

@@ -29,6 +29,8 @@ public class TeamDao extends GenericDao<Team> {
         return team.getName();
       case "description":
         return team.getDescription();
+      case "color":
+        return team.getColor();
       default:
         return null;
     }
@@ -45,7 +47,8 @@ public class TeamDao extends GenericDao<Team> {
     Team team = new Team(
       (int) result.get(0).get("id"),
       (String) result.get(0).get("name"),
-      (String) result.get(0).get("description")
+      (String) result.get(0).get("description"),
+      (String) result.get(0).get("color")
     );
 
     return team;
@@ -94,7 +97,8 @@ public class TeamDao extends GenericDao<Team> {
       Team team = new Team(
         (int) result.get("id"),
         (String) result.get("name"),
-        (String) result.get("description")
+        (String) result.get("description"),
+        (String) result.get("color")
       );
       teams.add(team);
     }
@@ -108,6 +112,7 @@ public class TeamDao extends GenericDao<Team> {
       schema.put("id", Long.class);
       schema.put("name", String.class);
       schema.put("description", String.class);
+      schema.put("color", String.class);
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -133,11 +138,7 @@ public class TeamDao extends GenericDao<Team> {
 
   public static void main(String[] args) throws SQLException {
     TeamDao teamDao = new TeamDao();
-    Team team = new Team(1, "Team 1", "Team 1 description");
-    // teamDao.insertTeamRecord(team);
-    // Map<String, Object> criteriaMap = new HashMap<>();
-    // criteriaMap.put("id", 1);
-    // List<Team> teams = teamDao.retrieveTeamsRecords(criteriaMap);
-    // System.out.println(teams.get(0).getName());
+    Team team = new Team("Team 1", "Team 1 description", "#000000");
+    teamDao.insertTeamRecord(team);
   }
 }

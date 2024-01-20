@@ -85,6 +85,25 @@
         "start_time": "2024-01-18 10:08:00",
         "end_time": "2024-01-18 10:08:00",
         "participants": []
+      },
+      {
+        "id": 19,
+        "nature": "Unchanged",
+        "is_online": true,
+        "is_private": false,
+        "title": "EventDao",
+        "description": "description",
+        "location": "location",
+        "start_time": "2024-01-20 10:47:26",
+        "end_time": "2024-01-20 10:47:26",
+        "participants": [
+          {
+            "id": 5,
+            "first_name": "lastNameuser2",
+            "last_name": "user2@gmail.com",
+            "email": "FirstNameuser2"
+          }
+        ]
       }
     ]
   }
