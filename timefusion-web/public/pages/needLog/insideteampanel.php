@@ -29,6 +29,7 @@ $members = $team->getMembers();
     $memberName = $member->getFullName();
 
     if($userId != $memberId):
+        dd('1');
         $userRole = $teams->getRoleById($userId,$team_id);
         $permissions = false;
         dd($userRole,$memberRole);
@@ -74,11 +75,11 @@ $members = $team->getMembers();
                     <button type="submit" name="reject_request">Relèguer</button>
                 </form>
             </div>
-        <?php else: ?>
+        <?php else:
+            dd('2'); ?>
             <div class="request-container">
-            <h3><?= $memberName?> : <?= $memberRole?> de l'équipe</h3>
-        </div>
-        
+                <h3><?= $memberName?> : <?= $memberRole?> de l'équipe</h3>
+            </div>
         <?php endif; ?>
 
     <?php else: ?>
