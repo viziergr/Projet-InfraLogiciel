@@ -31,6 +31,7 @@ $members = $team->getMembers();
     if($userId != $memberId):
         $userRole = $teams->getRoleById($userId,$team_id);
         $permissions = false;
+        dd($userRole,$memberRole);
         switch($userRole){
             case 'Leader':
                 switch($memberRole){
@@ -63,17 +64,22 @@ $members = $team->getMembers();
                 }
                 break;
         }?>
-        <div class="request-container">
-            <h3><?= $memberName?> : <?= $memberRole?> de l'équipe</h3>
-            <!-- Ajout des boutons Accepter et Refuser -->
-            <?php if($permissions): ?>
+        <?php if($permissions): ?>
+            <div class="request-container">
+                <h3><?= $memberName?> : <?= $memberRole?> de l'équipe</h3>
+                <!-- Ajout des boutons Accepter et Refuser -->
                 <form action='' method="post">
                     <input type="hidden" name="request_id" value="<?= $member?>">
                     <button type="submit" name="accept_request">Promouvoir</button>
                     <button type="submit" name="reject_request">Relèguer</button>
                 </form>
-            <?php endif; ?>
+            </div>
+        <?php else: ?>
+            <div class="request-container">
+            <h3><?= $memberName?> : <?= $memberRole?> de l'équipe</h3>
         </div>
+        
+        <?php endif; ?>
 
     <?php else: ?>
         <div class="request-container">
