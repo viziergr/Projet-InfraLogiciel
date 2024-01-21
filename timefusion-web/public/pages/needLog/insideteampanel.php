@@ -26,10 +26,11 @@ dd($members);
 <?php foreach ($members as $member):
     $memberId = $member->getId();
     $memberName = $member->getFullName();
+    $memberRole = $teams->getRoleById($memberId,$team_id);
+    $userRole = $teams->getRoleById($userId,$team_id);
 
     if($userId != $memberId):
         dd('1');
-        $userRole = $teams->getRoleById($userId,$team_id);
         $permissions = $teams->hasRights($userId,$memberRole);
         if($permissions): ?>
             <div class="request-container">
