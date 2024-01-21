@@ -30,10 +30,12 @@ $members = $team->getMembers();
     $memberName = $member->getFullName();
     $memberId = $member->getId();
 
-    if($userId != $memberId):?>
+    if($userId != $memberId):
+        $roleUser = $teams->getRoleById($userId,$team_id)->getRoleByName();
+        $roleMember = $memberRole->getRoleByName();
+        dd($roleMember, $roleUser)?>
         <div class="request-container">
             <h3><?= $memberName?> : <?= $memberRole?> de l'équipe</h3>
-            
             <!-- Ajout des boutons Accepter et Refuser -->
             <?php if($teams->getRoleById($userId,$team_id)->getRoleByName() > $teams->getRoleById($memberId,$team_id)->getRoleByName()): ?>
                 <form action='' method="post">

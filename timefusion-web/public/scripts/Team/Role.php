@@ -1,20 +1,22 @@
 <?php
 
-enum Roles: int {
-    case Leader = 1;
-    case CoLeader = 2;
-    case Elder = 3;
-    case Member = 4;
+namespace TimeFusion\Team;
 
-    public function getName(): string {
-        switch ($this) {
-            case Roles::Leader:
+class Roles {
+    const Leader = 1;
+    const CoLeader = 2;
+    const Elder = 3;
+    const Member = 4;
+
+    public static function getName($role) {
+        switch ($role) {
+            case self::Leader:
                 return 'Leader';
-            case Roles::CoLeader:
+            case self::CoLeader:
                 return 'Co-Leader';
-            case Roles::Elder:
+            case self::Elder:
                 return 'Elder';
-            case Roles::Member:
+            case self::Member:
                 return 'Member';
             default:
                 return 'Unknown';
@@ -22,7 +24,7 @@ enum Roles: int {
     }
 }
 
-function getRoleByName(string $roleName): ?Roles {
+function getRoleByName($roleName) {
     $roleName = ucfirst($roleName);
     $roleConstant = 'Roles::' . $roleName;
 
