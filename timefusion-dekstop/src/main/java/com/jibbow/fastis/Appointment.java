@@ -57,7 +57,7 @@ public class Appointment {
   }
 
   public boolean isInvited() {
-    return eventEntity.getNature().equals(EventNature.INVITED.toString());
+    return eventEntity.getNature().equals(EventNature.INVITED);
   }
 
   public boolean isPrivate() {

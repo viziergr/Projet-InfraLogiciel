@@ -1,6 +1,7 @@
 package com.jibbow.fastis.rendering;
 
 import com.jibbow.fastis.Appointment;
+import com.timefusion.JSON.Entities.EventNature;
 import com.timefusion.JSON.Entities.EventsEntity;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
@@ -115,9 +116,16 @@ public class AppointmentRenderer {
 
     Button deleteButton = new Button("Delete");
     deleteButton.setOnAction(event -> {
-      EventsEntity.deleteEventEntity(appointment.getEventEntity().getId());
-      System.out.println("Deleting appointment: " + appointment.toString());
-      detailsStage.close();
+      if (appointment.isOffline()) {
+        EventsEntity.deleteEventEntity(appointment.getEventEntity().getId());
+        detailsStage.close();
+        return;
+      } else {
+        EventsEntity.deleteEventEntity(appointment.getEventEntity().getId());
+        appointment.getEventEntity().setNature(EventNature.DELETED);
+        appointment.getEventEntity().addEventEntity();
+        detailsStage.close();
+      }
     });
 
     detailsVBox.getChildren().add(deleteButton);

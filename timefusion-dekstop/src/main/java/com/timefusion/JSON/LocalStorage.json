@@ -31,24 +31,6 @@
         "participants": []
       },
       {
-        "id": 7,
-        "nature": "Unchanged",
-        "is_private": true,
-        "title": "event5",
-        "description": "description",
-        "location": "location",
-        "start_time": "2024-01-21 21:37:24",
-        "end_time": "2024-01-21 23:37:24",
-        "participants": [
-          {
-            "id": 6,
-            "first_name": "lastNameuser3",
-            "last_name": "user3@gmail.com",
-            "email": "FirstNameuser3"
-          }
-        ]
-      },
-      {
         "id": -2,
         "nature": "Deleted",
         "is_private": false,
@@ -85,15 +67,33 @@
         ]
       },
       {
-        "id": -3,
-        "nature": "Added",
-        "is_private": true,
-        "title": "test",
-        "description": "ergaeg",
-        "location": "Saintanjezd",
-        "start_time": "2024-01-22 10:00:00",
-        "end_time": "2024-01-22 11:00:00",
+        "id": 8,
+        "nature": "Deleted",
+        "is_private": false,
+        "title": "event6",
+        "description": "description",
+        "location": "location",
+        "start_time": "2024-01-21 21:37:28",
+        "end_time": "2024-01-21 23:37:28",
         "participants": []
+      },
+      {
+        "id": 7,
+        "nature": "Deleted",
+        "is_private": true,
+        "title": "event5",
+        "description": "description",
+        "location": "location",
+        "start_time": "2024-01-21 21:37:24",
+        "end_time": "2024-01-21 23:37:24",
+        "participants": [
+          {
+            "id": 6,
+            "first_name": "lastNameuser3",
+            "last_name": "user3@gmail.com",
+            "email": "FirstNameuser3"
+          }
+        ]
       }
     ]
   }
