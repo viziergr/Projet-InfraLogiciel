@@ -28,6 +28,7 @@ dd($members);
     $memberId = $member->getId();
     $memberRole = $teams->getRoleById($member->getId(),$team_id);
     $memberName = $member->getFullName();
+    dd('Vrai: ' . $userId != $memberId);
 
     if($userId != $memberId):
         dd('1');

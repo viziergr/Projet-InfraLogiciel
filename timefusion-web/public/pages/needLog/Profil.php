@@ -52,10 +52,9 @@ $user = $users->getUserById($_SESSION['compte']);
             ?>
 
         </div>
-
         <div class="modif">
             <a href="newPassword.php">
-                Modifier votre mot de passe
+                <p> Modifier votre mot de passe </p>
             </a>
         </div>
     </div>
