@@ -18,11 +18,12 @@ class Team
         $this->name = $name;
         $this->members = $members;
         $this->color = $color;
+        $this->description = $description;
     }
 
     public static function createFromDbResult(array $result): Team
     {
-        $team = new self($result['team_name'], $result['team_members']);
+        $team = new self($result['name'], $result['members'], $result['color'], $result['description']);
         $team->setId($result['id']);
 
         return $team;

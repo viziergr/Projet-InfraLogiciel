@@ -6,6 +6,9 @@ include __DIR__ . '/Team.php';
 if (!class_exists('TimeFusion\Team\User')) {
     include __DIR__ . '/User.php';
 }
+if (!class_exists('TimeFusion\Team\Users')) {
+    include __DIR__ . '/Users.php';
+}
 
 class Teams
 {
@@ -13,30 +16,6 @@ class Teams
 
     public function __construct(\mysqli $mysqli) {
         $this->mysqli = $mysqli;
-    }
-
-    // Sauvegarder l'équipe dans la base de données avec MySQLi
-    public function saveToDatabase($members)
-    {
-        try {
-            $this->mysqli->query("INSERT INTO team () VALUES ()"); // Ajoutez votre requête d'insertion pour les équipes
-            $teamId = $this->mysqli->insert_id;
-
-            $stmt = $this->mysqli->prepare("INSERT INTO team_membership (team_id, user_id, role) VALUES (?, ?, ?)");
-
-            foreach ($members as $member) {
-                $userId = $member['user']->getId();
-                $role = $member['role'];
-
-                $stmt->bind_param("iss", $teamId, $userId, $role);
-                $stmt->execute();
-            }
-
-        } catch (\Exception $e) {
-            throw $e;
-        } finally {
-            $stmt->close();
-        }
     }
 
     // Récupérer les équipes d'un utilisateur
@@ -153,8 +132,6 @@ class Teams
         return false;
     }
     
-    
-
     public function create(Team $team, $userId) {
         try {
             if ($userId == null) {
@@ -221,6 +198,43 @@ class Teams
         }
     
         return true;
+    }
+
+    public function getTeamObjectFromDb($team_id)
+    {
+        $result = $this->mysqli->query("SELECT * FROM team WHERE id = $team_id");
+        if ($result === false) {
+            throw new \Exception("Erreur lors de l'exécution de la requête : " . $this->mysqli->error);
+        }
+        $team = $result->fetch_assoc();
+
+        $membersId = $this->getMembersByTeamId($team_id);
+
+        foreach ($membersId as $memberId) {
+            $members[] = [$memberId => (new Users($this->mysqli))->getUserById($memberId)];
+        }
+
+        $team_data = array(
+            'id' => $team['id'],
+            'name' => $team['name'],
+            'color' => $team['color'],
+            'description' => $team['description'],
+            'members' => $members
+        );
+
+        $team = (new Team())->createFromDbResult($team_data);
+
+        return $team;
+    }
+
+    public function getRoleById($user_id, $team_id)
+    {
+        $result = $this->mysqli->query("SELECT role FROM team_membership WHERE user_id = $user_id AND team_id = $team_id");
+        if ($result === false) {
+            throw new \Exception("Erreur lors de l'exécution de la requête : " . $this->mysqli->error);
+        }
+        $role = $result->fetch_assoc();
+        return $role['role'];
     }
     
 
