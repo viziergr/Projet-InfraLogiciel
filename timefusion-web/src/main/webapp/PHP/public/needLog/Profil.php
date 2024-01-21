@@ -1,14 +1,11 @@
-<?php include '../src/Log/gestion_inscription.php'; ?>
-
-<?php require __DIR__ . '\..\bootstrap.php'; 
-sess_exists();
-?>
-
+<?php require __DIR__ . '/../../src/Log/gestion_inscription.php'; ?>
+<?php require_once __DIR__ . '/../../src/bootstrap.php'; ?>
 <!DOCTYPE html>
-<html>
+<html lang=en>
 <head>
     <title>Profil</title>
-    <link rel="stylesheet" href="..\..\CSS\code.css">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/../../CSS/code.css">
 </head>
 <body>
 
@@ -36,23 +33,33 @@ sess_exists();
 
         <?php
 
-        $prenom =  $_SESSION['compte'];
-        echo '<p id="fname"> Prénom : ' . $prenom . '</p>';
+        $mysqli = connectDB();
+        sess_exists();
 
-        $nom = $_SESSION['compte]'];
-        echo '<p id="lname"> Nom : ' . $nom . '</p>';
+        $id =  $_SESSION['compte'];
 
-        $email = $_SESSION['compte'];
-        echo '<p id="email"> Email : ' . $email . '</p>';
+        $sql = "SELECT * FROM user WHERE id = $id";
+        $result = mysqli_query($mysqli, $sql);
 
-        $annee = $_SESSION['compte'];
-        echo '<p id="year"> Année : ' . $annee . '</p>';
+        if ($result && mysqli_num_rows($result) > 0) {
+            $row = mysqli_fetch_assoc($result);
+            $prenom = $row['first_name'];
+            $nom = $row['last_name'];
+            $email = $row['email'];
+            $date = $row['year'];
 
+            echo '<p id="fname"> Prénom : ' . $prenom . '</p>';
+            echo '<p id="lname"> Nom : ' . $nom . '</p>';
+            echo '<p id="email"> Email : ' . $email . '</p>';
+            echo '<p id="year"> Date : ' . $date . '</p>';
+        }
+
+        $mysqli->close();
         ?>
 
         <div class="modif">
-            <a href="..\..\newPassword.php">
-                <p> Modifier votre profil </p>
+            <a href="newPassword.php">
+                <p> Modifier votre mot de passe </p>
             </a>
         </div>
     </div>

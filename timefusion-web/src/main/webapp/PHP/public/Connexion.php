@@ -38,6 +38,12 @@
             <button type="button">Inscrivez vous</button>
         </a>
     </div>
+
+    <div class="oubliMDP">
+        <a href="forgetPassword.php">
+            <button id="newMDP" type="button">Mot de passe oublié ?</button>
+        </a>
+    </div>
     <?php endif; ?>
 </body>
 
