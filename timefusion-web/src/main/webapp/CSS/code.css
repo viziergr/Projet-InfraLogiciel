@@ -298,6 +298,27 @@
 
 }
 
+.oubliMDP{
+    text-align: center;
+    margin-bottom: 3%;
+    margin-top: 15%;
+}
+
+.oubliMDP #newMDP{
+    color: #000532;
+    font-family: League Spartan;
+    font-size: 1em;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    background-color: #FFF;
+    border: none;
+}
+
+.oubliMDP #newMDP:hover {
+    color: #452FFF;
+}
+
 /*page inscription*/
 
 .inscription{
@@ -682,7 +703,7 @@
 
 /* page modification mdp */
 
-.modifPassword form {
+.modifPassword {
     border : 2px solid #000;
     border-radius: 0.5em;
     margin-top: 15%;
@@ -739,4 +760,161 @@
 
 button[type="submit"]:hover {
     background-color: #452FFF;
+}
+
+.modifPassword h1{
+    color : #000;
+    padding-top : 3%;
+    padding-bottom :3%;
+    font-family: Roboto;
+    font-size: 1.5em;
+    font-weight: 700;
+    line-height: normal;
+    margin-bottom: 3%;
+    margin-top: 0;
+    text-align: center;
+}
+
+/* page oubli mdp */
+
+.envoiMail{
+    width: 40%;
+    background-color: #FFF;
+    border: 2px solid #000;
+    margin-top: 13%;
+    margin-bottom: 3%;
+    margin-left: 30%;
+    margin-right: 30%;
+}
+
+.envoiMail #email{
+    border: 1px solid #000;
+    color:#000;
+    font-family: League Spartan;
+    font-size: 1.3em;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    letter-spacing: 0.02em;
+    padding-top: 0.75%;
+    padding-bottom: 0.75%;
+    margin-bottom: 0;
+    margin-top: -4%;
+    width : 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center items horizontally */
+    align-items: center; /* Center items vertically */
+    margin-left: 4%;
+    border: 1px solid #000;
+    background-color: #f8f3f3;
+    border-radius: 0.75em;
+    text-transform: none;
+}
+
+.envoiMail #boutonEnvoi{
+    color: #FFF;
+    background-color: #353BD1;
+    font-family: League Spartan;
+    font-size: 1.3em;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    letter-spacing: 0.1em;   
+    border-radius: 0.5em;
+    border: 1px solid #000;
+    padding-top: 0.75%;
+    padding-bottom: 0.75%;
+    margin-bottom: 0;
+    margin-top: -3%;
+    width : 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center items horizontally */
+    align-items: center; /* Center items vertically */
+    margin-left: 35%;
+    border: 1px solid #000;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    margin-bottom: 3%;
+
+}
+
+.envoiMail h1{
+    color : #000;
+    padding-top : 3%;
+    padding-bottom : 0;
+    font-family: League Spartan;
+    font-weight: 700;
+    font-size: 1.5em;
+    font-style: normal;
+    text-align : center;
+    letter-spacing: 0.02em;
+    margin-bottom: 3%;
+    margin-top: 0;
+    line-height: normal;
+}
+
+.envoiMail p{
+    color : #000;
+    padding-top : 1%;
+    padding-bottom : 10%;
+    padding-left: 31%;
+    padding-right: 31%;
+    font-family: Roboto;
+    font-size: 1em;
+    font-weight: 400;
+    line-height: normal;
+    margin-bottom: 0;
+    margin-top: 0;
+    line-height: normal;
+    text-align: justify;
+    text-align: center;
+}
+
+/* page reinit mdp */
+
+.modifPassword input[type='email']{
+    background-color: transparent;
+    outline: none;
+    border: none;
+}
+
+.modifPassword #email{
+    color:#000;
+    font-family: League Spartan;
+    font-size: 1.3em;
+    font-style: normal;
+    font-weight: 700;
+    margin-top : 3%;
+    line-height: normal;
+    letter-spacing: 0.02em;
+    padding-top: 0.75%;
+    padding-bottom: 0.75%;
+    margin-bottom: 0;
+    width : 94%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center items horizontally */
+    align-items: center; /* Center items vertically */
+    margin-left: 3%;
+    border: 1px solid #000;
+    background-color: #f8f3f3;
+    border-radius: 0.5em;  
+    text-transform: none;
+}
+
+.modifPassword p{
+    color : #000;
+    padding-top : 0%;
+    padding-bottom : 2%;
+    padding-left: 10%;
+    padding-right: 10%;
+    font-family: Roboto;
+    font-size: 1em;
+    font-weight: 400;
+    line-height: normal;
+    margin-bottom: 0;
+    margin-top: 0;
+    line-height: normal;
+    text-align: center;
 }
