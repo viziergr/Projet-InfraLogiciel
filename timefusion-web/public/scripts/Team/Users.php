@@ -2,7 +2,10 @@
 
 namespace TimeFusion\Team;
 
-include __DIR__ . '/User.php';
+if (!class_exists('TimeFusion\Team\User')) {
+    include __DIR__ . '/User.php';
+}
+
 
 class Users
 {
