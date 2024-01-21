@@ -1,8 +1,6 @@
 <?php
 include __DIR__ .'/../../scripts/bootstrap.php';
 include __DIR__ .'/../../scripts/Team/Teams.php';
-include __DIR__ .'/../../scripts/Team/Role.php';
-// Inclusion double User
 
 sess_exists();
 
@@ -31,13 +29,44 @@ $members = $team->getMembers();
     $memberName = $member->getFullName();
 
     if($userId != $memberId):
-        $roleUser = $teams->getRoleById($userId,$team_id)->getRoleByName();
-        $roleMember = $memberRole->getRoleByName();
-        dd($roleMember, $roleUser)?>
+        $userRole = $teams->getRoleById($userId,$team_id);
+        $permissions = false;
+        switch($userRole){
+            case 'Leader':
+                switch($memberRole){
+                    case 'Co-Leader':
+                        $permissions = true;
+                        break;
+                    case 'Elder':
+                        $permissions = true;
+                        break;
+                    case 'Member':
+                        $permissions = true;
+                        break;
+                }
+                break;
+            case 'Co-Leader':
+                switch($memberRole){
+                    case 'Elder':
+                        $permissions = true;
+                        break;
+                    case 'Member':
+                        $permissions = true;
+                        break;
+                }
+                break;
+            case 'Elder':
+                switch($memberRole){
+                    case 'Member':
+                        $permissions = true;
+                        break;
+                }
+                break;
+        }?>
         <div class="request-container">
             <h3><?= $memberName?> : <?= $memberRole?> de l'équipe</h3>
             <!-- Ajout des boutons Accepter et Refuser -->
-            <?php if($teams->getRoleById($userId,$team_id)->getRoleByName() > $teams->getRoleById($memberId,$team_id)->getRoleByName()): ?>
+            <?php if($permissions): ?>
                 <form action='' method="post">
                     <input type="hidden" name="request_id" value="<?= $member?>">
                     <button type="submit" name="accept_request">Promouvoir</button>
