@@ -26,7 +26,6 @@ $members = $team->getMembers();
 
 
 <?php foreach ($members as $member):
-    dd($member['id']);
     $memberId = $member->getId();
     $memberRole = $teams->getRoleById($member->getId(),$team_id);
     $memberName = $member->getFullName();
