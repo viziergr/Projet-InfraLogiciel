@@ -200,8 +200,8 @@
     width : 40%;
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Center items horizontally */
-    align-items: center; /* Center items vertically */
+    justify-content: center;
+    align-items: center; 
     background-color: #FFF;
     margin-left: 30%;
     border: 1px solid #000;
@@ -602,6 +602,7 @@
     margin-bottom: 20%;
 }
 
+
 .dropdown {
     top: 0;
     margin: 1%;
@@ -679,7 +680,7 @@
     margin-top: 30%;
 }
 
-.modif p{
+.modif a{
     font-size: 1em;
     font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     text-transform: uppercase;
