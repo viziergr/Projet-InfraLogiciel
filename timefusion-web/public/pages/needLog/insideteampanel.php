@@ -1,6 +1,7 @@
 <?php
 include __DIR__ .'/../../scripts/bootstrap.php';
 include __DIR__ .'/../../scripts/Team/Teams.php';
+include __DIR__ .'/../../scripts/Team/Users.php';
 
 sess_exists();
 
@@ -8,6 +9,7 @@ include __DIR__ .'/../../includes/header.php';
 
 $mysqli = connectDB();
 $teams = new TimeFusion\Team\Teams($mysqli);
+$users = new TimeFusion\Team\Users($mysqli);
 
 // Supposons que vous ayez un mécanisme d'authentification qui donne l'ID de l'utilisateur connecté
 $userId = $_SESSION['compte']; // Assurez-vous de récupérer l'ID de l'utilisateur correctement
@@ -18,10 +20,20 @@ if(isset($_POST['team_id'])) {
     header('Location: teampanel.php');
 }
 
+$user = $users->getUserById($userId);
 $team = $teams->getTeamObjectFromDb($team_id);
 $members = $team->getMembers();
-dd($members);
 ?>
+
+<div class="request-container">
+    <h3><?= $user->getFullName() ?> : <?= $teams->getRoleById($userId,$team_id)?> de l'équipe</h3>
+    
+    <!-- Ajout des boutons Accepter et Refuser -->
+    <form action='' method="post">
+        <input type="hidden" name="request_id" value="<?= $member?>">
+        <button type="submit" name="quit_team">Quitter l'équipe</button>
+    </form>
+</div>
 
 <?php foreach ($members as $member):
     $memberId = $member->getId();
@@ -30,8 +42,7 @@ dd($members);
     $userRole = $teams->getRoleById($userId,$team_id);
 
     if($userId != $memberId):
-        dd('1');
-        $permissions = $teams->hasRights($userId,$memberRole);
+        $permissions = $teams->hasRights($userRole,$memberRole);
         if($permissions): ?>
             <div class="request-container">
                 <h3><?= $memberName?> : <?= $memberRole?> de l'équipe</h3>
@@ -47,18 +58,6 @@ dd($members);
                 <h3><?= $memberName?> : <?= $memberRole?> de l'équipe</h3>
             </div>
         <?php endif; ?>
-
-    <?php else: 
-        dd('2');?>
-        <div class="request-container">
-            <h3><?= $memberName?> : <?= $memberRole?> de l'équipe</h3>
-            
-            <!-- Ajout des boutons Accepter et Refuser -->
-            <form action='' method="post">
-                <input type="hidden" name="request_id" value="<?= $member?>">
-                <button type="submit" name="quit_team">Quitter l'équipe</button>
-            </form>
-        </div>
     <?php endif; ?>
 <?php endforeach; ?>
 
