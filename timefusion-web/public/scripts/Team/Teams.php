@@ -236,6 +236,43 @@ class Teams
         $role = $result->fetch_assoc();
         return $role['role'];
     }
-    
+
+    public function hasRights($userRole, $memberRole)
+    {
+        $permissions = false;
+        switch($userRole){
+            case 'Leader':
+                switch($memberRole){
+                    case 'Co-Leader':
+                        $permissions = true;
+                        break;
+                    case 'Elder':
+                        $permissions = true;
+                        break;
+                    case 'Member':
+                        $permissions = true;
+                        break;
+                }
+                break;
+            case 'Co-Leader':
+                switch($memberRole){
+                    case 'Elder':
+                        $permissions = true;
+                        break;
+                    case 'Member':
+                        $permissions = true;
+                        break;
+                }
+                break;
+            case 'Elder':
+                switch($memberRole){
+                    case 'Member':
+                        $permissions = true;
+                        break;
+                }
+                break;
+        }
+        return $permissions;
+    }
 
 }

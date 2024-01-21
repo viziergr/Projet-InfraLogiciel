@@ -24,52 +24,14 @@ dd($members);
 ?>
 
 <?php foreach ($members as $member):
-    dd($member);
-endforeach; ?>
-<?php foreach ($members as $member):
     $memberId = $member->getId();
-    $memberRole = $teams->getRoleById($member->getId(),$team_id);
     $memberName = $member->getFullName();
-    dd('Vrai: ' . $userId != $memberId);
 
     if($userId != $memberId):
         dd('1');
         $userRole = $teams->getRoleById($userId,$team_id);
-        $permissions = false;
-        dd($userRole,$memberRole);
-        switch($userRole){
-            case 'Leader':
-                switch($memberRole){
-                    case 'Co-Leader':
-                        $permissions = true;
-                        break;
-                    case 'Elder':
-                        $permissions = true;
-                        break;
-                    case 'Member':
-                        $permissions = true;
-                        break;
-                }
-                break;
-            case 'Co-Leader':
-                switch($memberRole){
-                    case 'Elder':
-                        $permissions = true;
-                        break;
-                    case 'Member':
-                        $permissions = true;
-                        break;
-                }
-                break;
-            case 'Elder':
-                switch($memberRole){
-                    case 'Member':
-                        $permissions = true;
-                        break;
-                }
-                break;
-        }?>
-        <?php if($permissions): ?>
+        $permissions = $teams->hasRights($userId,$memberRole);
+        if($permissions): ?>
             <div class="request-container">
                 <h3><?= $memberName?> : <?= $memberRole?> de l'équipe</h3>
                 <!-- Ajout des boutons Accepter et Refuser -->
