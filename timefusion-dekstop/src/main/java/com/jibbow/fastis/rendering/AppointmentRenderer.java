@@ -43,8 +43,15 @@ public class AppointmentRenderer {
             )
             .toExternalForm()
         );
-      p.getStyleClass().add("appointment-offline"); //appointment
-
+      if (appointment.isOffline()) {
+        p.getStyleClass().add("appointment-offline"); //appointment
+      } else if (appointment.isInvited()) {
+        p.getStyleClass().add("appointment-invited");
+      } else if (appointment.isPrivate()) {
+        p.getStyleClass().add("appointment-private");
+      } else {
+        p.getStyleClass().add("appointment");
+      }
       VBox content = new VBox();
 
       Label starttime = new Label(

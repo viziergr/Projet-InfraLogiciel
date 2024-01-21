@@ -72,3 +72,21 @@
     -fx-font-size: 10;
     -fx-text-fill: #000000;
 }
+
+.appointment-invited{
+    -fx-background-color: #8bc1ad;
+    -fx-background-radius: 3.0;
+    -fx-border-radius: 3.0;
+    -fx-padding: 0 2 2 1;
+    -fx-background-insets: 0 2 2 1;
+}
+
+.appointment-invited:hover{
+    -fx-effect: dropshadow(three-pass-box, gray, 5, 0.0, 0, 0);
+    -fx-cursor:hand;
+}
+
+.appointment-invited .leftbar{
+    -fx-background-color: #5e8c7a;
+    -fx-background-radius: 3 0 0 3;
+}

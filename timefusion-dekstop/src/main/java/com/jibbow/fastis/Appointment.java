@@ -1,6 +1,7 @@
 package com.jibbow.fastis;
 
 import com.jibbow.fastis.util.TimeInterval;
+import com.timefusion.JSON.Entities.EventNature;
 import com.timefusion.JSON.Entities.EventsEntity;
 import java.time.temporal.Temporal;
 import javafx.beans.property.*;
@@ -49,6 +50,18 @@ public class Appointment {
 
   public EventsEntity getEventEntity() {
     return eventEntity;
+  }
+
+  public boolean isOffline() {
+    return eventEntity.getId() < 0;
+  }
+
+  public boolean isInvited() {
+    return eventEntity.getNature().equals(EventNature.INVITED.toString());
+  }
+
+  public boolean isPrivate() {
+    return eventEntity.getIsPrivate();
   }
 
   public Appointment getAppointmentByEventsEntity(EventsEntity event) {

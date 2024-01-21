@@ -22,7 +22,7 @@
       {
         "id": 6,
         "nature": "Unchanged",
-        "is_private": true,
+        "is_private": false,
         "title": "event4",
         "description": "description",
         "location": "location",
