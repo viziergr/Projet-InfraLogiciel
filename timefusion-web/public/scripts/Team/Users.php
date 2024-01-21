@@ -6,7 +6,6 @@ if (!class_exists('TimeFusion\Team\User')) {
     include __DIR__ . '/User.php';
 }
 
-
 class Users
 {
     private $mysqli;

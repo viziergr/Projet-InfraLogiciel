@@ -1,7 +1,7 @@
 <?php
 include __DIR__ .'/../../scripts/bootstrap.php';
-include __DIR__ .'/../../scripts/Team/Teams.php';
 include __DIR__ .'/../../scripts/Team/Users.php';
+include __DIR__ .'/../../scripts/Team/Teams.php';
 
 sess_exists();
 
