@@ -1,11 +1,11 @@
 package com.timefusion.sync;
 
-import com.timefusion.JSON.Entities.EventNature;
-import com.timefusion.JSON.Entities.EventsEntity;
-import com.timefusion.JSON.Entities.InformationEntity;
 import com.timefusion.dao.EventDao;
 import com.timefusion.dao.EventParticipantDao;
 import com.timefusion.dao.UserDao;
+import com.timefusion.localStorage.Entities.EventNature;
+import com.timefusion.localStorage.Entities.EventsEntity;
+import com.timefusion.localStorage.Entities.InformationEntity;
 import com.timefusion.model.Event;
 import com.timefusion.model.User;
 import com.timefusion.util.DatabaseUtil;

@@ -3,11 +3,11 @@ package com.timefusion.sync;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.timefusion.JSON.Entities.EventNature;
-import com.timefusion.JSON.Entities.EventsEntity;
-import com.timefusion.JSON.Entities.UserEntity;
-import com.timefusion.JSON.JsonUtils;
 import com.timefusion.dao.EventParticipantDao;
+import com.timefusion.localStorage.Entities.EventNature;
+import com.timefusion.localStorage.Entities.EventsEntity;
+import com.timefusion.localStorage.Entities.UserEntity;
+import com.timefusion.localStorage.JsonUtils;
 import com.timefusion.util.DatabaseUtil;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -241,12 +241,5 @@ public class SyncUtil {
       }
     }
     return localDeniedEventsIds;
-  }
-
-  public static void main(String[] args) {
-    try {
-      DatabaseUtil databaseUtil = new DatabaseUtil();
-      System.out.println(getLocalDeniedEventsIds().toString());
-    } catch (Exception e) {}
   }
 }

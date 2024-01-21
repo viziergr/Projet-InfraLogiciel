@@ -1,22 +1,14 @@
 package demo;
 
-import com.jibbow.fastis.*;
-import com.jibbow.fastis.util.TimeInterval;
-import com.timefusion.JSON.Entities.EventNature;
-import com.timefusion.JSON.Entities.EventsEntity;
-import com.timefusion.JSON.Entities.ParticipantsEntity;
+import com.timefusion.ui.calendar.Calendar;
+import com.timefusion.ui.calendar.WeekView;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 
-/**
- * Created by Jibbow on 8/11/17.
- */
 public class Main extends Application {
 
   private static WeekView weekView;
@@ -29,7 +21,10 @@ public class Main extends Application {
   public void start(Stage primaryStage) throws InterruptedException {
     weekView = new WeekView(LocalDate.now(), new Calendar());
     Image customIcon = new Image(
-      getClass().getResourceAsStream("/com/jibbow/fastis/resources/Logo.png")
+      getClass()
+        .getResourceAsStream(
+          "/com/timefusion/ui/calendar/resources/png/Logo.png"
+        )
     );
     Stage stage = new Stage();
     stage.getIcons().add(customIcon);
@@ -39,7 +34,7 @@ public class Main extends Application {
     stage.setMinHeight(100);
 
     stage.setOnCloseRequest(event -> {
-      // Perform cleanup actions here if needed
+      // Perform cleanup actions here if needed TODO
       Platform.exit();
       System.exit(0);
     });

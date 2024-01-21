@@ -1,6 +1,6 @@
 package com.timefusion.sync;
 
-import com.jibbow.fastis.DisplaySync;
+import com.timefusion.ui.calendar.DisplaySync;
 import demo.Main;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;

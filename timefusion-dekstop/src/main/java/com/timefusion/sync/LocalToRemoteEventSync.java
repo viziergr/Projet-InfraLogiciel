@@ -1,9 +1,9 @@
 package com.timefusion.sync;
 
-import com.timefusion.JSON.Entities.EventNature;
-import com.timefusion.JSON.Entities.EventsEntity;
 import com.timefusion.dao.EventDao;
 import com.timefusion.dao.EventParticipantDao;
+import com.timefusion.localStorage.Entities.EventNature;
+import com.timefusion.localStorage.Entities.EventsEntity;
 import com.timefusion.model.Event;
 import java.sql.SQLException;
 import java.util.List;
@@ -18,7 +18,7 @@ public class LocalToRemoteEventSync {
         int eventId = localDeletedEventsIds.get(i);
         if (eventId > 0) {
           try {
-            int rowDeleted = eventDao.deleteEventRecord(
+            eventDao.deleteEventRecord(
               EventsEntity.eventEntityToEvent(
                 EventsEntity.getEventEntityById(eventId)
               )
