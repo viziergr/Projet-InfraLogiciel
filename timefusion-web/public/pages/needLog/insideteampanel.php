@@ -20,6 +20,7 @@ if(isset($_POST['team_id'])) {
 
 $team = $teams->getTeamObjectFromDb($team_id);
 $members = $team->getMembers();
+dd($members);
 ?>
 
 
@@ -75,14 +76,14 @@ $members = $team->getMembers();
                     <button type="submit" name="reject_request">Relèguer</button>
                 </form>
             </div>
-        <?php else:
-            dd('2'); ?>
+        <?php else: ?>
             <div class="request-container">
                 <h3><?= $memberName?> : <?= $memberRole?> de l'équipe</h3>
             </div>
         <?php endif; ?>
 
-    <?php else: ?>
+    <?php else: 
+        dd('2');?>
         <div class="request-container">
             <h3><?= $memberName?> : <?= $memberRole?> de l'équipe</h3>
             
