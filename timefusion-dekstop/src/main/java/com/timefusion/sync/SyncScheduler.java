@@ -1,8 +1,6 @@
 package com.timefusion.sync;
 
 import com.jibbow.fastis.DisplaySync;
-import com.timefusion.dao.EventDao;
-import com.timefusion.util.DatabaseUtil;
 import demo.Main;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -16,7 +14,25 @@ public class SyncScheduler {
 
   public static void main(String[] args) {
     scheduleSync();
+
+    // Launch the JavaFX application
     Main.main(args);
+
+    // Add a shutdown hook to shut down the scheduler when the JavaFX application exits
+    Runtime
+      .getRuntime()
+      .addShutdownHook(
+        new Thread(() -> {
+          scheduler.shutdown();
+          try {
+            if (!scheduler.awaitTermination(1, TimeUnit.SECONDS)) {
+              scheduler.shutdownNow();
+            }
+          } catch (InterruptedException e) {
+            scheduler.shutdownNow();
+          }
+        })
+      );
   }
 
   public static void scheduleSync() {

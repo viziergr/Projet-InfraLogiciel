@@ -49,4 +49,5 @@ module com.timefusion {
   exports com.jibbow.fastis.util ;
   exports demo ;
   exports com.jibbow.fastis.controlers ;
+  exports com.timefusion.sync to javafx.graphics;
 }

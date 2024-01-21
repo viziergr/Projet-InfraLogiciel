@@ -8,6 +8,7 @@ import com.timefusion.JSON.Entities.ParticipantsEntity;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
@@ -36,39 +37,15 @@ public class Main extends Application {
     stage.setTitle("TimeFusion 1.0");
     stage.setMinWidth(100);
     stage.setMinHeight(100);
+
+    stage.setOnCloseRequest(event -> {
+      // Perform cleanup actions here if needed
+      Platform.exit();
+      System.exit(0);
+    });
+
     stage.show();
     System.out.println("Hello World");
-    // root1.update();
-    // Appointment app1 = new Appointment(
-    //   new TimeInterval(LocalDateTime.now(), LocalDateTime.now().plusHours(3)),
-    //   "Appointment1"
-    // );
-    // Appointment app2 = new Appointment(
-    //   new TimeInterval(
-    //     LocalDateTime.now().plusHours(4),
-    //     LocalDateTime.now().plusHours(5)
-    //   ),
-    //   "Appointment2"
-    // );
-    // Appointment app3 = new Appointment(
-    //   new TimeInterval(
-    //     LocalDateTime.now().plusHours(1),
-    //     LocalDateTime.now().plusHours(2)
-    //   ),
-    //   "Appointment3"
-    // );
-    //   root1.getCalendars().clear();
-    //   Calendar cal1 = new Calendar(app1, app2, app3);
-    //   root1.getCalendars().add(cal1);
-
-    //   // Add event handler for the "space" key
-    //   root1.setOnKeyReleased(event -> {
-    //     if (event.getCode() == KeyCode.T) {
-    //       // Delete the first appointment
-    //       System.out.println("Deleting the first appointment");
-    //       cal1.remove(app1);
-    //     }
-    //   });
   }
 
   public static WeekView getWeekView() {

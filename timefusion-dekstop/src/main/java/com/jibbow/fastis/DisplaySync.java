@@ -1,6 +1,5 @@
 package com.jibbow.fastis;
 
-import com.google.gson.JsonObject;
 import com.timefusion.JSON.Entities.EventNature;
 import com.timefusion.JSON.Entities.EventsEntity;
 import com.timefusion.sync.SyncUtil;
@@ -92,10 +91,30 @@ public class DisplaySync {
     Main.getWeekView().update();
   }
 
+  //Evenements affichés qui ne le devraient pas
+  private static void removeAmbiguousAppointments() {
+    List<Integer> allEventsId = SyncUtil.getLocalEventsIds();
+    ObservableList<Calendar> calendar = CalendarView.getCalendars();
+    List<Appointment> displayedEvents = calendar.get(0).getAppointments();
+    List<Integer> eventsToNotDisplayIds = getEventsToNotDisplayIds();
+    if (displayedEvents.size() > 0) {
+      for (Appointment event : displayedEvents) {
+        int eventId = event.getEventEntity().getId();
+        if (
+          eventsToNotDisplayIds.contains(eventId) ||
+          !allEventsId.contains(eventId)
+        ) {
+          CalendarView.getCalendars().get(0).remove(event);
+        }
+      }
+    }
+  }
+
   public static void synchronizeDisplay() {
     Platform.runLater(() -> {
       displayedMissingAppointments();
       removeElementsNotNeededToBeDisplayed();
+      removeAmbiguousAppointments();
       Main.getWeekView().update();
     });
   }

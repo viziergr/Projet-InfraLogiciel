@@ -1,11 +1,18 @@
 package com.jibbow.fastis.rendering;
 
 import com.jibbow.fastis.Appointment;
+import com.timefusion.JSON.Entities.EventsEntity;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 /**
  * A class for creating the nodes to an appointment.
@@ -64,6 +71,53 @@ public class AppointmentRenderer {
   }
 
   private static void handleAppointmentClick(Appointment appointment) {
-    System.out.println("Clicked on appointment: " + appointment.toString());
+    Stage detailsStage = new Stage();
+    detailsStage.initModality(Modality.APPLICATION_MODAL);
+    detailsStage.setTitle("Appointment Details");
+
+    Label titleLabel = new Label("Title: " + appointment.titleProperty().get());
+    Label startTimeLabel = new Label(
+      "Start Time: " +
+      DateTimeFormatter
+        .ofLocalizedTime(FormatStyle.SHORT)
+        .format(appointment.startTimeProperty())
+    );
+    Label endTimeLabel = new Label(
+      "End Time: " +
+      DateTimeFormatter
+        .ofLocalizedTime(FormatStyle.SHORT)
+        .format(appointment.endTimeProperty())
+    );
+    Label descriptionLabel = new Label(
+      "Description: " + appointment.getEventEntity().getDescription()
+    );
+    Label locationLabel = new Label(
+      "Location: " + appointment.getEventEntity().getLocation()
+    );
+
+    VBox detailsVBox = new VBox(
+      titleLabel,
+      startTimeLabel,
+      endTimeLabel,
+      descriptionLabel,
+      locationLabel
+    );
+    detailsVBox.setAlignment(Pos.CENTER);
+    detailsVBox.setSpacing(10);
+    detailsVBox.setPadding(new Insets(10));
+
+    Button deleteButton = new Button("Delete");
+    deleteButton.setOnAction(event -> {
+      EventsEntity.deleteEventEntity(appointment.getEventEntity().getId());
+      System.out.println("Deleting appointment: " + appointment.toString());
+      detailsStage.close();
+    });
+
+    detailsVBox.getChildren().add(deleteButton);
+
+    Scene detailsScene = new Scene(detailsVBox, 400, 250);
+    detailsStage.setScene(detailsScene);
+
+    detailsStage.show();
   }
 }
