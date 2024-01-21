@@ -43,9 +43,7 @@ $members = $team->getMembers();
 
     if($userId != $memberId):
         $permissions = $teams->hasRights($userRole,$memberRole);
-        dd($userRole . ' ' . $memberRole . ' -> ' .$permissions);
-        if($permissions): 
-            dd('ok');?>
+        if($permissions): ?>
             <div class="request-container">
                 <h3><?= $memberName?> : <?= $memberRole?> de l'équipe</h3>
                 <!-- Ajout des boutons Accepter et Refuser -->
