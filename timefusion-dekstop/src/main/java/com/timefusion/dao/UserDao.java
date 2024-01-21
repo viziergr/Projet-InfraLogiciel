@@ -49,7 +49,10 @@ public class UserDao extends GenericDao<User> {
    * @return the User object if found, or null if not found
    */
   public User findByEmail(String email) {
-    String query = "SELECT * FROM " + TABLE_NAME + " WHERE email = ?";
+    String query =
+      "SELECT id, email, password, first_name, last_name FROM " +
+      TABLE_NAME +
+      " WHERE email = ?";
 
     try {
       List<Object> params = Collections.singletonList(email);

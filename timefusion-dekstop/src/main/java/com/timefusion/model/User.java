@@ -18,6 +18,7 @@ public class User {
    * @param firstName
    * @param lastName
    * @param password
+   * @param year
    */
   public User(
     int id,
@@ -47,7 +48,7 @@ public class User {
     String lastName,
     String password
   ) {
-    this(0, email, firstName, lastName, password);
+    this(0, email, firstName, lastName, password, null);
   }
 
   /**

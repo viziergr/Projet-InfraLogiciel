@@ -25,11 +25,13 @@ public class AuthService {
     throws AuthenticationException {
     try {
       User user = this.userDao.findByEmail(email);
+      System.out.println("User found: " + user);
 
       if (user != null) {
         if (EncryptionUtil.verifyPassword(password, user.getPassword())) {
           return user;
         } else {
+          System.out.println("Incorrect password");
           throw new AuthenticationException("Incorrect password");
         }
       } else {
