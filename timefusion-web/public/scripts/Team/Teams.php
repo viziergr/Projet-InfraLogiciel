@@ -211,7 +211,7 @@ class Teams
         $membersId = $this->getMembersByTeamId($team_id);
 
         foreach ($membersId as $memberId) {
-            $members[] = [$memberId => (new Users($this->mysqli))->getUserById($memberId)];
+            $members[] = (new Users($this->mysqli))->getUserById($memberId);
         }
 
         $team_data = array(
