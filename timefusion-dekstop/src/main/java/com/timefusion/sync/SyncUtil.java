@@ -57,6 +57,21 @@ public class SyncUtil {
     return negativeIds;
   }
 
+  public static List<Integer> getLocalEventsIds() {
+    List<Integer> allIds = new ArrayList<>();
+
+    for (int i = 0; i < EventsEntity.getAllEventEntities().size(); i++) {
+      JsonObject eventObject = EventsEntity
+        .getAllEventEntities()
+        .get(i)
+        .getAsJsonObject();
+      int eventId = eventObject.get("id").getAsInt();
+      allIds.add(eventId);
+    }
+
+    return allIds;
+  }
+
   public static List<Integer> getRemoteEventsIds(DatabaseUtil databaseUtil) {
     try {
       List<Integer> listIds = new ArrayList<>();
@@ -172,7 +187,7 @@ public class SyncUtil {
     return offlineEvents;
   }
 
-  public static List<Integer> getOfflineDeletedEventsIds() {
+  public static List<Integer> getLocalDeletedEventsIds() {
     JsonElement eventsJsonElement = JsonUtils.readJsonPart(
       EventsEntity.EVENTS_ENTITY_NAME
     );

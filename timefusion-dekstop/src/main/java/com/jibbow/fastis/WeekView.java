@@ -26,7 +26,6 @@ import javafx.geometry.Insets;
 import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
@@ -122,15 +121,6 @@ public class WeekView extends CalendarView {
           setContent();
         }
       );
-    // Button addButton = new Button("Add Event");
-    // addButton.setOnAction(event -> handleAddEventButtonClick());
-
-    // // Create a VBox to hold the button
-    // VBox buttonContainer = new VBox(addButton);
-    // buttonContainer.getStyleClass().add("addEventButton");
-
-    // // Add the button container to the WeekView layout
-    // super.getChildren().add(buttonContainer);
   }
 
   private void setLayout() {

@@ -13,6 +13,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 
 public class AddEventDialogController {
 
@@ -81,10 +82,10 @@ public class AddEventDialogController {
     eventSetPrivate(false);
     System.out.println("Public Event " + eventIsPrivate());
     publicEventButton.setStyle(
-      "-fx-background-color: #4C95CE; -fx-background-radius: 15; -fx-border-color: #4C95CE;"
+      "-fx-background-color: #4C95CE; -fx-background-radius: 15;"
     );
     privateEventButton.setStyle(
-      "-fx-background-color: rgba(0, 0, 0, 0.3); -fx-background-radius: 15; -fx-border-color: rgba(0, 0, 0, 0.3);"
+      "-fx-background-color: rgba(0, 0, 0, 0.3); -fx-background-radius: 15;"
     );
   }
 
@@ -99,10 +100,10 @@ public class AddEventDialogController {
     eventSetPrivate(true);
     System.out.println("Private Event " + eventIsPrivate());
     privateEventButton.setStyle(
-      "-fx-background-color: #81C457; -fx-background-radius: 15; -fx-border-color: #81C457;"
+      "-fx-background-color: #81C457; -fx-background-radius: 15;"
     );
     publicEventButton.setStyle(
-      "-fx-background-color: rgba(0, 0, 0, 0.3); -fx-background-radius: 15; -fx-border-color: rgba(0, 0, 0, 0.3);"
+      "-fx-background-color: rgba(0, 0, 0, 0.3); -fx-background-radius: 15;"
     );
   }
 
@@ -150,6 +151,8 @@ public class AddEventDialogController {
         isPrivate
       );
       eventsEntity.addEventEntity();
+      Stage stage = (Stage) addEventButton.getScene().getWindow();
+      stage.close();
     }
   }
 
@@ -168,7 +171,6 @@ public class AddEventDialogController {
     return new EventsEntity(
       EventsEntity.generateNextOfflineId(),
       EventNature.ADDED,
-      false,
       isPrivate,
       title,
       description,

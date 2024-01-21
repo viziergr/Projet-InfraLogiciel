@@ -16,7 +16,6 @@ public class EventsEntity {
 
   private int id;
   private EventNature nature;
-  private boolean isOnline;
   private boolean isPrivate;
   private String title;
   private String description;
@@ -35,7 +34,6 @@ public class EventsEntity {
   public EventsEntity(Event event, EventNature nature) {
     this.id = event.getId();
     this.nature = nature;
-    this.isOnline = true;
     this.title = event.getTitle();
     this.description = event.getDescription();
     this.location = event.getLocation();
@@ -51,7 +49,6 @@ public class EventsEntity {
   ) {
     this.id = event.getId();
     this.nature = nature;
-    this.isOnline = true;
     this.title = event.getTitle();
     this.description = event.getDescription();
     this.location = event.getLocation();
@@ -73,7 +70,6 @@ public class EventsEntity {
   public EventsEntity(
     int id,
     EventNature nature,
-    boolean isOnline,
     boolean isPrivate,
     String title,
     String description,
@@ -82,9 +78,8 @@ public class EventsEntity {
     LocalDateTime endTime,
     ParticipantsEntity[] participants
   ) {
-    this.id = !OnlineOfflineSwitch.isOnline ? id : generateNextOfflineId();
+    this.id = !OnlineOfflineSwitch.isOnline ? id : generateNextOfflineId(); // TODO: Remove this hack
     this.nature = nature;
-    this.isOnline = isOnline;
     this.isPrivate = isPrivate;
     this.title = title;
     this.description = description;
@@ -108,14 +103,6 @@ public class EventsEntity {
 
   public void setNature(EventNature nature) {
     this.nature = nature;
-  }
-
-  public boolean isIs_online() {
-    return isOnline;
-  }
-
-  public void setIs_online(boolean isOnline) {
-    this.isOnline = isOnline;
   }
 
   public String getTitle() {
@@ -200,7 +187,7 @@ public class EventsEntity {
       return lastOfflineId;
     }
 
-    return -1;
+    return 0;
   }
 
   public static boolean isJsonEventsEntityEmpty() {
@@ -228,7 +215,6 @@ public class EventsEntity {
             EventNature.valueOf(
               eventObject.get("nature").getAsString().toUpperCase()
             ),
-            eventObject.get("is_online").getAsBoolean(),
             eventObject.get("is_private").getAsBoolean(),
             eventObject.get("title").getAsString(),
             eventObject.get("description").getAsString(),
@@ -301,7 +287,6 @@ public class EventsEntity {
     JsonObject jsonObject = new JsonObject();
     jsonObject.addProperty("id", id);
     jsonObject.addProperty("nature", nature.toString());
-    jsonObject.addProperty("is_online", isOnline);
     jsonObject.addProperty("is_private", isPrivate);
     jsonObject.addProperty("title", title);
     jsonObject.addProperty("description", description);
@@ -343,7 +328,6 @@ public class EventsEntity {
 
     stringBuilder.append("Event ID: ").append(id).append("\n");
     stringBuilder.append("Nature: ").append(nature).append("\n");
-    stringBuilder.append("Is Online: ").append(isOnline).append("\n");
     stringBuilder.append("Is Private: ").append(isPrivate).append("\n");
     stringBuilder.append("Title: ").append(title).append("\n");
     stringBuilder.append("Description: ").append(description).append("\n");
@@ -358,11 +342,29 @@ public class EventsEntity {
     return stringBuilder.toString();
   }
 
+  @Override
+  public boolean equals(Object obj) {
+    if (obj instanceof EventsEntity) {
+      EventsEntity event = (EventsEntity) obj;
+      return (
+        this.id == event.getId() &&
+        this.nature == event.getNature() &&
+        this.isPrivate == event.getIsPrivate() &&
+        this.title.equals(event.getTitle()) &&
+        this.description.equals(event.getDescription()) &&
+        this.location.equals(event.getLocation()) &&
+        this.startTime.equals(event.getStartTime()) &&
+        this.endTime.equals(event.getEndTime()) &&
+        this.participants.equals(event.getParticipants())
+      );
+    }
+    return false;
+  }
+
   public static void main(String[] args) {
     EventsEntity event = new EventsEntity(
-      -12,
-      EventNature.ADDED,
-      true,
+      generateNextOfflineId(),
+      EventNature.DELETED,
       false,
       "Test Event",
       "Test Description",

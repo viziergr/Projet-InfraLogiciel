@@ -99,7 +99,7 @@ public class RemoteToLocalEventSync {
           Event event = EventDao.mapResultSetToEvent(mapEvent);
           EventsEntity eventsEntity = new EventsEntity(
             event,
-            EventNature.UNCHANGED,
+            EventNature.INVITED,
             getParticipantsToInvitedEvent(databaseUtil, event.getId())
           );
           eventsEntity.addEventEntity();

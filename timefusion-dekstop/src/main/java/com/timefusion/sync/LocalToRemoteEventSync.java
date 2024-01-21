@@ -12,14 +12,10 @@ import java.util.Map;
 public class LocalToRemoteEventSync {
 
   public static void handleLocalDeletedEvents(EventDao eventDao) {
-    //Deux cas, soit l'event est en ligne et il faut le supprimer de la base de données et du fichier json
-    //Soit l'event est hors ligne et il faut le supprimer du fichier json
-    //Si le local user n'est pas le creator alors DENY logic...
-    // TODO : maybe doesn't work
-    List<Integer> offlineDeletedEventsIds = SyncUtil.getOfflineDeletedEventsIds();
-    if (offlineDeletedEventsIds.size() > 0) {
-      for (int i = 0; i < offlineDeletedEventsIds.size(); i++) {
-        int eventId = offlineDeletedEventsIds.get(i);
+    List<Integer> localDeletedEventsIds = SyncUtil.getLocalDeletedEventsIds();
+    if (localDeletedEventsIds.size() > 0) {
+      for (int i = 0; i < localDeletedEventsIds.size(); i++) {
+        int eventId = localDeletedEventsIds.get(i);
         if (eventId > 0) {
           try {
             int rowDeleted = eventDao.deleteEventRecord(
@@ -31,7 +27,7 @@ public class LocalToRemoteEventSync {
             e.printStackTrace();
           }
         }
-        EventsEntity.deleteEventEntity(eventId);
+        // EventsEntity.deleteEventEntity(eventId);
       }
     }
   }

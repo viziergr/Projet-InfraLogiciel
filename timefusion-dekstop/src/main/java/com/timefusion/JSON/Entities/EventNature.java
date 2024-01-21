@@ -5,6 +5,7 @@ public enum EventNature {
   UPDATED("Updated"),
   DELETED("Deleted"),
   DENIED("Denied"),
+  INVITED("Invited"),
   UNCHANGED("Unchanged");
 
   private final String displayName;

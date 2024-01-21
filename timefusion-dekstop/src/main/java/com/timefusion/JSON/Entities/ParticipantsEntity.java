@@ -356,4 +356,24 @@ public class ParticipantsEntity implements JsonEntity {
       "\"}"
     );
   }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (obj instanceof ParticipantsEntity) {
+      ParticipantsEntity other = (ParticipantsEntity) obj;
+      return (
+        other.getId() == id &&
+        other.getFirstName().equals(firstName) &&
+        other.getLastName().equals(lastName) &&
+        other.getEmail().equals(email)
+      );
+    } else if (obj instanceof ParticipantsEntity[]) {
+      for (ParticipantsEntity participant : (ParticipantsEntity[]) obj) {
+        if (participant.equals(this)) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
 }
