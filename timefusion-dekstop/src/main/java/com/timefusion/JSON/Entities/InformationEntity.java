@@ -13,12 +13,22 @@ public class InformationEntity implements JsonEntity {
   public static final int INFORMATION_ENTITY_POSITION = 0;
   private String lastUpdated;
   private String lastSynced;
+  private boolean offlineState;
 
   public InformationEntity() {}
 
-  public InformationEntity(String lastUpdated, String lastSynced) {
+  public InformationEntity(
+    String lastUpdated,
+    String lastSynced,
+    Boolean offlineState
+  ) {
     this.lastUpdated = lastUpdated;
     this.lastSynced = lastSynced;
+    this.offlineState = offlineState;
+  }
+
+  public InformationEntity(String lastUpdated, String lastSynced) {
+    this(lastUpdated, lastSynced, getWasOffline());
   }
 
   public String getLastUpdated() {
@@ -41,6 +51,25 @@ public class InformationEntity implements JsonEntity {
       "dd-MM-yyyy HH:mm:ss"
     );
     this.lastSynced = LocalDateTime.now().format(formatter).toString();
+  }
+
+  public static boolean getWasOffline() {
+    JsonElement informationJsonElement = JsonUtils.readJsonPart(
+      INFORMATION_ENTITY_NAME
+    );
+    if (informationJsonElement.isJsonObject()) {
+      JsonObject informationObject = informationJsonElement.getAsJsonObject();
+      return informationObject.get("offline_state").getAsBoolean();
+    }
+    return true; // Default value because when infromation is empty it means that the user deconnected or has never been connected and he need to be online to connect
+  }
+
+  public boolean getWasOfflineState() {
+    return offlineState;
+  }
+
+  public void setWasOffline(boolean offlineState) {
+    this.offlineState = offlineState;
   }
 
   public static boolean isJsonInformationEntityEmpty() {
@@ -71,11 +100,6 @@ public class InformationEntity implements JsonEntity {
         this.toJsonObject(),
         INFORMATION_ENTITY_POSITION
       );
-      System.out.println("Information entity added successfully.");
-    } else {
-      System.out.println(
-        "Information entity is not empty. Cannot add a new entity."
-      );
     }
   }
 
@@ -105,7 +129,8 @@ public class InformationEntity implements JsonEntity {
       if (!jsonObject.entrySet().isEmpty()) {
         return new InformationEntity(
           jsonObject.get("last_updated").getAsString(),
-          jsonObject.get("last_synced").getAsString()
+          jsonObject.get("last_synced").getAsString(),
+          jsonObject.get("offline_state").getAsBoolean()
         );
       }
     }
@@ -119,7 +144,8 @@ public class InformationEntity implements JsonEntity {
       .getAsJsonObject();
     return new InformationEntity(
       jsonObject.get("last_updated").getAsString(),
-      jsonObject.get("last_synced").getAsString()
+      jsonObject.get("last_synced").getAsString(),
+      jsonObject.get("offline_state").getAsBoolean()
     );
   }
 
@@ -128,6 +154,7 @@ public class InformationEntity implements JsonEntity {
     JsonObject jsonObject = new JsonObject();
     jsonObject.addProperty("last_updated", lastUpdated);
     jsonObject.addProperty("last_synced", lastSynced);
+    jsonObject.addProperty("offline_state", offlineState);
     return jsonObject;
   }
 
@@ -139,6 +166,8 @@ public class InformationEntity implements JsonEntity {
       lastUpdated +
       ", last_synced=" +
       lastSynced +
+      ", offline_state=" +
+      offlineState +
       '}'
     );
   }

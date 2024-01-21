@@ -3,9 +3,9 @@ package com.jibbow.fastis.rendering;
 import com.jibbow.fastis.Appointment;
 import com.timefusion.JSON.Entities.EventNature;
 import com.timefusion.JSON.Entities.EventsEntity;
+import com.timefusion.JSON.Entities.ParticipantsEntity;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
-import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -79,6 +79,16 @@ public class AppointmentRenderer {
   }
 
   private static void handleAppointmentClick(Appointment appointment) {
+    if (appointment.isOffline()) {
+      showOfflineAppointmentDetails(appointment);
+    } else if (appointment.isInvited()) {
+      showInvitedAppointmentDetails(appointment);
+    } else {
+      showAppointmentDetailsStage(appointment);
+    }
+  }
+
+  private static void showAppointmentDetailsStage(Appointment appointment) {
     Stage detailsStage = new Stage();
     detailsStage.initModality(Modality.APPLICATION_MODAL);
     detailsStage.setTitle("Appointment Details");
@@ -115,18 +125,9 @@ public class AppointmentRenderer {
     detailsVBox.setPadding(new Insets(10));
 
     Button deleteButton = new Button("Delete");
-    deleteButton.setOnAction(event -> {
-      if (appointment.isOffline()) {
-        EventsEntity.deleteEventEntity(appointment.getEventEntity().getId());
-        detailsStage.close();
-        return;
-      } else {
-        EventsEntity.deleteEventEntity(appointment.getEventEntity().getId());
-        appointment.getEventEntity().setNature(EventNature.DELETED);
-        appointment.getEventEntity().addEventEntity();
-        detailsStage.close();
-      }
-    });
+    deleteButton.setOnAction(event ->
+      handleDeleteButtonAction(appointment, detailsStage)
+    );
 
     detailsVBox.getChildren().add(deleteButton);
 
@@ -134,5 +135,157 @@ public class AppointmentRenderer {
     detailsStage.setScene(detailsScene);
 
     detailsStage.show();
+  }
+
+  private static void showOfflineAppointmentDetails(Appointment appointment) {
+    Stage detailsStage = new Stage();
+    detailsStage.initModality(Modality.APPLICATION_MODAL);
+    detailsStage.setTitle("Offline Appointment Details");
+
+    Label titleLabel = new Label("Title: " + appointment.titleProperty().get());
+    Label startTimeLabel = new Label(
+      "Start Time: " +
+      DateTimeFormatter
+        .ofLocalizedTime(FormatStyle.SHORT)
+        .format(appointment.startTimeProperty())
+    );
+    Label endTimeLabel = new Label(
+      "End Time: " +
+      DateTimeFormatter
+        .ofLocalizedTime(FormatStyle.SHORT)
+        .format(appointment.endTimeProperty())
+    );
+    Label descriptionLabel = new Label(
+      "Description: " + appointment.getEventEntity().getDescription()
+    );
+    Label locationLabel = new Label(
+      "Location: " + appointment.getEventEntity().getLocation()
+    );
+
+    Label offlineLabel = new Label("This event is offline.");
+
+    VBox detailsVBox = new VBox(
+      titleLabel,
+      startTimeLabel,
+      endTimeLabel,
+      descriptionLabel,
+      locationLabel,
+      offlineLabel
+    );
+    detailsVBox.setAlignment(Pos.CENTER);
+    detailsVBox.setSpacing(10);
+    detailsVBox.setPadding(new Insets(10));
+
+    Button deleteButton = new Button("Delete");
+    deleteButton.setOnAction(event ->
+      handleDeleteButtonAction(appointment, detailsStage)
+    );
+
+    detailsVBox.getChildren().add(deleteButton);
+
+    Scene detailsScene = new Scene(detailsVBox, 400, 300);
+    detailsStage.setScene(detailsScene);
+
+    detailsStage.show();
+  }
+
+  private static void showInvitedAppointmentDetails(Appointment appointment) {
+    System.out.println("Invited appointment details");
+    Stage detailsStage = new Stage();
+    detailsStage.initModality(Modality.APPLICATION_MODAL);
+    detailsStage.setTitle("Invited Appointment Details");
+
+    Label titleLabel = new Label("Title: " + appointment.titleProperty().get());
+    Label startTimeLabel = new Label(
+      "Start Time: " +
+      DateTimeFormatter
+        .ofLocalizedTime(FormatStyle.SHORT)
+        .format(appointment.startTimeProperty())
+    );
+    Label endTimeLabel = new Label(
+      "End Time: " +
+      DateTimeFormatter
+        .ofLocalizedTime(FormatStyle.SHORT)
+        .format(appointment.endTimeProperty())
+    );
+    Label descriptionLabel = new Label(
+      "Description: " + appointment.getEventEntity().getDescription()
+    );
+    Label locationLabel = new Label(
+      "Location: " + appointment.getEventEntity().getLocation()
+    );
+
+    VBox detailsVBox = new VBox(
+      titleLabel,
+      startTimeLabel,
+      endTimeLabel,
+      descriptionLabel,
+      locationLabel
+    );
+
+    // Display participants if available
+    ParticipantsEntity[] participants = appointment
+      .getEventEntity()
+      .getParticipants();
+    if (participants.length > 0) {
+      Label participantsLabel = new Label("Participants:");
+      VBox participantsVBox = new VBox(participantsLabel);
+      int i = 1;
+      for (ParticipantsEntity participant : participants) {
+        Label participantLabel = new Label(
+          "" +
+          i +
+          ": " +
+          participant.getFirstName() +
+          " " +
+          participant.getLastName() +
+          "\n"
+        );
+        participantsVBox.setAlignment(Pos.CENTER);
+        participantsVBox.getChildren().add(participantLabel);
+        i++;
+      }
+
+      detailsVBox.getChildren().add(participantsVBox);
+    }
+
+    // Indicate if the event is private
+    if (appointment.getEventEntity().getIsPrivate()) {
+      Label privateLabel = new Label("This event is private.");
+      detailsVBox.getChildren().add(privateLabel);
+    }
+
+    detailsVBox.setAlignment(Pos.CENTER);
+    detailsVBox.setSpacing(10);
+    detailsVBox.setPadding(new Insets(10));
+
+    Button deleteButton = new Button("Delete");
+    deleteButton.setOnAction(event ->
+      handleDeleteButtonAction(appointment, detailsStage)
+    );
+
+    detailsVBox.getChildren().add(deleteButton);
+
+    Scene detailsScene = new Scene(detailsVBox, 400, 300);
+    detailsStage.setScene(detailsScene);
+
+    detailsStage.show();
+  }
+
+  private static void handleDeleteButtonAction(
+    Appointment appointment,
+    Stage detailsStage
+  ) {
+    EventsEntity.deleteEventEntity(appointment.getEventEntity().getId());
+    if (!appointment.isOffline() && !appointment.isInvited()) {
+      System.out.println("Not offline appointment");
+      appointment.getEventEntity().setNature(EventNature.DELETED);
+      appointment.getEventEntity().addEventEntity();
+    } else if (appointment.isInvited()) {
+      System.out.println("Invited appointment");
+      appointment.getEventEntity().setNature(EventNature.DENIED);
+      appointment.getEventEntity().addEventEntity();
+    }
+    detailsStage.close();
   }
 }

@@ -36,9 +36,9 @@ public class DisplaySync {
       for (int eventId : allEventsId) {
         EventsEntity event = EventsEntity.getEventEntityById(eventId);
         if (
-          event.getNature() == EventNature.ADDED ||
-          event.getNature() == EventNature.INVITED ||
-          event.getNature() == EventNature.UNCHANGED
+          event.getNature().equals(EventNature.ADDED) ||
+          event.getNature().equals(EventNature.INVITED) ||
+          event.getNature().equals(EventNature.UNCHANGED)
         ) {
           displaybleEventsId.add(eventId);
         }
@@ -50,16 +50,19 @@ public class DisplaySync {
   private static List<Integer> getEventsToNotDisplayIds() {
     List<Integer> allEventsId = SyncUtil.getLocalEventsIds();
     List<Integer> notDisplaybleEventsId = new ArrayList<>();
-    List<Integer> displaybleEventsId = getEventsToDisplayIds();
 
-    if (displaybleEventsId.size() > 0) {
+    if (allEventsId.size() > 0) {
       for (int eventId : allEventsId) {
-        if (!displaybleEventsId.contains(eventId)) {
+        EventsEntity event = EventsEntity.getEventEntityById(eventId);
+        if (
+          event.getNature().equals(EventNature.DELETED) ||
+          event.getNature().equals(EventNature.DENIED)
+        ) {
           notDisplaybleEventsId.add(eventId);
         }
       }
     }
-
+    System.out.println("Not displayable events: " + notDisplaybleEventsId);
     return notDisplaybleEventsId;
   }
 
