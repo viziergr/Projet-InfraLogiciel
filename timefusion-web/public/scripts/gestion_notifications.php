@@ -61,7 +61,7 @@ function demanderARejoindre() {
     // Vérifiez si l'utilisateur n'a pas déjà une invitation en attente de cette équipe
     $existingRequests = $requests->getUserRequests($guestId);
     foreach ($existingRequests as $existingRequest) {
-        if ($existingRequest->getType() == 'event'){
+        if ($existingRequest->getType() == 'team'){
             if ($existingRequest->getTeamId() == $teamId && $existingRequest->getUserId() == $guestId && $existingRequest->getStatus() == 'en_attente') {
                 // L'utilisateur a déjà une invitation en attente pour rejoindre cette équipe
                 // Vous pouvez rediriger ou afficher un message d'erreur ici
