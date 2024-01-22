@@ -1,34 +1,16 @@
 [
   {
-    "information": {
-      "last_updated": "22-01-2024 11:05:52"
-    }
+    "information": {}
   },
   {
-    "user": {
-      "id": 8,
-      "first_name": "lastNameuser3",
-      "last_name": "corentin@gmail.com",
-      "email": "FirstNameuser3",
-      "password": "$2a$10$GAiGoPwnIkzz6cYLUwWWnuKNLaBlmNE9GEHdc3AlxNl9pZxzO8ybK"
-    }
+    "user": {}
   },
   {
     "teams": []
   },
   {
     "events": [
-      {
-        "id": 24,
-        "nature": "Unchanged",
-        "is_private": true,
-        "title": "Corentin G",
-        "description": "Test",
-        "location": "ESEO",
-        "start_time": "2024-01-22 10:30:00",
-        "end_time": "2024-01-22 11:30:00",
-        "participants": []
-      }
+      {}
     ]
   }
 ]
