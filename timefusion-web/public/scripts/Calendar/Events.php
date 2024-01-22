@@ -25,7 +25,11 @@ class Events {
 
     public function getCoEventsBetween (\DateTime $start, \DateTime $end, $usersId): array {
         // Convertit la liste d'ids en une chaîne pour l'utilisation dans la requête SQL
-        $usersIdList = implode(',', array_map('intval', $usersId));
+        if(is_array($usersId)){
+            $usersIdList = implode(',', array_map('intval', $usersId));
+        }else{
+            $usersIdList = $usersId;
+        }
     
         $sql = "SELECT DISTINCT event.* 
                 FROM event
