@@ -60,3 +60,12 @@ echo "<VirtualHost *:443>
 echo "=> [3] - Activation du site 000-default.conf"
 # Activation du site 000-default.conf
 a2ensite 000-default.conf -p TimeFusion
+
+echo "=> [4] - Activation du module SSL"
+# Activation du module SSL
+a2enmod ssl
+
+echo "=> [5] - Relancer apache2 pour mettre à jour le proxy"
+# Relancer apache2 pour mettre à jour le proxy
+systemctl reload apache2
+service apache2 restart

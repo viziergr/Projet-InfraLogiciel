@@ -53,7 +53,7 @@ else
     rm /var/www/html/Projet-InfraLogiciel/README.md
 fi
 
-echo "START - Modification de la configuration du site 000-default.conf"
+echo "[5] - Modification de la configuration du site 000-default.conf"
 # Vérifier si la chaîne de caractères à rechercher existe dans le fichier
 if grep -q "$nouvelle_chaine" "$fichier_conf"; then
     # La chaîne existe, ne rien faire
@@ -63,7 +63,9 @@ else
     sed -i "s|$chaine_a_rechercher|$nouvelle_chaine|g" "$fichier_conf"
     echo "=> La chemin d'accès au site a été modifié."
 fi
-echo "END - Modification de la configuration du site 000-default.conf"
+
+echo "[6] - Déplacement de /myadmin/"
+    sudo mv /var/www/html/phpmyadmin /var/www/html/Projet-InfraLogiciel/timefusion-web/public/
 
 service apache2 reload
 echo "END - Deplacement des fichiers"
