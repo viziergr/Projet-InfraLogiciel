@@ -46,7 +46,7 @@ $members = $team->getMembers();
             <div class="request-container">
                 <h3><?= $memberName?> : <?= $memberRole?> de l'équipe</h3>
                 <!-- Ajout des boutons Accepter et Refuser -->
-                <form action='gestion_permission.php' method="post">
+                <form action='../../scripts/gestion_permission.php' method="post">
                     <input type="hidden" name="member_id" value="<?=$memberId?>">
                     <input type="hidden" name="team_id" value="<?=$team_id?>">
                     <button type="submit" name="promote">Promouvoir</button>
