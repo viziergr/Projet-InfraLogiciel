@@ -12,6 +12,7 @@ class EventValidator extends Validator{
         $this->validate('name','minLength', 3);
         $this->validate('date','date');
         $this->validate('start','beforeTime', 'end');
+        $this->validate('','publicOprivate');
         return $this->errors;
     }
 

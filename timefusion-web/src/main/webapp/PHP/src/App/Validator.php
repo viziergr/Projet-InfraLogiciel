@@ -55,6 +55,14 @@ class Validator {
             return true;
         }
     }
+
+    public function publicOprivate(){
+        if($this->data['visibilite'] !== 'public' && $this->data['visibilite'] !== 'private'){
+            $this->errors['visibilite'] = "La visibilité doit être publique ou privé";
+            return false;
+        }
+        return true;
+    }
 }
 
 ?>
