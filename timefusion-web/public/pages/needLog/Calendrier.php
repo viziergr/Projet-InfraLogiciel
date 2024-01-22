@@ -77,9 +77,14 @@ dd($events);
                 <?php endif; ?>
                 <div class='calendar__day'><?= $date->format('d'); ?></div>
                 <?php foreach ($eventsForDay as $event): ?>
-                <div class="calendar__event">
-                    <?= (new \DateTime($event['start_time']))->format('H:i') ?> - <a href="edit.php?id=<?= $event['id']; ?>"> <?= h($event['title']); ?></a>
-                </div>
+                    <div class="calendar__event">
+                        <?= (new \DateTime($event['start_time']))->format('H:i') ?> -
+                        <?php if ($event['is_private'] && $_SESSION['compte']!=$event['creator_id']) : ?>
+                            <span class="private-event">Événement Privé</span>
+                        <?php else : ?>
+                            <a href="edit.php?id=<?= $event['id']; ?>"> <?= h($event['title']); ?></a>
+                        <?php endif; ?>
+                    </div>
                 <?php endforeach; ?>
             </td>
             <?php endforeach; ?>

@@ -100,10 +100,17 @@
 }
 
 .calendar__event {
-    background-color: #d1ecf1;
+    background-color: #bee5eb;
     border: 1px solid #bee5eb;
     padding: 5px;
     margin-bottom: 2px;
+}
+
+.private-event {
+    background-color: #909090; /* Couleur de fond pour les événements privés */
+    padding: 2px 5px; /* Espacement interne */
+    border-radius: 3px; /* Coins arrondis */
+    font-weight: bold; /* Texte en gras */
 }
 
 .calendar__day {
@@ -266,8 +273,6 @@
 .request-container button:last-child {
     margin-right: 0;
 }
-
-
 
 .dropdown {
     top: 0;
