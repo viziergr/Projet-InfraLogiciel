@@ -55,7 +55,16 @@ include __DIR__ .'/../../includes/header.php';
         <input type="hidden" name="event_id" value="<?= $event->getId(); ?>">
         <button type="submit">Ajouter des participants</button>
     </form>
+    <?php foreach($events->getParticipants($event->getId()) as $participant): ?>
+        <div class="user-card">
+            <h3><?= h($participant->getFirstName()) . ' ' . h($participant->getLastName()); ?></h3>
+            <p>Email: <?= h($participant->getEmail()); ?></p>
+            <p>Year: <?= h($participant->getYear()); ?></p>
+        </div>
+    <?php endforeach; ?>
 </div>
+
+
 
 
 <?php 
