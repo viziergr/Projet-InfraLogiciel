@@ -33,6 +33,9 @@ if (isset($_POST['inscription_submit']) && $_POST['inscription_submit'] == 2) {
         $check_email_query = "SELECT * FROM user WHERE email = '$mail_escaped'";
         $email_result = $mysqli->query($check_email_query);
 
+        $hashedPassword = crypt($pwd, '$2y$12$' . bin2hex(random_bytes(22)));
+        $password_escaped = $mysqli->real_escape_string(trim($hashedPassword));
+        
         if ($email_result->num_rows > 0) {
             // L'email existe déjà dans la base de données
             $error = "Cet e-mail est déjà associé à un compte existant.";
