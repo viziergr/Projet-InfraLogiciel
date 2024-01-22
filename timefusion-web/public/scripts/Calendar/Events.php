@@ -31,7 +31,7 @@ class Events {
                 FROM event
                 JOIN event_participant ON event_participant.event_id = event.id 
                 WHERE event.start_time BETWEEN '{$start->format('Y-m-d 00:00:00')}' AND '{$end->format('Y-m-d 23:59:59')}' 
-                AND event.creator_id IN ($usersIdList)";
+                AND event_participant.participant_id IN ($usersIdList)";
     
         // Exécute la requête SQL
         $result = $this->mysqli->query($sql);
