@@ -72,11 +72,15 @@ function demanderARejoindre() {
     }
 
     // Envoi de l'invitation
-    $requests->envoyerInvitation($guestId, $teamId);
-
-    // Rediriger ou afficher un message de succès, etc.
-    header('Location: /pages/needLog/networkpanel.php?demande_envoyee=1&team_id=' . $teamId . '');
-    exit();
+    try{
+        $requests->envoyerInvitation($guestId, $teamId);
+        // Rediriger ou afficher un message de succès, etc.
+        header('Location: /pages/needLog/networkpanel.php?demande_envoyee=1&team_id=' . $teamId . '');
+        exit();
+    } catch (Exception $e) {
+        header('Location: /pages/needLog/networkpanel.php?demande_envoyee=2&team_id=' . $teamId . '');
+        exit();
+    }
 }
 
 function demanderARejoindreEvent(){
@@ -102,11 +106,15 @@ function demanderARejoindreEvent(){
     }
 
     // Envoi de l'invitation
-    $requests->envoyerInvitationEvent($guestId, $eventId);
-
-    // Rediriger ou afficher un message de succès, etc.
-    header('Location: /pages/needLog/networkpanel.php?demande_envoyee=1&event_id=' . $eventId . '');
-    exit();
+    try{
+        $requests->envoyerInvitationEvent($guestId, $eventId);
+         // Rediriger ou afficher un message de succès, etc.
+        header('Location: /pages/needLog/networkpanel.php?demande_envoyee=1&event_id=' . $eventId . '');
+        exit();
+    } catch (Exception $e) {
+        header('Location: /pages/needLog/networkpanel.php?demande_envoyee=2&event_id=' . $eventId . '');
+        exit();
+    }
 }
 
 

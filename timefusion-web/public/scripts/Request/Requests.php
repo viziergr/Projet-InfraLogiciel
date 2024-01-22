@@ -224,8 +224,8 @@ class Requests
         } catch (\Exception $e) {
             // En cas d'erreur, annuler la transaction et rediriger avec un message d'erreur
             $this->mysqli->rollback();
-            header('Location: /pages/needLog/networkpanel.php?demande_envoyee=2&team_id=' . $teamId . '&error=' . urlencode($e->getMessage()));
-            exit();
+            // header('Location: /pages/needLog/networkpanel.php?demande_envoyee=2&team_id=' . $teamId . '&error=' . urlencode($e->getMessage()));
+            // exit();
         }
     }
     
@@ -292,8 +292,8 @@ class Requests
         } catch (\Exception $e) {
             // En cas d'erreur, annuler la transaction et rediriger avec un message d'erreur
             $this->mysqli->rollback();
-            header('Location: /pages/needLog/networkpanel.php?demande_envoyee=2&event_id=' . $eventId . '&error=' . urlencode($e->getMessage()));
-            exit();
+            // header('Location: /pages/needLog/networkpanel.php?demande_envoyee=2&event_id=' . $eventId . '&error=' . urlencode($e->getMessage()));
+            // exit();
         }
     }
 

@@ -43,7 +43,7 @@ $userList = $users->getEveryOtherUsers($userId);
                 <form action='../../scripts/gestion_notifications.php' method="post">
                     <input type="hidden" name="user_id" value="<?= $user->getId(); ?>">
                     <input type="hidden" name="event_id" value="<?= $_GET['event_id']; ?>">
-                    <button type="submit" name="add_event">Inviter à rejoindre lévènement</button>
+                    <button type="submit" name="add_event">Inviter à rejoindre l'évènement</button>
                 </form>
             <?php else: ?>
             <form action='../../scripts/gestion_notifications.php' method="post">
