@@ -137,17 +137,26 @@ class Requests
         $request = $this->getRequestById($requestId);
         $teamId = $request['team_id'];
         $userId = $request['user_id'];
+        $type = $request['type'];
 
         // Mettre à jour le statut de la demande dans la base de données
         // Supposons que vous ayez une colonne 'status' dans votre table 'request'
-        $sql = "UPDATE requests SET status = 'acceptee' WHERE id = ?";
+        if($type == 'team')
+            $sql = "UPDATE requests SET status = 'acceptee' WHERE id = ? AND type = 'team'";
+        else
+            $sql = "UPDATE requests SET status = 'acceptee' WHERE id = ? AND type = 'event'";
         $stmt = $this->mysqli->prepare($sql);
         $stmt->bind_param("i", $requestId);
         $stmt->execute();
         $stmt->close();
 
         // Ajouter le membre à l'équipe
-        $this->ajouterMembreEquipe($teamId, $userId);
+        if($type == 'team'){
+            $this->ajouterMembreEquipe($teamId, $userId);
+        }
+        else{
+            $this->ajouterParticipantEvent($teamId, $userId);
+        }
     }
 
     // Méthode pour ajouter un membre à l'équipe
@@ -169,6 +178,29 @@ class Requests
             $sql = "INSERT INTO team_membership (team_id, user_id) VALUES (?, ?)";
             $stmt = $this->mysqli->prepare($sql);
             $stmt->bind_param("ii", $teamId, $userId);
+            $stmt->execute();
+            $stmt->close();
+        }
+    }
+
+    private function ajouterParticipantEvent($eventId, $userId) {
+        // Vérifier si le membre n'est pas déjà dans l'équipe
+        $sql = "SELECT COUNT(*) FROM event_participant WHERE event_id = ? AND participant_id = ?";
+        $stmt = $this->mysqli->prepare($sql);
+        $stmt->bind_param("ii", $eventId, $userId);
+        $stmt->execute();
+        $stmt->bind_result($count);
+        $stmt->fetch();
+        $stmt->close();
+
+        // Initialiser $count si aucune ligne n'est trouvée
+        $count = isset($count) ? $count : 0;
+
+        // Si le membre n'est pas déjà dans l'évènement, l'ajouter
+        if ($count == 0) {
+            $sql = "INSERT INTO event_participant (event_id, participant_id) VALUES (?, ?)";
+            $stmt = $this->mysqli->prepare($sql);
+            $stmt->bind_param("ii", $eventId, $userId);
             $stmt->execute();
             $stmt->close();
         }
@@ -212,7 +244,7 @@ class Requests
 
         if (!$stmt) {
             $error = error_get_last();
-            throw new \Exception("Erreur lors de la préparation de la requête d'insertion de demande d'invitation. Détails : " . print_r($error, true));
+            throw new \Exception("Erreur lors de la préparation de la requête d'insertion de demande d'invitation. Détails : " . print_r($sql));
         }
 
         $stmt->bind_param("ii", $guestId, $teamId);
