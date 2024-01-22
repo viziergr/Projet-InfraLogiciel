@@ -37,7 +37,7 @@ $members = $team->getMembers();
     
     <!-- Ajout des boutons Accepter et Refuser -->
     <form action='' method="post">
-        <input type="hidden" name="member_id" value="<?= $member?>">
+        <input type="hidden" name="member_id" value="<?= $user->getId()?>">
         <input type="hidden" name="team_id" value="<?=$team_id?>">
         <button type="submit" name="quit">Quitter l'équipe</button>
     </form>
