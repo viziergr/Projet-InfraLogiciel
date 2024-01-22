@@ -78,8 +78,7 @@ function demanderARejoindre() {
         header('Location: /pages/needLog/networkpanel.php?demande_envoyee=1&team_id=' . $teamId . '');
         exit();
     } catch (Exception $e) {
-        header('Location: /pages/needLog/networkpanel.php?demande_envoyee=2&team_id=' . $teamId . '');
-        exit();
+        dd($e);
     }
 }
 
@@ -112,8 +111,7 @@ function demanderARejoindreEvent(){
         header('Location: /pages/needLog/networkpanel.php?demande_envoyee=1&event_id=' . $eventId . '');
         exit();
     } catch (Exception $e) {
-        header('Location: /pages/needLog/networkpanel.php?demande_envoyee=2&event_id=' . $eventId . '');
-        exit();
+        dd($e);
     }
 }
 
