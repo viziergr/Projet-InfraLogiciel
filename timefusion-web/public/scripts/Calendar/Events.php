@@ -152,7 +152,10 @@ class Events {
      * @return array The array of participants for the specified event.
      */
     public function getParticipants(int $eventId): array {
-        $sql = "SELECT * FROM event_participant WHERE event_id = $eventId";
+        $sql = "SELECT user.* 
+                FROM event_participant
+                JOIN user ON user.id = event_participant.participant_id 
+                WHERE event_participant.event_id = $eventId";
         $result = $this->mysqli->query($sql);
 
         if (!$result) {
