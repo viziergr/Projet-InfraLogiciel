@@ -10,7 +10,6 @@ include __DIR__ .'/../../includes/header.php';
 $mysqli = connectDB();
 $users = new TimeFusion\Team\Users($mysqli);
 
-// Supposons que vous ayez un mécanisme d'authentification qui donne l'ID de l'utilisateur connecté
 $userId = $_SESSION['compte']; // Assurez-vous de récupérer l'ID de l'utilisateur correctement
 
 $userList = $users->getEveryOtherUsers($userId);
@@ -39,6 +38,14 @@ $userList = $users->getEveryOtherUsers($userId);
             <p>Year: <?= h($user->getYear()); ?></p>
             
             <!-- Formulaire avec le bouton "Ajouter à une équipe" -->
+            <?php if(isset($_GET['event_panel']) && $_GET['event_panel']==='1' && isset($_GET['event_id'])):?>
+
+                <form action='../../scripts/gestion_notifications.php' method="post">
+                    <input type="hidden" name="user_id" value="<?= $user->getId(); ?>">
+                    <input type="hidden" name="event_id" value="<?= $_GET['event_id']; ?>">
+                    <button type="submit" name="add_event">Inviter à rejoindre lévènement</button>
+                </form>
+            <?php else: ?>
             <form action='../../scripts/gestion_notifications.php' method="post">
                 <input type="hidden" name="user_id" value="<?= $user->getId(); ?>">
                 <?php 
@@ -49,6 +56,7 @@ $userList = $users->getEveryOtherUsers($userId);
                 <input type="hidden" name="team_id" value="<?= $teamId; ?>">
                 <button type="submit" name="add_team">Ajouter à une équipe</button>
             </form>
+            <?php endif; ?>
         </div>
     <?php endforeach; ?>
 </div>

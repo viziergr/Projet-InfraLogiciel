@@ -14,6 +14,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     elseif (isset($_POST['add_team'])) {
         demanderARejoindre();
     }
+    elseif (isset($_POST['add_event'])) {
+        demanderARejoindreEvent();
+    }
 }
 
 function traiterAcceptation() {
@@ -58,11 +61,13 @@ function demanderARejoindre() {
     // Vérifiez si l'utilisateur n'a pas déjà une invitation en attente de cette équipe
     $existingRequests = $requests->getUserRequests($guestId);
     foreach ($existingRequests as $existingRequest) {
-        if ($existingRequest->getTeamId() == $teamId && $existingRequest->getUserId() == $guestId && $existingRequest->getStatus() == 'en_attente') {
-            // L'utilisateur a déjà une invitation en attente pour rejoindre cette équipe
-            // Vous pouvez rediriger ou afficher un message d'erreur ici
-            header('Location: /pages/needLog/networkpanel.php?demande_envoyee=2&team_id=' . $teamId . '');
-            exit();
+        if ($existingRequest->getType() == 'event'){
+            if ($existingRequest->getTeamId() == $teamId && $existingRequest->getUserId() == $guestId && $existingRequest->getStatus() == 'en_attente') {
+                // L'utilisateur a déjà une invitation en attente pour rejoindre cette équipe
+                // Vous pouvez rediriger ou afficher un message d'erreur ici
+                header('Location: /pages/needLog/networkpanel.php?demande_envoyee=2&team_id=' . $teamId . '');
+                exit();
+            }
         }
     }
 
@@ -74,6 +79,35 @@ function demanderARejoindre() {
     exit();
 }
 
+function demanderARejoindreEvent(){
+    // Récupérer l'ID de l'utilisateur invité à partir du formulaire
+    $guestId = $_POST['user_id'];
+    $eventId = $_POST['event_id'];
+
+    // Mettre à jour le statut de la demande dans la base de données
+    $mysqli = connectDB();
+    $requests = new TimeFusion\Request\Requests($mysqli);
+
+    // Vérifiez si l'utilisateur n'a pas déjà une invitation en attente de cette équipe
+    $existingRequests = $requests->getUserRequests($guestId);
+    foreach ($existingRequests as $existingRequest) {
+        if ($existingRequest->getType() == 'event'){
+            if ($existingRequest->getTeamId() == $eventId && $existingRequest->getUserId() == $guestId && $existingRequest->getStatus() == 'en_attente') {
+                // L'utilisateur a déjà une invitation en attente pour rejoindre cette équipe
+                // Vous pouvez rediriger ou afficher un message d'erreur ici
+                header('Location: /pages/needLog/networkpanel.php?demande_envoyee=2&event_id=' . $eventId . '');
+                exit();
+            }
+        }
+    }
+
+    // Envoi de l'invitation
+    $requests->envoyerInvitationEvent($guestId, $eventId);
+
+    // Rediriger ou afficher un message de succès, etc.
+    header('Location: /pages/needLog/networkpanel.php?demande_envoyee=1&event_id=' . $eventId . '');
+    exit();
+}
 
 
 ?>

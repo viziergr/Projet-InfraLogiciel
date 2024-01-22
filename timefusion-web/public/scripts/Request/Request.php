@@ -11,13 +11,16 @@ class Request
     private $status;
     private $id;
 
-    public function __construct(int $id=null, int $teamId=null, string $team_name, int $userId=null, string $status=null)
+    private $type;
+
+    public function __construct(int $id=null, int $teamId=null, string $team_name, int $userId=null, string $status=null, string $type='team')
     {
         $this->id = $id;
         $this->teamId = $teamId;
         $this->team_name = $team_name;
         $this->userId = $userId;
         $this->status = $status;
+        $this->type = $type;
     }
     
     public function getId()
@@ -43,5 +46,10 @@ class Request
     public function getTeamName()
     {
         return $this->team_name;
+    }
+
+    public function getType()
+    {
+        return $this->type;
     }
 }

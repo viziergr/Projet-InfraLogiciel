@@ -48,6 +48,16 @@ include __DIR__ .'/../../includes/header.php';
     </form>
 </div>
 
+<div class="container">
+    <small>Ajouter des participants:</small>
+    <form action="" method="GET">
+        <input type="hidden" name="event_panel" value="1">
+        <input type="hidden" name="event_id" value="<?= $event->getId(); ?>">
+        <button type="submit">Ajouter des participants</button>
+    </form>
+</div>
+
+
 <?php 
 include __DIR__ .'/../../includes/footer.php';
 ?>

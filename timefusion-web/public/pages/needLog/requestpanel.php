@@ -18,8 +18,11 @@ $userRequests = $requests->getUserRequests($userId);
 
 <?php foreach ($userRequests as $request): ?>
     <div class="request-container">
-        <h3>L'équipe: <?= $request->getTeamName() ?> vous envoie une invitation à les rejoindre</h3>
-        
+        <?php if($request->getType() == 'event'): ?>
+            <h3>Vous êtes invité à rejoindre l'évènement <?= $request->getTeamName() ?></h3>
+        <?php else: ?>
+            <h3>L'équipe: <?= $request->getTeamName() ?> vous envoie une invitation à les rejoindre</h3>
+        <?php endif; ?>
         <!-- Ajout des boutons Accepter et Refuser -->
         <form action='../../scripts/gestion_notifications.php' method="post">
             <input type="hidden" name="request_id" value="<?= $request->getId()?>">
