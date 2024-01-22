@@ -106,11 +106,12 @@
     margin-bottom: 2px;
 }
 
-.private-event {
-    background-color: #909090; /* Couleur de fond pour les événements privés */
-    padding: 2px 5px; /* Espacement interne */
+.calendar__event__private{
+    background-color: #767676; /* Couleur de fond pour les événements privés */
+    padding: 5px; /* Espacement interne */
     border-radius: 3px; /* Coins arrondis */
     font-weight: bold; /* Texte en gras */
+    margin-bottom: 2px;
 }
 
 .calendar__day {
