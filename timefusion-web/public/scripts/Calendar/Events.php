@@ -47,6 +47,50 @@ class Events {
     
         return $eventsData;
     }
+
+    public function getCoEventsBetween (\DateTime $start, \DateTime $end, $usersId): array {
+        // Convertit la liste d'ids en une chaîne pour l'utilisation dans la requête SQL
+        $usersIdList = implode(',', array_map('intval', $usersId));
+    
+        $sql = "SELECT event.* 
+                FROM event
+                JOIN event_participant ON event_id = event.id 
+                WHERE start_time BETWEEN '{$start->format('Y-m-d 00:00:00')}' AND '{$end->format('Y-m-d 23:59:59')}' 
+                AND creator_id IN ($usersIdList)";
+    
+        // Exécute la requête SQL
+        $result = $this->mysqli->query($sql);
+    
+        if (!$result) {
+            // Gère les erreurs ici, si nécessaire
+            echo "Error in query: " . $this->mysqli->error;
+            return [];
+        }
+    
+        // Récupère les données résultantes
+        $eventsData = $result->fetch_all(MYSQLI_ASSOC);
+    
+        // Libère le résultat de la requête
+        $result->free_result();
+    
+        return $eventsData;
+    }
+
+    public function getCoEventsBetweenByDay(\DateTime $start, \DateTime $end, $usersId): array {
+        $events = $this->getCoEventsBetween($start, $end, $usersId);
+
+        $days = [];
+
+        foreach ($events as $event) {
+                $date = explode(' ', $event['start_time'])[0];
+                if (!isset($days[$date])) {
+                    $days[$date] = [$event];
+                } else {
+                    $days[$date][] = $event;
+                }
+        }
+        return $days;
+    }
     
     
     
