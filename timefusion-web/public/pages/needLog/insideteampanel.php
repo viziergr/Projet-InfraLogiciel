@@ -47,10 +47,11 @@ $members = $team->getMembers();
             <div class="request-container">
                 <h3><?= $memberName?> : <?= $memberRole?> de l'équipe</h3>
                 <!-- Ajout des boutons Accepter et Refuser -->
-                <form action='' method="post">
-                    <input type="hidden" name="request_id" value="<?=$memberId?>">
-                    <button type="submit" name="accept_request">Promouvoir</button>
-                    <button type="submit" name="reject_request">Relèguer</button>
+                <form action='../../scripts/gestion_permission.php' method="post">
+                    <input type="hidden" name="member_id" value="<?=$memberId?>">
+                    <input type="hidden" name="team_id" value="<?=$team_id?>">
+                    <button type="submit" name="promote">Promouvoir</button>
+                    <button type="submit" name="relegate">Reléguer</button>
                 </form>
             </div>
         <?php else: ?>

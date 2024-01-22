@@ -245,7 +245,7 @@ class Teams
         switch($userRole){
             case 'Leader':
                 switch($memberRole){
-                    case 'Co-Leader':
+                    case 'Co-leader':
                         $permissions = true;
                         break;
                     case 'Elder':
@@ -256,7 +256,7 @@ class Teams
                         break;
                 }
                 break;
-            case 'Co-Leader':
+            case 'Co-leader':
                 switch($memberRole){
                     case 'Elder':
                         $permissions = true;
@@ -275,6 +275,46 @@ class Teams
                 break;
         }
         return $permissions;
+    }
+
+    public function promote($team_id, $user_id){
+        $role = $this->getRoleById($user_id, $team_id);
+        switch($role){
+            case 'Member':
+                $role = 'Elder';
+                break;
+            case 'Elder':
+                $role = 'Co-leader';
+                break;
+            case 'Co-leader':
+                $role = 'Leader';
+                $leader_id = $this->getCurrentLeaderId($team_id);
+                $this->mysqli->query("UPDATE team_membership SET role = 'Co-leader' WHERE user_id = $leader_id AND team_id = $team_id");
+                break;
+        }
+        $this->mysqli->query("UPDATE team_membership SET role = '$role' WHERE user_id = $user_id AND team_id = $team_id");
+    }
+
+    public function relegate($team_id, $user_id){
+        $role = $this->getRoleById($user_id, $team_id);
+        switch($role){
+            case 'Elder':
+                $role = 'Member';
+                break;
+            case 'Co-leader':
+                $role = 'Elder';
+                break;
+            case 'Leader':
+                $role = 'Co-leader';
+                break;
+        }
+        $this->mysqli->query("UPDATE team_membership SET role = '$role' WHERE user_id = $user_id AND team_id = $team_id");
+    }
+
+    private function getCurrentLeaderId($team_id) {
+        $result = $this->mysqli->query("SELECT user_id FROM team_membership WHERE team_id = $team_id AND role = 'Leader' LIMIT 1");
+        $row = $result->fetch_assoc();
+        return ($row) ? $row['user_id'] : null;
     }
 
 }
