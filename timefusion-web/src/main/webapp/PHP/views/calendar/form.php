@@ -43,5 +43,16 @@
     <textarea name="description" id="description" class="form-control"><?= isset($data['description']) ? $data['description'] : '' ?></textarea>
 </div>
 <div class="form-group">
+    <label for="visibilite">Visibilité de l'événement</label>
+    <select name="visibilite" id="visibilite" class="form-control">
+        <option value="select">Sélectionnez une option</option>
+        <option value="public" <?= isset($data['visibilite']) && $data['visibilite'] === 'public' ? 'selected' : '' ?>>Publique</option>
+        <option value="private" <?= isset($data['visibilite']) && $data['visibilite'] === 'private' ? 'selected' : '' ?>>Privé</option>
+    </select>
+    <?php if(isset($errors['visibilite'])): ?>
+        <small class="form-text text-muted"><?= $errors['visibilite']; ?></small>
+    <?php endif; ?>
+</div>
+<div class="form-group">
     <button class="btn btn-primary">Ajouter l'évènement</button>
 </div>
