@@ -14,12 +14,11 @@ $users = new TimeFusion\Team\Users($mysqli);
 // Supposons que vous ayez un mécanisme d'authentification qui donne l'ID de l'utilisateur connecté
 $userId = $_SESSION['compte']; // Assurez-vous de récupérer l'ID de l'utilisateur correctement
 
-if(isset($_POST['team_id'])) {
-    $team_id = $_POST['team_id'];
+if(isset($_GET['team_id'])) {
+    $team_id = $_GET['team_id'];
 }else{
     header('Location: teampanel.php');
 }
-
 $user = $users->getUserById($userId);
 $team = $teams->getTeamObjectFromDb($team_id);
 $members = $team->getMembers();
@@ -47,7 +46,7 @@ $members = $team->getMembers();
             <div class="request-container">
                 <h3><?= $memberName?> : <?= $memberRole?> de l'équipe</h3>
                 <!-- Ajout des boutons Accepter et Refuser -->
-                <form action='../../scripts/gestion_permission.php' method="post">
+                <form action='gestion_permission.php' method="post">
                     <input type="hidden" name="member_id" value="<?=$memberId?>">
                     <input type="hidden" name="team_id" value="<?=$team_id?>">
                     <button type="submit" name="promote">Promouvoir</button>
