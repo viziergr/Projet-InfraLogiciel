@@ -1,22 +1,25 @@
-package com.timefusion.sync;
+package com.launcher;
 
+import com.timefusion.TimeFusionApp;
 import com.timefusion.dao.EventDao;
 import com.timefusion.localStorage.Entities.InformationEntity;
+import com.timefusion.sync.LocalToRemoteEventSync;
+import com.timefusion.sync.NetworkStateManager;
+import com.timefusion.sync.RemoteToLocalEventSync;
 import com.timefusion.ui.calendar.DisplaySync;
 import com.timefusion.util.DatabaseUtil;
-import demo.Main;
 import java.sql.SQLException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-public class SyncScheduler {
+public class TimeFusionLauncher {
 
   private static final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(
     1
   );
   private static final int INITIAL_DELAY_SECONDS = 0;
-  private static final int SCHEDULE_INTERVAL_SECONDS = 10;
+  private static final int SCHEDULE_INTERVAL_SECONDS = 2;
 
   public static void main(String[] args) {
     try {
@@ -29,7 +32,7 @@ public class SyncScheduler {
     }
 
     // Launch the JavaFX application
-    Main.main(args);
+    TimeFusionApp.main(args);
 
     Runtime
       .getRuntime()
@@ -55,14 +58,12 @@ public class SyncScheduler {
     scheduler.scheduleAtFixedRate(
       () -> {
         try {
-          System.out.println("Syncing...");
           NetworkStateManager.detectWifiState();
           if (NetworkStateManager.hasWifiConnection()) {
             informationEntity.setLastSyncedNow();
             LocalToRemoteEventSync.synchronize(eventDao);
             RemoteToLocalEventSync.synchronizeEvents(databaseUtil);
           }
-          System.out.println(NetworkStateManager.hasWifiConnection());
           informationEntity.setLastUpdatedNow();
           informationEntity.updateInformationEntity();
           DisplaySync.synchronizeDisplay();

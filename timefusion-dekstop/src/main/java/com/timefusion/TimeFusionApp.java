@@ -1,4 +1,4 @@
-package demo;
+package com.timefusion;
 
 import com.timefusion.localStorage.JsonUtils;
 import com.timefusion.ui.calendar.Calendar;
@@ -11,7 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
-public class Main extends Application {
+public class TimeFusionApp extends Application {
 
   private static WeekView weekView;
 
@@ -36,7 +36,7 @@ public class Main extends Application {
   public static void initializeMainApplication(Stage primaryStage) {
     weekView = new WeekView(LocalDate.now(), new Calendar());
     Image customIcon = new Image(
-      Main.class.getResourceAsStream(
+      TimeFusionApp.class.getResourceAsStream(
           "/com/timefusion/ui/calendar/resources/png/Logo.png"
         )
     );
@@ -48,13 +48,11 @@ public class Main extends Application {
     stage.setMinHeight(100);
 
     stage.setOnCloseRequest(event -> {
-      // Perform cleanup actions here if needed TODO
       Platform.exit();
       System.exit(0);
     });
 
     stage.show();
-    System.out.println("Hello World");
   }
 
   public static WeekView getWeekView() {
