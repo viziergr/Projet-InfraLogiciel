@@ -127,6 +127,12 @@ class Events {
     
         // Fermer le statement
         $stmt->close();
+
+        // Récupérer l'ID de l'événement récemment inséré
+        $eventId = $this->mysqli->insert_id;
+
+        // Ajouter le participant à l'événement
+        $this->addParticipant($eventId, $creatorId);
     
         return $result;
     }
@@ -143,6 +149,48 @@ class Events {
             $event->getId()
         ]);
     }
-}
 
+/**
+     * Get participants for a specific event.
+     *
+     * @param int $eventId The ID of the event.
+     * @return array The array of participants for the specified event.
+     */
+    public function getParticipants(int $eventId): array {
+        $sql = "SELECT * FROM event_participant WHERE event_id = $eventId";
+        $result = $this->mysqli->query($sql);
+
+        if (!$result) {
+            echo "Error in query: " . $this->mysqli->error;
+            return [];
+        }
+
+        $participantsData = $result->fetch_all(MYSQLI_ASSOC);
+        $result->free_result();
+
+        return $participantsData;
+    }
+
+    /**
+     * Add a participant to an event.
+     *
+     * @param int $eventId The ID of the event.
+     * @param int $participantId The ID of the participant.
+     * @return bool True if successful, false otherwise.
+     */
+    public function addParticipant(int $eventId, int $participantId): bool {
+        $sql = "INSERT INTO event_participant (event_id, participant_id) VALUES (?, ?)";
+        $stmt = $this->mysqli->prepare($sql);
+
+        if (!$stmt) {
+            return false;
+        }
+
+        $stmt->bind_param("ii", $eventId, $participantId);
+        $result = $stmt->execute();
+        $stmt->close();
+
+        return $result;
+    }
+}
 ?>
