@@ -108,6 +108,7 @@
 
 .calendar__event__private{
     background-color: #767676; /* Couleur de fond pour les événements privés */
+    border: 1px solid #767676;
     padding: 5px; /* Espacement interne */
     border-radius: 3px; /* Coins arrondis */
     font-weight: bold; /* Texte en gras */
@@ -169,6 +170,7 @@
     padding: 15px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
 }
 
 .user-card h3 {
