@@ -211,8 +211,10 @@ class Requests
         $stmt = $this->mysqli->prepare($sql);
 
         if (!$stmt) {
-            throw new \Exception("Erreur lors de la préparation de la requête d'insertion de demande d'invitation.");
+            $error = error_get_last();
+            throw new \Exception("Erreur lors de la préparation de la requête d'insertion de demande d'invitation. Détails : " . print_r($error, true));
         }
+
         $stmt->bind_param("ii", $guestId, $teamId);
         $stmt->execute();
         $stmt->close();
@@ -271,8 +273,10 @@ class Requests
         $stmt = $this->mysqli->prepare($sql);
 
         if (!$stmt) {
-            throw new \Exception("Erreur lors de la préparation de la requête d'insertion de demande d'invitation.");
+            $error = error_get_last();
+            throw new \Exception("Erreur lors de la préparation de la requête d'insertion de demande d'invitation. Détails : " . print_r($error, true));
         }
+    
         $stmt->bind_param("ii", $guestId, $eventId);
         $stmt->execute();
         $stmt->close();
