@@ -50,7 +50,7 @@ include __DIR__ .'/../../includes/header.php';
 
 <div class="container">
     <small>Ajouter des participants:</small>
-    <form action="" method="GET">
+    <form action="networkpanel.php" method="GET">
         <input type="hidden" name="event_panel" value="1">
         <input type="hidden" name="event_id" value="<?= $event->getId(); ?>">
         <button type="submit">Ajouter des participants</button>
