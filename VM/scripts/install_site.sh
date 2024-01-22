@@ -64,7 +64,7 @@ else
     echo "=> La chemin d'accès au site a été modifié."
 fi
 
-echo "[6] - Déplacement de /myadmin/"
+echo "=> [6] - Déplacement de /myadmin/"
     sudo mv /var/www/html/myadmin /var/www/html/Projet-InfraLogiciel/timefusion-web/public/
 
 service apache2 reload
