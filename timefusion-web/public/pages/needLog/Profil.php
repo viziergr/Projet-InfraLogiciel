@@ -35,6 +35,12 @@ $user = $users->getUserById($_SESSION['compte']);
     <div class="profil">
         <h1>Profil</h1>
     </div>
+
+    <div class="modif">
+        <a href="newPassword.php">
+            <p> Modifier votre mot de passe </p>
+        </a>
+    </div>
     
     <div class="information">
         <div class="traitV"></div>
@@ -51,11 +57,6 @@ $user = $users->getUserById($_SESSION['compte']);
 
             ?>
 
-        </div>
-        <div class="modif">
-            <a href="newPassword.php">
-                <p> Modifier votre mot de passe </p>
-            </a>
         </div>
     </div>
 
