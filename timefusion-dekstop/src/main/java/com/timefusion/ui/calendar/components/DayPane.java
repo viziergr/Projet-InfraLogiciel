@@ -2,7 +2,6 @@ package com.timefusion.ui.calendar.components;
 
 import com.timefusion.ui.calendar.Appointment;
 import com.timefusion.ui.calendar.rendering.AbstractAppointmentFactory;
-import com.timefusion.ui.calendar.rendering.AppointmentRenderer;
 import com.timefusion.ui.calendar.rendering.FlexAppointmentFactory;
 import com.timefusion.ui.calendar.util.PercentPane;
 import com.timefusion.ui.calendar.util.TimeInterval;
