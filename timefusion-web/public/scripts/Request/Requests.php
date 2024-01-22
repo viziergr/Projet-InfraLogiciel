@@ -189,44 +189,36 @@ class Requests
     // Dans la classe Requests
 
     public function envoyerInvitation($guestId, $teamId) {
-        try {
-            // Vérifier si la user_id existe dans la table user
-            $userExists = $this->checkUserExists($guestId);
-    
-            if (!$userExists) {
-                throw new \Exception("L'utilisateur avec l'ID $guestId n'existe pas.");
-            }
-    
-            // Vérifier si la team_id existe dans la table teams
-            $teamExists = $this->checkTeamExists($teamId);
-    
-            if (!$teamExists) {
-                throw new \Exception("L'équipe avec l'ID $teamId n'existe pas.");
-            }
-    
-            // Commencer une transaction
-            $this->mysqli->begin_transaction();
-    
-            // Insérer une nouvelle demande d'invitation dans la base de données
-            $sql = "INSERT INTO requests (user_id, team_id, status) VALUES (?, ?, 'en_attente')";
-            $stmt = $this->mysqli->prepare($sql);
-    
-            if (!$stmt) {
-                throw new \Exception("Erreur lors de la préparation de la requête d'insertion de demande d'invitation.");
-            }
-            $stmt->bind_param("ii", $guestId, $teamId);
-            $stmt->execute();
-            $stmt->close();
-    
-            // Valider la transaction
-            $this->mysqli->commit();
-            
-        } catch (\Exception $e) {
-            // En cas d'erreur, annuler la transaction et rediriger avec un message d'erreur
-            $this->mysqli->rollback();
-            // header('Location: /pages/needLog/networkpanel.php?demande_envoyee=2&team_id=' . $teamId . '&error=' . urlencode($e->getMessage()));
-            // exit();
+        // Vérifier si la user_id existe dans la table user
+        $userExists = $this->checkUserExists($guestId);
+
+        if (!$userExists) {
+            throw new \Exception("L'utilisateur avec l'ID $guestId n'existe pas.");
         }
+
+        // Vérifier si la team_id existe dans la table teams
+        $teamExists = $this->checkTeamExists($teamId);
+
+        if (!$teamExists) {
+            throw new \Exception("L'équipe avec l'ID $teamId n'existe pas.");
+        }
+
+        // Commencer une transaction
+        $this->mysqli->begin_transaction();
+
+        // Insérer une nouvelle demande d'invitation dans la base de données
+        $sql = "INSERT INTO requests (user_id, team_id, status) VALUES (?, ?, 'en_attente')";
+        $stmt = $this->mysqli->prepare($sql);
+
+        if (!$stmt) {
+            throw new \Exception("Erreur lors de la préparation de la requête d'insertion de demande d'invitation.");
+        }
+        $stmt->bind_param("ii", $guestId, $teamId);
+        $stmt->execute();
+        $stmt->close();
+
+        // Valider la transaction
+        $this->mysqli->commit();
     }
     
     
@@ -257,44 +249,36 @@ class Requests
     }
 
     public function envoyerInvitationEvent($guestId, $eventId) {
-        try {
-            // Vérifier si la user_id existe dans la table user
-            $userExists = $this->checkUserExists($guestId);
-    
-            if (!$userExists) {
-                throw new \Exception("L'utilisateur avec l'ID $guestId n'existe pas.");
-            }
-    
-            // Vérifier si la team_id existe dans la table teams
-            $eventExists = $this->checkEventExists($eventId);
-    
-            if (!$eventExists) {
-                throw new \Exception("L'évènement avec l'ID $eventId n'existe pas.");
-            }
-    
-            // Commencer une transaction
-            $this->mysqli->begin_transaction();
-    
-            // Insérer une nouvelle demande d'invitation dans la base de données
-            $sql = "INSERT INTO requests (user_id, event_id, status, type) VALUES (?, ?, 'en_attente', 'event')";
-            $stmt = $this->mysqli->prepare($sql);
-    
-            if (!$stmt) {
-                throw new \Exception("Erreur lors de la préparation de la requête d'insertion de demande d'invitation.");
-            }
-            $stmt->bind_param("ii", $guestId, $eventId);
-            $stmt->execute();
-            $stmt->close();
-    
-            // Valider la transaction
-            $this->mysqli->commit();
-            
-        } catch (\Exception $e) {
-            // En cas d'erreur, annuler la transaction et rediriger avec un message d'erreur
-            $this->mysqli->rollback();
-            // header('Location: /pages/needLog/networkpanel.php?demande_envoyee=2&event_id=' . $eventId . '&error=' . urlencode($e->getMessage()));
-            // exit();
+        // Vérifier si la user_id existe dans la table user
+        $userExists = $this->checkUserExists($guestId);
+
+        if (!$userExists) {
+            throw new \Exception("L'utilisateur avec l'ID $guestId n'existe pas.");
         }
+
+        // Vérifier si la team_id existe dans la table teams
+        $eventExists = $this->checkEventExists($eventId);
+
+        if (!$eventExists) {
+            throw new \Exception("L'évènement avec l'ID $eventId n'existe pas.");
+        }
+
+        // Commencer une transaction
+        $this->mysqli->begin_transaction();
+
+        // Insérer une nouvelle demande d'invitation dans la base de données
+        $sql = "INSERT INTO requests (user_id, event_id, status, type) VALUES (?, ?, 'en_attente', 'event')";
+        $stmt = $this->mysqli->prepare($sql);
+
+        if (!$stmt) {
+            throw new \Exception("Erreur lors de la préparation de la requête d'insertion de demande d'invitation.");
+        }
+        $stmt->bind_param("ii", $guestId, $eventId);
+        $stmt->execute();
+        $stmt->close();
+
+        // Valider la transaction
+        $this->mysqli->commit();
     }
 
     private function checkEventExists($eventId) {
