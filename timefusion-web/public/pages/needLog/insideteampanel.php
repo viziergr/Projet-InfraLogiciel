@@ -32,6 +32,15 @@ $members = $team->getMembers();
     </div>
 <?php endif; ?>
 
+<style>
+    .hidden-form {
+        width: 1px;
+        height: 1px;
+        position: absolute;
+        overflow: hidden;
+    }
+</style>
+
 <div class="request-container">
     <h3><?= $user->getFullName() ?> : <?= $teams->getRoleById($userId,$team_id)?> de l'équipe</h3>
     
@@ -53,7 +62,7 @@ $members = $team->getMembers();
         $permissions = $teams->hasRights($userRole,$memberRole);
         if($permissions): ?>
             <div class="request-container">
-                <form id="monFormulaire" action="Calendrier.php" method="post" style="display: none;">
+                <form id="monFormulaire" action="Calendrier.php" method="post" class="hidden-form">
                     <!-- Champ caché avec la valeur -->
                     <input type="hidden" name="users_id" value="<?= $memberId ?>">
                 </form>
