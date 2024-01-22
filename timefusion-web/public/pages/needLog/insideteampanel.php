@@ -55,13 +55,14 @@ $members = $team->getMembers();
             <div class="request-container">
                 <form id="monFormulaire" action="Calendrier.php" method="post" style="display: none;">
                     <!-- Champ caché avec la valeur -->
-                    <input type="hidden" name="users_id" value="<? $memberId ?>">
+                    <input type="hidden" name="users_id" value="<?= $memberId ?>">
                 </form>
 
                 <!-- Texte cliquable pour déclencher le formulaire -->
-                <h3 style="cursor: pointer;" onclick="document.getElementById('monFormulaire').submit();">
+                <h3 style="cursor: pointer; text-decoration: underline;" onclick="document.getElementById('monFormulaire').submit();">
                     <?= $memberName?> : <?= $memberRole?> de l'équipe
                 </h3>
+
 
                 <!-- Ajout des boutons Accepter et Refuser -->
                 <form action='../../scripts/gestion_permission.php' method="post">
