@@ -58,7 +58,7 @@ include __DIR__ .'/../../includes/header.php';
     </form>
     <?php foreach($participants as $participant): ?>
         <div class="user-card">
-            <h3><?= h($participant['first_name']()) . ' ' . h($participant['last_name']); ?></h3>
+            <h3><?= h($participant['first_name']) . ' ' . h($participant['last_name']); ?></h3>
             <p>Email: <?= h($participant['email']); ?></p>
             <p>Year: <?= h($participant['year']); ?></p>
         </div>
