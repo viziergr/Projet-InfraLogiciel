@@ -65,7 +65,7 @@ else
 fi
 
 echo "[6] - Déplacement de /myadmin/"
-    sudo mv /var/www/html/phpmyadmin /var/www/html/Projet-InfraLogiciel/timefusion-web/public/
+    sudo mv /var/www/html/myadmin /var/www/html/Projet-InfraLogiciel/timefusion-web/public/
 
 service apache2 reload
 echo "END - Deplacement des fichiers"
