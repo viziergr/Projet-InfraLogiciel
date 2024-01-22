@@ -14,9 +14,7 @@ import javafx.stage.Stage;
 
 public class LoginManager {
 
-  // You may want to replace this method with your actual login logic
   public static boolean performLogin() {
-    // Simulate successful login for demonstration purposes
     return true;
   }
 
@@ -57,8 +55,6 @@ public class LoginManager {
     alert.setContentText("Invalid username or password. Please try again.");
 
     Optional<ButtonType> result = alert.showAndWait();
-    if (result.isPresent() && result.get() == ButtonType.OK) {
-      // Handle OK button press if needed
-    }
+    if (result.isPresent() && result.get() == ButtonType.OK) {}
   }
 }

@@ -66,36 +66,41 @@ public class DisplaySync {
     return notDisplaybleEventsId;
   }
 
-  private static void displayedMissingAppointments() {
+  private static boolean displayedMissingAppointments() {
+    boolean needToUpdate = false;
     List<Integer> noneDisplayedEventsId = getNoneDisplayedEventsId();
     List<Integer> eventsToDisplayIds = getEventsToDisplayIds();
     noneDisplayedEventsId.retainAll(eventsToDisplayIds);
     if (noneDisplayedEventsId.size() > 0) {
+      needToUpdate = true;
       for (int eventId : noneDisplayedEventsId) {
         EventsEntity event = EventsEntity.getEventEntityById(eventId);
         Appointment appointment = new Appointment(event);
         CalendarView.getCalendars().get(0).add(appointment);
       }
     }
-    Main.getWeekView().update();
+    return needToUpdate;
   }
 
-  private static void removeElementsNotNeededToBeDisplayed() {
+  private static boolean removeElementsNotNeededToBeDisplayed() {
+    boolean needToUpdate = false;
     List<Integer> noneDisplayedEventsId = getNoneDisplayedEventsId();
     List<Integer> eventsToNotDisplayIds = getEventsToNotDisplayIds();
     noneDisplayedEventsId.retainAll(eventsToNotDisplayIds);
     if (noneDisplayedEventsId.size() > 0) {
+      needToUpdate = true;
       for (int eventId : noneDisplayedEventsId) {
         EventsEntity event = EventsEntity.getEventEntityById(eventId);
         Appointment appointment = new Appointment(event);
         CalendarView.getCalendars().get(0).remove(appointment);
       }
     }
-    Main.getWeekView().update();
+    return needToUpdate;
   }
 
   //Evenements affichés qui ne le devraient pas
-  private static void removeAmbiguousAppointments() {
+  private static boolean removeAmbiguousAppointments() {
+    boolean needToUpdate = false;
     List<Integer> allEventsId = SyncUtil.getLocalEventsIds();
     ObservableList<Calendar> calendar = CalendarView.getCalendars();
     List<Appointment> displayedEvents = calendar.get(0).getAppointments();
@@ -107,18 +112,23 @@ public class DisplaySync {
           eventsToNotDisplayIds.contains(eventId) ||
           !allEventsId.contains(eventId)
         ) {
+          needToUpdate = true;
           CalendarView.getCalendars().get(0).remove(event);
         }
       }
     }
+    return needToUpdate;
   }
 
   public static void synchronizeDisplay() {
     Platform.runLater(() -> {
-      displayedMissingAppointments();
-      removeElementsNotNeededToBeDisplayed();
-      removeAmbiguousAppointments();
-      Main.getWeekView().update();
+      if (
+        displayedMissingAppointments() ||
+        removeElementsNotNeededToBeDisplayed() ||
+        removeAmbiguousAppointments()
+      ) {
+        Main.getWeekView().update();
+      }
     });
   }
 }

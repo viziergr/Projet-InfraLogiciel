@@ -8,9 +8,6 @@ import java.time.LocalTime;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 
-/**
- * Created by Jibbow on 8/12/17.
- */
 public class DayView extends WeekView {
 
   public DayView() {

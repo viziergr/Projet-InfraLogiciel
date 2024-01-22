@@ -13,29 +13,12 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
-/**
- * Created by Jibbow on 8/14/17.
- */
 public class DayChooser extends VBox {
 
   protected ObjectProperty<LocalDate> selectedDateProperty;
   protected ObjectProperty<Month> displayedMonth;
   protected int displayedYear;
 
-  /**
-   * A control for choosing between dates. A month calendar is displayed and the user
-   * can click on a date. Easy to use.
-   *
-   *    --------------------
-   *    | <     Month    > |
-   *    --------------------
-   *    |    1  3  4  5  6 |
-   *    | 7  8  9 10 11 12 |
-   *    |        ...       |
-   *    --------------------
-   *
-   * @param selectedDate A date property which gets adjusted when the user selects a new date.
-   */
   public DayChooser(ObjectProperty<LocalDate> selectedDate) {
     this.getStylesheets()
       .add(
@@ -50,7 +33,6 @@ public class DayChooser extends VBox {
       new SimpleObjectProperty<>(selectedDateProperty.get().getMonth());
     this.displayedYear = selectedDateProperty.get().getYear();
 
-    // Add a header to the DayChooser for switching between months
     final BorderPane header = new BorderPane();
     final Button btnMonthLeft = new Button("<");
     final Button btnMonthRight = new Button(">");
@@ -58,7 +40,7 @@ public class DayChooser extends VBox {
     header.setRight(btnMonthRight);
     final Label lblMonth = new Label(selectedDate.get().getMonth().name());
     lblMonth.getStyleClass().add("daychooser-label-month");
-    // set to current month when label is clicked
+
     lblMonth.setOnMouseClicked(event -> {
       displayedYear = selectedDateProperty.get().getYear();
       displayedMonth.set(selectedDateProperty.get().getMonth());
@@ -66,14 +48,12 @@ public class DayChooser extends VBox {
     header.setCenter(lblMonth);
     this.getChildren().add(header);
 
-    // create a GridPane that holds every single day
     final GridPane monthPane = new GridPane();
     monthPane.getStyleClass().add("daychooser-monthgrid");
     VBox.setVgrow(monthPane, Priority.ALWAYS);
     populateMonthPane(monthPane, displayedMonth.get(), displayedYear);
     this.getChildren().add(monthPane);
 
-    // highlight the current date when selectedDate is changed and display the correct month
     selectedDateProperty.addListener(observable -> {
       displayedMonth.set(selectedDateProperty.get().getMonth());
       displayedYear = selectedDateProperty.get().getYear();
@@ -81,13 +61,11 @@ public class DayChooser extends VBox {
       lblMonth.setText(displayedMonth.get().name());
     });
 
-    // update displayed month when switching
     displayedMonth.addListener(observable -> {
       lblMonth.setText(displayedMonth.get().name());
       populateMonthPane(monthPane, displayedMonth.get(), displayedYear);
     });
 
-    // switch between month with left and right buttons
     btnMonthLeft.setOnAction(event -> {
       if (displayedMonth.get() == Month.JANUARY) {
         displayedYear--;
@@ -102,15 +80,6 @@ public class DayChooser extends VBox {
     });
   }
 
-  /**
-   * Creates and positions every node onto the GridPane for the given month and year.
-   * Uses 7 (weekdays) columns and (max.) 6 rows (weeks). The rows and columns are created on fly or
-   * are reused.
-   *
-   * @param monthPane The GradPane that is used for populating the DayNodes.
-   * @param month The month that should be displayed.
-   * @param year The year that should be displayed.
-   */
   private void populateMonthPane(GridPane monthPane, Month month, int year) {
     monthPane.getChildren().clear();
 

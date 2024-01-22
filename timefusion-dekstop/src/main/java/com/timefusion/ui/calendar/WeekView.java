@@ -30,9 +30,6 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
-/**
- * Created by Jibbow on 8/12/17.
- */
 public class WeekView extends CalendarView {
 
   private static final int dayPaneMinWidth = 50;
@@ -47,9 +44,6 @@ public class WeekView extends CalendarView {
   protected WeekViewRenderer renderer;
   protected AbstractAppointmentFactory appointmentFactory;
 
-  /**
-   * Creates a new WeekCalendar displaying the current week (7 days) and with a new empty calendar.
-   */
   public WeekView() {
     this(
       LocalDate.now().minusDays(LocalDate.now().getDayOfWeek().getValue()),
@@ -124,17 +118,16 @@ public class WeekView extends CalendarView {
   }
 
   private void setLayout() {
-    // set layout for this pane
     final RowConstraints headerRow = new RowConstraints(
       USE_PREF_SIZE,
       USE_COMPUTED_SIZE,
       USE_PREF_SIZE
-    ); // HEADER FOR FULL WEEK
+    );
     final RowConstraints allDayRow = new RowConstraints(
       USE_PREF_SIZE,
       USE_COMPUTED_SIZE,
       USE_PREF_SIZE
-    ); // SINGLE DAY HEADER AND ALL DAY APPOINTMENTS
+    );
     final RowConstraints calendarRow = new RowConstraints(
       150,
       500,
@@ -142,7 +135,7 @@ public class WeekView extends CalendarView {
       Priority.ALWAYS,
       VPos.TOP,
       true
-    ); // CALENDAR
+    );
     final ColumnConstraints columnConstraints = new ColumnConstraints(
       400,
       600,
@@ -150,25 +143,22 @@ public class WeekView extends CalendarView {
       Priority.SOMETIMES,
       HPos.LEFT,
       true
-    ); // FULL WIDTH
+    );
     this.getRowConstraints().addAll(headerRow, allDayRow, calendarRow);
     this.getColumnConstraints().add(columnConstraints);
     this.getStyleClass().add("weekview");
 
-    // create a container for the week header
     Pane weekHeaderContainer = new StackPane();
     weekHeaderContainer.getStyleClass().add("weekview-header-container");
     this.weekHeaderContainer = weekHeaderContainer;
 
-    // ScrollPane that contains the DayPane and the TimeAxis
     final ScrollPane scrollPane = new ScrollPane();
     scrollPane.getStyleClass().add("weekview-scrollpane");
-    scrollPane.setStyle("-fx-background-color:transparent;"); // remove gray border
+    scrollPane.setStyle("-fx-background-color:transparent;");
     scrollPane.setFitToWidth(true);
     scrollPane.setFitToHeight(true);
     scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
 
-    // the ScrollPane holds a GridPane with two columns: one for the TimeAxis and one for the calendar
     final GridPane scrollPaneContent = new GridPane();
     scrollPaneContent.getStyleClass().add("weekview-scrollpane-content");
     final ColumnConstraints timeColumn = new ColumnConstraints(
@@ -178,7 +168,7 @@ public class WeekView extends CalendarView {
       Priority.ALWAYS,
       HPos.LEFT,
       false
-    ); // TIME COLUMN
+    );
     final ColumnConstraints calendarColumn = new ColumnConstraints(
       USE_PREF_SIZE,
       USE_COMPUTED_SIZE,
@@ -186,7 +176,7 @@ public class WeekView extends CalendarView {
       Priority.ALWAYS,
       HPos.LEFT,
       true
-    ); // CALENDAR COLUMN
+    );
     final RowConstraints rowConstraint = new RowConstraints(
       USE_PREF_SIZE,
       USE_COMPUTED_SIZE,
@@ -194,18 +184,16 @@ public class WeekView extends CalendarView {
       Priority.ALWAYS,
       VPos.TOP,
       true
-    ); // FULL HEIGHT
+    );
     scrollPaneContent.getColumnConstraints().addAll(timeColumn, calendarColumn);
     scrollPaneContent.getRowConstraints().addAll(rowConstraint);
     scrollPane.setContent(scrollPaneContent);
 
-    // create a container for the TimeAxis
     Pane timeAxisContainer = new StackPane();
     timeAxisContainer.getStyleClass().add("weekview-timeaxis-container");
     scrollPaneContent.add(timeAxisContainer, 0, 0);
     this.timeAxisContainer = timeAxisContainer;
 
-    // set up a GridPane that holds all the DayPanes and a GridPane for the headers and full day appointments
     final GridPane dayPaneContainer = new GridPane();
     dayPaneContainer.getStyleClass().add("weekview-daypane-container");
     final GridPane dayHeaderContainer = new GridPane();
@@ -226,12 +214,12 @@ public class WeekView extends CalendarView {
       USE_PREF_SIZE,
       USE_COMPUTED_SIZE,
       USE_PREF_SIZE
-    ); // PANE FOR A DAILY HEADER
+    );
     final RowConstraints singleDayAppointmentsRow = new RowConstraints(
       USE_PREF_SIZE,
       USE_COMPUTED_SIZE,
       USE_PREF_SIZE
-    ); // PANE FOR ALL DAY APPOINTMENTS
+    );
     dayHeaderContainer
       .getRowConstraints()
       .addAll(singleDayHeaderRow, singleDayAppointmentsRow);
@@ -239,7 +227,7 @@ public class WeekView extends CalendarView {
       .widthProperty()
       .addListener(observable -> {
         dayHeaderContainer.setPadding(
-          new Insets(0, 17/*scrollbar*/, 0, timeAxisContainer.getWidth() + 1)
+          new Insets(0, 17, 0, timeAxisContainer.getWidth() + 1)
         );
       });
     final RowConstraints dayPanesRow = new RowConstraints(
@@ -249,13 +237,12 @@ public class WeekView extends CalendarView {
       Priority.ALWAYS,
       VPos.TOP,
       true
-    ); // FULL HEIGHT
+    );
     dayPaneContainer.getRowConstraints().add(dayPanesRow);
     this.dayPanesContainer = dayPaneContainer;
     this.dayHeadersContainer = dayHeaderContainer;
     scrollPaneContent.add(dayPaneContainer, 1, 0);
 
-    // ordering is important:
     this.add(scrollPane, 0, 2);
     this.add(dayHeaderContainer, 0, 1);
     this.add(weekHeaderContainer, 0, 0);
@@ -271,7 +258,6 @@ public class WeekView extends CalendarView {
       .add(new TimeAxis(dayStartTime, dayEndTime, Duration.ofHours(1)));
     this.weekHeaderContainer.getChildren().add(renderer.createHeaderPane(this));
 
-    // create a new column for every day and add a DayPane as well as a AllDayPane to it
     for (int i = 0; i < numberOfDays; i++) {
       final LocalDate currentDate = dateProperty.get().plusDays(i);
 
@@ -280,11 +266,9 @@ public class WeekView extends CalendarView {
         .map(calendar -> calendar.getAppointmentsFor(currentDate))
         .collect(Collectors.toList());
 
-      // populate header pane for each day
       final Node dayHeader = renderer.createSingleDayHeader(currentDate);
       dayHeadersContainer.add(dayHeader, i, 0);
 
-      // populate pane for all-day appointments
       final Node allDay = renderer.createAllDayPane(
         appointmentsCurrentDate
           .stream()
@@ -305,11 +289,9 @@ public class WeekView extends CalendarView {
       );
       dayHeadersContainer.add(allDay, i, 1);
 
-      // create a background for each day
       final Node dayBackground = renderer.createDayBackground(currentDate);
       dayPanesContainer.add(dayBackground, i, 0);
 
-      // create a new DayPane for each day
       final DayPane dp = new DayPane(
         currentDate,
         dayStartTime,
@@ -318,15 +300,11 @@ public class WeekView extends CalendarView {
       );
       final TimeIndicator indicator = new TimeIndicator(dp);
       dayPanesContainer.add(indicator, i, 0);
-      // populate DayPane
-      // add ALL appointments (those that are not on this date will not be displayed, but this makes sense if
-      // one of the appointments changes it interval)
       appointmentsCurrentDate
         .stream()
         .flatMap(appointments -> appointments.stream())
         .forEach(a -> dp.addAppointment(a));
 
-      // update DayPane when calendar changes
       appointmentsCurrentDate.forEach(appointments ->
         appointments.addListener(
           (ListChangeListener<Appointment>) c -> {
@@ -356,11 +334,8 @@ public class WeekView extends CalendarView {
     this.setContent();
   }
 
-  // Event handler for the "Add Event" button click
   private void handleAddEventButtonClick() {
     try {
-      System.out.println("Add Event button clicked");
-      // Load the FXML file for the AddEventDialog
       FXMLLoader loader = new FXMLLoader(
         getClass()
           .getResource(
@@ -368,15 +343,12 @@ public class WeekView extends CalendarView {
           )
       );
       VBox dialog = loader.load();
-
-      // Instantiate the controller (if needed)
       AddEventDialogController controller = loader.getController();
 
       Scene scene = new Scene(dialog);
       Stage stage = new Stage();
       stage.setScene(scene);
       stage.show();
-      // Handle other actions as needed
     } catch (IOException e) {
       e.printStackTrace();
     }

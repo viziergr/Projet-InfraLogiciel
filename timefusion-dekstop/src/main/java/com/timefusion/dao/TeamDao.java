@@ -135,10 +135,4 @@ public class TeamDao extends GenericDao<Team> {
   ) throws SQLException {
     return this.retrieveTeamsRecords(criteriaMap);
   }
-
-  public static void main(String[] args) throws SQLException {
-    TeamDao teamDao = new TeamDao();
-    Team team = new Team("Team 1", "Team 1 description", "#000000");
-    teamDao.insertTeamRecord(team);
-  }
 }

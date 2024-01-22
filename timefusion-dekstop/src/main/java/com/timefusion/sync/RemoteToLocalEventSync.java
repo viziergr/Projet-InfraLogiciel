@@ -211,13 +211,4 @@ public class RemoteToLocalEventSync {
     addNormalEventsToLocal(databaseUtil);
     addInvitedEventsToLocal(databaseUtil);
   }
-
-  public static void main(String[] args) {
-    try {
-      DatabaseUtil databaseUtil = new DatabaseUtil();
-      synchronizeEvents(databaseUtil);
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
-  }
 }

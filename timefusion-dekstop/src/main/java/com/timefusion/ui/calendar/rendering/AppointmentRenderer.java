@@ -190,7 +190,6 @@ public class AppointmentRenderer {
   }
 
   private static void showInvitedAppointmentDetails(Appointment appointment) {
-    System.out.println("Invited appointment details");
     Stage detailsStage = new Stage();
     detailsStage.initModality(Modality.APPLICATION_MODAL);
     detailsStage.setTitle("Invited Appointment Details");
@@ -278,11 +277,9 @@ public class AppointmentRenderer {
   ) {
     EventsEntity.deleteEventEntity(appointment.getEventEntity().getId());
     if (!appointment.isOffline() && !appointment.isInvited()) {
-      System.out.println("Not offline appointment");
       appointment.getEventEntity().setNature(EventNature.DELETED);
       appointment.getEventEntity().addEventEntity();
     } else if (appointment.isInvited()) {
-      System.out.println("Invited appointment");
       appointment.getEventEntity().setNature(EventNature.DENIED);
       appointment.getEventEntity().addEventEntity();
     }

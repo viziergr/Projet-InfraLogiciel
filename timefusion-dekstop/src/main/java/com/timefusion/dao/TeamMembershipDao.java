@@ -141,14 +141,4 @@ public class TeamMembershipDao extends GenericDao<TeamMembership> {
   ) throws SQLException {
     return getTeamMembershipRecords(criteriaMap);
   }
-
-  public static void main(String[] args) {
-    try {
-      TeamMembershipDao teamMembershipDao = new TeamMembershipDao();
-      TeamMembership teamMembership = new TeamMembership(4, 1, "Leader");
-      teamMembershipDao.insertTeamMembershipRecord(teamMembership);
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
-  }
 }

@@ -15,9 +15,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 
-/**
- * Created by Jibbow on 8/13/17.
- */
 public class TimeIndicator extends PercentPane {
 
   Node indicator;
@@ -44,11 +41,9 @@ public class TimeIndicator extends PercentPane {
     AnchorPane.setLeftAnchor(indicator, 0.0);
     AnchorPane.setRightAnchor(indicator, 0.0);
 
-    // update position if the DayPane's time window changes
     startTime.addListener(observable -> setIndicatorPosition(indicator));
     endTime.addListener(observable -> setIndicatorPosition(indicator));
 
-    // updates the position every minute
     Timeline indicatorupdate = new Timeline(
       new KeyFrame(
         javafx.util.Duration.minutes(1),
@@ -58,18 +53,9 @@ public class TimeIndicator extends PercentPane {
     indicatorupdate.setCycleCount(Animation.INDEFINITE);
     indicatorupdate.play();
 
-    // initial position
     setIndicatorPosition(indicator);
   }
 
-  /**
-   * Sets the position of a given indicator according to the current time of
-   * the hosts machine. If the current time is not inside the time window of
-   * the DayPane the indicator will be removed from the stage. If it is inside
-   * the time window the indicator will be shown. It does not update the
-   * position when time passes by.
-   * @param indicator The indicator node that should be shown on the stage.
-   */
   private void setIndicatorPosition(Node indicator) {
     if (
       LocalTime.now().isBefore(startTime.get()) ||

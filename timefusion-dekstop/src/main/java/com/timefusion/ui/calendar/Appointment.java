@@ -6,9 +6,6 @@ import com.timefusion.ui.calendar.util.TimeInterval;
 import java.time.temporal.Temporal;
 import javafx.beans.property.*;
 
-/**
- * Created by Jibbow on 8/11/17.
- */
 public class Appointment {
 
   private ObjectProperty<TimeInterval> intervalProperty;
@@ -25,8 +22,6 @@ public class Appointment {
     this.isFullDayProperty = new SimpleBooleanProperty(false);
     this.eventEntity = event;
   }
-
-  // Rest of the code...
 
   public BooleanProperty isFullDayProperty() {
     return isFullDayProperty;

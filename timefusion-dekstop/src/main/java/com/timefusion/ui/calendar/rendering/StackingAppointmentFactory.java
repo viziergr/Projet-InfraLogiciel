@@ -10,9 +10,6 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import javafx.scene.layout.Region;
 
-/**
- * Created by Jibbow on 8/27/17.
- */
 public class StackingAppointmentFactory implements AbstractAppointmentFactory {
 
   @Override
@@ -44,7 +41,6 @@ public class StackingAppointmentFactory implements AbstractAppointmentFactory {
           numberoffulldayapp++;
         }
       } else {
-        // get overlapping appointments before
         final TimeInterval interval = a.intervalProperty().get();
         List<Appointment> stack = sortedAppointments
           .stream()
@@ -55,7 +51,6 @@ public class StackingAppointmentFactory implements AbstractAppointmentFactory {
           .filter(appointment -> !appointment.isFullDayProperty().get())
           .collect(Collectors.toList());
 
-        // increase the right margin of all stacked appointments, so that the new one is "on top"
         for (int i = 0; i < stack.size(); i++) {
           if (guiElements.get(stack.get(i)) != null) {
             PercentPane.setLeftAnchor(guiElements.get(stack.get(i)), i * 0.1);
@@ -65,7 +60,6 @@ public class StackingAppointmentFactory implements AbstractAppointmentFactory {
             );
           }
         }
-        // new appointment is on top
         if (guiElements.get(a) != null) {
           PercentPane.setRightAnchor(guiElements.get(a), 0.0);
           PercentPane.setLeftAnchor(guiElements.get(a), 0.1 * stack.size());

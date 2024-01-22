@@ -16,11 +16,21 @@ import java.util.Map;
 
 public class SyncUtil {
 
+  /**
+   * Retrieves the local user ID.
+   *
+   * @return The local user ID.
+   */
   public static int getLocalUserId() {
     UserEntity userEntity = UserEntity.getuserEntityFromJson();
     return userEntity.getId();
   }
 
+  /**
+   * Retrieves a list of non-negative event IDs from the local online events.
+   *
+   * @return A list of non-negative event IDs.
+   */
   public static List<Integer> getLocalOnlineEventsIds() {
     List<Integer> nonNegativeIds = new ArrayList<>();
 
@@ -39,6 +49,11 @@ public class SyncUtil {
     return nonNegativeIds;
   }
 
+  /**
+   * Retrieves a list of negative event IDs from the local offline events.
+   *
+   * @return A list of negative event IDs.
+   */
   public static List<Integer> getLocalOfflineEventsIds() {
     List<Integer> negativeIds = new ArrayList<>();
 
@@ -57,6 +72,11 @@ public class SyncUtil {
     return negativeIds;
   }
 
+  /**
+   * Retrieves the IDs of all local events.
+   *
+   * @return a list of integers representing the IDs of all local events
+   */
   public static List<Integer> getLocalEventsIds() {
     List<Integer> allIds = new ArrayList<>();
 
@@ -72,6 +92,12 @@ public class SyncUtil {
     return allIds;
   }
 
+  /**
+   * Retrieves the list of remote event IDs associated with the local user.
+   *
+   * @param databaseUtil the DatabaseUtil object used for executing the SQL query
+   * @return a List of Integer representing the remote event IDs
+   */
   public static List<Integer> getRemoteEventsIds(DatabaseUtil databaseUtil) {
     try {
       List<Integer> listIds = new ArrayList<>();
@@ -95,6 +121,12 @@ public class SyncUtil {
     return new ArrayList<>();
   }
 
+  /**
+   * Retrieves a list of remote event IDs that are not present in the local storage.
+   *
+   * @param databaseUtil the database utility object used to interact with the local storage
+   * @return a list of remote event IDs that are not present in the local storage
+   */
   public static List<Integer> getRemoteIdsNotInLocalStorage(
     DatabaseUtil databaseUtil
   ) {
@@ -103,6 +135,12 @@ public class SyncUtil {
     return DBEventIds;
   }
 
+  /**
+   * Retrieves a list of local online ICDs (Integer IDs) that are not present in the remote database.
+   *
+   * @param databaseUtil the DatabaseUtil object used for database operations
+   * @return a List of Integer IDs representing the local online ICDs not found in the remote database
+   */
   public static List<Integer> getLocalOnlineIcdsNotInRemote(
     DatabaseUtil databaseUtil
   ) {
@@ -111,6 +149,12 @@ public class SyncUtil {
     return localOnlineIds;
   }
 
+  /**
+   * Retrieves a list of local offline event IDs that are not present in the remote database.
+   *
+   * @param databaseUtil the database utility object used to interact with the remote database
+   * @return a list of local offline event IDs not found in the remote database
+   */
   public static List<Integer> getLocalOfflineIdsNotInRemote(
     DatabaseUtil databaseUtil
   ) {
@@ -119,6 +163,12 @@ public class SyncUtil {
     return localOfflineIds;
   }
 
+  /**
+   * Retrieves a list of normal events that are not present in the local database.
+   *
+   * @param databaseUtil the DatabaseUtil object used for executing queries
+   * @return a List of Integer representing the IDs of the normal events not in the local database
+   */
   public static List<Integer> getNormalEventsNotInLocal(
     DatabaseUtil databaseUtil
   ) {
@@ -138,6 +188,12 @@ public class SyncUtil {
     return new ArrayList<>();
   }
 
+  /**
+   * Retrieves a list of event IDs for events in which the local user has been invited.
+   *
+   * @param databaseUtil the DatabaseUtil object used for executing the SQL query
+   * @return a List of Integer representing the event IDs
+   */
   public static List<Integer> getRemoteInvitedEvents(
     DatabaseUtil databaseUtil
   ) {
@@ -160,6 +216,12 @@ public class SyncUtil {
     return new ArrayList<>();
   }
 
+  /**
+   * Retrieves the list of remote invited event IDs that are not present in the local database.
+   *
+   * @param databaseUtil The DatabaseUtil object used to interact with the database.
+   * @return The list of remote invited event IDs not found in the local database.
+   */
   public static List<Integer> getRemoteInvitedEventsNotInLocal(
     DatabaseUtil databaseUtil
   ) {
@@ -168,6 +230,12 @@ public class SyncUtil {
     return DBEventIds;
   }
 
+  /**
+   * Retrieves a list of local online event IDs that are not present in the remote database.
+   *
+   * @param databaseUtil the DatabaseUtil object used to interact with the remote database
+   * @return a list of local online event IDs that are not present in the remote database
+   */
   public static List<Integer> getLocalOnlineIdsNotInRemote(
     DatabaseUtil databaseUtil
   ) {
@@ -176,6 +244,11 @@ public class SyncUtil {
     return localOnlineIds;
   }
 
+  /**
+   * Retrieves a list of offline events.
+   *
+   * @return The list of offline events.
+   */
   public static List<EventsEntity> getOfflineEvents() {
     List<EventsEntity> offlineEvents = new ArrayList<>();
     List<Integer> negativeIds = SyncUtil.getLocalOfflineEventsIds();
@@ -187,6 +260,11 @@ public class SyncUtil {
     return offlineEvents;
   }
 
+  /**
+   * Retrieves the IDs of locally deleted events from the events JSON.
+   *
+   * @return A list of integers representing the IDs of locally deleted events.
+   */
   public static List<Integer> getLocalDeletedEventsIds() {
     JsonElement eventsJsonElement = JsonUtils.readJsonPart(
       EventsEntity.EVENTS_ENTITY_NAME
@@ -210,6 +288,11 @@ public class SyncUtil {
     return deletedEvents;
   }
 
+  /**
+   * Retrieves the IDs of the events that were added while the application was offline.
+   *
+   * @return A list of integers representing the IDs of the added events.
+   */
   public static List<Integer> getOfflineAddedEventsIds() {
     List<Integer> localOfflineIds = getLocalOfflineEventsIds();
     List<Integer> localOfflineAddedIds = new ArrayList<>();
@@ -227,6 +310,11 @@ public class SyncUtil {
     return localOfflineAddedIds;
   }
 
+  /**
+   * Retrieves the list of local event IDs that are marked as denied.
+   *
+   * @return The list of local event IDs marked as denied.
+   */
   public static List<Integer> getLocalDeniedEventsIds() {
     List<Integer> localOnlineEventsIds = getLocalOnlineEventsIds();
     List<Integer> localDeniedEventsIds = new ArrayList<>();

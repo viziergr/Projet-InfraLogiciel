@@ -6,7 +6,6 @@ import com.google.gson.JsonObject;
 import com.timefusion.localStorage.JsonUtils;
 import com.timefusion.model.Event;
 import com.timefusion.model.User;
-import com.timefusion.sync.NetworkStateManager;
 import com.timefusion.sync.SyncUtil;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -381,24 +380,5 @@ public class EventsEntity {
       );
     }
     return false;
-  }
-
-  public static void main(String[] args) {
-    // EventsEntity event = new EventsEntity(
-    //   generateNextOfflineId(),
-    //   EventNature.DELETED,
-    //   false,
-    //   "Test Event",
-    //   "Test Description",
-    //   "Test Location",
-    //   LocalDateTime.now(),
-    //   LocalDateTime.now(),
-    //   new ParticipantsEntity[] {
-    //     new ParticipantsEntity(1, "Louis", "Pecullier", "Louis@gmail.com"),
-    //   }
-    // );
-    // event.addEventEntity();
-    System.out.println(getLastOfflineId());
-    System.out.println(generateNextOfflineId());
   }
 }

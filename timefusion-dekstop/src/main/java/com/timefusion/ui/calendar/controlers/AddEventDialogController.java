@@ -80,7 +80,6 @@ public class AddEventDialogController {
   @FXML
   void handlePublicEvent(ActionEvent event) {
     eventSetPrivate(false);
-    System.out.println("Public Event " + eventIsPrivate());
     publicEventButton.setStyle(
       "-fx-background-color: #4C95CE; -fx-background-radius: 15;"
     );
@@ -98,7 +97,6 @@ public class AddEventDialogController {
   @FXML
   void handlePrivateEvent(ActionEvent event) {
     eventSetPrivate(true);
-    System.out.println("Private Event " + eventIsPrivate());
     privateEventButton.setStyle(
       "-fx-background-color: #81C457; -fx-background-radius: 15;"
     );
@@ -109,7 +107,6 @@ public class AddEventDialogController {
 
   @FXML
   void handleAddEvent(ActionEvent event) {
-    // Retrieve values from the fields
     String title = titleField.getText();
     String location = locationField.getText();
     String description = descriptionTextField.getText();
@@ -119,11 +116,9 @@ public class AddEventDialogController {
 
     boolean isPrivate = eventIsPrivate();
 
-    // Change date format to "yyyy/MM/dd"
     DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     String formattedDate = date.format(dateFormatter);
 
-    // Validate start time is before end time
     if (!isStartTimeBeforeEndTime(startTime, endTime)) {
       showErrorAlert(
         "Invalid Time Range",
@@ -141,7 +136,6 @@ public class AddEventDialogController {
         DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
       );
 
-      // Now you can use startDateTime and endDateTime for further processing
       EventsEntity eventsEntity = createEventsEntity(
         title,
         description,
@@ -186,7 +180,7 @@ public class AddEventDialogController {
     return start.isBefore(end);
   }
 
-  @FXML // This method is called by the FXMLLoader when initialization is complete
+  @FXML
   void initialize() {
     assert fromTextField !=
     null : "fx:id=\"fromTextField\" was not injected: check your FXML file 'AddEventDialog.fxml'.";

@@ -144,18 +144,4 @@ public class EventDao extends GenericDao<Event> {
   ) throws SQLException {
     return this.retrieveEventsRecords(criteriaMap);
   }
-
-  public static void main(String[] args) throws SQLException {
-    EventDao eventDao = new EventDao();
-    Event event = new Event(
-      "EventDao",
-      LocalDateTime.now(),
-      LocalDateTime.now(),
-      "location",
-      "description",
-      false,
-      4
-    );
-    eventDao.insertEventRecord(event);
-  }
 }

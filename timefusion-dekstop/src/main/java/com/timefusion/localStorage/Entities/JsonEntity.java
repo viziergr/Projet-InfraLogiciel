@@ -23,4 +23,13 @@ public interface JsonEntity {
    * @return The string representation of the entity.
    */
   String toString();
+
+  /**
+   * Indicates whether some other object is "equal to" this one.
+   * The equality is determined based on the content of the object.
+   *
+   * @param o the reference object with which to compare.
+   * @return true if this object is the same as the o argument; false otherwise.
+   */
+  boolean equals(Object o);
 }

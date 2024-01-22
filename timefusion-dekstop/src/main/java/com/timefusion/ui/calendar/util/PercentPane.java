@@ -5,21 +5,6 @@ import java.util.Optional;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 
-/**
- * Created by Jibbow on 8/11/17.
- */
-
-/**
- * PercentPane behaves similar to {@link javafx.scene.layout.AnchorPane AnchorPane},
- * but works with proportional anchors.
- * Anchors are percent values between 0.0 and 1.0 representing 0% and 100% respectively.
- * Other values (e.g. negative or larger than 1.0) are also supported, but lead to rendering
- * the children outside of the pane.
- * The only restriction is that both anchors to opposite sites are set, the sum of both must
- * not be larger than 100%. Having a child with a LeftAnchor of 30% and a RightAnchor of 70%
- * leads to a width of 0px of the child. Therefore, a negative width is permitted and
- * implicitly set to 0px.
- */
 public class PercentPane extends AnchorPane {
 
   private static final String TOP_ANCHOR = "percpane-top-anchor";
@@ -100,11 +85,7 @@ public class PercentPane extends AnchorPane {
           Math.min(
             PercentPane.getLeftAnchor(child),/* what we want */
             1.0 -
-            Optional
-              .ofNullable(PercentPane.getRightAnchor(child))
-              .orElse(
-                0.0
-              )/* or maximum we can get (if nothing specified: 100%) */
+            Optional.ofNullable(PercentPane.getRightAnchor(child)).orElse(0.0)
           )
         );
       }
@@ -113,13 +94,9 @@ public class PercentPane extends AnchorPane {
           child,
           getHeight() *
           Math.min(
-            PercentPane.getTopAnchor(child),/* what we want */
+            PercentPane.getTopAnchor(child),
             1.0 -
-            Optional
-              .ofNullable(PercentPane.getBottomAnchor(child))
-              .orElse(
-                0.0
-              )/* or maximum we can get (if nothing specified: 100%) */
+            Optional.ofNullable(PercentPane.getBottomAnchor(child)).orElse(0.0)
           )
         );
       }
@@ -128,13 +105,9 @@ public class PercentPane extends AnchorPane {
           child,
           getWidth() *
           Math.min(
-            PercentPane.getRightAnchor(child),/* what we want */
+            PercentPane.getRightAnchor(child),
             1.0 -
-            Optional
-              .ofNullable(PercentPane.getLeftAnchor(child))
-              .orElse(
-                0.0
-              )/* or maximum we can get (if nothing specified: 100%) */
+            Optional.ofNullable(PercentPane.getLeftAnchor(child)).orElse(0.0)
           )
         );
       }
@@ -143,13 +116,9 @@ public class PercentPane extends AnchorPane {
           child,
           getHeight() *
           Math.min(
-            PercentPane.getBottomAnchor(child),/* what we want */
+            PercentPane.getBottomAnchor(child),
             1.0 -
-            Optional
-              .ofNullable(PercentPane.getTopAnchor(child))
-              .orElse(
-                0.0
-              )/* or maximum we can get (if nothing specified: 100%) */
+            Optional.ofNullable(PercentPane.getTopAnchor(child)).orElse(0.0)
           )
         );
       }

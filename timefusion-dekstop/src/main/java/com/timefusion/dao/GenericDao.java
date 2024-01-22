@@ -83,6 +83,13 @@ public abstract class GenericDao<T> {
     return databaseUtil.deleteRecordById(tableName, "id", id);
   }
 
+  /**
+   * Executes the given SQL query and returns a list of maps representing the result set.
+   *
+   * @param query the SQL query to be executed
+   * @return a list of maps representing the result set
+   * @throws SQLException if an error occurs while executing the query
+   */
   public List<Map<String, Object>> executeQuery(String query)
     throws SQLException {
     return this.databaseUtil.executeQuery(query);

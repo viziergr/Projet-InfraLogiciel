@@ -17,9 +17,7 @@ public class UserEntity implements JsonEntity {
   public static final String USER_ENTITY_NAME = "user";
   public static final int USER_ENTITY_POSITION = 1;
 
-  public UserEntity() {
-    // Default constructor
-  }
+  public UserEntity() {}
 
   public UserEntity(User user) {
     this.id = user.getId();
@@ -107,8 +105,6 @@ public class UserEntity implements JsonEntity {
         this.toJsonObject(),
         USER_ENTITY_POSITION
       );
-    } else {
-      System.out.println("User already exists");
     }
   }
 
@@ -191,16 +187,5 @@ public class UserEntity implements JsonEntity {
       '\'' +
       '}'
     );
-  }
-
-  public static void main(String[] args) {
-    UserEntity userEntity = new UserEntity(
-      1,
-      "John",
-      "Doe",
-      "John.doe@gmail.com",
-      "password"
-    );
-    userEntity.addUserEntity();
   }
 }

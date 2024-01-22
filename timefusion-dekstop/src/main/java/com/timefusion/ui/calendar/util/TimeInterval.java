@@ -3,9 +3,6 @@ package com.timefusion.ui.calendar.util;
 import java.time.Duration;
 import java.time.temporal.Temporal;
 
-/**
- * Created by Jibbow on 8/12/17.
- */
 public class TimeInterval {
 
   private Temporal startDateTime;

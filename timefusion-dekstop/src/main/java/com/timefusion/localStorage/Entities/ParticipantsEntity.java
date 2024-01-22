@@ -26,9 +26,7 @@ public class ParticipantsEntity implements JsonEntity {
     .setPrettyPrinting()
     .create();
 
-  public ParticipantsEntity() {
-    // Default constructor
-  }
+  public ParticipantsEntity() {}
 
   public ParticipantsEntity(
     int id,
@@ -139,9 +137,9 @@ public class ParticipantsEntity implements JsonEntity {
       }
       return participants;
     } catch (FileNotFoundException e) {
-      System.err.println("File not found: " + JsonUtils.JSON_FILENAME);
+      e.printStackTrace();
     } catch (IOException e) {
-      System.err.println("Error reading the file: " + e.getMessage());
+      e.printStackTrace();
     }
     return null;
   }
@@ -169,7 +167,6 @@ public class ParticipantsEntity implements JsonEntity {
 
               if (participantsArray != null) {
                 participantsArray.add(this.toJsonObject());
-                System.out.println("Participant added to the event.");
               }
               break;
             }
@@ -217,7 +214,6 @@ public class ParticipantsEntity implements JsonEntity {
                     participantObject.get("id").getAsInt() == participantId
                   ) {
                     participantsArray.remove(participantElement);
-                    System.out.println("Participant removed from the event.");
                     break;
                   }
                 }
@@ -257,10 +253,7 @@ public class ParticipantsEntity implements JsonEntity {
             ) {
               if (eventObject.has("participants")) {
                 eventObject.add("participants", new JsonArray());
-                System.out.println("All participants removed from the event.");
-              } else {
-                System.out.println("No participants found for the event.");
-              }
+              } else {}
               break;
             }
           }
@@ -281,8 +274,6 @@ public class ParticipantsEntity implements JsonEntity {
     ParticipantsEntity[] participants
   ) {
     JsonArray jsonArray = new JsonArray();
-
-    // Check if participants array is not null and not empty
     if (participants != null && participants.length > 0) {
       for (ParticipantsEntity participant : participants) {
         if (participant.isParticipantEmpty()) {

@@ -34,12 +34,4 @@ public class EncryptionUtil {
   public static boolean verifyPassword(String password, String hashedPassword) {
     return BCrypt.checkpw(password, hashedPassword);
   }
-
-  public static void main(String[] args) {
-    String password = "@Password44";
-    String hashedPassword = hashPassword(password);
-
-    System.out.println("Password: " + password);
-    System.out.println("Hashed Password: " + hashedPassword);
-  }
 }

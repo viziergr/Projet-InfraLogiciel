@@ -28,8 +28,7 @@ public class JsonUtils {
   public static void printJson() {
     try {
       Path filePath = Path.of(JSON_FILENAME);
-      byte[] jsonData = Files.readAllBytes(filePath);
-      System.out.println(new String(jsonData));
+      Files.readAllBytes(filePath);
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -127,9 +126,6 @@ public class JsonUtils {
 
     if (jsonArray.isJsonArray()) {
       jsonRoot = jsonArray.get(position).getAsJsonObject();
-    } else {
-      System.out.println("Unsupported JSON structure.");
-      return;
     }
 
     if (jsonRoot.has(entityName)) {
@@ -164,7 +160,6 @@ public class JsonUtils {
 
     JsonObject jsonRoot = getEntityArray(jsonArray, entityName);
     if (jsonRoot == null) {
-      System.out.println("Entity " + entityName + " not found.");
       return;
     }
 
@@ -200,20 +195,15 @@ public class JsonUtils {
     if (jsonElement.isJsonObject()) {
       jsonRoot = jsonElement.getAsJsonObject();
     } else {
-      System.out.println("Unsupported JSON structure.");
       return;
     }
 
     if (jsonRoot.has(entityName)) {
-      // Retrieve the existing entity
       JsonObject existingEntity = jsonRoot.getAsJsonObject(entityName);
 
-      // Update properties of the existing entity with the new values
       for (String property : updatedEntity.keySet()) {
         existingEntity.add(property, updatedEntity.get(property));
       }
-    } else {
-      System.out.println("Entity " + entityName + " not found.");
     }
 
     writeToFileElement(jsonArray, filePath);
@@ -235,7 +225,6 @@ public class JsonUtils {
 
     JsonObject jsonRoot = getEntityArray(jsonArray, entityName);
     if (jsonRoot == null) {
-      System.out.println("Entity " + entityName + " not found.");
       return;
     }
 
@@ -276,21 +265,11 @@ public class JsonUtils {
           if (entityElement.isJsonObject()) {
             JsonObject entityObject = entityElement.getAsJsonObject();
             entityObject.entrySet().removeIf(entry -> true); // Remove all properties
-          } else {
-            System.out.println(
-              "Entity " + entityName + " is not a JsonObject."
-            );
           }
-        } else {
-          System.out.println("Entity " + entityName + " not found.");
         }
 
         writeToFileElement(jsonArray, filePath);
-      } else {
-        System.out.println("Unsupported JSON structure.");
       }
-    } else {
-      System.out.println("JSON array is empty.");
     }
   }
 

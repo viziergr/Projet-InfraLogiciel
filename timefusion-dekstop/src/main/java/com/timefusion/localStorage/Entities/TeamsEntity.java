@@ -145,10 +145,4 @@ public class TeamsEntity implements JsonEntity {
   public String toJson() {
     return new Gson().toJson(this);
   }
-
-  public static void main(String[] args) {
-    TeamsEntity.deleteAllTeamEntities();
-    TeamsEntity team1 = new TeamsEntity(1, "Team 1", "Team 1 description");
-    team1.addTeamEntity();
-  }
 }

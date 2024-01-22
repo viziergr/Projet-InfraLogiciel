@@ -26,7 +26,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.CustomMenuItem;
-import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
@@ -74,8 +73,6 @@ public class WeekViewRenderer {
       calView.getDate().get().format(DateTimeFormatter.ofPattern("EEE"))
     );
     lblWeekday.getStyleClass().add("label-weekday");
-
-    // final Label lblDate = new Label(calView.getDate().get().toString());
     final Label lblDate = new Label();
     Image calendarImage = new Image(
       getClass()
@@ -132,13 +129,15 @@ public class WeekViewRenderer {
     logoutButton.getStyleClass().add("header-button");
     logoutButton.setOnAction(event -> showDeletePage());
 
-    final ToggleButton onlineOfflineButton = new ToggleButton(); //TODO: Add the logic to know if the application is first Online or Offline, if the application was last Offline -> Offline, if the application was last Online _> Online if None -> Offline
+    final ToggleButton onlineOfflineButton = new ToggleButton();
     Timeline timeline = new Timeline(
       new KeyFrame(
         Duration.seconds(10),
         event -> updateToggleButtonGraphic(onlineOfflineButton)
       )
     );
+    timeline.setCycleCount(Timeline.INDEFINITE);
+    timeline.play();
     if (NetworkStateManager.hasWifiConnection()) {
       setOnlineGraphic(onlineOfflineButton);
     } else {
@@ -220,7 +219,6 @@ public class WeekViewRenderer {
 
   private void handleAddEventButtonClick() {
     try {
-      // Load the FXML file for the AddEventDialog
       FXMLLoader loader = new FXMLLoader(
         getClass()
           .getResource(
@@ -273,7 +271,6 @@ public class WeekViewRenderer {
   }
 
   private void showDeletePage() {
-    // Create a new dialog
     Alert deleteDialog = new Alert(Alert.AlertType.CONFIRMATION);
     deleteDialog.setTitle("Delete Confirmation");
     deleteDialog.setHeaderText(
@@ -283,13 +280,11 @@ public class WeekViewRenderer {
     ButtonType deleteButtonType = new ButtonType("Delete");
     deleteDialog.getButtonTypes().setAll(deleteButtonType, ButtonType.CANCEL);
 
-    // Handle the delete button click
     deleteDialog
       .showAndWait()
       .ifPresent(buttonType -> {
         if (buttonType == deleteButtonType) {
           JsonUtils.deleteAllEntities();
-          System.out.println("Delete button clicked");
           Platform.exit();
           System.exit(0);
         }

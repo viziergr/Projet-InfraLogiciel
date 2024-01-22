@@ -201,7 +201,7 @@ public class UserDao extends GenericDao<User> {
       schema.put("email", String.class);
       schema.put("password", String.class);
     } catch (Exception e) {
-      System.out.println(e);
+      e.printStackTrace();
     }
   }
 
@@ -221,17 +221,5 @@ public class UserDao extends GenericDao<User> {
     Map<String, Object> criteriaMap
   ) throws SQLException {
     return retrieveUsersRecords(criteriaMap);
-  }
-
-  public static void main(String[] args) throws SQLException {
-    UserDao userDao = new UserDao();
-    User user = new User(
-      0,
-      "corentin@gmail.com",
-      "FirstNameuser3",
-      "lastNameuser3",
-      "$2a$10$GAiGoPwnIkzz6cYLUwWWnuKNLaBlmNE9GEHdc3AlxNl9pZxzO8ybK"
-    );
-    userDao.insertUserRecord(user);
   }
 }

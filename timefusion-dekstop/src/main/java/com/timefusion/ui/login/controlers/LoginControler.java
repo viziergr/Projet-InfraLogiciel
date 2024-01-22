@@ -11,7 +11,6 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.animation.PauseTransition;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -71,7 +70,6 @@ public class LoginControler {
     lbl_emailError = new Label();
     lbl_emailError.setTextFill(Color.RED);
 
-    // Add focus listeners to trigger validation on focus lost
     tf_email
       .focusedProperty()
       .addListener((observable, oldValue, newValue) -> {
@@ -140,7 +138,6 @@ public class LoginControler {
     passwordPause = new PauseTransition(Duration.seconds(1));
     passwordPause.setOnFinished(event -> validatePassword());
 
-    // Button click event
     button_login.setOnAction(event -> {
       validateEmail();
       validatePassword();
@@ -148,7 +145,6 @@ public class LoginControler {
       String email = tf_email.getText();
       String password = pf_password.getText();
 
-      // Validate email and password
       Boolean emailValidationResult = ValidationUtil.isValidEmail(email);
 
       if (emailValidationResult == null || !emailValidationResult) {

@@ -12,9 +12,6 @@ import javafx.collections.ModifiableObservableListBase;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
-/**
- * Created by Jibbow on 8/13/17.
- */
 public class Calendar extends ModifiableObservableListBase<Appointment> {
 
   ObservableList<Appointment> appointments = FXCollections.observableArrayList(app ->

@@ -142,16 +142,4 @@ public class InformationEntity implements JsonEntity {
   public String toJson() {
     return new Gson().toJson(this);
   }
-
-  public static void main(String[] args) {
-    InformationEntity information = new InformationEntity();
-    information.setLastUpdatedNow();
-    information.setLastSyncedNow();
-    // information.updateInformationEntity();
-    // information.deleteInformationEntity();
-    // information.deleteInformationEntity();
-    // System.out.println(InformationEntity.getInfoEntityFromJson().toString());
-    // System.out.println(InformationEntity.isJsonInformationEntityEmpty());
-    System.out.println(getInformationEntity());
-  }
 }

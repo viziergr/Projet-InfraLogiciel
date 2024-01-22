@@ -27,7 +27,6 @@ public class LocalToRemoteEventSync {
             e.printStackTrace();
           }
         }
-        // EventsEntity.deleteEventEntity(eventId);
       }
     }
   }
@@ -109,22 +108,11 @@ public class LocalToRemoteEventSync {
     }
   }
 
-  public static boolean isEventInvitation(int eventId) {
-    //TODO: Ajouter un champ au json isInvited? Mettre cette fonction dans EventsEntity
-    return false;
-  }
-
   public static void synchronize(EventDao eventDao) {
     try {
       handleLocalDeletedEvents(eventDao);
       handleOfflineAddedEvents(eventDao);
       handleOfflineDeniedEvents(new EventParticipantDao());
-    } catch (Exception e) {}
-  }
-
-  public static void main(String[] args) {
-    try {
-      synchronize(new EventDao());
     } catch (Exception e) {}
   }
 }

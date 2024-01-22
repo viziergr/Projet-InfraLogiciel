@@ -1,7 +1,7 @@
 package com.timefusion.sync;
 
 import com.timefusion.dao.EventDao;
-import com.timefusion.localStorage.JsonUtils;
+import com.timefusion.localStorage.Entities.InformationEntity;
 import com.timefusion.ui.calendar.DisplaySync;
 import com.timefusion.util.DatabaseUtil;
 import demo.Main;
@@ -22,7 +22,8 @@ public class SyncScheduler {
     try {
       EventDao eventDao = new EventDao();
       DatabaseUtil databaseUtil = new DatabaseUtil();
-      scheduleSync(eventDao, databaseUtil);
+      InformationEntity informationEntity = new InformationEntity();
+      scheduleSync(eventDao, databaseUtil, informationEntity);
     } catch (SQLException e) {
       e.printStackTrace();
     }
@@ -48,16 +49,22 @@ public class SyncScheduler {
 
   public static void scheduleSync(
     EventDao eventDao,
-    DatabaseUtil databaseUtil
+    DatabaseUtil databaseUtil,
+    InformationEntity informationEntity
   ) {
     scheduler.scheduleAtFixedRate(
       () -> {
         try {
+          System.out.println("Syncing...");
           NetworkStateManager.detectWifiState();
-          // if(NetworkStateManager.hasWifiConnection()) {
-          //   LocalToRemoteEventSync.synchronize(eventDao);
-          //   RemoteToLocalEventSync.synchronizeEvents(databaseUtil);
-          // }
+          if (NetworkStateManager.hasWifiConnection()) {
+            informationEntity.setLastSyncedNow();
+            LocalToRemoteEventSync.synchronize(eventDao);
+            RemoteToLocalEventSync.synchronizeEvents(databaseUtil);
+          }
+          System.out.println(NetworkStateManager.hasWifiConnection());
+          informationEntity.setLastUpdatedNow();
+          informationEntity.updateInformationEntity();
           DisplaySync.synchronizeDisplay();
         } catch (Exception e) {
           e.printStackTrace();

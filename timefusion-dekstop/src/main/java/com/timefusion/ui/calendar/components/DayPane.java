@@ -16,19 +16,11 @@ import javafx.beans.property.*;
 import javafx.scene.layout.Region;
 
 /**
- * A DayPane is a PercentPane that adds the functionality of automatically adding {@link Appointment} to it.
- * It is used in {@link com.timefusion.ui.calendar.CalendarView} where a full day is shown.
- * A DayPane is associated with one date and only appointments that (partly) occur on this date are shown.
- * If the Interval of an added appointment changes, the DayPane will be updated.
- * Furthermore, a DayPane has a dayStartTime and a dayEndTime. Both specify the interval where appointments
- * are being displayed. This is also used for layouting the appointments to the right vertical position.
- * The DayPane takes care of displaying the right appointments and positioning the appointments vertically
- * so that they resemble the time when the appointment occurs.
- * A DayPane is strongly chained to a {@link AppointmentRenderer} which can be set in the constructor.
- * The {@link AppointmentRenderer} is responsible for creating nodes for each appointment and for layouting them.
- *
- * Generally, a DayPane is a typical view that displays exactly one day with its appointments. The appointments
- * are placed and scaled according the their interval property.
+ * A DayPane is a Pane that displays all appointments for a given day.
+ * The DayPane is associated with a date and displays all appointments for this date.
+ * The DayPane covers a time interval between a start and an end time.
+ * Appointments that are outside of this interval are not displayed.
+ * The DayPane uses a custom renderer for displaying appointments.
  */
 public class DayPane extends PercentPane {
 
@@ -135,26 +127,16 @@ public class DayPane extends PercentPane {
   }
 
   /**
-   * Creates a gui element for an appointment with an associated {@link AppointmentRenderer}.
-   * The gui element is automatically added to (or removed from) the DayPane.
-   * According to the displayed time interval of the DayPane the relative vertical position
-   * of the gui element is set. If the appointments is outside the displayed time interval no
-   * gui element will be created or - if there has already been a gui element but the
-   * appointment's time or the DayPanes time constraints has been changed - destroyed and
-   * removed from the DayPane if this method is invoked after the change.
+   * Adds a new appointment to the DayPane.
+   * Calculates the correct position and layout and changes them if the appointment's interval
+   * is updated.
    *
-   * @param appointment The appointment to which a gui element will be created and added to the
-   *                    DayPane.
-   *
-   * @return  Returns null if no element has been created or if the element has been destroyed,
-   *          both because the appointments datetime is outside of the time constraints of the
-   *          DayPane. Otherwise the new gui element is returned.
+   * @param appointment The appointment that should be added to the DayPane.
+   * @return The Region that is used to display the appointment.
    */
   protected Region addGuiElement(Appointment appointment) {
-    // check if there is an existing gui element
     Region region = appointments.getOrDefault(appointment, null);
 
-    // check if the appointment should be displayed
     if (
       appointment
         .intervalProperty()
@@ -171,7 +153,6 @@ public class DayPane extends PercentPane {
       }
       region = renderer.createAppointment(appointment);
 
-      // calculate minutes per day displayed; used for calculating the percentage
       long minutesPerDay = Duration
         .between(dayStartTimeProperty().get(), dayEndTimeProperty().get())
         .toMinutes();
@@ -224,7 +205,6 @@ public class DayPane extends PercentPane {
       return region;
     } else {
       if (region != null) {
-        // there is an existing gui element although is is not displayed -> remove it
         this.getChildren().remove(region);
       }
       return null;

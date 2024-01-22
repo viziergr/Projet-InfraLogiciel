@@ -54,8 +54,4 @@ public final class ValidationUtil {
   public static boolean isValidPassword(String password) {
     return password != null && PASSWORD_PATTERN.matcher(password).matches();
   }
-
-  public static void main(String[] args) {
-    System.out.println(isValidEmail("b@gmail.com"));
-  }
 }

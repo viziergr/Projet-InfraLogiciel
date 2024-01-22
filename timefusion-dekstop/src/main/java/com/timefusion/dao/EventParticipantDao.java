@@ -151,15 +151,4 @@ public class EventParticipantDao extends GenericDao<EventParticipant> {
   ) throws SQLException {
     return this.retrieveEventParticipantRecords(criteriaMap);
   }
-
-  public static void main(String[] args) {
-    try {
-      EventParticipantDao eventParticipantDao = new EventParticipantDao();
-      EventParticipant eventparticipant = new EventParticipant(5, 19);
-      eventParticipantDao.insertEventParticipantRecord(eventparticipant);
-      //   eventParticipantDao.deleteTEventParticipantRecord(eventparticipant);
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-  }
 }

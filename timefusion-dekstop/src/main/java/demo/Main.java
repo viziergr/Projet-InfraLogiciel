@@ -1,7 +1,6 @@
 package demo;
 
 import com.timefusion.localStorage.JsonUtils;
-import com.timefusion.sync.SyncScheduler;
 import com.timefusion.ui.calendar.Calendar;
 import com.timefusion.ui.calendar.WeekView;
 import com.timefusion.ui.login.LoginManager;

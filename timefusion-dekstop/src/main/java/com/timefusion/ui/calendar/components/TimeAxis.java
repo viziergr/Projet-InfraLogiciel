@@ -13,13 +13,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
 
-/**
- * This class represents a time axis which can either be horizontal or vertical.
- * A time axis displays time values uniformly distributed between a start time
- * and a end time.
- * The start time, the end time and the interval between each value can be
- * specified in the constructor but may be changed with the according properties.
- */
 public class TimeAxis extends GridPane {
 
   private final ObjectProperty<LocalTime> timeStartProperty;
@@ -79,14 +72,6 @@ public class TimeAxis extends GridPane {
     createLabels();
   }
 
-  /**
-   * Creates or updates the actual layout of the time axis.
-   * The layout can either be horizontal or vertical.
-   * The GridView is populated with columns/rows and labels are added accordingly.
-   * The labels show the time between this.timeStartProperty and this.timeEndProperty with
-   * this.timeStepsProperty in between.
-   * The time is formatted according to this.formatter.
-   */
   private void createLabels() {
     this.getChildren().clear();
     this.getRowConstraints().clear();
@@ -96,14 +81,11 @@ public class TimeAxis extends GridPane {
       LocalTime currentTime = getTimeStartProperty().get();
       currentTime.isBefore(getTimeEndProperty().get());
     ) {
-      // create a new label with the time
       Label lblTime = new Label();
       lblTime.setText(currentTime.format(getFormatter()));
       lblTime.getStyleClass().add("time-axis-label");
 
-      // create a new row/column and add the label to it
       if (horizontal) {
-        // center the label
         lblTime
           .widthProperty()
           .addListener(o ->
@@ -121,7 +103,6 @@ public class TimeAxis extends GridPane {
         this.getColumnConstraints().add(column);
         this.add(lblTime, this.getColumnConstraints().size() - 1, 0);
       } else {
-        // center the label
         lblTime
           .heightProperty()
           .addListener(o ->
@@ -139,7 +120,6 @@ public class TimeAxis extends GridPane {
         this.add(lblTime, 0, this.getRowConstraints().size() - 1);
       }
 
-      // prevent overflows at midnight
       LocalTime newTime = currentTime.plusMinutes(
         getTimeStepsProperty().get().toMinutes()
       );
