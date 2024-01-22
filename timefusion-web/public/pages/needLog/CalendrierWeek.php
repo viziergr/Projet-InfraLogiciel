@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['users_id'])) {
 } else {
     $usersId = [$_SESSION['compte']];
 }
-$events = $events->getEventsBetweenByDay($start, $end, $usersId);
+$events = $events->getCoEventsBetweenByDay($start, $end, $usersId);
 include __DIR__ .'/../../includes/header.php';
 ?>
 
