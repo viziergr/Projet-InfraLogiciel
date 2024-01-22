@@ -15,7 +15,6 @@ if(!isset($_GET['id'])){
 try{
     $event = $events->find($_GET['id']);
     $participants = $events->getParticipants($event->getId());
-    dd($participants);
 } catch(\Exception $e){
     e404();
 }
@@ -59,9 +58,9 @@ include __DIR__ .'/../../includes/header.php';
     </form>
     <?php foreach($participants as $participant): ?>
         <div class="user-card">
-            <h3><?= h($participant->getFirstName()) . ' ' . h($participant->getLastName()); ?></h3>
-            <p>Email: <?= h($participant->getEmail()); ?></p>
-            <p>Year: <?= h($participant->getYear()); ?></p>
+            <h3><?= h($participant['first_name']()) . ' ' . h($participant['last_name']); ?></h3>
+            <p>Email: <?= h($participant['email']); ?></p>
+            <p>Year: <?= h($participant['year']); ?></p>
         </div>
     <?php endforeach; ?>
 </div>
