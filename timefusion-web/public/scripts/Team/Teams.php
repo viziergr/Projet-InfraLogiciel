@@ -298,6 +298,9 @@ class Teams
     public function relegate($team_id, $user_id){
         $role = $this->getRoleById($user_id, $team_id);
         switch($role){
+            case 'Member':
+                $this->removeMember($team_id, $user_id);
+                break;
             case 'Elder':
                 $role = 'Member';
                 break;
@@ -317,4 +320,16 @@ class Teams
         return ($row) ? $row['user_id'] : null;
     }
 
+    public function removeMember($team_id, $user_id) {
+        // Vérifier si l'utilisateur est le leader de l'équipe
+        $isLeader = $this->getRoleById($user_id, $team_id) === 'Leader';
+    
+        if ($isLeader) {
+            throw new \Exception("Vous ne pouvez pas quitter l'équipe en tant que seul leader. Promouvez un autre membre au poste de leader avant de partir.");
+        }
+    
+        // Retirer le membre de l'équipe
+        $this->mysqli->query("DELETE FROM team_membership WHERE user_id = $user_id AND team_id = $team_id");
+    }
+        
 }

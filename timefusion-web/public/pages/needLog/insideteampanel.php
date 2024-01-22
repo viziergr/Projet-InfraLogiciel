@@ -24,6 +24,14 @@ $team = $teams->getTeamObjectFromDb($team_id);
 $members = $team->getMembers();
 ?>
 
+<?php if (isset($_GET['error']) && $_GET['error']==='nq'): ?>
+    <div class="container">
+        <div class="alert alert-danger">
+            Vous ne pouvez pas quitter l'équipe car vous êtes le dernier membre et/ou le seul chef. Promouvez quelqu'un et réessayez.
+        </div>
+    </div>
+<?php endif; ?>
+
 <div class="request-container">
     <h3><?= $user->getFullName() ?> : <?= $teams->getRoleById($userId,$team_id)?> de l'équipe</h3>
     
