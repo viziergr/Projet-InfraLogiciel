@@ -62,17 +62,10 @@ $members = $team->getMembers();
         $permissions = $teams->hasRights($userRole,$memberRole);
         if($permissions): ?>
             <div class="request-container">
-                <form id="monFormulaire" action="Calendrier.php" method="post" class="hidden-form">
-                    <!-- Champ caché avec la valeur -->
-                    <input type="hidden" name="users_id" value="<?= $memberId ?>">
-                </form>
-
                 <!-- Texte cliquable pour déclencher le formulaire -->
-                <h3 style="cursor: pointer; text-decoration: underline;" onclick="document.getElementById('monFormulaire').submit();">
-                    <?= $memberName?> : <?= $memberRole?> de l'équipe
-                </h3>
-
-
+                <a style="text-decoration: none;" href="Calendrier.php?<?=$memberId?>">
+                    <h3><?= $memberName?> : <?= $memberRole?> de l'équipe</h3>
+                </a>
                 <!-- Ajout des boutons Accepter et Refuser -->
                 <form action='../../scripts/gestion_permission.php' method="post">
                     <input type="hidden" name="member_id" value="<?=$memberId?>">

@@ -16,8 +16,8 @@ if ($start->format('N') !== '1') {
     $start->modify('last monday');
 }
 $end = (clone $start)->modify('+'. (4 * 7 -1).' days');
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['users_id'])) {
-    $usersId = explode(',', $_POST['users_id']);
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['user_id'])) {
+    $usersId = $_GET['user_id'];
 }
 elseif($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['team_id'])) {
     $usersId = $teams->getMembersByTeamId($_POST['team_id']);
