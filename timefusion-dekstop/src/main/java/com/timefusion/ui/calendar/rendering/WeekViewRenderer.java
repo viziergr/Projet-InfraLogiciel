@@ -1,5 +1,7 @@
 package com.timefusion.ui.calendar.rendering;
 
+import com.timefusion.localStorage.JsonUtils;
+import com.timefusion.sync.NetworkStateManager;
 import com.timefusion.ui.calendar.Appointment;
 import com.timefusion.ui.calendar.DayChooser;
 import com.timefusion.ui.calendar.WeekView;
@@ -11,20 +13,27 @@ import java.time.format.FormatStyle;
 import java.time.format.TextStyle;
 import java.util.List;
 import java.util.Locale;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.CustomMenuItem;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 /**
  * Created by Jibbow on 8/14/17.
@@ -121,36 +130,21 @@ public class WeekViewRenderer {
     logoutImageView.setFitWidth(16);
     logoutButton.setGraphic(logoutImageView);
     logoutButton.getStyleClass().add("header-button");
+    logoutButton.setOnAction(event -> showDeletePage());
 
-    Image onlineImage = new Image(
-      getClass()
-        .getResourceAsStream(
-          "/com/timefusion/ui/calendar/resources/png/Online.png"
-        )
-    );
-    Image offlineImage = new Image(
-      getClass()
-        .getResourceAsStream(
-          "/com/timefusion/ui/calendar/resources/png/Offline.png"
-        )
-    );
     final ToggleButton onlineOfflineButton = new ToggleButton(); //TODO: Add the logic to know if the application is first Online or Offline, if the application was last Offline -> Offline, if the application was last Online _> Online if None -> Offline
-    onlineOfflineButton.setOnAction(event -> {
-      if (onlineOfflineButton.isSelected()) {
-        ImageView offlineImageView = new ImageView(offlineImage);
-        offlineImageView.setFitHeight(30);
-        offlineImageView.setFitWidth(100);
-        onlineOfflineButton.setGraphic(offlineImageView);
-        // TODO: Handle Offline state actions
-      } else {
-        ImageView onlineImageView = new ImageView(onlineImage);
-        onlineImageView.setFitHeight(30);
-        onlineImageView.setFitWidth(100);
+    Timeline timeline = new Timeline(
+      new KeyFrame(
+        Duration.seconds(10),
+        event -> updateToggleButtonGraphic(onlineOfflineButton)
+      )
+    );
+    if (NetworkStateManager.hasWifiConnection()) {
+      setOnlineGraphic(onlineOfflineButton);
+    } else {
+      setOfflineGraphic(onlineOfflineButton);
+    }
 
-        onlineOfflineButton.setGraphic(onlineImageView);
-        //TODO:  Handle Online state actions
-      }
-    });
     onlineOfflineButton.getStyleClass().add("header-button");
 
     final ColumnConstraints columnWeekday = new ColumnConstraints(
@@ -186,7 +180,6 @@ public class WeekViewRenderer {
     HBox rightBox2 = new HBox(onlineOfflineButton, logoutButton);
     rightBox2.setSpacing(10);
     HBox rightBox = new HBox(rightBox1, rightBox2);
-    // rightBox.getStyleClass().add(button-container);
     rightBox.setSpacing(10);
     container.add(rightBox, 2, 0);
     return container;
@@ -243,5 +236,63 @@ public class WeekViewRenderer {
     } catch (IOException e) {
       e.printStackTrace();
     }
+  }
+
+  private void setOnlineGraphic(ToggleButton button) {
+    Image onlineImage = new Image(
+      getClass()
+        .getResourceAsStream(
+          "/com/timefusion/ui/calendar/resources/png/Online.png"
+        )
+    );
+    ImageView onlineImageView = new ImageView(onlineImage);
+    onlineImageView.setFitHeight(30);
+    onlineImageView.setFitWidth(100);
+    button.setGraphic(onlineImageView);
+  }
+
+  private void setOfflineGraphic(ToggleButton button) {
+    Image offlineImage = new Image(
+      getClass()
+        .getResourceAsStream(
+          "/com/timefusion/ui/calendar/resources/png/Offline.png"
+        )
+    );
+    ImageView offlineImageView = new ImageView(offlineImage);
+    offlineImageView.setFitHeight(30);
+    offlineImageView.setFitWidth(100);
+    button.setGraphic(offlineImageView);
+  }
+
+  private void updateToggleButtonGraphic(ToggleButton button) {
+    if (NetworkStateManager.hasWifiConnection()) {
+      setOnlineGraphic(button);
+    } else {
+      setOfflineGraphic(button);
+    }
+  }
+
+  private void showDeletePage() {
+    // Create a new dialog
+    Alert deleteDialog = new Alert(Alert.AlertType.CONFIRMATION);
+    deleteDialog.setTitle("Delete Confirmation");
+    deleteDialog.setHeaderText(
+      "Confirm disconnection: This action requires a Wi-Fi connection for future access. Unsynced events will be deleted permanently. Proceed?"
+    );
+    deleteDialog.setContentText("This action cannot be undone.");
+    ButtonType deleteButtonType = new ButtonType("Delete");
+    deleteDialog.getButtonTypes().setAll(deleteButtonType, ButtonType.CANCEL);
+
+    // Handle the delete button click
+    deleteDialog
+      .showAndWait()
+      .ifPresent(buttonType -> {
+        if (buttonType == deleteButtonType) {
+          JsonUtils.deleteAllEntities();
+          System.out.println("Delete button clicked");
+          Platform.exit();
+          System.exit(0);
+        }
+      });
   }
 }

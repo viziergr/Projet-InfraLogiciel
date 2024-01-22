@@ -19,7 +19,7 @@ import java.nio.file.Path;
 public class JsonUtils {
 
   public static final String JSON_FILENAME =
-    "timefusion-dekstop/src/main/java/com/timefusion/JSON/LocalStorage.json";
+    "timefusion-dekstop/src/main/java/com/timefusion/localStorage/LocalStorage.json";
 
   private static final Gson gson = new GsonBuilder()
     .setPrettyPrinting()
@@ -33,6 +33,15 @@ public class JsonUtils {
     } catch (IOException e) {
       e.printStackTrace();
     }
+  }
+
+  public static boolean isLocalStorageEmpty() {
+    return (
+      InformationEntity.isJsonInformationEntityEmpty() &&
+      UserEntity.isJsonUserEntityEmpty() &&
+      TeamsEntity.isJsonTeamEntityEmpty() &&
+      EventsEntity.isJsonEventsEntityEmpty()
+    );
   }
 
   /**

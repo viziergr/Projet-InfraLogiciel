@@ -36,7 +36,7 @@ public class EncryptionUtil {
   }
 
   public static void main(String[] args) {
-    String password = "password";
+    String password = "@Password44";
     String hashedPassword = hashPassword(password);
 
     System.out.println("Password: " + password);

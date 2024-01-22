@@ -22,6 +22,7 @@ public class DisplaySync {
         displayedEventsId.add(eventId);
       }
     }
+
     if (displayedEventsId.size() > 0) {
       allEventsId.removeAll(displayedEventsId);
     }
@@ -62,7 +63,6 @@ public class DisplaySync {
         }
       }
     }
-    System.out.println("Not displayable events: " + notDisplaybleEventsId);
     return notDisplaybleEventsId;
   }
 

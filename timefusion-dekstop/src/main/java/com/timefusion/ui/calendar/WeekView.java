@@ -363,16 +363,15 @@ public class WeekView extends CalendarView {
       // Load the FXML file for the AddEventDialog
       FXMLLoader loader = new FXMLLoader(
         getClass()
-          .getResource("/com/jibbow/fastis/resources/fxml/AddEventDialog.fxml")
+          .getResource(
+            "/com/timefusion/ui/calendar/resources/fxml/AddEventDialog.fxml"
+          )
       );
       VBox dialog = loader.load();
 
       // Instantiate the controller (if needed)
       AddEventDialogController controller = loader.getController();
 
-      // Perform any actions using methods from AddEventDialogController
-      // For example, you can show the dialog
-      controller.eventIsPrivate();
       Scene scene = new Scene(dialog);
       Stage stage = new Stage();
       stage.setScene(scene);

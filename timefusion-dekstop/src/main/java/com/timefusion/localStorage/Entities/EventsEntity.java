@@ -6,6 +6,7 @@ import com.google.gson.JsonObject;
 import com.timefusion.localStorage.JsonUtils;
 import com.timefusion.model.Event;
 import com.timefusion.model.User;
+import com.timefusion.sync.NetworkStateManager;
 import com.timefusion.sync.SyncUtil;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -77,7 +78,28 @@ public class EventsEntity {
     LocalDateTime endTime,
     ParticipantsEntity[] participants
   ) {
-    this.id = !InformationEntity.getWasOffline() ? id : generateNextOfflineId(); // TODO: Remove this hack
+    this.id = id;
+    this.nature = nature;
+    this.isPrivate = isPrivate;
+    this.title = title;
+    this.description = description;
+    this.location = location;
+    this.startTime = startTime;
+    this.endTime = endTime;
+    this.participants = participants;
+  }
+
+  public EventsEntity(
+    EventNature nature,
+    boolean isPrivate,
+    String title,
+    String description,
+    String location,
+    LocalDateTime startTime,
+    LocalDateTime endTime,
+    ParticipantsEntity[] participants
+  ) {
+    this.id = generateNextOfflineId();
     this.nature = nature;
     this.isPrivate = isPrivate;
     this.title = title;
@@ -172,18 +194,20 @@ public class EventsEntity {
   public static int getLastOfflineId() {
     JsonElement eventsJsonElement = JsonUtils.readJsonPart(EVENTS_ENTITY_NAME);
 
-    if (eventsJsonElement.isJsonArray()) {
+    if (eventsJsonElement.isJsonArray() && eventsJsonElement != null) {
       JsonArray eventsJsonArray = eventsJsonElement.getAsJsonArray();
       int lastOfflineId = -1;
-      for (JsonElement eventElement : eventsJsonArray) {
-        JsonObject eventObject = eventElement.getAsJsonObject();
-        int eventId = eventObject.get("id").getAsInt();
-        if (eventId < 0 && eventId < lastOfflineId) {
-          lastOfflineId = eventId;
+      if (eventsJsonArray.size() > 0) {
+        for (JsonElement eventElement : eventsJsonArray) {
+          JsonObject eventObject = eventElement.getAsJsonObject();
+          int eventId = eventObject.get("id").getAsInt();
+          if (eventId < 0 && eventId < lastOfflineId) {
+            lastOfflineId = eventId;
+          }
         }
+        nextNegativeId = lastOfflineId;
+        return lastOfflineId;
       }
-      nextNegativeId = lastOfflineId;
-      return lastOfflineId;
     }
 
     return 0;
@@ -291,7 +315,6 @@ public class EventsEntity {
     jsonObject.addProperty("description", description);
     jsonObject.addProperty("location", location);
 
-    // Format start and end times using DateTimeFormatter
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern(
       "yyyy-MM-dd HH:mm:ss"
     );
@@ -361,19 +384,21 @@ public class EventsEntity {
   }
 
   public static void main(String[] args) {
-    EventsEntity event = new EventsEntity(
-      generateNextOfflineId(),
-      EventNature.DELETED,
-      false,
-      "Test Event",
-      "Test Description",
-      "Test Location",
-      LocalDateTime.now(),
-      LocalDateTime.now(),
-      new ParticipantsEntity[] {
-        new ParticipantsEntity(1, "Louis", "Pecullier", "Louis@gmail.com"),
-      }
-    );
-    event.addEventEntity();
+    // EventsEntity event = new EventsEntity(
+    //   generateNextOfflineId(),
+    //   EventNature.DELETED,
+    //   false,
+    //   "Test Event",
+    //   "Test Description",
+    //   "Test Location",
+    //   LocalDateTime.now(),
+    //   LocalDateTime.now(),
+    //   new ParticipantsEntity[] {
+    //     new ParticipantsEntity(1, "Louis", "Pecullier", "Louis@gmail.com"),
+    //   }
+    // );
+    // event.addEventEntity();
+    System.out.println(getLastOfflineId());
+    System.out.println(generateNextOfflineId());
   }
 }

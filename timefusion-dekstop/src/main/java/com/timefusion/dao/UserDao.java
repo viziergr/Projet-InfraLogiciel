@@ -227,10 +227,10 @@ public class UserDao extends GenericDao<User> {
     UserDao userDao = new UserDao();
     User user = new User(
       0,
-      "user3@gmail.com",
+      "corentin@gmail.com",
       "FirstNameuser3",
       "lastNameuser3",
-      "password"
+      "$2a$10$GAiGoPwnIkzz6cYLUwWWnuKNLaBlmNE9GEHdc3AlxNl9pZxzO8ybK"
     );
     userDao.insertUserRecord(user);
   }

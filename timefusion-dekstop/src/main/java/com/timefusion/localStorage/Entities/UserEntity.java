@@ -21,6 +21,14 @@ public class UserEntity implements JsonEntity {
     // Default constructor
   }
 
+  public UserEntity(User user) {
+    this.id = user.getId();
+    this.firstName = user.getFirstName();
+    this.lastName = user.getLastName();
+    this.email = user.getEmail();
+    this.password = user.getPassword();
+  }
+
   public UserEntity(
     int id,
     String firstName,

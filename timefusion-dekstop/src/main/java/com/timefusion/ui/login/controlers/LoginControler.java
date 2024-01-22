@@ -2,12 +2,16 @@ package com.timefusion.ui.login.controlers;
 
 import com.timefusion.dao.UserDao;
 import com.timefusion.exception.AuthenticationException;
+import com.timefusion.localStorage.Entities.UserEntity;
+import com.timefusion.model.User;
 import com.timefusion.service.AuthService;
+import com.timefusion.sync.NetworkStateManager;
 import com.timefusion.util.ValidationUtil;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -15,6 +19,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class LoginControler {
@@ -40,9 +45,18 @@ public class LoginControler {
 
   private PauseTransition emailPause;
   private PauseTransition passwordPause;
+  private boolean loginSuccessful;
 
   public LoginControler() throws SQLException {
     this.authService = new AuthService(new UserDao());
+  }
+
+  public boolean isLoginSuccessful() {
+    return loginSuccessful;
+  }
+
+  private void setLoginSuccessful(boolean loginSuccessful) {
+    this.loginSuccessful = loginSuccessful;
   }
 
   @FXML
@@ -158,8 +172,26 @@ public class LoginControler {
       }
 
       try {
-        authService.authenticate(email, password);
-        showSuccessAlert("Authentication successed", "You are now logged in.");
+        NetworkStateManager.detectWifiState();
+        if (NetworkStateManager.hasWifiConnection()) {
+          try {
+            authService.authenticate(email, password);
+            UserDao userDao = new UserDao();
+            User user = userDao.findByEmail(email);
+            UserEntity userEntity = new UserEntity(user);
+            userEntity.addUserEntity();
+            setLoginSuccessful(true);
+            Stage stage = (Stage) button_login.getScene().getWindow();
+            stage.close();
+          } catch (SQLException e) {
+            e.printStackTrace();
+          }
+        } else {
+          showAlert(
+            "No Wifi Connection",
+            "Please connect to the wifi and try again."
+          );
+        }
       } catch (AuthenticationException e) {
         showAlert("Authentication Failed", e.getMessage());
       } finally {

@@ -169,7 +169,6 @@ public class AddEventDialogController {
     boolean isPrivate
   ) {
     return new EventsEntity(
-      EventsEntity.generateNextOfflineId(),
       EventNature.ADDED,
       isPrivate,
       title,

@@ -1,7 +1,10 @@
 package demo;
 
+import com.timefusion.localStorage.JsonUtils;
+import com.timefusion.sync.SyncScheduler;
 import com.timefusion.ui.calendar.Calendar;
 import com.timefusion.ui.calendar.WeekView;
+import com.timefusion.ui.login.LoginManager;
 import java.time.LocalDate;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -19,10 +22,22 @@ public class Main extends Application {
 
   @Override
   public void start(Stage primaryStage) throws InterruptedException {
+    if (JsonUtils.isLocalStorageEmpty()) {
+      if (LoginManager.showLoginDialog()) {
+        initializeMainApplication(primaryStage);
+      } else {
+        Platform.exit();
+        System.exit(0);
+      }
+    } else {
+      initializeMainApplication(primaryStage);
+    }
+  }
+
+  public static void initializeMainApplication(Stage primaryStage) {
     weekView = new WeekView(LocalDate.now(), new Calendar());
     Image customIcon = new Image(
-      getClass()
-        .getResourceAsStream(
+      Main.class.getResourceAsStream(
           "/com/timefusion/ui/calendar/resources/png/Logo.png"
         )
     );

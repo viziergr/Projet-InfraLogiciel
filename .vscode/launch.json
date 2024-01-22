@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "EventsEntity",
+            "request": "launch",
+            "mainClass": "com.timefusion/com.timefusion.localStorage.Entities.EventsEntity",
+            "projectName": "timefusion-dekstop"
+        },
+        {
+            "type": "java",
+            "name": "NetworkStateManager",
+            "request": "launch",
+            "mainClass": "com.timefusion/com.timefusion.sync.NetworkStateManager",
+            "projectName": "timefusion-dekstop"
+        },
+        {
+            "type": "java",
             "name": "MainApp",
             "request": "launch",
             "mainClass": "com.timefusion/com.timefusion.ui.login.MainApp",
